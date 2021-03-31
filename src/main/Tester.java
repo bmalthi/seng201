@@ -1,4 +1,4 @@
-package seng201;
+package main;
 
 public class Tester {
 
