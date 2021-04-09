@@ -12,7 +12,12 @@ public class Item {
 	
 	private String name;
 	private int size;
+	private ItemType type;
 	
+	/**
+	 * @param The item name, eg Carrots
+	 * @param The size of item, how much ship space it takes up
+	 */	
 	public Item(String name, int size) {
 		this.name = name;
 		this.size = size;
@@ -33,10 +38,17 @@ public class Item {
 	}		
 	
 	/**
+	 * @return enum ItemType which is the type of item
+	 */	
+	public ItemType getType() {
+		return type;
+	}
+
+	/**
 	 * @return a string representation of the Item
 	 */
 	public String toString() {
-		return getName() + ", takes up " + getSize() + " space in the Cargo Hold.";
+		return getName() + ": Takes up " + getSize() + " space in the Cargo Hold.";
 	}			
 
 }
