@@ -8,5 +8,5 @@ package main;
  * Each Item can be of x types
  */
 public enum ItemType {
-	CARGO, WEAPON, UPGRADE
+	CARGO, WEAPON, UPGRADE, REPAIR
 }
