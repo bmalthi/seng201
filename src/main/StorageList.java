@@ -10,7 +10,7 @@ package main;
  *  - checks on item existence before adding / removing
  *  - checks on item type before adding
  */
-public class StorageList  extends ItemList {
+public class StorageList extends ItemList {
 	
 	private int capacity;
 	private ItemType type;

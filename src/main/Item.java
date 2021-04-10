@@ -8,7 +8,7 @@ package main;
  * This class implements an Item that a player can buy and sell at stores
  * 
  * TODO
- *  - tostring is wrong for non cargo items...maybe we need seperate class
+ *  - tostring is wrong for non cargo items...maybe we need separate class
  *
  */
 public class Item {
@@ -21,10 +21,21 @@ public class Item {
 	 * @param The item name, eg Carrots
 	 * @param The size of item, how much ship space it takes up
 	 */	
+	public Item(String name, int size, ItemType type) {
+		this.name = name;
+		this.size = size;
+		this.type = type;
+	}
+	
+	/**
+	 * @param The item name, eg Carrots
+	 * @param The size of item, how much ship space it takes up
+	 */	
 	public Item(String name, int size) {
 		this.name = name;
 		this.size = size;
-	}
+		this.type = ItemType.CARGO;
+	}	
 
 	/**
 	 * @return the name of the Item

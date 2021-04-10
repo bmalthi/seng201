@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * @author bmalthi
  * 
  * TODO. SHoudl this be abstract or interface, well never use it directly
+ *  No error checking on item remove / add
  */
 public class ItemList {
 	
