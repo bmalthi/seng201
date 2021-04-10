@@ -3,6 +3,8 @@
  */
 package main;
 
+import java.util.ArrayList;
+
 /**
  * @author bmalthi
  * 
@@ -10,18 +12,28 @@ package main;
  *  - checks on item existence before adding / removing
  *  - checks on item type before adding
  */
-public class StorageList extends ItemList {
+public class StorageList {
 	
+	private String name;
+	private ArrayList<Item> items;	
 	private int capacity;
 	private ItemType type;
 
 	/**
 	 * 
 	 */
-	public StorageList(int capacity, String name, ItemType type) {
-		super(name);
+	public StorageList(String name, int capacity, ItemType type) {
+		this.name = name;
 		this.capacity = capacity;
 		this.type = type;
+		this.items = new ArrayList<Item>();		
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -49,24 +61,27 @@ public class StorageList extends ItemList {
 	 * 
 	 */
 	public void addItem(Item item) {
-		if (getSpaceLeft() > 0) {
-			super.addItem(item);
+		if ((capacity - getSpaceUsed()) >= item.getSize()) {
+			items.add(item);
 		}
 	}
 	
+	/**
+	 * 
+	 */
+	public int getSpaceUsed() {
+		int space = 0;
+	    for (int i = 0; i < items.size(); i++) {
+	    	space = space + items.get(i).getSize();
+	    }
+		return space;
+	}	
 	
 	/**
 	 * 
 	 */
 	public void removeItem(Item item) {
-		super.removeItem(item);
-	}	
-	
-	/**
-	 * @return space left in storage
-	 */
-	public int getSpaceLeft() {
-		return this.capacity - super.getSpaceUsed();
+		items.remove(item);
 	}	
 
 }
