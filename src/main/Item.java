@@ -6,6 +6,9 @@ package main;
 /**
  * @author bmalthi
  * This class implements an Item that a player can buy and sell at stores
+ * 
+ * TODO
+ *  - tostring is wrong for non cargo items...maybe we need seperate class
  *
  */
 public class Item {

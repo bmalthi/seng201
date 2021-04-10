@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 /**
  * @author bmalthi
- *
+ * 
+ * TODO. SHoudl this be abstract or interface, well never use it directly
  */
 public class ItemList {
 	
@@ -27,34 +28,45 @@ public class ItemList {
 	 */
 	public String getName() {
 		return name;
-	}
-
-	/**
-	 * @return the items
-	 */
-	public ArrayList<Item> getItems() {
-		return items;
-	}		
+	}	
 	
 	/**
 	 * 
 	 */
-	public void addItem(Item item) {
+	protected void addItem(Item item) {
 		items.add(item);
 	}
 	
 	/**
 	 * 
 	 */
-	public void removeItem(Item item) {
+	protected void removeItem(Item item) {
 		items.remove(item);
 	}	
 	
 	/**
 	 * 
 	 */
-	public int numOfItems() {
+	public int getSize() {
 		return items.size();
+	}	
+	
+	/**
+	 * 
+	 */
+	public int getItemIndex(Item item) {
+		return items.indexOf(item);
 	}		
+	
+	/**
+	 * 
+	 */
+	public int getSpaceUsed() {
+		int space = 0;
+	    for (int i = 0; i < items.size(); i++) {
+	    	space = space + items.get(i).getSize();
+	    }
+		return space;
+	}			
 
 }

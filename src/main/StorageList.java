@@ -5,9 +5,12 @@ package main;
 
 /**
  * @author bmalthi
- *
+ * 
+ * TODO
+ *  - checks on item existence before adding / removing
+ *  - checks on item type before adding
  */
-public class StorageBay  extends ItemList {
+public class StorageList  extends ItemList {
 	
 	private int capacity;
 	private ItemType type;
@@ -15,7 +18,7 @@ public class StorageBay  extends ItemList {
 	/**
 	 * 
 	 */
-	public StorageBay(int capacity, String name, ItemType type) {
+	public StorageList(int capacity, String name, ItemType type) {
 		super(name);
 		this.capacity = capacity;
 		this.type = type;
@@ -51,6 +54,7 @@ public class StorageBay  extends ItemList {
 		}
 	}
 	
+	
 	/**
 	 * 
 	 */
@@ -62,7 +66,7 @@ public class StorageBay  extends ItemList {
 	 * @return space left in storage
 	 */
 	public int getSpaceLeft() {
-		return this.capacity - super.numOfItems();
+		return this.capacity - super.getSpaceUsed();
 	}	
 
 }
