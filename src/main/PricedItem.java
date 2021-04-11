@@ -10,13 +10,13 @@ package main;
 public class PricedItem {
 
 	private Item item;
-	private double price;
+	private int price;
 	private PriceType type;
 
 	/**
 	 * 
 	 */
-	public PricedItem(Item item, double price, PriceType type) {
+	public PricedItem(Item item, int price, PriceType type) {
 		this.item = item;
 		this.price = price;
 		this.type = type;
@@ -32,7 +32,7 @@ public class PricedItem {
 	/**
 	 * @return the price
 	 */
-	public double getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
@@ -42,5 +42,12 @@ public class PricedItem {
 	public PriceType getType() {
 		return type;
 	}
+	
+	/**
+	 * @return a string representation of the Item
+	 */
+	public String toString() {
+		return item.getName() + ": Takes up " + item.getSize() + ", and is $" +getPrice() +"\n";
+	}		
 
 }

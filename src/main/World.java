@@ -23,13 +23,13 @@ public class World {
 	 * @param store 
 	 * 
 	 */
-	public World() {
+	public World(String playerName) {
 
 		// Create a Random for making items etc etc
 		Random random = new Random();
 		
 		// Create the player 
-		setPlayer(new Player("John", STARTING_BALANCE));		
+		setPlayer(new Player(playerName, STARTING_BALANCE));		
 		
 		// Create a ship (for now just a storageList of a ship)
 		setCargo(new StorageList("Cargo Hold 1", 10, ItemType.CARGO));
@@ -38,12 +38,12 @@ public class World {
 		setStore(new Store("Bob's Burgers"));		
 		
 		// Load up the store with lots of items to buy and to sell
-		String[] rawItems = {"Burger", "Fries", "Coke", "IceCream", "Chairs"};				
+		String[] rawItems = {"Burger", "Fries", "Coke", "IceCream", "Chairs", "Dog"};				
 		for (int i = 0; i < 10; i++) {
-			String newName = rawItems[random.nextInt(4)];
-			int newSellPrice = random.nextInt(10);
-			int newBuyPrice = random.nextInt(10);
-			int newSize = random.nextInt(2);
+			String newName = rawItems[random.nextInt(rawItems.length-1)];
+			int newSellPrice = random.nextInt(10) + 1;
+			int newBuyPrice = random.nextInt(10) + 1;
+			int newSize = random.nextInt(2) + 1;
 			Item newItem = new Item(newName, "Dumb Description", newSize, ItemType.CARGO);
 			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.SELL);
 			getStore().getToBuy().add(newSellPricedItem);			
