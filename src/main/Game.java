@@ -2,7 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
-public class Tester {
+public class Game {
 
 	public static void main(String[] args ) {
 		Item carrots = new Item("Carrots", "a", 2);
