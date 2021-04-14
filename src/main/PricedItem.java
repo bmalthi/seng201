@@ -12,6 +12,7 @@ public class PricedItem {
 	private Item item;
 	private int price;
 	private PriceType type;
+	//TODO ADD ISLAND
 
 	/**
 	 * 
@@ -47,7 +48,7 @@ public class PricedItem {
 	 * @return a string representation of the Item
 	 */
 	public String toString() {
-		return item.getName() + ": Takes up " + item.getSize() + ", and is $" +getPrice() +"\n";
+		return item.getName() + ": Takes up " + item.getSize() + ", and is $" +getPrice();
 	}		
 
 }

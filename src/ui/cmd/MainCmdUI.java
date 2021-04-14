@@ -1,10 +1,11 @@
-package ui;
+package ui.cmd;
 
 import java.util.Scanner;
 import main.IslandTrader;
 import main.Player;
+import ui.IslandTraderUI;
 
-public class CMDLineUI implements IslandTraderUI {
+public class MainCmdUI implements IslandTraderUI {
 
     // The scanner used to read input from the console
     private final Scanner scanner;
@@ -17,22 +18,22 @@ public class CMDLineUI implements IslandTraderUI {
     
     // An enum representing the various actions the user can perform
     private enum Option {
-        PLAYER("Money & days remaining"),
-        SHIP("Ship status"),
-        PURCHASES("View purchases"),
-        ISLAND("View island properties"),
-        STORE("Visit the island store"),
-        SAIL("Sail to another island"), 
-    	QUIT("Enter -1 to exit");
+        PLAYER("Money & days remaining - NOPE"),
+        SHIP("Ship status - NOPE"),
+        PURCHASES("View purchases - NOPE"),
+        ISLAND("View island properties - NOPE"),
+        STORE("Visit the island store - WORKING"),
+        SAIL("Sail to another island - NOPE"), 
+    	QUIT("(enter -1 to quit)");
 
-        public final String name;
+        private String name;      
 
         Option(String name) {
             this.name = name;
         }
     }
     
-	public CMDLineUI() {
+	public MainCmdUI() {
 		scanner = new Scanner(System.in);
 	}
 
@@ -112,28 +113,31 @@ public class CMDLineUI implements IslandTraderUI {
 	@Override
 	// TODO Quiz6 code is much prettier and general
 	public void start() {
-		int intOption;
+		int intOption = -2;
+		final Option[] options = Option.values();
 
         while (!finish) {
     		System.out.println("What do you want to do next?");
     		System.out.println("****************************************");
 
-            printOptions();
-            
-    		while (true) {
-    			intOption = scanner.nextInt();
-    			if ((intOption >= 1 && intOption <= (Option.values().length-1)) || (intOption == -1)) {
-    				break;
-    			} else {
-    				System.out.println("Nah choose another one");
-    			}
-    		}
+            printOptions();            
     		
-    		// Do the thing
-    		if (intOption == -1) {
-    			quit();
-    		}
-    		//handleOption(option);
+            try {
+            	intOption = scanner.nextInt();
+                Option option = options[intOption-1];
+                handleOption(option);
+            }
+            catch (ArrayIndexOutOfBoundsException e) {
+                if (intOption == -1) {
+                	Option option = Option.QUIT;
+                	handleOption(option);
+                }
+                	
+            }
+            catch (Exception e) {
+            	System.out.println("Nah choose another one");
+                scanner.nextLine();
+            }    		    		
 
         }		
 		
@@ -145,16 +149,46 @@ public class CMDLineUI implements IslandTraderUI {
     private void printOptions() {
         for (Option option : Option.values()) {
         	if (option == Option.QUIT ) {
-        		System.out.println("(enter -1 to quit)");
+        		System.out.println(option.name);
         	} else {
         		System.out.println("(" + (option.ordinal()+1) + ") " + option.name);
         	}
         }
     }	
+    
+    
+    /**
+     * Handles the given option by performing the appropriate action.
+     *
+     * @param option The selected option to be carried out
+     */
+    private void handleOption(Option option) {
+        switch (option) {
+            case PLAYER:                
+                break;
+            case SHIP:
+                break;
+            case PURCHASES:
+                break;
+            case ISLAND:
+                break;
+            case STORE:
+            	StoreCmdUI storeui = new StoreCmdUI(scanner);
+            	storeui.setup(game);
+            	storeui.start();            	
+                break;                
+            case QUIT:
+                quit();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + option);
+        }
+    }    
 
 	@Override
 	public void quit() {
 		// Game ending
+		finish = true; //Main while loop will terminate
 		System.out.println("Thanks for playing. You ended up with " +game.getPlayer().getBalance() +" dollars.");
 		
 	}

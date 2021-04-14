@@ -3,8 +3,8 @@
  */
 package main;
 
-import ui.CMDLineUI;
 import ui.IslandTraderUI;
+import ui.cmd.MainCmdUI;
 
 /**
  * @author bmalthi
@@ -19,7 +19,7 @@ public class Main {
 
         IslandTraderUI ui;
 
-        ui = new CMDLineUI();
+        ui = new MainCmdUI();
         IslandTrader game = new IslandTrader(ui);
         game.start();		
 
