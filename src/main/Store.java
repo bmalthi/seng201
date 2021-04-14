@@ -30,15 +30,17 @@ public class Store {
 	/**
 	 * @return the toSell
 	 */
-	public List<PricedItem> getToSell() {
-		return Collections.unmodifiableList(toSell);
+	public ArrayList<PricedItem> getToSell() {
+		return toSell;
+		//return Collections.unmodifiableList(toSell);
 	}
 
 	/**
 	 * @return the toBuy
 	 */
-	public List<PricedItem> getToBuy() {
-		return Collections.unmodifiableList(toBuy);
+	public ArrayList<PricedItem> getToBuy() {
+		return toBuy;
+		//return Collections.unmodifiableList(toBuy);
 	}
 
 	/**

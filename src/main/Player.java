@@ -16,13 +16,16 @@ public class Player {
 	private String name;
 	private double balance;
 	private ArrayList<PricedItem> transactions;
+	// The players starting balance of money
+	// TODO define here or in player or ....
+	private final int STARTING_BALANCE = 100;	
 
 	/**
 	 * 
 	 */
-	public Player(String name, double balance) {
+	public Player(String name) {
 		this.name = name;
-		this.setBalance(balance);
+		this.setBalance(STARTING_BALANCE);
 		this.transactions = new ArrayList<PricedItem>();		
 	}
 

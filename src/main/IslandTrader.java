@@ -1,148 +1,131 @@
 package main;
 
-import java.util.Scanner;
+import java.util.Random;
+
+import ui.IslandTraderUI;
 
 public class IslandTrader {
 
-	public static void main(String[] args ) {				
-		
-		// SetUp Game
-		Scanner input = new Scanner(System.in);
-		
-		// Print Intro
-		System.out.println("****************************************");
-		System.out.println("Welcome to Island Trader V0.1");
-		System.out.println("****************************************\n");
-		
-		// Get Trader Name
-		System.out.println("Please choose a trader name:");
-		System.out.println("(between 3-15 characters)");
-		String name = getTraderName(input);
-		System.out.println("Great Name " + name +"\n");
-		
-		// Get Game Length
-		System.out.println("How many days do you want to play for?");
-		System.out.println("(between 20-50 days):");
-		int gameLength = getGameLength(input);
-		System.out.println("You choose " + gameLength + " days\n");
-		
-		// Choose A Ship
-		System.out.println("What ship do you want");
-		System.out.println("You choose, wow awesome ship, lets play\n");	
-		
-		// Create the world
-		// Has fake single store setup
-		World world1 = new World(name); //Currently ignores player name etc		
-		
-		// Main game loop
-		String[] gameOptions = {"Money & days remaining", "Ship status", "View purchases", "View island properties", "Visit the island store", "Sail to another island"};
-		boolean shouldQuit = false;
-		while (!shouldQuit) {
-			int nextOption = selectNextMove(input, gameOptions);			
-			switch(nextOption) {
-			  case 1:
-			    // code block
-			    break;
-			  case 2:
-			    // code block
-			    break;
-			  case 3:
-				// code block
-				break;
-			  case 4:
-			    // code block
-			    break;
-			  case 5:
-			    // code block
-			    break;
-			  case 6:
-				// code block
-				break;				
-			  default:
-				  shouldQuit = true;// code block
-			}
-		}
-		
-		// Game ending
-		System.out.println("Thanks for playing. You ended up with " +world1.getPlayer().getBalance());
-					
+    // The user interface to be used by this manager
+	private final IslandTraderUI ui;
 
+	// The player playing the game
+	private Player player;
+	
+	// TODO The player's cargo, will eventually be the players ship
+	private StorageList cargo;
+	
+	// TODO A test store, will eventually be a graph of stores and routes
+	private Store store;
+	
+	private int gameLength;
+	
+	/**
+	 * Creates a RocketManager with the given user interface and rockets.
+	 *
+	 * @param ui The user interface that this manager should use
+	 * @param rockets The list of available rockets that the user can choose from when
+	 *                configuring this manager
+	 */
+	public IslandTrader(IslandTraderUI ui) {
+		this.ui = ui;
+		
+		// Create a Random for making items etc etc
+		Random random = new Random();
+		
+		// Create the player 
+		//setPlayer(new Player(playerName, STARTING_BALANCE));		
+		
+		// Create a ship (for now just a storageList of a ship)
+		setCargo(new StorageList("Cargo Hold 1", 10, ItemType.CARGO));
+		
+		// Create a test store
+		setStore(new Store("Bob's Burgers"));		
+		String[] rawItems = {"Burger", "Fries", "Coke", "IceCream", "Chairs", "Dog"};				
+		for (int i = 0; i < 10; i++) {
+			String newName = rawItems[random.nextInt(rawItems.length-1)];
+			int newSellPrice = random.nextInt(10) + 1;
+			int newBuyPrice = random.nextInt(10) + 1;
+			int newSize = random.nextInt(2) + 1;
+			Item newItem = new Item(newName, "Dumb Description", newSize, ItemType.CARGO);
+			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.SELL);
+			getStore().getToBuy().add(newSellPricedItem);			
+			PricedItem newBuyPricedItem = new PricedItem(newItem, newBuyPrice, PriceType.BUY);
+			getStore().getToSell().add(newBuyPricedItem);
+		}		
 	}
 	
-	// Should we use Scanner instead?
-	private static String getTraderName(Scanner input) {
-		String name;
-		
-		while (true) {
-			name = input.next();
-			if (name.length() >= 3 && name.length() <= 15) {
-				break;
-			} else {
-				System.out.println("Please choose a name between 3-15 characters");
-			}
-		}
-		return(name);
+	/**
+	 * Starts this game. 
+	 * TODO. Must be called from the event dispatch thread (EDT) if the user interface is a Swing gui.
+	 * TODO. This method calls {@link RocketManagerUi#setup(RocketManager)} to initiate setup of the user interface.
+	 */
+	public void start() {
+		ui.setup(this);
+	}
+
+	/**
+	 * This method should be called by the user interface when {@link RocketManagerUi#setup(RocketManager)}
+	 * has been completed. This method calls {@link RocketManagerUi#start()} to tell the user interface to start.	 
+	 */
+	public void onSetupFinished() {
+		ui.start();
 	}
 	
-	// Should we use Scanner instead?
-	private static int getGameLength(Scanner input) {
-		int gameLength;
-		
-		while (true) {
-			gameLength = input.nextInt();
-			if (gameLength >= 20 && gameLength <= 50) {
-				break;
-			} else {
-				System.out.println("Please choose between 20 and 50 days");
-			}
-		}
-		return(gameLength);
-	}	
-	
-	// Print Game Options
-	private static int whatNextLah(Scanner input) {
-		int option;
-		
-		System.out.println("What do you want to do next?");
-		System.out.println("****************************************");
-		System.out.println("1) Money & days remaining");
-		System.out.println("2) Ship status");
-		System.out.println("3) View purchases");
-		System.out.println("4) View island properties");
-		System.out.println("5) Visit the island store");
-		System.out.println("6) Sail to another island");
-		System.out.println("(enter -1 to exit)");
-		
-		while (true) {
-			option = input.nextInt();
-			if ((option >= 1 && option <= 6) || (option == -1)) {
-				break;
-			} else {
-				System.out.println("Nah choose another one");
-			}
-		}
-		return(option);
+	/**
+	 * @return the player
+	 */
+	public Player getPlayer() {
+		return player;
+	}
+
+	/**
+	 * @param player the player to set
+	 */
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	/**
+	 * @return the cargo
+	 */
+	public StorageList getCargo() {
+		return cargo;
+	}
+
+	/**
+	 * @param cargo the cargo to set
+	 */
+	public void setCargo(StorageList cargo) {
+		this.cargo = cargo;
+	}
+
+	/**
+	 * @return the store
+	 */
+	public Store getStore() {
+		return store;
+	}
+
+	/**
+	 * @param store the store to set
+	 */
+	public void setStore(Store store) {
+		this.store = store;
+	}
+
+	/**
+	 * @return the gameLength
+	 */
+	public int getGameLength() {
+		return gameLength;
+	}
+
+	/**
+	 * @param gameLength the gameLength to set
+	 */
+	public void setGameLength(int gameLength) {
+		this.gameLength = gameLength;
 	}
 	
-	// Print Game Options
-	private static int selectNextMove(Scanner input, String[] options) {
-		int option;		
-		System.out.println("*** What do you want to do next? ***");
-		for (int i = 0; i < options.length; i++) {
-			System.out.println((i+1) + ") " +options[i]);
-		}
-		System.out.println("(enter -1 to exit)");
-		
-		//
-		
-		while (true) {
-			option = input.nextInt();
-			if ((option >= 1 && option <= options.length) || (option == -1)) {
-				break;
-			} else {
-				System.out.println("Nah choose another one");
-			}
-		}
-		return(option);
-	}	
 }
