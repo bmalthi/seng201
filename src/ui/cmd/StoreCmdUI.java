@@ -36,6 +36,22 @@ public class StoreCmdUI {
         Option(String name) {
             this.name = name;
         }
+        
+        private static int getDisplayInt(int ordinalInt) {
+        	if (ordinalInt == Option.QUIT.ordinal()) {
+        		return -1;
+        	} else {
+        		return ordinalInt + 1;
+        	}
+        }
+        
+        private static int getOrdinalInd(int displayInt) {
+        	if (displayInt == -1) {
+        		return Option.QUIT.ordinal();
+        	} else {
+        		return displayInt -1;
+        	}
+        }          
     }	
 	
 	public StoreCmdUI(Scanner scanner) {
@@ -54,46 +70,34 @@ public class StoreCmdUI {
      * TODO shouldn't be able to access store list directly
      */	
 	public void start() {
-		int intOption = -2;
 		final Option[] options = Option.values();
 
         while (!finish) {
-    		System.out.println("How can we help you at our store?\n");
+        	System.out.println("How can we help you at our store?\n");
 
             printOptions();            
     		
             try {
-            	intOption = scanner.nextInt();
-                Option option = options[intOption-1];
+                Option option = options[Option.getOrdinalInd(scanner.nextInt())];
                 handleOption(option);
             }
             catch (ArrayIndexOutOfBoundsException e) {
-                if (intOption == -1) {
-                	Option option = Option.QUIT;
-                	handleOption(option);
-                }
-                	
-            }
-            catch (Exception e) {
             	System.out.println("Nah choose another one");
-                scanner.nextLine();
+            } catch (Exception e) {
+            	System.out.println("Nah choose another one");
+                //scanner.nextLine(); //TODO WHY NEEDED
             }    		    		
 
-        }		
-		
-	}
+        }	
+	}   
+			
 	
     /**
-     * TODO Should we make this static in the main CMLINEUI class, pass options in
      * Outputs the set of options to the console.
      */
     private void printOptions() {
         for (Option option : Option.values()) {
-        	if (option == Option.QUIT ) {
-        		System.out.println(option.name);
-        	} else {
-        		System.out.println("(" + (option.ordinal()+1) + ") " + option.name);
-        	}
+        	System.out.println("(" + Option.getDisplayInt(option.ordinal()) + ") " + option.name);
         }
     }
     

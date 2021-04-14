@@ -24,13 +24,30 @@ public class MainCmdUI implements IslandTraderUI {
         ISLAND("View island properties - NOPE"),
         STORE("Visit the island store - WORKING"),
         SAIL("Sail to another island - NOPE"), 
-    	QUIT("(enter -1 to quit)");
+    	QUIT("*** Quit Game ***");
 
-        private String name;      
+        private String name;             
 
         Option(String name) {
             this.name = name;
         }
+        
+        private static int getDisplayInt(int ordinalInt) {
+        	if (ordinalInt == Option.QUIT.ordinal()) {
+        		return -1;
+        	} else {
+        		return ordinalInt + 1;
+        	}
+        }
+        
+        private static int getOrdinalInd(int displayInt) {
+        	if (displayInt == -1) {
+        		return Option.QUIT.ordinal();
+        	} else {
+        		return displayInt -1;
+        	}
+        }        
+        
     }
     
 	public MainCmdUI() {
@@ -113,7 +130,6 @@ public class MainCmdUI implements IslandTraderUI {
 	@Override
 	// TODO Quiz6 code is much prettier and general
 	public void start() {
-		int intOption = -2;
 		final Option[] options = Option.values();
 
         while (!finish) {
@@ -123,20 +139,14 @@ public class MainCmdUI implements IslandTraderUI {
             printOptions();            
     		
             try {
-            	intOption = scanner.nextInt();
-                Option option = options[intOption-1];
+                Option option = options[Option.getOrdinalInd(scanner.nextInt())];
                 handleOption(option);
             }
             catch (ArrayIndexOutOfBoundsException e) {
-                if (intOption == -1) {
-                	Option option = Option.QUIT;
-                	handleOption(option);
-                }
-                	
-            }
-            catch (Exception e) {
             	System.out.println("Nah choose another one");
-                scanner.nextLine();
+            } catch (Exception e) {
+            	System.out.println("Nah choose another one");
+                //scanner.nextLine(); //TODO WHY NEEDED
             }    		    		
 
         }		
@@ -148,11 +158,7 @@ public class MainCmdUI implements IslandTraderUI {
      */
     private void printOptions() {
         for (Option option : Option.values()) {
-        	if (option == Option.QUIT ) {
-        		System.out.println(option.name);
-        	} else {
-        		System.out.println("(" + (option.ordinal()+1) + ") " + option.name);
-        	}
+        	System.out.println("(" + Option.getDisplayInt(option.ordinal()) + ") " + option.name);
         }
     }	
     
