@@ -18,7 +18,7 @@ public class StoreCmdUI {
     
 	private IslandTrader game;	
 
-	private StoreMenuOption menu;	
+	private StoreMenuOption menu;		
 	
 	public StoreCmdUI(Scanner scanner) {
 		this.scanner = scanner;

@@ -13,20 +13,20 @@ import java.util.Scanner;
  */
 public abstract class MenuOption {
 
-    private ArrayList<String> options;    
+    protected ArrayList<String> options;    
         
-    private String header;
+    protected String header;
     
-    private String footer;
+    protected String footer;
     
     private boolean finish = false;    
     
-    public MenuOption(String[] options, String exitOption, String header, String footer) {
-    	this.header = header;
-    	this.footer = footer;
-    	this.options = new ArrayList<String>(Arrays.asList(options));
-    	this.options.add(0, exitOption);
-    }
+//    public MenuOption(String[] options, String exitOption, String header, String footer) {
+//   	this.header = header;
+//    	this.footer = footer;
+//    	this.options = new ArrayList<String>(Arrays.asList(options));
+//    	this.options.add(0, exitOption);
+//   }
     
     public void printOptions() {
     	for(int i = options.size()-1; i >= 0; i--) {

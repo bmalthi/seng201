@@ -1,23 +1,22 @@
 package ui.cmd;
 
-public class StoreMenuOption extends MenuOption {
+import java.util.ArrayList;
+import java.util.Arrays;
 
-	//Define the store menu options
-	private static String[] options = {"FORSALE", "FORBUY", "PASTPURCHASE", "PURCHASE", "SELL"};
-	
-	//Define the exit wording
-	private static String exitOption = "(enter -1 to leave store)";
-	
-	//Define the header. On store entry
-	private static String header = "How can we help you at our store?\n";
-	
-	//Define the footer. On store exit
-	private static String footer = "Thanks for shopping in our store\n";
+public class StoreMenuOption extends MenuOption {
 	
 	private StoreCmdUI ui;
 	
 	public StoreMenuOption(StoreCmdUI ui) {
-		super(options, exitOption, header, footer);
+	   	this.header = "How can we help you at our store?\n";
+    	this.footer = "Thanks for shopping in our store.\n";
+    	
+    	//Set up Options
+    	String[] base_options = {"FORSALE", "FORBUY", "PASTPURCHASE", "PURCHASE", "SELL"};
+    	this.options = new ArrayList<String>(Arrays.asList(base_options));
+    	String exitOption = "(enter -1 to leave store)";
+    	this.options.add(0, exitOption);
+    	
 		this.ui = ui;
 	}
 
