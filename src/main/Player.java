@@ -54,7 +54,16 @@ public class Player {
 	 * @return the transactions
 	 */
 	public ArrayList<PricedItem> getTransactions() {
-		return transactions;
+		return this.transactions;
+	}
+	
+	// TODO NEED TO CHECK IF YOU HAVE ENOUGH $$$
+	public PricedItem buyItem(Store store, StorageList cargo, int itemIndex) {
+		PricedItem purchase = store.getToSell().get(itemIndex);
+		this.transactions.add(purchase);
+		setBalance(getBalance()-purchase.getPrice());
+		cargo.addItem(purchase.getItem());
+		return purchase;
 	}
 	
 	

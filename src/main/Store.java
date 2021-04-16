@@ -30,17 +30,31 @@ public class Store {
 	/**
 	 * @return the toSell
 	 */
-	public ArrayList<PricedItem> getToSell() {
-		return toSell;
-		//return Collections.unmodifiableList(toSell);
+	public List<PricedItem> getToSell() {
+		return Collections.unmodifiableList(toSell);
 	}
+	
+	public void addToSell(PricedItem item) {
+		toSell.add(item);		
+	}
+	
+	public void removeFromSell(PricedItem item) {
+		toSell.remove(item);		
+	}	
+	
+	public void addToBuy(PricedItem item) {
+		toBuy.add(item);		
+	}
+	
+	public void removeFromBuy(PricedItem item) {
+		toBuy.remove(item);		
+	}		
 
 	/**
 	 * @return the toBuy
 	 */
-	public ArrayList<PricedItem> getToBuy() {
-		return toBuy;
-		//return Collections.unmodifiableList(toBuy);
+	public List<PricedItem> getToBuy() {
+		return Collections.unmodifiableList(toBuy);
 	}
 
 	/**

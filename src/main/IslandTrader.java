@@ -49,9 +49,9 @@ public class IslandTrader {
 			int newSize = random.nextInt(2) + 1;
 			Item newItem = new Item(newName, "Dumb Description", newSize, ItemType.CARGO);
 			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.SELL);
-			getStore().getToBuy().add(newSellPricedItem);			
+			getStore().addToBuy(newSellPricedItem);			
 			PricedItem newBuyPricedItem = new PricedItem(newItem, newBuyPrice, PriceType.BUY);
-			getStore().getToSell().add(newBuyPricedItem);
+			getStore().addToSell(newBuyPricedItem);
 		}		
 	}
 	

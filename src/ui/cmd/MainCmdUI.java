@@ -141,8 +141,7 @@ public class MainCmdUI implements IslandTraderUI {
             try {
                 Option option = options[Option.getOrdinalInd(scanner.nextInt())];
                 handleOption(option);
-            }
-            catch (ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
             	System.out.println("Nah choose another one");
             } catch (Exception e) {
             	System.out.println("Nah choose another one");
@@ -169,6 +168,7 @@ public class MainCmdUI implements IslandTraderUI {
      * @param option The selected option to be carried out
      */
     private void handleOption(Option option) {
+    	System.out.println("Option: "+option);
         switch (option) {
             case PLAYER:                
                 break;
@@ -180,7 +180,7 @@ public class MainCmdUI implements IslandTraderUI {
                 break;
             case STORE:
             	StoreCmdUI storeui = new StoreCmdUI(scanner);
-            	storeui.setup(game);
+            	storeui.setup(game);            	
             	storeui.start();            	
                 break;                
             case QUIT:
