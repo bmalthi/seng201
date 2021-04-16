@@ -71,6 +71,9 @@ public abstract class MenuOption {
         }	
         System.out.println(footer);
         
+        //Reset
+        finish = false;
+        
 	}
 	
 	public void setFinish() {

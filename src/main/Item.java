@@ -74,6 +74,15 @@ public class Item {
 	 */
 	public String toString() {
 		return getName() + ": Takes up " + getSize() + " space in the Cargo Hold.";
-	}			
+	}		
+	
+	//TODO SHOULD I OVERIDE HE obj version
+	public boolean equals(Item item) {
+		return (	
+			   (this.getName() == item.getName())
+			&& (this.getType() == item.getType())
+			&& (this.getSize() == item.getSize())
+		);		
+	}
 
 }

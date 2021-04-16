@@ -77,7 +77,7 @@ public class StoreCmdUI {
 		public BuyMenu(StoreCmdUI ui) {
 			this.ui = ui; 		
 			
-		   	this.header = "What do you want to buy?\n";
+		   	this.header = "What do you want to buy?\n (* recommended for you)\n";
 	    	this.footer = "\n";	    	
 	    	
 	    	//Set up Options
@@ -88,8 +88,13 @@ public class StoreCmdUI {
 	    	this.options = new ArrayList<String>();
 	    	List<PricedItem> toSellItems = ui.game.getStore().getToSell();
 	    	for (int i = 0; i < toSellItems.size(); i++) {
-	    		this.options.add(toSellItems.get(i).toString());
+	    		if (this.ui.game.getPlayer().validateBuy(toSellItems.get(i)) == null) {	    			
+	    			this.options.add("* " +toSellItems.get(i).toString());
+	    		} else {
+	    			this.options.add(toSellItems.get(i).toString());
+	    		}
 	    	}
+	    	
 	    	String exitOption = "(back to store front)";
 	    	this.options.add(0, exitOption);
 		}
@@ -116,7 +121,7 @@ public class StoreCmdUI {
 		public SellMenu(StoreCmdUI ui) {
 			this.ui = ui; 		
 			
-		   	this.header = "What do you want to sell?\n";
+		   	this.header = "What do you want to sell?\n (* recommended for you)\n";
 	    	this.footer = "\n";	    	
 	    	
 	    	//Set up Options
@@ -127,7 +132,11 @@ public class StoreCmdUI {
 	    	this.options = new ArrayList<String>();
 	    	List<PricedItem> toBuyItems = ui.game.getStore().getToBuy();
 	    	for (int i = 0; i < toBuyItems.size(); i++) {
-	    		this.options.add(toBuyItems.get(i).toString());
+	    		if (this.ui.game.getPlayer().validateSell(toBuyItems.get(i)) == null) {	    			
+	    			this.options.add("* " +toBuyItems.get(i).toString());
+	    		} else {
+	    			this.options.add(toBuyItems.get(i).toString());
+	    		}
 	    	}
 	    	String exitOption = "(back to store front)";
 	    	this.options.add(0, exitOption);

@@ -63,9 +63,9 @@ public class Player {
 		return this.transactions;
 	}
 	
-	// TODO NEED TO CHECK IF YOU HAVE ENOUGH $$$
+	// TODO NEED TO CHECK IF YOU HAVE ENOUGH $$$, THROE THE VALIDATE ERROR
 	public PricedItem buyItem(Store store, int itemIndex) {
-		PricedItem purchase = store.getToSell().get(itemIndex);
+		PricedItem purchase = store.getToSell().get(itemIndex);		
 		store.removeFromSell(purchase);
 		this.transactions.add(purchase);
 		setBalance(getBalance()-purchase.getPrice());
@@ -98,10 +98,25 @@ public class Player {
 		this.ship = ship;
 	}	
 	
-	/*
-	public String validateBuy(PricedItem purchase) {
-		
-	}
-	*/
+	
+	public String validateBuy(PricedItem purchase) {		
+		if (purchase.getPrice() > getBalance()) {
+			return "Insufficient funds";
+		}
+		if (purchase.getItem().getSize() > getShip().remainingSpace()) {
+			return "Insufficient space in " + getShip().getName();
+		}
+		if (purchase.getItem().getType() != getShip().getType()) {
+			return getShip().getName() + "does not hold" + getShip().getType() + "s";
+		}				
+		return null;
+	}	
+	
+	public String validateSell(PricedItem sale) {
+		if (getShip().hasItem(sale.getItem()) == false) {
+			return "You don't have " +sale.getItem().getName() +" to sell.";
+		}
+		return null;
+	}		
 
 }

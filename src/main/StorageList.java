@@ -61,9 +61,18 @@ public class StorageList {
 	 * 
 	 */
 	public void addItem(Item item) {
-		if ((capacity - getSpaceUsed()) >= item.getSize()) {
+		if (remainingSpace() >= item.getSize()) {
 			items.add(item);
 		}
+	}
+	
+	public boolean hasItem(Item item) {
+		for (int i = 0; i < items.size(); i++) {
+			if (items.get(i).equals(item)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -76,6 +85,10 @@ public class StorageList {
 	    }
 		return space;
 	}	
+	
+	public int remainingSpace() {
+		return this.capacity - getSpaceUsed();
+	}
 	
 	/**
 	 * 
