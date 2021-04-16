@@ -168,7 +168,6 @@ public class MainCmdUI implements IslandTraderUI {
      * @param option The selected option to be carried out
      */
     private void handleOption(Option option) {
-    	System.out.println("Option: "+option);
         switch (option) {
             case PLAYER:                
                 break;

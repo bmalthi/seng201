@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Scanner;
 import main.IslandTrader;
 import main.PricedItem;
-import main.Store;
 
 /**
  * @author bmalthi

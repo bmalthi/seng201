@@ -29,9 +29,14 @@ public abstract class MenuOption {
 //   }
     
     public void printOptions() {
-    	for(int i = options.size()-1; i >= 0; i--) {
-    		System.out.println("(" + getDisplayIndex(i) + ") " + options.get(i));
-    	}    	
+    	if (options.size() > 1) {
+    		for(int i = 1; i < options.size(); i++) {
+    			System.out.println("(" + getDisplayIndex(i) + ") " + options.get(i));
+    		}
+    	} else {
+    		System.out.println("NOTHING TO SEE HERE");
+    	}
+    	System.out.println("(" + getDisplayIndex(0) + ") " + options.get(0));   	
     }
     
     private int getDisplayIndex(int arrayIndex) {
