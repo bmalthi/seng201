@@ -21,13 +21,6 @@ public abstract class MenuOption {
     
     private boolean finish = false;    
     
-//    public MenuOption(String[] options, String exitOption, String header, String footer) {
-//   	this.header = header;
-//    	this.footer = footer;
-//    	this.options = new ArrayList<String>(Arrays.asList(options));
-//    	this.options.add(0, exitOption);
-//   }
-    
     public void printOptions() {
     	if (options.size() > 1) {
     		for(int i = 1; i < options.size(); i++) {
@@ -55,7 +48,7 @@ public abstract class MenuOption {
     	}
     }       
     
-	public void getOption(Scanner scanner) {
+	public void getUserOption(Scanner scanner) {
 		System.out.println(header);
 		
         while (!finish) {        	

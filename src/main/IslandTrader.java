@@ -42,7 +42,7 @@ public class IslandTrader {
 		// Create a test store
 		setStore(new Store("Bob's Burgers"));		
 		String[] rawItems = {"Burger", "Fries", "Coke", "IceCream", "Chairs", "Dog"};				
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 1; i++) {
 			String newName = rawItems[random.nextInt(rawItems.length-1)];
 			int newSellPrice = random.nextInt(10) + 1;
 			int newBuyPrice = random.nextInt(10) + 1;
