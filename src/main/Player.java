@@ -16,9 +16,12 @@ public class Player {
 	private String name;
 	private double balance;
 	private ArrayList<PricedItem> transactions;
+
+	// TODO The player's cargo, will eventually be the players ship
+	private StorageList ship;
+	
 	// The players starting balance of money
-	// TODO define here or in player or ....
-	private final int STARTING_BALANCE = 100;	//TODO MOVE this to world setup, player can take in constructor
+	private final int STARTING_BALANCE = 50;
 
 	/**
 	 * 
@@ -27,6 +30,9 @@ public class Player {
 		this.name = name;
 		this.setBalance(STARTING_BALANCE);
 		this.transactions = new ArrayList<PricedItem>();		
+		
+		// The player's cargo, will eventually be the players ship
+		setShip(new StorageList("Cargo Hold 1", 10, ItemType.CARGO));		
 	}
 
 	/**
@@ -58,26 +64,44 @@ public class Player {
 	}
 	
 	// TODO NEED TO CHECK IF YOU HAVE ENOUGH $$$
-	public PricedItem buyItem(Store store, StorageList cargo, int itemIndex) {
+	public PricedItem buyItem(Store store, int itemIndex) {
 		PricedItem purchase = store.getToSell().get(itemIndex);
 		store.removeFromSell(purchase);
 		this.transactions.add(purchase);
 		setBalance(getBalance()-purchase.getPrice());
-		cargo.addItem(purchase.getItem());
+		getShip().addItem(purchase.getItem());
 		return purchase;
 	}
 	
 	// TODO NEED TO CHECK IF YOU HAVE the item
-	public PricedItem sellItem(Store store, StorageList cargo, int itemIndex) {
+	public PricedItem sellItem(Store store, int itemIndex) {
 		PricedItem sale = store.getToBuy().get(itemIndex);
 		store.removeFromBuy(sale);
 		store.addToSell(sale);
 		this.transactions.add(sale);
 		setBalance(getBalance() +sale.getPrice());
-		//cargo.removeItem(sale.getItem());
+		getShip().removeItem(sale.getItem());
 		return sale;
+	}
+
+	/**
+	 * @return the ship
+	 */
+	public StorageList getShip() {
+		return ship;
+	}
+
+	/**
+	 * @param ship the ship to set
+	 */
+	public void setShip(StorageList ship) {
+		this.ship = ship;
 	}	
 	
-	
+	/*
+	public String validateBuy(PricedItem purchase) {
+		
+	}
+	*/
 
 }

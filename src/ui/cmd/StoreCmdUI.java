@@ -181,14 +181,14 @@ public class StoreCmdUI {
 	
 	// TODO Need to check storage space and money. UI Shouldn't do that though.
 	private void buyStoreItem(int option) {
-		PricedItem purchase = this.game.getPlayer().buyItem(this.game.getStore(), this.game.getCargo(), option);
+		PricedItem purchase = this.game.getPlayer().buyItem(this.game.getStore(), option);
 		System.out.println("You Are a hero");
 		System.out.println("Purchased:" +purchase.toString());
 	}
 	
 	// TODO Need to check storage space and money. UI Shouldn't do that though.
 	private void sellPlayerItem(int option) {
-		PricedItem sale = this.game.getPlayer().sellItem(this.game.getStore(), this.game.getCargo(), option);
+		PricedItem sale = this.game.getPlayer().sellItem(this.game.getStore(), option);
 		System.out.println("You Are a hero");
 		System.out.println("Sold:" +sale.toString());
 	}	

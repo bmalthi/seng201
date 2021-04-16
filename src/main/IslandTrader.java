@@ -12,9 +12,6 @@ public class IslandTrader {
 	// The player playing the game
 	private Player player;
 	
-	// TODO The player's cargo, will eventually be the players ship
-	private StorageList cargo;
-	
 	// TODO A test store, will eventually be a graph of stores and routes
 	private Store store;
 	
@@ -33,16 +30,10 @@ public class IslandTrader {
 		// Create a Random for making items etc etc
 		Random random = new Random();
 		
-		// Create the player 
-		//setPlayer(new Player(playerName, STARTING_BALANCE));		
-		
-		// Create a ship (for now just a storageList of a ship)
-		setCargo(new StorageList("Cargo Hold 1", 10, ItemType.CARGO));
-		
 		// Create a test store
 		setStore(new Store("Bob's Burgers"));		
-		String[] rawItems = {"Burger", "Fries", "Coke", "IceCream", "Chairs", "Dog"};				
-		for (int i = 0; i < 1; i++) {
+		String[] rawItems = {"Burger", "Fries", "Coke", "IceCream", "Chairs", "Dog", "Bananas", "Beer"};				
+		for (int i = 0; i < 5; i++) {
 			String newName = rawItems[random.nextInt(rawItems.length-1)];
 			int newSellPrice = random.nextInt(10) + 1;
 			int newBuyPrice = random.nextInt(10) + 1;
@@ -84,20 +75,6 @@ public class IslandTrader {
 	 */
 	public void setPlayer(Player player) {
 		this.player = player;
-	}
-
-	/**
-	 * @return the cargo
-	 */
-	public StorageList getCargo() {
-		return cargo;
-	}
-
-	/**
-	 * @param cargo the cargo to set
-	 */
-	public void setCargo(StorageList cargo) {
-		this.cargo = cargo;
 	}
 
 	/**
