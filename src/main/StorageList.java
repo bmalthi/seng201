@@ -94,7 +94,20 @@ public class StorageList {
 	 * 
 	 */
 	public void removeItem(Item item) {
-		items.remove(item);
+		for (int i = 0; i < items.size(); i++) {
+			if (items.get(i).equals(item)) {
+				items.remove(i);
+				return;
+			}
+		}
 	}	
+	
+	public void dumpList() {
+		String s = "CARGO:";
+		for (int i = 0; i < items.size(); i++) {
+			s = s + items.get(i).getName() +",";
+		}
+		System.out.println(s);
+	}
 
 }

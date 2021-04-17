@@ -46,6 +46,7 @@ public class PricedItem {
 	
 	/**
 	 * @return a string representation of the Item
+	 * TODO Change naming, depending on type
 	 */
 	public String toString() {
 		return item.getName() + ": Takes up " + item.getSize() + ", and is $" +getPrice();

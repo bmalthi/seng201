@@ -15,7 +15,6 @@ import main.PricedItem;
 
 /**
  * @author bmalthi
- * TODO make an INTERFACE OUT OF THIS
  *
  */
 public class StoreCmdUI {
@@ -80,8 +79,6 @@ public class StoreCmdUI {
 		   	this.header = "What do you want to buy?\n (* recommended for you)\n";
 	    	this.footer = "\n";	    	
 	    	
-	    	//Set up Options
-	    	refreshOptions();
 		}
 		
 		private void refreshOptions() {
@@ -98,15 +95,20 @@ public class StoreCmdUI {
 	    	String exitOption = "(back to store front)";
 	    	this.options.add(0, exitOption);
 		}
+		
+		@Override
+		public void printOptions() {
+			refreshOptions();
+			super.printOptions();
+		}
 
 		@Override
 		public void handleOption(int option) {
+			ui.game.getPlayer().getShip().dumpList();
 			if (option == 0) {
 				this.setFinish();
 			} else { //check this has to work, ie no passthrough of bad ints
 				ui.buyStoreItem(option-1);
-				ui.buyMenu.refreshOptions(); 
-				ui.sellMenu.refreshOptions();
 			}	
 
 		}
@@ -124,8 +126,6 @@ public class StoreCmdUI {
 		   	this.header = "What do you want to sell?\n (* recommended for you)\n";
 	    	this.footer = "\n";	    	
 	    	
-	    	//Set up Options
-	    	refreshOptions();
 		}
 
 		private void refreshOptions() {
@@ -140,16 +140,21 @@ public class StoreCmdUI {
 	    	}
 	    	String exitOption = "(back to store front)";
 	    	this.options.add(0, exitOption);
+		}	
+		
+		@Override
+		public void printOptions() {
+			refreshOptions();
+			super.printOptions();
 		}		
 
 		@Override
 		public void handleOption(int option) {
+			ui.game.getPlayer().getShip().dumpList();
 			if (option == 0) {
 				this.setFinish();
 			} else { //check this has to work, ie no passthrough of bad ints
 				ui.sellPlayerItem(option-1);
-				ui.buyMenu.refreshOptions(); 
-				ui.sellMenu.refreshOptions();
 			}	
 
 		}
