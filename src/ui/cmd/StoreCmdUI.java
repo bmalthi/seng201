@@ -46,23 +46,23 @@ public class StoreCmdUI {
 		@Override
 		public void handleOption(int option) {
 	        switch (option) {
-	        case 0: //"QUIT":
-	            ui.quit();
-	            break;        
-	        case 1: //"FORSALE":
-	        	ui.buyMenu.getUserOption(ui.scanner);
-	            break;
-	        case 2: //"FORBUY":
-	        	ui.sellMenu.getUserOption(ui.scanner);
-	            break;
-	        case 3: //"PASTPURCHASES":
-	            break;
-	        case 4: //"PURCHASE":
-	            break;
-	        case 5: //"SELL":
-	            break;                
-	        default:
-	            throw new IllegalStateException("Unexpected value: " + option);
+		        case 0: //"QUIT":
+		            ui.quit();
+		            break;        
+		        case 1: //"FORSALE":
+		        	ui.buyMenu.getUserOption(ui.scanner);
+		            break;
+		        case 2: //"FORBUY":
+		        	ui.sellMenu.getUserOption(ui.scanner);
+		            break;
+		        case 3: //"PASTPURCHASES":
+		            break;
+		        case 4: //"PURCHASE":
+		            break;
+		        case 5: //"SELL":
+		            break;                
+		        default:
+		            throw new IllegalStateException("Unexpected value: " + option);
 	        }		
 
 		}
@@ -156,7 +156,7 @@ public class StoreCmdUI {
 
 	}	
 	
-	private StoreMenu menu;	
+	private StoreMenu storeMenu;	
 	private BuyMenu buyMenu;
 	private SellMenu sellMenu;
 	//private sellMenu sellList;		
@@ -167,7 +167,7 @@ public class StoreCmdUI {
 	
 	public void setup(IslandTrader game) {
 		this.game = game;
-		this.menu = new StoreMenu(this);		
+		this.storeMenu = new StoreMenu(this);		
 		this.buyMenu = new BuyMenu(this);		
 		this.sellMenu = new SellMenu(this);		
 		//this.sellList = new BuyMenu(this);		
@@ -180,12 +180,12 @@ public class StoreCmdUI {
      * TODO shouldn't be able to access store list directly
      */	
 	public void start() {
-		menu.getUserOption(this.scanner);
+		storeMenu.getUserOption(this.scanner);
 	}   				    
     
 	public void quit() {
 		// Menu
-		menu.setFinish();		
+		storeMenu.setFinish();		
 	}	
 	
 	// TODO Need to check storage space and money. UI Shouldn't do that though.

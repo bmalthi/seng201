@@ -1,5 +1,7 @@
 package ui.cmd;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import main.IslandTrader;
 import main.Player;
@@ -12,44 +14,62 @@ public class MainCmdUI implements IslandTraderUI {
 
     // The rocket manager this ui interacts with
     private IslandTrader game;
-
-    // Flag to indicate when this ui should finish
-    private boolean finish = false;
     
-    // An enum representing the various actions the user can perform
-    private enum Option {
-        PLAYER("Money & days remaining - NOPE"),
-        SHIP("Ship status - NOPE"),
-        PURCHASES("View purchases - NOPE"),
-        ISLAND("View island properties - NOPE"),
-        STORE("Visit the island store - WORKING"),
-        SAIL("Sail to another island - NOPE"), 
-    	QUIT("*** Quit Game ***");
+	// Class (glorified enum) for the main store menu
+	private class MainMenu extends MenuOption {
+		
+		private MainCmdUI ui; //TODO IS THIS NEEDED
+		
+		public MainMenu(MainCmdUI ui) {
+		   	this.header = "What do you want to do next?\n****************************************";    		
+	    	this.footer = "\n";
+	    	
+	    	//Set up Options
+	    	String[] base_options = {	    	
+				"Money & days remaining - NOPE",
+				"Ship status - NOPE",
+				"View purchases - NOPE",
+				"View island properties - NOPE",
+				"Visit the island store - WORKING",
+				"Sail to another island - NOPE"}; 
+	        
+	    	this.options = new ArrayList<String>(Arrays.asList(base_options));
+	    	String exitOption = "*** Quit Game ***";
+	    	this.options.add(0, exitOption);
+	    	
+			this.ui = ui;
+		}
 
-        private String name;             
+		@Override
+	    public void handleOption(int option) {
+	        switch (option) {
+	        	case 0: //"Quit"
+	        		ui.quit();
+	        		break;  
+	            case 1: //"Money & days remaining
+	                break;
+	            case 2: //"Ship status"
+	                break;
+	            case 3: //"View purchases"
+	                break;
+	            case 4: //"View island properties"
+	                break;	                
+	            case 5: //"Visit the island store"
+	            	StoreCmdUI storeui = new StoreCmdUI(scanner);
+	            	storeui.setup(game);            	
+	            	storeui.start();            	
+	                break;      
+	            case 6: //"Sail to another island"
+	                break;	 	                
+	            default:
+	                throw new IllegalStateException("Unexpected value: " + option);
+	        }
+	    }
 
-        Option(String name) {
-            this.name = name;
-        }
-        
-        private static int getDisplayInt(int ordinalInt) {
-        	if (ordinalInt == Option.QUIT.ordinal()) {
-        		return -1;
-        	} else {
-        		return ordinalInt + 1;
-        	}
-        }
-        
-        private static int getOrdinalInd(int displayInt) {
-        	if (displayInt == -1) {
-        		return Option.QUIT.ordinal();
-        	} else {
-        		return displayInt -1;
-        	}
-        }        
-        
-    }
+	}    
     
+	private MainMenu mainMenu;
+	
 	public MainCmdUI() {
 		scanner = new Scanner(System.in);
 	}
@@ -61,6 +81,7 @@ public class MainCmdUI implements IslandTraderUI {
 	// Get ship / fact
 	public void setup(IslandTrader game) {
 		this.game = game;
+		this.mainMenu = new MainMenu(this);
 		
 		// TODO SHOULD WE JUST MOVE THIS TO START, WHY ARE THESE DIFFERENT UI PARTS
 		this.game.setPlayer(new Player(getPlayerName()));
@@ -130,70 +151,12 @@ public class MainCmdUI implements IslandTraderUI {
 	@Override
 	// TODO Quiz6 code is much prettier and general
 	public void start() {
-		final Option[] options = Option.values();
-
-        while (!finish) {
-    		System.out.println("What do you want to do next?");
-    		System.out.println("****************************************");
-
-            printOptions();            
-    		
-            try {
-                Option option = options[Option.getOrdinalInd(scanner.nextInt())];
-                handleOption(option);
-            } catch (ArrayIndexOutOfBoundsException e) {
-            	System.out.println("Nah choose another one");
-            } catch (Exception e) {
-            	System.out.println("Nah choose another one");
-                //scanner.nextLine(); //TODO WHY NEEDED
-            }    		    		
-
-        }		
-		
-	}
-	
-    /**
-     * Outputs the set of options to the console.
-     */
-    private void printOptions() {
-        for (Option option : Option.values()) {
-        	System.out.println("(" + Option.getDisplayInt(option.ordinal()) + ") " + option.name);
-        }
-    }	
-    
-    
-    /**
-     * Handles the given option by performing the appropriate action.
-     *
-     * @param option The selected option to be carried out
-     */
-    private void handleOption(Option option) {
-        switch (option) {
-            case PLAYER:                
-                break;
-            case SHIP:
-                break;
-            case PURCHASES:
-                break;
-            case ISLAND:
-                break;
-            case STORE:
-            	StoreCmdUI storeui = new StoreCmdUI(scanner);
-            	storeui.setup(game);            	
-            	storeui.start();            	
-                break;                
-            case QUIT:
-                quit();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + option);
-        }
-    }    
+		mainMenu.getUserOption(this.scanner);			
+	}	           
 
 	@Override
 	public void quit() {
-		// Game ending
-		finish = true; //Main while loop will terminate
+		mainMenu.setFinish();	
 		System.out.println("Thanks for playing. You ended up with " +game.getPlayer().getBalance() +" dollars.");
 		
 	}
