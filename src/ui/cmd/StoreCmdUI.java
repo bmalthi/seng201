@@ -45,7 +45,7 @@ public class StoreCmdUI {
 		@Override
 		public void handleOption(int option) {
 	        switch (option) {
-		        case 0: //"QUIT":
+		        case -1: //"QUIT":
 		            ui.quit();
 		            break;        
 		        case 1: //"FORSALE":
@@ -105,7 +105,7 @@ public class StoreCmdUI {
 		@Override
 		public void handleOption(int option) {
 			ui.game.getPlayer().getShip().dumpList();
-			if (option == 0) {
+			if (option == -1) {
 				this.setFinish();
 			} else { //check this has to work, ie no passthrough of bad ints
 				ui.buyStoreItem(option-1);
@@ -151,7 +151,7 @@ public class StoreCmdUI {
 		@Override
 		public void handleOption(int option) {
 			ui.game.getPlayer().getShip().dumpList();
-			if (option == 0) {
+			if (option == -1) {
 				this.setFinish();
 			} else { //check this has to work, ie no passthrough of bad ints
 				ui.sellPlayerItem(option-1);

@@ -43,7 +43,7 @@ public class MainCmdUI implements IslandTraderUI {
 		@Override
 	    public void handleOption(int option) {
 	        switch (option) {
-	        	case 0: //"Quit"
+	        	case -1: //"Quit"
 	        		ui.quit();
 	        		break;  
 	            case 1: //"Money & days remaining

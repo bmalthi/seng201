@@ -4,7 +4,6 @@
 package ui.cmd;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -20,6 +19,14 @@ public abstract class MenuOption {
     protected String footer;
     
     private boolean finish = false;    
+    
+    @SuppressWarnings("serial")
+	private class InvalidInputException extends IllegalArgumentException {    	
+
+		private InvalidInputException(String message) {
+    		super(message);
+    	}
+    }   
     
     public void printOptions() {
     	if (options.size() > 1) {
@@ -40,14 +47,6 @@ public abstract class MenuOption {
     	}
     }   
     
-    private int getArrayIndex(int displayIndex) {
-    	if(displayIndex == -1) {
-    		return 0;
-    	} else {
-    		return displayIndex;
-    	}
-    }       
-    
 	public void getUserOption(Scanner scanner) {
 		System.out.println(header);
 		
@@ -56,15 +55,16 @@ public abstract class MenuOption {
             printOptions();            
     		
             try {
-            	int optionInt = getArrayIndex(scanner.nextInt());
-            	@SuppressWarnings("unused")
-				String option = options.get(optionInt); //TODO Test Exception
+            	int optionInt = scanner.nextInt();
+            	if(validateInput(optionInt) == false) {
+            		throw new InvalidInputException("Input " + optionInt + " is invalid");
+            	}
             	handleOption(optionInt);
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (InvalidInputException e) {
             	System.out.println("Please try again");
-            	scanner.nextLine();
+                scanner.nextLine();     	
             } catch (Exception e) {
-            	System.out.println("Please try again");
+            	System.out.println("OPPS:\n" +e.getMessage());
                 scanner.nextLine();
             }    		    		
 
@@ -74,6 +74,17 @@ public abstract class MenuOption {
         //Reset
         finish = false;
         
+	}
+	
+	public boolean validateInput(int input) {
+		if (input == -1) {
+			return true;
+		} else if (input >= 1 || input < options.size()) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 	
 	public void setFinish() {
