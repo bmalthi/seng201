@@ -41,8 +41,9 @@ public class MainCmdUI implements IslandTraderUI {
 		}
 
 		@Override
-	    public void handleOption(int option) {
-	        switch (option) {
+	    public void handleOption(String option) {
+			int intOption = Integer.parseInt(option);
+	        switch (intOption) {
 	        	case -1: //"Quit"
 	        		ui.quit();
 	        		break;  
