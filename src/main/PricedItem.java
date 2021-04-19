@@ -12,7 +12,6 @@ public class PricedItem {
 	private Item item;
 	private int price;
 	private PriceType type;
-	//TODO ADD ISLAND
 
 	/**
 	 * 
@@ -43,13 +42,24 @@ public class PricedItem {
 	public PriceType getType() {
 		return type;
 	}
-	
+
 	/**
 	 * @return a string representation of the Item
 	 * TODO Change naming, depending on type
 	 */
 	public String toString() {
-		return item.getName() + ": Takes up " + item.getSize() + ", and is $" +getPrice();
-	}		
+        switch (this.type) {
+    		case FORSALE:	
+    			return item.toString() +", is for sale for $" +price;
+    		case FORBUY:
+    			return item.toString() +", we will buy for $" +price;
+    		case PURCHASED:
+    			return item.toString() +", was purchased for $" +price;
+    		case SOLD:
+    			return item.toString() +", was sold for $" +price;    	
+	        default:
+	            return item.toString() +", is $" +price;
+        }
+	}	
 
 }

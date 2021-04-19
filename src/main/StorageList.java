@@ -61,6 +61,7 @@ public class StorageList {
 	 * 
 	 */
 	public void addItem(Item item) {
+		// TODO HMMN, maybe make exception or move to extenal check
 		if (remainingSpace() >= item.getSize()) {
 			items.add(item);
 		}
@@ -103,7 +104,7 @@ public class StorageList {
 	}	
 	
 	public void dumpList() {
-		String s = "CARGO:";
+		String s = type.name()+":";
 		for (int i = 0; i < items.size(); i++) {
 			s = s + items.get(i).getName() +",";
 		}

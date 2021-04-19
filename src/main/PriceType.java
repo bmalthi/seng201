@@ -5,5 +5,5 @@ package main;
  * Each PricedItem will have a type
  */
 public enum PriceType {
-	SELL, BUY, PURCHASED, SOLD 
+	FORSALE, FORBUY, PURCHASED, SOLD 
 }

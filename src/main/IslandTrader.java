@@ -34,17 +34,43 @@ public class IslandTrader {
 		
 		// Create a test store
 		setStore(new Store("Bob's Burgers"));		
-		String[] rawItems = {"Burger", "Fries", "Coke", "IceCream", "Chairs", "Dog", "Bananas", "Beer"};				
-		for (int i = 0; i < 10; i++) {
-			String newName = rawItems[random.nextInt(rawItems.length-1)];
+		// CARGO
+		String[] rawCargoItems = {"Burger", "Fries", "Coke", "IceCream", "Chairs", "Dog", "Bananas", "Beer"};			
+		for (int i = 0; i < 5; i++) {
+			String newName = rawCargoItems[random.nextInt(rawCargoItems.length-1)];
 			int newSellPrice = random.nextInt(10) + 1;
 			int newBuyPrice = random.nextInt(10) + 1;
 			int newSize = random.nextInt(2) + 1;
 			Item newItem = new Item(newName, "Dumb Description", newSize, ItemType.CARGO);
-			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.SELL);
-			getStore().addToBuy(newSellPricedItem);			
-			PricedItem newBuyPricedItem = new PricedItem(newItem, newBuyPrice, PriceType.BUY);
-			getStore().addToSell(newBuyPricedItem);
+			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.FORSALE);
+			getStore().addToSell(newSellPricedItem);			
+			PricedItem newBuyPricedItem = new PricedItem(newItem, newBuyPrice, PriceType.FORBUY);
+			getStore().addToBuy(newBuyPricedItem);
+		}
+		
+		// WEAPONS
+		String[] rawWeaponItems = {"Rifle", "Cannon", "Sword"};			
+		for (int i = 0; i < 2; i++) {
+			String newName = rawWeaponItems[random.nextInt(rawWeaponItems.length-1)];
+			int newSellPrice = random.nextInt(10) + 1;
+			int newBuyPrice = random.nextInt(10) + 1;
+			int newSize = random.nextInt(2) + 1;
+			Item newItem = new Item(newName, "Dumb Description", newSize, ItemType.WEAPON);
+			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.FORSALE);
+			getStore().addToSell(newSellPricedItem);	
+			PricedItem newBuyPricedItem = new PricedItem(newItem, newBuyPrice, PriceType.FORBUY);
+			getStore().addToBuy(newBuyPricedItem);			
+		}
+		
+		// UPGRADES
+		String[] rawUpgradeItems = {"Coffee Machine", "Shields", "Big Screen TV"};			
+		for (int i = 0; i < 2; i++) {
+			String newName = rawUpgradeItems[random.nextInt(rawUpgradeItems.length-1)];
+			int newSellPrice = random.nextInt(10) + 1;
+			int newSize = 0;
+			Item newItem = new Item(newName, "Dumb Description", newSize, ItemType.UPGRADE);
+			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.FORSALE);
+			getStore().addToSell(newSellPricedItem);		
 		}		
 	}
 	

@@ -17,8 +17,8 @@ public class Player {
 	private double balance;
 	private ArrayList<PricedItem> transactions;
 
-	// TODO The player's cargo, will eventually be the players ship
-	private StorageList ship;
+	// TODO kvie The player's cargo, will eventually be the players ship
+	private ArrayList<StorageList> ship;
 	
 	// The players starting balance of money
 	private final int STARTING_BALANCE = 50;
@@ -33,8 +33,11 @@ public class Player {
 		this.setBalance(STARTING_BALANCE);
 		this.transactions = new ArrayList<PricedItem>();		
 		
-		// The player's cargo, will eventually be the players ship
-		setShip(new StorageList("Cargo Hold 1", 10, ItemType.CARGO));		
+		// TODO kvie The player's cargo, will eventually be the players ship
+		setShip(new ArrayList<StorageList>());
+		getShip().add(new StorageList("Cargo Hold 1", 4, ItemType.CARGO));
+		getShip().add(new StorageList("Cannon Bay", 2, ItemType.WEAPON));
+		getShip().add(new StorageList("Upgradable", 1, ItemType.UPGRADE));
 	}
 
 	/**
@@ -60,65 +63,137 @@ public class Player {
 
 	/**
 	 * @return the transactions
+	 * TODO SHOULD BE UNMODIFABLE
 	 */
 	public ArrayList<PricedItem> getTransactions() {
 		return this.transactions;
 	}
 	
 	// TODO NEED TO CHECK IF YOU HAVE ENOUGH $$$, THROE THE VALIDATE ERROR
-	public PricedItem buyItem(Store store, int itemIndex) {
-		PricedItem purchase = store.getToSell().get(itemIndex);		
-		store.removeFromSell(purchase);
-		this.transactions.add(purchase);
-		setBalance(getBalance()-purchase.getPrice());
-		getShip().addItem(purchase.getItem());
-		return purchase;
+	public PricedItem buyItem(Store store, int itemIndex) {		
+		PricedItem purchase = store.getToSell().get(itemIndex);
+		if (validateBuy(purchase)) {
+			
+			//TODO THIS SHOULD BE store.sell
+			store.removeFromSell(purchase);
+			transactions.add(new PricedItem(purchase.getItem(), purchase.getPrice(), PriceType.PURCHASED));
+			setBalance(getBalance() -purchase.getPrice());
+			addItem(purchase.getItem());
+			return purchase;
+		} else {
+			return null;
+		}
 	}
 	
 	// TODO NEED TO CHECK IF YOU HAVE the item
 	public PricedItem sellItem(Store store, int itemIndex) {
 		PricedItem sale = store.getToBuy().get(itemIndex);
-		store.removeFromBuy(sale);
-		store.addToSell(sale);
-		this.transactions.add(sale);
-		setBalance(getBalance() +sale.getPrice());
-		getShip().removeItem(sale.getItem());
-		return sale;
+		
+		if (validateSell(sale)) {
+			//TODO THIS SHOULD BE store.buy
+			store.removeFromBuy(sale);
+			store.addToSell(new PricedItem(sale.getItem(), sale.getPrice(), PriceType.FORSALE));
+			
+			this.transactions.add(new PricedItem(sale.getItem(), sale.getPrice(), PriceType.SOLD));
+			setBalance(getBalance() +sale.getPrice());
+			removeItem(sale.getItem());
+			return sale;
+		} else {
+			return null;
+		}
 	}
 
 	/**
 	 * @return the ship
 	 */
-	public StorageList getShip() {
+	public ArrayList<StorageList> getShip() {
 		return ship;
 	}
 
 	/**
 	 * @param ship the ship to set
 	 */
-	public void setShip(StorageList ship) {
+	public void setShip(ArrayList<StorageList> ship) {
 		this.ship = ship;
 	}	
 	
+	//Should be exceptions
+	public boolean validateBuy(PricedItem purchase) {		
+		return hasMoney(purchase) && hasSpace(purchase.getItem());
+	}	
+
+	//Should be exceptions	
+	public boolean validateSell(PricedItem sale) {
+		return hasItem(sale.getItem());
+	}		
 	
-	public String validateBuy(PricedItem purchase) {		
-		if (purchase.getPrice() > getBalance()) {
-			return "Insufficient funds";
+	public boolean hasMoney(PricedItem purchase) {
+		if (purchase.getPrice() <= getBalance()) {
+			return true;
+		} else {
+			return false;
 		}
-		if (purchase.getItem().getSize() > getShip().remainingSpace()) {
-			return "Insufficient space in " + getShip().getName();
-		}
-		if (purchase.getItem().getType() != getShip().getType()) {
-			return getShip().getName() + "does not hold" + getShip().getType() + "s";
-		}				
-		return null;
+	}
+	
+	public void dumpList() {
+		for (int i = 0; i < ship.size(); i++) {
+			ship.get(i).dumpList();
+		}		
+	}
+	
+	public void dumpTransactions() {
+		for (int i = 0; i < transactions.size(); i++) {
+			System.out.println(transactions.get(i).toString());
+		}		
 	}	
 	
-	public String validateSell(PricedItem sale) {
-		if (getShip().hasItem(sale.getItem()) == false) {
-			return "You don't have " +sale.getItem().getName() +" to sell.";
+	// KVIE SHIP CODE. WELL IT SHOULD BE IN KVIE SHIP CODE
+	// THIS IS QUICK AND DIRTY AND DUPLICATIVE
+	
+	public boolean hasSpace(Item item) {
+		for (int i = 0; i < ship.size(); i++) {
+			if (ship.get(i).getType() == item.getType()) {
+				if (ship.get(i).remainingSpace() >= item.getSize()) {
+					return true;
+				}
+			}
+			
 		}
-		return null;
-	}		
+		return false;
+	}
+	
+	// SHould I return true on success, this is very duplicative. but I dont really want a transaction lock across objects
+	public void addItem(Item item) {
+		for (int i = 0; i < ship.size(); i++) {
+			if (ship.get(i).getType() == item.getType()) {
+				if (ship.get(i).remainingSpace() >= item.getSize()) {
+					ship.get(i).addItem(item);
+				}
+			}			
+		}
+	}	
+	
+	public boolean hasItem(Item item) {
+		for (int i = 0; i < ship.size(); i++) {
+			if (ship.get(i).getType() == item.getType()) {
+				if (ship.get(i).hasItem(item)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}	
+
+	public boolean removeItem(Item item) {
+		for (int i = 0; i < ship.size(); i++) {
+			if (ship.get(i).getType() == item.getType()) {
+				ship.get(i).removeItem(item);
+			}
+		}
+		return false;
+	}	
+
+
+
 
 }

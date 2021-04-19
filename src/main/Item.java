@@ -73,7 +73,18 @@ public class Item {
 	 * @return a string representation of the Item
 	 */
 	public String toString() {
-		return getName() + ": Takes up " + getSize() + " space in the Cargo Hold.";
+        switch (this.type) {
+    		case CARGO:	
+    			return type.name() +": " +name + ", takes up " + size;
+    		case WEAPON:
+    			return type.name() +": " +name + ", takes up " + size;
+    		case UPGRADE:
+    			return type.name() +": " +name;
+    		case REPAIR:
+    			return type.name() +": " +name;    	
+	        default:
+	            return type.name() +": " +name;
+        }
 	}		
 	
 	//TODO SHOULD I OVERIDE HE obj version

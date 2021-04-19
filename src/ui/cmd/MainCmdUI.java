@@ -153,7 +153,7 @@ public class MainCmdUI implements IslandTraderUI {
 	    	this.options = new ArrayList<String>();
 	    	List<PricedItem> toSellItems = ui.game.getStore().getToSell();
 	    	for (int i = 0; i < toSellItems.size(); i++) {
-	    		if (this.ui.game.getPlayer().validateBuy(toSellItems.get(i)) == null) {	    			
+	    		if (this.ui.game.getPlayer().validateBuy(toSellItems.get(i))) {	    			
 	    			this.options.add("* " +toSellItems.get(i).toString());
 	    		} else {
 	    			this.options.add(toSellItems.get(i).toString());
@@ -179,7 +179,8 @@ public class MainCmdUI implements IslandTraderUI {
 			} else { //THIS IS UGLY check this has to work, ie no passthrough of bad ints
 				ui.buyStoreItem(intOption-1);
 			}	
-
+			ui.game.getPlayer().dumpList();
+			//ui.game.getPlayer().dumpTransactions();
 		}
 
 	}	
@@ -198,7 +199,7 @@ public class MainCmdUI implements IslandTraderUI {
 	    	this.options = new ArrayList<String>();
 	    	List<PricedItem> toBuyItems = ui.game.getStore().getToBuy();
 	    	for (int i = 0; i < toBuyItems.size(); i++) {
-	    		if (this.ui.game.getPlayer().validateSell(toBuyItems.get(i)) == null) {	    			
+	    		if (this.ui.game.getPlayer().validateSell(toBuyItems.get(i))) {	    			
 	    			this.options.add("* " +toBuyItems.get(i).toString());
 	    		} else {
 	    			this.options.add(toBuyItems.get(i).toString());
@@ -216,14 +217,14 @@ public class MainCmdUI implements IslandTraderUI {
 
 		@Override
 		public void handleOption(String option) {
-			int intOption = Integer.parseInt(option);
-			ui.game.getPlayer().getShip().dumpList();
+			int intOption = Integer.parseInt(option);			
 			if (intOption == -1) {
 				this.setFinish();
 			} else { //check this has to work, ie no passthrough of bad ints
 				ui.sellPlayerItem(intOption-1);
 			}	
-
+			ui.game.getPlayer().dumpList();
+			//ui.game.getPlayer().dumpTransactions();
 		}
 
 	}	
@@ -315,7 +316,7 @@ public class MainCmdUI implements IslandTraderUI {
 	private void buyStoreItem(int option) {
 		PricedItem purchase = this.game.getPlayer().buyItem(this.game.getStore(), option);
 		System.out.println("You Are a hero");
-		System.out.println("Purchased:" +purchase.toString());
+		System.out.println("Purchased:" +purchase.toString()); //This is kinda past tense
 	}
 	
 	// TODO Need to check storage space and money. UI Shouldn't do that though.
