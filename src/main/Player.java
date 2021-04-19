@@ -4,6 +4,8 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author bmalthi
@@ -63,11 +65,10 @@ public class Player {
 
 	/**
 	 * @return the transactions
-	 * TODO SHOULD BE UNMODIFABLE
 	 */
-	public ArrayList<PricedItem> getTransactions() {
-		return this.transactions;
-	}
+	public List<PricedItem> getTransactions() {
+		return Collections.unmodifiableList(transactions);
+	}	
 	
 	// TODO NEED TO CHECK IF YOU HAVE ENOUGH $$$, THROE THE VALIDATE ERROR
 	public PricedItem buyItem(Store store, int itemIndex) {		

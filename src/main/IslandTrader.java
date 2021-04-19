@@ -17,6 +17,8 @@ public class IslandTrader {
 	
 	private int gameLength;
 	
+	private int time = 1;
+	
 	public static final String GAME_LENGTH_REGEX = "^[2-4][0-9]|50$";	
 	
 	/**
@@ -131,6 +133,20 @@ public class IslandTrader {
 	 */
 	public void setGameLength(int gameLength) {
 		this.gameLength = gameLength;
+	}
+
+	/**
+	 * @return the time
+	 */
+	public int getTime() {
+		return time;
+	}
+
+	/**
+	 * @param time the time to set
+	 */
+	public void setTime(int time) {
+		this.time = time;
 	}
 	
 }

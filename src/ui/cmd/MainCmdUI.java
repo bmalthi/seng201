@@ -17,27 +17,26 @@ public class MainCmdUI implements IslandTraderUI {
     // The rocket manager this ui interacts with
     private IslandTrader game;
     
-	private class PlayerNameInput extends InputOption {	
+	private class PlayerNameInput extends Option {	
 		
 		public PlayerNameInput(MainCmdUI ui) {
 			super(ui, Player.NAME_REGEX);
-			this.header = "Please choose a trader name:\n(between 3-15 characters)";			
-			this.footer = ""; //Footer printed after name is chosen in handle method
+			this.oneHeader = "Please choose a trader name:\n(between 3-15 characters)";			
 		}
 		
 		@Override
 		public void handleOption(String option) {
 			ui.game.setPlayer(new Player(option));			
 			this.setFinish();
-		}		
+		}
+	
 	}
 	
-	private class GameLengthInput extends InputOption {	
+	private class GameLengthInput extends Option {	
 		
 		public GameLengthInput(MainCmdUI ui) {
 			super(ui, IslandTrader.GAME_LENGTH_REGEX);
-			this.header = "How many days do you want to play for?\n(between 20-50 days)";			
-			this.footer = ""; //Footer printed after gamelength is chosen in handle method
+			this.oneHeader = "How many days do you want to play for?\n(between 20-50 days)";			
 		}
 		
 		@Override
@@ -49,18 +48,18 @@ public class MainCmdUI implements IslandTraderUI {
 	}
 	
 	// Class (glorified enum) for the main store menu
-	private class MainMenu extends MenuOption {		
+	private class MainMenu extends ListOption {		
 				
 		public MainMenu(MainCmdUI ui) {
 			super(ui);
-		   	this.header = "What do you want to do next?\n****************************************";    		
-	    	this.footer = "\n";
+		   	this.eachHeader = "What do you want to do next?\n";
+	    	this.oneFooter = "\n";
 	    	
 	    	//Set up Options
 	    	String[] base_options = {	    	
 				"Money & days remaining",
 				"Ship status",
-				"View purchases",
+				"View your past purchases & sales",
 				"View island properties",
 				"Visit the island store - WORKING",
 				"Sail to another island"}; 
@@ -78,10 +77,12 @@ public class MainCmdUI implements IslandTraderUI {
 	        		ui.quit();
 	        		break;  
 	            case 1: //"Money & days remaining
+	            	ui.gameStatus.getUserOption(ui.scanner);
 	                break;
 	            case 2: //"Ship status"
 	                break;
 	            case 3: //"View purchases"
+	            	ui.purchasesList.getUserOption(ui.scanner);
 	                break;
 	            case 4: //"View island properties"
 	                break;	                
@@ -98,15 +99,15 @@ public class MainCmdUI implements IslandTraderUI {
 	} 		
 	
 	// Class (glorified enum) for the main store menu
-	private class StoreMenu extends MenuOption {		
+	private class StoreMenu extends ListOption {		
 		
 		public StoreMenu(MainCmdUI ui) {
-			super(ui);
-		   	this.header = "How can we help you at our store?\n****************************************";
-	    	this.footer = "Thanks for shopping in our store.\n";
+			super(ui);	
+		   	this.eachHeader = "How can we help you at our store?";
+	    	this.oneFooter = "Thanks for shopping in our store.\n";
 	    	
 	    	//Set up Options
-	    	String[] base_options = {"FORSALE", "FORBUY", "PASTPURCHASE", "PURCHASE", "SELL"};
+	    	String[] base_options = {"FORSALE", "FORBUY", "PASTPURCHASE"};
 	    	this.options = new ArrayList<String>(Arrays.asList(base_options));
 	    	String exitOption = "(leave store)";
 	    	this.options.add(0, exitOption);
@@ -126,11 +127,8 @@ public class MainCmdUI implements IslandTraderUI {
 		        	ui.sellMenu.getUserOption(ui.scanner);
 		            break;
 		        case 3: //"PASTPURCHASES":
-		            break;
-		        case 4: //"PURCHASE":
-		            break;
-		        case 5: //"SELL":
-		            break;                
+		        	ui.purchasesList.getUserOption(ui.scanner);
+		            break;             
 		        default:
 		            throw new IllegalStateException("Unexpected value: " + option);
 	        }		
@@ -140,12 +138,13 @@ public class MainCmdUI implements IslandTraderUI {
 	}	
 	
 	// Menu option for things the player can buy / store will sell
-	private class BuyMenu extends MenuOption {		
+	// TODO Say how much the player has in space and money
+	private class BuyMenu extends ListOption {		
 		
 		public BuyMenu(MainCmdUI ui) {
-			super(ui); 					
-		   	this.header = "What do you want to buy?\n (* recommended for you)\n";
-	    	this.footer = "\n";	    	
+			super(ui); 		
+		   	this.eachHeader = "What do you want to buy?\n (* recommended for you)\n"; 
+	    	this.oneFooter = "\n";	    	
 	    	
 		}
 		
@@ -179,20 +178,20 @@ public class MainCmdUI implements IslandTraderUI {
 			} else { //THIS IS UGLY check this has to work, ie no passthrough of bad ints
 				ui.buyStoreItem(intOption-1);
 			}	
-			ui.game.getPlayer().dumpList();
+			//ui.game.getPlayer().dumpList();
 			//ui.game.getPlayer().dumpTransactions();
 		}
 
 	}	
 	
 	// Menu option for things the player can sell / store will buy
-	private class SellMenu extends MenuOption {
+	// TODO Say how much the player has in space and money	
+	private class SellMenu extends ListOption {
 		
 		public SellMenu(MainCmdUI ui) {
-			super(ui); 				
-		   	this.header = "What do you want to sell?\n (* recommended for you)\n";
-	    	this.footer = "\n";	    	
-	    	
+			super(ui); 	
+		   	this.eachHeader = "What do you want to sell?\n (* recommended for you)\n";
+	    	this.oneFooter = "\n";	    		    	
 		}
 
 		private void refreshOptions() {
@@ -223,9 +222,55 @@ public class MainCmdUI implements IslandTraderUI {
 			} else { //check this has to work, ie no passthrough of bad ints
 				ui.sellPlayerItem(intOption-1);
 			}	
-			ui.game.getPlayer().dumpList();
+			//ui.game.getPlayer().dumpList();
 			//ui.game.getPlayer().dumpTransactions();
 		}
+
+	}	
+	
+	// TODO Do I need to wait for user, why not just print list & exit
+	private class PurchasesList extends Option {				
+		
+		List<PricedItem> transactions;
+		
+		public PurchasesList(MainCmdUI ui) {
+			super(ui, ".+");
+			this.eachHeader = "Here are all your purchases & sales.\n";
+		}		
+		
+		@Override
+		public void printOptions() {
+			System.out.println("You currently have " +ui.game.getPlayer().getBalance() +" dollars.\n");
+			
+			transactions = ui.game.getPlayer().getTransactions();
+			if(transactions.size() == 0) {
+				System.out.println("You have no transactions yet");
+			} else {
+				for (int i = 0; i < transactions.size(); i++) {
+					System.out.println(transactions.get(i).toString());
+				}
+			}
+			System.out.println("(Enter any key to go back)");
+		}			
+
+	}
+	
+	// TODO Do I need to wait for user, why not just print list & exit
+	private class GameStatus extends Option {						
+		
+		public GameStatus(MainCmdUI ui) {
+			super(ui, ".+");
+		   	this.eachHeader = "Game Status\n";
+		}		
+		
+		@Override
+		public void printOptions() {
+			System.out.println("Hi " + ui.game.getPlayer().getName());
+			System.out.println("You currently have " +ui.game.getPlayer().getBalance() +" dollars.");
+			System.out.println("You are on day " +ui.game.getTime() +" of " +ui.game.getGameLength() +". " +(ui.game.getGameLength()-ui.game.getTime()) +" days left.\n");
+			
+			System.out.println("(Enter any key to go back)");
+		}			
 
 	}	
     
@@ -237,7 +282,9 @@ public class MainCmdUI implements IslandTraderUI {
 	private MainMenu mainMenu;
 	private StoreMenu storeMenu;	
 	private BuyMenu buyMenu;
-	private SellMenu sellMenu;	
+	private SellMenu sellMenu;
+	private PurchasesList purchasesList;
+	private GameStatus gameStatus;
 	
 	public MainCmdUI() {
 		scanner = new Scanner(System.in);
@@ -263,7 +310,9 @@ public class MainCmdUI implements IslandTraderUI {
 		this.mainMenu = new MainMenu(this);		
 		this.storeMenu = new StoreMenu(this);		
 		this.buyMenu = new BuyMenu(this);		
-		this.sellMenu = new SellMenu(this);		
+		this.sellMenu = new SellMenu(this);	
+		this.purchasesList = new PurchasesList(this);
+		this.gameStatus = new GameStatus(this);
 	
 		// Start the game. Kinda
 		game.onSetupFinished();
@@ -274,22 +323,22 @@ public class MainCmdUI implements IslandTraderUI {
 	public void start() {
 		// Print Intro
 		System.out.println("****************************************");
-		System.out.println("Welcome to Island Trader V0.1");
+		System.out.println("Welcome to Island Trader V0.3");
 		System.out.println("****************************************\n");		
 		
 		// Get the player name from the player
 		this.game.setPlayer(new Player("Ben"));
 		//TODO Restore playerNameInput.getUserOption(scanner);
-		System.out.println("Great name, " +this.game.getPlayer().getName());
+		System.out.println("Great name, " +this.game.getPlayer().getName() +"\n");
 		
 		// Get the game length from the player
 		this.game.setGameLength(20);
 		//TODO Restore gameLengthInput.getUserOption(scanner);
-		System.out.println("Game will run for " +this.game.getGameLength() +" days");	
+		System.out.println("Game will run for " +this.game.getGameLength() +" days\n");	
 		
 		// Get the ship choice
 		// TODO @kvie GetShipinput 
-		System.out.println("What an awesome ship TODO\n");
+		System.out.println("TODO What an awesome ship\n");
 		
 		//Start the main menu
 		mainMenu.getUserOption(this.scanner);	

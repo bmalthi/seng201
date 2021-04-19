@@ -7,9 +7,9 @@ import java.util.Scanner;
 
 /**
  * @author bmalthi
- *
+ * //TODO Not abstract but most 
  */
-public abstract class Option {    
+public class Option {    
 	
 	protected MainCmdUI ui;        
     
@@ -17,9 +17,11 @@ public abstract class Option {
     
     protected boolean finish = false;
     
-    protected String header;
+    protected String oneHeader = "****************************************";
     
-    protected String footer;    
+    protected String eachHeader = "";
+    
+    protected String oneFooter = "";
     
     @SuppressWarnings("serial") //TODO WTF IS THIS
 	protected class InvalidInputException extends IllegalArgumentException {    	
@@ -34,19 +36,48 @@ public abstract class Option {
     	this.ui = ui;
     }      
     
-    public abstract void getUserOption(Scanner scanner);    
+	protected void getUserOption(Scanner scanner) {
+		if (oneHeader != null)
+		System.out.println(oneHeader);
+		
+        while (!finish) {        	
+
+        	System.out.println(eachHeader);	
+            printOptions();            
+    		
+            try {
+            	String input = scanner.nextLine();
+            	validateInput(input);
+            	handleOption(input);
+            } catch (InvalidInputException e) {
+            	System.out.println("Please try again: "+e.getMessage());     	
+            } catch (Exception e) {
+            	System.out.println("OPPS:\n" +e.getMessage());
+            }    		    		
+
+        }	
+        System.out.println(oneFooter);
+        
+        //Reset
+        finish = false; //TODO I FORGET WHY I NEED THIS OPPS        
+	}
 	
-	public void validateInput(String input) {
+	protected void printOptions() {
+		//Default is blank
+	}
+	
+	protected void validateInput(String input) {
     	if(input.matches(INPUT_REGEX) == false) {
     		throw new InvalidInputException("Input `" + input + "` is invalid. Regex: " +INPUT_REGEX);
     	}		
 	}
 	
-	public abstract void handleOption(String option);
+	public void handleOption(String option) {	
+		this.setFinish();
+	}	
 	
 	public void setFinish() {
 		finish = true;
 	}	
-         
 
 }
