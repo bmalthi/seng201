@@ -15,7 +15,7 @@ public abstract class MenuOption extends Option {
     protected ArrayList<String> options;    
     
 	public MenuOption(MainCmdUI ui) {
-		super(ui, "-?[1-9][0-9]+$");
+		super(ui, "-?[1-9][0-9]?$"); //Menu can only have 99 items
 	}    
     
     private int getDisplayIndex(int arrayIndex) {
@@ -50,11 +50,9 @@ public abstract class MenuOption extends Option {
             	validateInput(input);
             	handleOption(input);
             } catch (InvalidInputException e) {
-            	System.out.println("Please try again");
-                scanner.nextLine();     	
+            	System.out.println("Please try again: "+e.getMessage());     	
             } catch (Exception e) {
             	System.out.println("OPPS:\n" +e.getMessage());
-                scanner.nextLine();
             }    		    		
 
         }	
@@ -70,7 +68,7 @@ public abstract class MenuOption extends Option {
     	super.validateInput(input);
 		int intInput = Integer.parseInt(input);
 		if (intInput < -1 || intInput == 0 || intInput >= options.size()) {
-			throw new InvalidInputException("Input " + input + " is invalid");
+			throw new InvalidInputException("Input `" + input + "` is invalid. Regex: " +INPUT_REGEX);
 		}
 	}
 

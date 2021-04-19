@@ -38,7 +38,7 @@ public abstract class Option {
 	
 	public void validateInput(String input) {
     	if(input.matches(INPUT_REGEX) == false) {
-    		throw new InvalidInputException("Input " + input + " is invalid");
+    		throw new InvalidInputException("Input `" + input + "` is invalid. Regex: " +INPUT_REGEX);
     	}		
 	}
 	

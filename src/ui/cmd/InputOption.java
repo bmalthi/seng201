@@ -26,11 +26,10 @@ public abstract class InputOption extends Option {
             	validateInput(input);
             	handleOption(input);
             } catch (InvalidInputException e) {
-            	System.out.println("Please try again");
-                scanner.nextLine();     	
+            	System.out.println("Please try again");    	
             } catch (Exception e) {
             	System.out.println("OPPS:\n" +e.getMessage());
-                scanner.nextLine();
+                //scanner.nextLine(); TODO Why don't I need this
             }    		    		
 
         }	
