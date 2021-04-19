@@ -10,54 +10,37 @@ import java.util.Scanner;
  *
  */
 public abstract class Option {    
-        
+	
+	protected MainCmdUI ui;        
+    
+	protected final String INPUT_REGEX;
+    
+    protected boolean finish = false;
+    
     protected String header;
     
-    protected String footer;
+    protected String footer;    
     
-    private boolean finish = false;    
-    
-    @SuppressWarnings("serial")
-    //TODO WTF IS THIS
-	private class InvalidInputException extends IllegalArgumentException {    	
+    @SuppressWarnings("serial") //TODO WTF IS THIS
+	protected class InvalidInputException extends IllegalArgumentException {    	
 
-		private InvalidInputException(String message) {
+		InvalidInputException(String message) {
     		super(message);
     	}
     }   
     
-    public abstract void printOptions();     
+    public Option(MainCmdUI ui, String INPUT_REGEX) {
+    	this.INPUT_REGEX = INPUT_REGEX;
+    	this.ui = ui;
+    }      
     
-	public void getUserOption(Scanner scanner) {
-		System.out.println(header);
-		
-        while (!finish) {        	
-
-            printOptions();            
-    		
-            try {
-            	String input = scanner.nextLine();
-            	if(validateInput(input) == false) {
-            		throw new InvalidInputException("Input " + input + " is invalid");
-            	}
-            	handleOption(input);
-            } catch (InvalidInputException e) {
-            	System.out.println("Please try again");
-                scanner.nextLine();     	
-            } catch (Exception e) {
-            	System.out.println("OPPS:\n" +e.getMessage());
-                scanner.nextLine();
-            }    		    		
-
-        }	
-        System.out.println(footer);
-        
-        //Reset
-        finish = false;
-        
-	}
+    public abstract void getUserOption(Scanner scanner);    
 	
-	public abstract boolean validateInput(String input);
+	public void validateInput(String input) {
+    	if(input.matches(INPUT_REGEX) == false) {
+    		throw new InvalidInputException("Input " + input + " is invalid");
+    	}		
+	}
 	
 	public abstract void handleOption(String option);
 	

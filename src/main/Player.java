@@ -22,6 +22,8 @@ public class Player {
 	
 	// The players starting balance of money
 	private final int STARTING_BALANCE = 50;
+	
+	public static final String NAME_REGEX = "^[a-zA-Z]{3,15}$";
 
 	/**
 	 * 

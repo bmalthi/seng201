@@ -17,6 +17,8 @@ public class IslandTrader {
 	
 	private int gameLength;
 	
+	public static final String GAME_LENGTH_REGEX = "^[2-4][0-9]|50$";	
+	
 	/**
 	 * Creates a RocketManager with the given user interface and rockets.
 	 *

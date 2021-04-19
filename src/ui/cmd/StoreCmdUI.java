@@ -25,11 +25,10 @@ public class StoreCmdUI {
 	private IslandTrader game;		
 	
 	// Class (glorified enum) for the main store menu
-	private class StoreMenu extends MenuOption {
-		
-		private StoreCmdUI ui; //TODO IS THIS NEEDED
+	private class StoreMenu extends MenuOption {		
 		
 		public StoreMenu(StoreCmdUI ui) {
+			super(ui);
 		   	this.header = "How can we help you at our store?\n";
 	    	this.footer = "Thanks for shopping in our store.\n";
 	    	
@@ -38,8 +37,6 @@ public class StoreCmdUI {
 	    	this.options = new ArrayList<String>(Arrays.asList(base_options));
 	    	String exitOption = "(leave store)";
 	    	this.options.add(0, exitOption);
-	    	
-			this.ui = ui;
 		}
 
 		@Override

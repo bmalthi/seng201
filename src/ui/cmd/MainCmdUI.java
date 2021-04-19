@@ -19,25 +19,24 @@ public class MainCmdUI implements IslandTraderUI {
 	private class MainMenu extends MenuOption {
 		
 		private MainCmdUI ui; //TODO IS THIS NEEDED
-		
+				
 		public MainMenu(MainCmdUI ui) {
+			super(ui);
 		   	this.header = "What do you want to do next?\n****************************************";    		
 	    	this.footer = "\n";
 	    	
 	    	//Set up Options
 	    	String[] base_options = {	    	
-				"Money & days remaining - NOPE",
-				"Ship status - NOPE",
-				"View purchases - NOPE",
-				"View island properties - NOPE",
+				"Money & days remaining",
+				"Ship status",
+				"View purchases",
+				"View island properties",
 				"Visit the island store - WORKING",
-				"Sail to another island - NOPE"}; 
+				"Sail to another island"}; 
 	        
 	    	this.options = new ArrayList<String>(Arrays.asList(base_options));
 	    	String exitOption = "*** Quit Game ***";
 	    	this.options.add(0, exitOption);
-	    	
-			this.ui = ui;
 		}
 
 		@Override
@@ -68,7 +67,43 @@ public class MainCmdUI implements IslandTraderUI {
 	    }
 
 	}    
+	
+	private class PlayerNameInput extends InputOption {	
+		
+		public PlayerNameInput(MainCmdUI ui) {
+			super(ui, Player.NAME_REGEX);
+			this.header = "Please choose a trader name:\n(between 3-15 characters)";			
+			//TODO how to make this dynamic
+			this.footer = "Great Name"; // +name +"\n";
+		}
+		
+		@Override
+		public void handleOption(String option) {
+			ui.game.setPlayer(new Player(option));			
+		}
+		
+	}
+	
+	private class GameLengthInput extends InputOption {	
+		
+		public GameLengthInput(MainCmdUI ui) {
+			super(ui, IslandTrader.GAME_LENGTH_REGEX);
+			this.header = "How many days do you want to play for?\n(between 20-50 days)";			
+			//TODO how to make this dynamic
+			this.footer = "You choose "; // TODO + gameLength + " days\n");
+		}
+		
+		@Override
+		public void handleOption(String option) {
+			int intOption = Integer.parseInt(option);
+			ui.game.setGameLength(intOption);
+		}
+		
+	}	
     
+	private PlayerNameInput playerNameInput;
+	private GameLengthInput gameLengthInput;
+	
 	private MainMenu mainMenu;
 	
 	public MainCmdUI() {
@@ -81,77 +116,44 @@ public class MainCmdUI implements IslandTraderUI {
 	// Get game length
 	// Get ship / fact
 	public void setup(IslandTrader game) {
+		// Set up game item
 		this.game = game;
+		
+		// Set up player name input
+		this.playerNameInput = new PlayerNameInput(this);
+		
+		// Set up game length input
+		this.gameLengthInput = new GameLengthInput(this);
+		// TODO Set up ship choice input
+		
+		//Set up command menus
 		this.mainMenu = new MainMenu(this);
-		
-		// TODO SHOULD WE JUST MOVE THIS TO START, WHY ARE THESE DIFFERENT UI PARTS
-		this.game.setPlayer(new Player(getPlayerName()));
-		this.game.setGameLength(getGameLength());		
-		getShip();
-		
-		// TODO. I dont' really understand this split, it seems arbritray, pre this we also get user input
+	
+		// Start the game. Kinda
 		game.onSetupFinished();
 		
 	}
 
-	private void getShip() {
-		// Choose A Ship
-		System.out.println("What ship do you want");
-		System.out.println("You choose, wow awesome ship, lets play\n");
-		
-	}
-
-	private int getGameLength() {
-		// Print game length request
-		System.out.println("How many days do you want to play for?");
-		System.out.println("(between 20-50 days):");
-		int gameLength;
-		
-		while (true) {
-			gameLength = scanner.nextInt();
-			if (gameLength >= 20 && gameLength <= 50) {
-				break;
-			} else {
-				System.out.println("Please choose between 20 and 50 days");
-			}
-		}
-		System.out.println("You choose " + gameLength + " days\n");
-		
-		return gameLength;
-		
-	}
-
-	private String getPlayerName() {
-
+	@Override
+	public void start() {
 		// Print Intro
 		System.out.println("****************************************");
 		System.out.println("Welcome to Island Trader V0.1");
-		System.out.println("****************************************\n");
+		System.out.println("****************************************\n");		
 		
-		// Get Trader Name
-		System.out.println("Please choose a trader name:");
-		System.out.println("(between 3-15 characters)");
+		// Get the player name from the player
+		playerNameInput.getUserOption(scanner);
+		// TODO Print Name
 		
-		String name;
+		// Get the game length from the player
+		gameLengthInput.getUserOption(scanner);
+		// TODO Print GameLength		
 		
-		while (true) {
-			name = scanner.next();
-			if (name.length() >= 3 && name.length() <= 15) {
-				break;
-			} else {
-				System.out.println("Please choose a name between 3-15 characters");
-			}
-		}
+		// Get the ship choice
+		System.out.println("\nWhat an awesome ship TODO");
+		// TODO Print ShipChoice		
 		
-		System.out.println("Great Name " + name +"\n");	
-		
-		return name;
-		
-	}
-
-	@Override
-	// TODO Quiz6 code is much prettier and general
-	public void start() {
+		//Start the main menu
 		mainMenu.getUserOption(this.scanner);			
 	}	           
 
