@@ -42,9 +42,9 @@ public class IslandTrader {
 			int newBuyPrice = random.nextInt(10) + 1;
 			int newSize = random.nextInt(2) + 1;
 			Item newItem = new Item(newName, "Dumb Description", newSize, ItemType.CARGO);
-			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.FORSALE);
+			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.FORSALE, "IslandTest");
 			getStore().addToSell(newSellPricedItem);			
-			PricedItem newBuyPricedItem = new PricedItem(newItem, newBuyPrice, PriceType.FORBUY);
+			PricedItem newBuyPricedItem = new PricedItem(newItem, newBuyPrice, PriceType.FORBUY, "IslandTest");
 			getStore().addToBuy(newBuyPricedItem);
 		}
 		
@@ -56,9 +56,9 @@ public class IslandTrader {
 			int newBuyPrice = random.nextInt(10) + 1;
 			int newSize = random.nextInt(2) + 1;
 			Item newItem = new Item(newName, "Dumb Description", newSize, ItemType.WEAPON);
-			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.FORSALE);
+			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.FORSALE, "IslandTest");
 			getStore().addToSell(newSellPricedItem);	
-			PricedItem newBuyPricedItem = new PricedItem(newItem, newBuyPrice, PriceType.FORBUY);
+			PricedItem newBuyPricedItem = new PricedItem(newItem, newBuyPrice, PriceType.FORBUY, "IslandTest");
 			getStore().addToBuy(newBuyPricedItem);			
 		}
 		
@@ -69,7 +69,7 @@ public class IslandTrader {
 			int newSellPrice = random.nextInt(10) + 1;
 			int newSize = 0;
 			Item newItem = new Item(newName, "Dumb Description", newSize, ItemType.UPGRADE);
-			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.FORSALE);
+			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.FORSALE, "IslandTest");
 			getStore().addToSell(newSellPricedItem);		
 		}		
 	}

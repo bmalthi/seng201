@@ -12,14 +12,16 @@ public class PricedItem {
 	private Item item;
 	private int price;
 	private PriceType type;
+	private String island;
 
 	/**
 	 * 
 	 */
-	public PricedItem(Item item, int price, PriceType type) {
+	public PricedItem(Item item, int price, PriceType type, String island) {
 		this.item = item;
 		this.price = price;
 		this.type = type;
+		this.setIsland(island);
 	}
 
 	/**
@@ -45,7 +47,6 @@ public class PricedItem {
 
 	/**
 	 * @return a string representation of the Item
-	 * TODO Change naming, depending on type
 	 */
 	public String toString() {
         switch (this.type) {
@@ -54,12 +55,26 @@ public class PricedItem {
     		case FORBUY:
     			return item.toString() +", we will buy for $" +price;
     		case PURCHASED:
-    			return item.toString() +", was purchased for $" +price;
+    			return item.toString() +", was purchased for $" +price +" at " +getIsland();
     		case SOLD:
-    			return item.toString() +", was sold for $" +price;    	
+    			return item.toString() +", was sold for $" +price +" at " +getIsland();
 	        default:
 	            return item.toString() +", is $" +price;
         }
+	}
+
+	/**
+	 * @return the island
+	 */
+	public String getIsland() {
+		return island;
+	}
+
+	/**
+	 * @param island the island to set
+	 */
+	public void setIsland(String island) {
+		this.island = island;
 	}	
 
 }

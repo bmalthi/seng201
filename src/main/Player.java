@@ -76,7 +76,7 @@ public class Player {
 			
 			//TODO THIS SHOULD BE store.sell
 			store.removeFromSell(purchase);
-			transactions.add(new PricedItem(purchase.getItem(), purchase.getPrice(), PriceType.PURCHASED));
+			transactions.add(new PricedItem(purchase.getItem(), purchase.getPrice(), PriceType.PURCHASED, purchase.getIsland()));
 			setBalance(getBalance() -purchase.getPrice());
 			addItem(purchase.getItem());
 			return purchase;
@@ -92,9 +92,9 @@ public class Player {
 		if (validateSell(sale)) {
 			//TODO THIS SHOULD BE store.buy
 			store.removeFromBuy(sale);
-			store.addToSell(new PricedItem(sale.getItem(), sale.getPrice(), PriceType.FORSALE));
+			store.addToSell(new PricedItem(sale.getItem(), sale.getPrice(), PriceType.FORSALE, sale.getIsland()+"-sold"));
 			
-			this.transactions.add(new PricedItem(sale.getItem(), sale.getPrice(), PriceType.SOLD));
+			this.transactions.add(new PricedItem(sale.getItem(), sale.getPrice(), PriceType.SOLD, sale.getIsland()));
 			setBalance(getBalance() +sale.getPrice());
 			removeItem(sale.getItem());
 			return sale;
