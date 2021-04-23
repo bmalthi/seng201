@@ -1,7 +1,7 @@
 package main;
 public class SpeedySoul extends Ship {
 	public SpeedySoul() {
-		super("Speedy Soul", 9, 35, "10%", 180);
+		super("Speedy Soul", 9, "10%", 180);
 	}
 }
 

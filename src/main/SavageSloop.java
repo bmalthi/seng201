@@ -1,7 +1,7 @@
 package main;
 public class SavageSloop extends Ship {
 	public SavageSloop() {
-		super("Savage Sloop", 12, 50, "25%", 300);
+		super("Savage Sloop", 12, "25%", 300);
 	}
 }
 

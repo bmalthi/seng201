@@ -1,7 +1,7 @@
 package main;
 public class SuddenStorm extends Ship {
 	public SuddenStorm() {
-		super("Sudden Storm", 10, 40, "15%", 200);
+		super("Sudden Storm", 10, "15%", 200);
 	}
 	
 	//name: Sudden Storm

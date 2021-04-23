@@ -1,7 +1,7 @@
 package main;
 public class SteelSkull extends Ship {
 	public SteelSkull() {
-		super("Steel Skull", 11, 45, "20%", 280);
+		super("Steel Skull", 11, "20%", 280);
 	}
 	
 	//name: Steel Skull

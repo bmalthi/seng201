@@ -4,69 +4,71 @@ import java.util.ArrayList;
 public class Ship {
 	private String name;
 	private int numberOfCrew;
-	private int cargoCapacity;
 	private String damageStatus;
 	private int repairCost;
-	private ArrayList<StorageList> theShip;
-	private ItemType type;
+	private ArrayList<StorageList> storage;
 	
-	setShip(new ArrayList<StorageList>());
-	getShip().add(new StorageList("Cargo Hold 1", 10, ItemType.CARGO));
-	getShip().add(new StorageList("Cannon Bay", 1, ItemType.WEAPON));
-	getShip().add(new StorageList("Upgradable", 1, ItemType.UPGRADE));
-	
-	
-	
-	public Ship(String name, int numberOfCrew, int cargoCapacity, String damageStatus, int repairCost) {
+	public Ship(String name, int numberOfCrew, String damageStatus, int repairCost) {
 		this.name = name;
 		this.numberOfCrew = numberOfCrew;
-		this.cargoCapacity = cargoCapacity;
 		this.damageStatus = damageStatus;
 		this.repairCost = repairCost;
+		this.storage = new ArrayList<StorageList>();
+
+		//Customise this in each ship type
+		this.storage.add(new StorageList("Cargo Hold 1", 10, ItemType.CARGO));
+		this.storage.add(new StorageList("Cannon Bay", 1, ItemType.WEAPON));
+		this.storage.add(new StorageList("Upgradable", 1, ItemType.UPGRADE));		
 	}
 	
-	public boolean hasSpace(int size, ItemType type) {
-		if (size > 0) {
-			return true;
-		} else {
-			return false;
+	public boolean hasSpace(Item item) {
+		for (int i = 0; i < storage.size(); i++) {
+			if (storage.get(i).getType() == item.getType()) {
+				if (storage.get(i).remainingSpace() >= item.getSize()) {
+					return true;
+				}
+			}
+			
 		}
+		return false;
 	}
 		
-	public void addItem(ItemType item) {
-		for (StorageList i: theShip) {
-			theShip.add(i);
+	public void addItem(Item item) {
+		for (int i = 0; i < storage.size(); i++) {
+			if (storage.get(i).getType() == item.getType()) {
+				if (storage.get(i).remainingSpace() >= item.getSize()) {
+					storage.get(i).addItem(item);
+				}
+			}			
 		}
-	}
+	}	
 	
-	public void hasItem(ItemType item) {
-		for (int i = 0; i < theShip.size(); i++) {
-			if (theShip.get(i).equals(item)) {
-				System.out.println("Item is stored");
+	public boolean hasItem(Item item) {
+		for (int i = 0; i < storage.size(); i++) {
+			if (storage.get(i).getType() == item.getType()) {
+				if (storage.get(i).hasItem(item)) {
+					return true;
+				}
 			}
 		}
+		return false;
 	}
 	
-	public void removeItem(ItemType item) {
-		for (StorageList x: theShip) {
-			for (int i = 0; i < theShip.size(); i++) {
-				if (theShip.get(i).equals(item)) {
-					theShip.remove(i);
+	public boolean removeItem(Item item) {
+		for (int i = 0; i < storage.size(); i++) {
+			if (storage.get(i).getType() == item.getType()) {
+				storage.get(i).removeItem(item);
+			}
 		}
-		}
-	}
-	}
+		return false;
+	}	
 	
 	public String getName() {
 		return name;
-	}
+	}	
 	
 	public int getnumberOfCrew() {
 		return numberOfCrew;
-	}
-	
-	public int getcargoCapacity() {
-		return cargoCapacity;
 	}
 	
 	public int repairCost() {
