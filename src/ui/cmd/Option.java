@@ -6,23 +6,38 @@ package ui.cmd;
 import java.util.Scanner;
 
 /**
- * @author bmalthi
- * //TODO Not abstract but most 
+ * Manages a cmd user input request to an Option presented
+ * 
+ * Is initialized with the option / question to print to the user and regex
+ * to validate the input. Loops until correct input is received and then passes
+ * the input to a (typically overidden) handleOption method 
+ * 
+ * Typically this will be subclassed as a specific input menu with default values passed
+ * TODO bmalthus: Should I remake this abstract
  */
 public class Option {    
 	
+	// The UI
 	protected MainCmdUI ui;        
     
+	// Regex that validates the user input
 	protected final String INPUT_REGEX;
     
+	// Boolean to indicate that we have finished with this Input getter
     protected boolean finish = false;
     
+    // Header that is printed to the user once in the input gathering process
     protected String oneHeader = "****************************************";
     
+    // Header that is printed to the user each loop of the request
     protected String eachHeader = "";
     
+    // Footer after we have finished with the input gathering process 
     protected String oneFooter = "";
     
+    /**
+	 * Exception throw when we do not receive valid input
+	 */    
     @SuppressWarnings("serial") //TODO WTF IS THIS
 	protected class InvalidInputException extends IllegalArgumentException {    	
 
@@ -30,12 +45,18 @@ public class Option {
     		super(message);
     	}
     }   
-    
+
+    /**
+	 * Initialize the Option, with ui and valid regex
+	 */    
     public Option(MainCmdUI ui, String INPUT_REGEX) {
     	this.INPUT_REGEX = INPUT_REGEX;
     	this.ui = ui;
     }      
     
+    /**
+	 * Method to collect user input, looping until valid input is received
+	 */      
 	protected void getUserOption(Scanner scanner) {
 		if (oneHeader != null)
 		System.out.println(oneHeader);
@@ -59,23 +80,38 @@ public class Option {
         System.out.println(oneFooter);
         
         //Reset
-        finish = false; //TODO I FORGET WHY I NEED THIS OPPS        
+        // Reset the Option to initial state, because it is often reused in game
+        finish = false;        
 	}
 	
+    /**
+	 * Dummy method (typically overridden, especially when presenting list of options to the user)
+	 * This method will print a list of options to choose from to the user, more detail if the options
+	 * presented cannot be assigned in the header / need to be refreshed throughout the game.
+	 */    	
 	protected void printOptions() {
 		//Default is blank
 	}
 	
+    /**
+	 * Validate that the user input matches the INPUT_REGEX, throw exception if not
+	 */  	
 	protected void validateInput(String input) {
     	if(input.matches(INPUT_REGEX) == false) {
     		throw new InvalidInputException("Input `" + input + "` is invalid. Regex: " +INPUT_REGEX);
     	}		
 	}
 	
+    /**
+	 * Method to handle next steps once valid input has been received
+	 */  	
 	public void handleOption(String option) {	
 		this.setFinish();
 	}	
 	
+    /**
+	 * Sets the finish property. Option will be excited after this is set
+	 */  	
 	public void setFinish() {
 		finish = true;
 	}	

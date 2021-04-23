@@ -15,7 +15,7 @@ public class MainCmdUI implements IslandTraderUI {
     private final Scanner scanner;
 
     // The rocket manager this ui interacts with
-    private IslandTrader game;
+    private IslandTrader islandTrader;
     
 	private class PlayerNameInput extends Option {	
 		
@@ -26,7 +26,7 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		@Override
 		public void handleOption(String option) {
-			ui.game.setPlayer(new Player(option));			
+			ui.islandTrader.setPlayer(new Player(option));			
 			this.setFinish();
 		}
 	
@@ -42,7 +42,7 @@ public class MainCmdUI implements IslandTraderUI {
 		@Override
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
-			ui.game.setGameLength(intOption);
+			ui.islandTrader.setGameLength(intOption);
 			this.setFinish();
 		}		
 	}
@@ -150,9 +150,9 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		private void refreshOptions() {
 	    	this.options = new ArrayList<String>();
-	    	List<PricedItem> toSellItems = ui.game.getStore().getToSell();
+	    	List<PricedItem> toSellItems = ui.islandTrader.getStore().getToSell();
 	    	for (int i = 0; i < toSellItems.size(); i++) {
-	    		if (this.ui.game.getPlayer().validateBuy(toSellItems.get(i))) {	    			
+	    		if (this.ui.islandTrader.getPlayer().validateBuy(toSellItems.get(i))) {	    			
 	    			this.options.add("* " +toSellItems.get(i).toString());
 	    		} else {
 	    			this.options.add(toSellItems.get(i).toString());
@@ -196,9 +196,9 @@ public class MainCmdUI implements IslandTraderUI {
 
 		private void refreshOptions() {
 	    	this.options = new ArrayList<String>();
-	    	List<PricedItem> toBuyItems = ui.game.getStore().getToBuy();
+	    	List<PricedItem> toBuyItems = ui.islandTrader.getStore().getToBuy();
 	    	for (int i = 0; i < toBuyItems.size(); i++) {
-	    		if (this.ui.game.getPlayer().validateSell(toBuyItems.get(i))) {	    			
+	    		if (this.ui.islandTrader.getPlayer().validateSell(toBuyItems.get(i))) {	    			
 	    			this.options.add("* " +toBuyItems.get(i).toString());
 	    		} else {
 	    			this.options.add(toBuyItems.get(i).toString());
@@ -240,9 +240,9 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		@Override
 		public void printOptions() {
-			System.out.println("You currently have " +ui.game.getPlayer().getBalance() +" dollars.\n");
+			System.out.println("You currently have " +ui.islandTrader.getPlayer().getBalance() +" dollars.\n");
 			
-			transactions = ui.game.getPlayer().getTransactions();
+			transactions = ui.islandTrader.getPlayer().getTransactions();
 			if(transactions.size() == 0) {
 				System.out.println("You have no transactions yet");
 			} else {
@@ -265,9 +265,9 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		@Override
 		public void printOptions() {
-			System.out.println("Hi " + ui.game.getPlayer().getName());
-			System.out.println("You currently have " +ui.game.getPlayer().getBalance() +" dollars.");
-			System.out.println("You are on day " +ui.game.getTime() +" of " +ui.game.getGameLength() +". " +(ui.game.getGameLength()-ui.game.getTime()) +" days left.\n");
+			System.out.println("Hi " + ui.islandTrader.getPlayer().getName());
+			System.out.println("You currently have " +ui.islandTrader.getPlayer().getBalance() +" dollars.");
+			System.out.println("You are on day " +ui.islandTrader.getTime() +" of " +ui.islandTrader.getGameLength() +". " +(ui.islandTrader.getGameLength()-ui.islandTrader.getTime()) +" days left.\n");
 			
 			System.out.println("(Enter any key to go back)");
 		}			
@@ -297,7 +297,7 @@ public class MainCmdUI implements IslandTraderUI {
 	// Get ship / fact
 	public void setup(IslandTrader game) {
 		// Set up game item
-		this.game = game;
+		this.islandTrader = game;
 		
 		// Set up player name input
 		this.playerNameInput = new PlayerNameInput(this);
@@ -327,14 +327,14 @@ public class MainCmdUI implements IslandTraderUI {
 		System.out.println("****************************************\n");		
 		
 		// Get the player name from the player
-		this.game.setPlayer(new Player("Ben"));
+		this.islandTrader.setPlayer(new Player("Ben"));
 		//TODO Restore playerNameInput.getUserOption(scanner);
-		System.out.println("Great name, " +this.game.getPlayer().getName() +"\n");
+		System.out.println("Great name, " +this.islandTrader.getPlayer().getName() +"\n");
 		
 		// Get the game length from the player
-		this.game.setGameLength(20);
+		this.islandTrader.setGameLength(20);
 		//TODO Restore gameLengthInput.getUserOption(scanner);
-		System.out.println("Game will run for " +this.game.getGameLength() +" days\n");	
+		System.out.println("Game will run for " +this.islandTrader.getGameLength() +" days\n");	
 		
 		// Get the ship choice
 		// TODO @kvie GetShipinput 
@@ -351,7 +351,7 @@ public class MainCmdUI implements IslandTraderUI {
 	@Override
 	public void quit() {
 		mainMenu.setFinish();	
-		System.out.println("Thanks for playing. You ended up with " +game.getPlayer().getBalance() +" dollars.");
+		System.out.println("Thanks for playing. You ended up with " +islandTrader.getPlayer().getBalance() +" dollars.");
 		
 	}
 
@@ -363,14 +363,14 @@ public class MainCmdUI implements IslandTraderUI {
 	
 	// TODO Need to check storage space and money. UI Shouldn't do that though.
 	private void buyStoreItem(int option) {
-		PricedItem purchase = this.game.getPlayer().buyItem(this.game.getStore(), option);
+		PricedItem purchase = this.islandTrader.getPlayer().buyItem(this.islandTrader.getStore(), option);
 		System.out.println("You Are a hero");
 		System.out.println("Purchased:" +purchase.toString()); //This is kinda past tense
 	}
 	
 	// TODO Need to check storage space and money. UI Shouldn't do that though.
 	private void sellPlayerItem(int option) {
-		PricedItem sale = this.game.getPlayer().sellItem(this.game.getStore(), option);
+		PricedItem sale = this.islandTrader.getPlayer().sellItem(this.islandTrader.getStore(), option);
 		System.out.println("You Are a hero");
 		System.out.println("Sold:" +sale.toString());
 	}	

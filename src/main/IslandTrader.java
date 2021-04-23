@@ -4,6 +4,10 @@ import java.util.Random;
 
 import ui.IslandTraderUI;
 
+/**
+ * Manages the IslandTrader game, allowing the {@link Player} to travel to {@link Island}s and trade
+ * goods in {@link Store}s
+ */
 public class IslandTrader {
 
     // The user interface to be used by this manager
@@ -12,21 +16,24 @@ public class IslandTrader {
 	// The player playing the game
 	private Player player;
 	
-	// TODO A test store, will eventually be a graph of stores and routes
+	// TODO bmalthus: Replace with graph of Islands & Routes
 	private Store store;
 	
+	// The length of the game, set from user input on initialization
 	private int gameLength;
 	
+	// The current position of the game in time
 	private int time = 1;
 	
+	// The game can be between 20 and 50 days, this regex matches valid input for this period
 	public static final String GAME_LENGTH_REGEX = "^[2-4][0-9]|50$";	
 	
 	/**
-	 * Creates a RocketManager with the given user interface and rockets.
-	 *
+	 * Creates a IslandManager with the given user interface. Then initializes the world objects
+	 * such as Stores, Islands and the Player.
+	 * 
 	 * @param ui The user interface that this manager should use
-	 * @param rockets The list of available rockets that the user can choose from when
-	 *                configuring this manager
+	 * TODO bmalthus: Split out the world code into new method, maybe in Island Class
 	 */
 	public IslandTrader(IslandTraderUI ui) {
 		this.ui = ui;
@@ -77,30 +84,33 @@ public class IslandTrader {
 	}
 	
 	/**
-	 * Starts this game. 
-	 * TODO. Must be called from the event dispatch thread (EDT) if the user interface is a Swing gui.
-	 * TODO. This method calls {@link RocketManagerUi#setup(RocketManager)} to initiate setup of the user interface.
+	 * Starts this IslandTrader. 
+	 * This method calls {@link IslandTraderUI#setup(IslandTrader)} to initiate setup of the user interface.
 	 */
 	public void start() {
 		ui.setup(this);
 	}
 
 	/**
-	 * This method should be called by the user interface when {@link RocketManagerUi#setup(RocketManager)}
-	 * has been completed. This method calls {@link RocketManagerUi#start()} to tell the user interface to start.	 
+	 * This method should be called by the user interface when {@link IslandTraderUI#setup(IslandTrader)}
+	 * has been completed. This method calls {@link IslandTraderUI#start()} to tell the user interface to start.	 
 	 */
 	public void onSetupFinished() {
 		ui.start();
 	}
 	
 	/**
-	 * @return the player
+	 * Gets the player of the game
+	 * 
+	 * @return the player of the game
 	 */
 	public Player getPlayer() {
 		return player;
 	}
 
 	/**
+	 * Set the player of the game
+	 * 
 	 * @param player the player to set
 	 */
 	public void setPlayer(Player player) {
@@ -108,6 +118,9 @@ public class IslandTrader {
 	}
 
 	/**
+	 * Gets the world (Islands and Routes) available in the game
+	 * TODO kvie: Update once island/route code is done 
+	 * 
 	 * @return the store
 	 */
 	public Store getStore() {
@@ -115,6 +128,9 @@ public class IslandTrader {
 	}
 
 	/**
+	 * Sets the world (Islands and Routes) available in the game
+	 * TODO kvie: Update once island/route code is done 
+	 * 
 	 * @param store the store to set
 	 */
 	public void setStore(Store store) {
@@ -122,27 +138,35 @@ public class IslandTrader {
 	}
 
 	/**
-	 * @return the gameLength
+	 * Gets the length of the game
+	 * 
+	 * @return the length of the game
 	 */
 	public int getGameLength() {
 		return gameLength;
 	}
 
 	/**
-	 * @param gameLength the gameLength to set
+	 * Sets the length of the game
+	 * 
+	 * @param gameLength, the length of the game to set
 	 */
 	public void setGameLength(int gameLength) {
 		this.gameLength = gameLength;
 	}
 
 	/**
-	 * @return the time
+	 * Get the current time in the game
+	 * 
+	 * @return the time of the game
 	 */
 	public int getTime() {
 		return time;
 	}
 
 	/**
+	 * Sets the current time in the game
+	 * 
 	 * @param time the time to set
 	 */
 	public void setTime(int time) {
