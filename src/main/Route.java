@@ -1,7 +1,6 @@
 package main;
 public class Route {	
 	private int numOfSailingDays;
-	private String description;
 	private String islandStartPoint;
 	private String islandEndPoint;
 	private boolean isSafe;

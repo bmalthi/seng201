@@ -1,7 +1,8 @@
 package main;
 public class Events {
-	private String name;
+	private String eventsName;
 	private boolean probability;
+	private WeatherType type;
 	
 	
 }

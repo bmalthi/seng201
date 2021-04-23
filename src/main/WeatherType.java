@@ -1,5 +1,5 @@
 package main;
-public enum Weather {
+public enum WeatherType {
 	THUNDERSTORM, RAIN, CLOUDY
 }
 
