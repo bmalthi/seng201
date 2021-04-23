@@ -15,7 +15,7 @@ public class PiratesEncounter extends Events {
 			return ("You win the game by rolling a " + playerNumber + "\nNow let's continue your journey.");
 		} else {
 			System.out.println("You lose the game by rolling a " + playerNumber + "\nNow give the pirates all your goods.");
-			if () {
+			if (true) {
 				return("The pirates don't satisfy with your goods. You and your crew have to walk the plank now. Game is over!");
 			} else {
 				return ("What a good trader! The pirates really like your goods. Now let's continue your journey without them.");
@@ -25,10 +25,10 @@ public class PiratesEncounter extends Events {
 
 }
 	public String isSatisfy() {
-		if () {
-			return 
+		if (true) {
+			return ""; //
 		} else {
-			return false;
+			return ""; //false;
 		}
 	}
 
