@@ -173,4 +173,27 @@ public class IslandTrader {
 		this.time = time;
 	}
 	
+	/**
+	 * Gets the game score illustrating how well the player has done. Points are awarded
+	 * for profit. Points are deducted if you could not keep playing before the time was up
+	 * 
+	 * @return a score integer, can be negative or positive 
+	 */	
+	public int gameScore() {
+		// Score is how much profit the player made
+		int score = player.getProfit();
+		
+		//lost points if you didn't finish the game
+		if (time < gameLength) {
+			score = score - 20;
+		}
+		
+		//bonus points if you went to all islands		
+		
+		return score;
+	}	
+	
+	
+	
+	
 }

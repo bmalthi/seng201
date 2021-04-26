@@ -351,8 +351,14 @@ public class MainCmdUI implements IslandTraderUI {
 	@Override
 	public void quit() {
 		mainMenu.setFinish();	
-		System.out.println("Thanks for playing. You ended up with " +islandTrader.getPlayer().getBalance() +" dollars.");
-		
+		System.out.println("****************************************");
+		System.out.println("GAME OVER");
+		System.out.println("****************************************\n");
+		System.out.println(this.islandTrader.getPlayer().getName());
+		System.out.println("You played for " + this.islandTrader.getTime() +" days, out of " + this.islandTrader.getGameLength());
+		System.out.println("You made " +this.islandTrader.getPlayer().getProfit() +" dollars\n");
+		System.out.println("Your score is:" +this.islandTrader.gameScore());
+		System.out.println("\nThanks for playing");		
 	}
 
 	@Override
