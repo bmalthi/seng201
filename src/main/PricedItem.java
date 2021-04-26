@@ -12,16 +12,16 @@ public class PricedItem {
 	private Item item;
 	private int price;
 	private PriceType type;
-	private String island;
+	private Island island;
 
 	/**
 	 * 
 	 */
-	public PricedItem(Item item, int price, PriceType type, String island) {
+	public PricedItem(Item item, int price, PriceType type, Island island) {
 		this.item = item;
 		this.price = price;
 		this.type = type;
-		this.setIsland(island);
+		this.island = island;
 	}
 
 	/**
@@ -55,9 +55,9 @@ public class PricedItem {
     		case FORBUY:
     			return item.toString() +", we will buy for $" +price;
     		case PURCHASED:
-    			return item.toString() +", was purchased for $" +price +" at " +getIsland();
+    			return item.toString() +", was purchased for $" +price +" at " +getIsland().getName();
     		case SOLD:
-    			return item.toString() +", was sold for $" +price +" at " +getIsland();
+    			return item.toString() +", was sold for $" +price +" at " +getIsland().getName();
 	        default:
 	            return item.toString() +", is $" +price;
         }
@@ -66,15 +66,8 @@ public class PricedItem {
 	/**
 	 * @return the island
 	 */
-	public String getIsland() {
+	public Island getIsland() {
 		return island;
 	}
-
-	/**
-	 * @param island the island to set
-	 */
-	public void setIsland(String island) {
-		this.island = island;
-	}	
 
 }
