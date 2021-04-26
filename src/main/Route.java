@@ -1,8 +1,8 @@
 package main;
 public class Route {	
 	private int numOfSailingDays;
-	private String islandStartPoint;
-	private String islandEndPoint;
+	private Island islandStartPoint;
+	private Island islandEndPoint;
 	private boolean isSafe;
 
 
@@ -11,17 +11,17 @@ public class Route {
 	}
 	
 	
-	public String getislandStartPoint() {
+	public Island getislandStartPoint() {
 		return islandStartPoint;
 	}
 	
-	public String getislandEndPoint() {	
+	public Island getislandEndPoint() {	
 		return islandEndPoint;
 	}
 	
 	
 	public String getDescription() {
-		return("The route is between " + islandStartPoint + " and " + islandEndPoint + ".");
+		return("The route is between " + islandStartPoint.getName() + " and " + islandEndPoint.getName() + ".");
 	}
 	
 	
