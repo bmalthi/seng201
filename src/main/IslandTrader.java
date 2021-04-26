@@ -16,8 +16,8 @@ public class IslandTrader {
 	// The player playing the game
 	private Player player;
 	
-	// TODO bmalthus: Replace with graph of Islands & Routes
-	private Store store;
+	// The world, the Islands and Routes
+	private World world;
 	
 	// The length of the game, set from user input on initialization
 	private int gameLength;
@@ -37,50 +37,7 @@ public class IslandTrader {
 	 */
 	public IslandTrader(IslandTraderUI ui) {
 		this.ui = ui;
-		
-		// Create a Random for making items etc etc
-		Random random = new Random();
-		
-		// Create a test store
-		setStore(new Store("Bob's Burgers"));		
-		// CARGO
-		String[] rawCargoItems = {"Burger", "Fries", "Coke", "IceCream", "Chairs", "Dog", "Bananas", "Beer"};			
-		for (int i = 0; i < 5; i++) {
-			String newName = rawCargoItems[random.nextInt(rawCargoItems.length-1)];
-			int newSellPrice = random.nextInt(10) + 1;
-			int newBuyPrice = random.nextInt(10) + 1;
-			int newSize = random.nextInt(2) + 1;
-			Item newItem = new Item(newName, "Dumb Description", newSize, ItemType.CARGO);
-			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.FORSALE, "IslandTest");
-			getStore().addToSell(newSellPricedItem);			
-			PricedItem newBuyPricedItem = new PricedItem(newItem, newBuyPrice, PriceType.FORBUY, "IslandTest");
-			getStore().addToBuy(newBuyPricedItem);
-		}
-		
-		// WEAPONS
-		String[] rawWeaponItems = {"Rifle", "Cannon", "Sword"};			
-		for (int i = 0; i < 2; i++) {
-			String newName = rawWeaponItems[random.nextInt(rawWeaponItems.length-1)];
-			int newSellPrice = random.nextInt(10) + 1;
-			int newBuyPrice = random.nextInt(10) + 1;
-			int newSize = random.nextInt(2) + 1;
-			Item newItem = new Item(newName, "Dumb Description", newSize, ItemType.WEAPON);
-			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.FORSALE, "IslandTest");
-			getStore().addToSell(newSellPricedItem);	
-			PricedItem newBuyPricedItem = new PricedItem(newItem, newBuyPrice, PriceType.FORBUY, "IslandTest");
-			getStore().addToBuy(newBuyPricedItem);			
-		}
-		
-		// UPGRADES
-		String[] rawUpgradeItems = {"Coffee Machine", "Shields", "Big Screen TV"};			
-		for (int i = 0; i < 2; i++) {
-			String newName = rawUpgradeItems[random.nextInt(rawUpgradeItems.length-1)];
-			int newSellPrice = random.nextInt(10) + 1;
-			int newSize = 0;
-			Item newItem = new Item(newName, "Dumb Description", newSize, ItemType.UPGRADE);
-			PricedItem newSellPricedItem = new PricedItem(newItem, newSellPrice, PriceType.FORSALE, "IslandTest");
-			getStore().addToSell(newSellPricedItem);		
-		}		
+		this.world = new World();
 	}
 	
 	/**
@@ -89,6 +46,11 @@ public class IslandTrader {
 	 */
 	public void start() {
 		ui.setup(this);
+	}
+	
+	// TODO Remove once do wilder cleanup
+	public Store currentStore() {
+		return this.world.getIslands().get(0).getStore();
 	}
 
 	/**
@@ -99,6 +61,13 @@ public class IslandTrader {
 		ui.start();
 	}
 	
+	/**
+	 * @return the world
+	 */
+	public World getWorld() {
+		return world;
+	}
+
 	/**
 	 * Gets the player of the game
 	 * 
@@ -115,26 +84,6 @@ public class IslandTrader {
 	 */
 	public void setPlayer(Player player) {
 		this.player = player;
-	}
-
-	/**
-	 * Gets the world (Islands and Routes) available in the game
-	 * TODO kvie: Update once island/route code is done 
-	 * 
-	 * @return the store
-	 */
-	public Store getStore() {
-		return store;
-	}
-
-	/**
-	 * Sets the world (Islands and Routes) available in the game
-	 * TODO kvie: Update once island/route code is done 
-	 * 
-	 * @param store the store to set
-	 */
-	public void setStore(Store store) {
-		this.store = store;
 	}
 
 	/**

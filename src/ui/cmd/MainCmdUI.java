@@ -150,7 +150,7 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		private void refreshOptions() {
 	    	this.options = new ArrayList<String>();
-	    	List<PricedItem> toSellItems = ui.islandTrader.getStore().getToSell();
+	    	List<PricedItem> toSellItems = ui.islandTrader.currentStore().getToSell();
 	    	for (int i = 0; i < toSellItems.size(); i++) {
 	    		if (this.ui.islandTrader.getPlayer().validateBuy(toSellItems.get(i))) {	    			
 	    			this.options.add("* " +toSellItems.get(i).toString());
@@ -196,7 +196,7 @@ public class MainCmdUI implements IslandTraderUI {
 
 		private void refreshOptions() {
 	    	this.options = new ArrayList<String>();
-	    	List<PricedItem> toBuyItems = ui.islandTrader.getStore().getToBuy();
+	    	List<PricedItem> toBuyItems = ui.islandTrader.currentStore().getToBuy();
 	    	for (int i = 0; i < toBuyItems.size(); i++) {
 	    		if (this.ui.islandTrader.getPlayer().validateSell(toBuyItems.get(i))) {	    			
 	    			this.options.add("* " +toBuyItems.get(i).toString());
@@ -369,14 +369,14 @@ public class MainCmdUI implements IslandTraderUI {
 	
 	// TODO Need to check storage space and money. UI Shouldn't do that though.
 	private void buyStoreItem(int option) {
-		PricedItem purchase = this.islandTrader.getPlayer().buyItem(this.islandTrader.getStore(), option);
+		PricedItem purchase = this.islandTrader.getPlayer().buyItem(this.islandTrader.currentStore(), option);
 		System.out.println("You Are a hero");
 		System.out.println("Purchased:" +purchase.toString()); //This is kinda past tense
 	}
 	
 	// TODO Need to check storage space and money. UI Shouldn't do that though.
 	private void sellPlayerItem(int option) {
-		PricedItem sale = this.islandTrader.getPlayer().sellItem(this.islandTrader.getStore(), option);
+		PricedItem sale = this.islandTrader.getPlayer().sellItem(this.islandTrader.currentStore(), option);
 		System.out.println("You Are a hero");
 		System.out.println("Sold:" +sale.toString());
 	}	
