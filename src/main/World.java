@@ -12,6 +12,7 @@ import java.util.Random;
  * This class represents the physical world in our game, the islands, the routes and methods to 
  * survey the world
  *
+ * TODO DO WE NEED THIS CLASS AT ALL
  */
 public class World {
 	
@@ -27,6 +28,8 @@ public class World {
 	 * Stores within islands will have random selection of objects to buy or sell
 	 */
 	public World() {
+		this.islands = new ArrayList<Island>();
+		this.routes = new ArrayList<Route>();
 		setupWorld();
 	}
 	
