@@ -37,7 +37,7 @@ public class Store {
 		toSell.add(item);		
 	}
 	
-	public void removeFromSell(PricedItem item) {
+	private void removeFromSell(PricedItem item) {
 		toSell.remove(item);		
 	}	
 	
@@ -45,7 +45,7 @@ public class Store {
 		toBuy.add(item);		
 	}
 	
-	public void removeFromBuy(PricedItem item) {
+	private void removeFromBuy(PricedItem item) {
 		toBuy.remove(item);		
 	}		
 
@@ -87,4 +87,14 @@ public class Store {
 	public String listToSell() {
 		return listItems(toSell);
 	}		
+	
+	public void sellItem(PricedItem item) {
+		removeFromSell(item);
+	}	
+	
+	public void buyItem(PricedItem item) {
+		removeFromBuy(item);
+		addToSell(new PricedItem(item.getItem(), item.getPrice(), PriceType.FORSALE, item.getIsland()));
+	}			
+	
 }

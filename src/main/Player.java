@@ -65,39 +65,11 @@ public class Player {
 		return Collections.unmodifiableList(transactions);
 	}	
 	
-	// TODO NEED TO CHECK IF YOU HAVE ENOUGH $$$, THROE THE VALIDATE ERROR
-	public PricedItem buyItem(Store store, int itemIndex) {		
-		PricedItem purchase = store.getToSell().get(itemIndex);
-		if (validateBuy(purchase)) {
-			
-			//TODO THIS SHOULD BE store.sell
-			store.removeFromSell(purchase);
-			transactions.add(new PricedItem(purchase.getItem(), purchase.getPrice(), PriceType.PURCHASED, purchase.getIsland()));
-			setBalance(getBalance() - purchase.getPrice());
-			this.ship.addItem(purchase.getItem());			
-			return purchase;
-		} else {
-			return null;
-		}
-	}
-	
-	// TODO NEED TO CHECK IF YOU HAVE the item
-	public PricedItem sellItem(Store store, int itemIndex) {
-		PricedItem sale = store.getToBuy().get(itemIndex);
-		
-		if (validateSell(sale)) {
-			//TODO THIS SHOULD BE store.buy
-			store.removeFromBuy(sale);
-			store.addToSell(new PricedItem(sale.getItem(), sale.getPrice(), PriceType.FORSALE, sale.getIsland()));
-			
-			this.transactions.add(new PricedItem(sale.getItem(), sale.getPrice(), PriceType.SOLD, sale.getIsland()));
-			setBalance(getBalance() +sale.getPrice());
-			this.ship.removeItem(sale.getItem());
-			return sale;
-		} else {
-			return null;
-		}
-	}
+	/**
+	 */
+	public void addTransaction(PricedItem item) {
+		transactions.add(item);
+	}			
 
 	/**
 	 * @return the ship
@@ -111,24 +83,10 @@ public class Player {
 	 */
 	public void setShip(Ship ship) {
 		this.ship = ship;
-	}	
-	
-	//Should be exceptions
-	public boolean validateBuy(PricedItem purchase) {		
-		return hasMoney(purchase) && this.ship.hasSpace(purchase.getItem());
-	}	
-
-	//Should be exceptions	
-	public boolean validateSell(PricedItem sale) {
-		return this.ship.hasItem(sale.getItem());
-	}		
+	}			
 	
 	public boolean hasMoney(PricedItem purchase) {
-		if (purchase.getPrice() <= getBalance()) {
-			return true;
-		} else {
-			return false;
-		}
+		return (getBalance() >= purchase.getPrice());
 	}
 	
 	//public void dumpList() {
@@ -158,6 +116,18 @@ public class Player {
 	 */		
 	public int getProfit() {
 		return getBalance()-getStartingBalance();
+	}		
+	
+	public void buyItem(PricedItem purchase) {
+		addTransaction(new PricedItem(purchase.getItem(), purchase.getPrice(), PriceType.PURCHASED, purchase.getIsland()));
+		setBalance(getBalance() - purchase.getPrice());
+		getShip().addItem(purchase.getItem());
 	}	
+	
+	public void sellItem(PricedItem sale) {
+		addTransaction(new PricedItem(sale.getItem(), sale.getPrice(), PriceType.SOLD, sale.getIsland()));
+		setBalance(getBalance() + sale.getPrice());
+		getShip().removeItem(sale.getItem());		
+	}
 
 }

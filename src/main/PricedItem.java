@@ -11,7 +11,7 @@ public class PricedItem {
 
 	private Item item;
 	private int price;
-	private PriceType type;
+	private PriceType priceType;
 	private Island island;
 
 	/**
@@ -20,7 +20,7 @@ public class PricedItem {
 	public PricedItem(Item item, int price, PriceType type, Island island) {
 		this.item = item;
 		this.price = price;
-		this.type = type;
+		this.priceType = type;
 		this.island = island;
 	}
 
@@ -42,14 +42,14 @@ public class PricedItem {
 	 * @return the type
 	 */
 	public PriceType getType() {
-		return type;
+		return priceType;
 	}
 
 	/**
 	 * @return a string representation of the Item
 	 */
 	public String toString() {
-        switch (this.type) {
+        switch (this.priceType) {
     		case FORSALE:	
     			return item.toString() +", is for sale for $" +price;
     		case FORBUY:

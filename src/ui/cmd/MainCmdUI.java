@@ -188,7 +188,7 @@ public class MainCmdUI implements IslandTraderUI {
 	    	this.options = new ArrayList<String>();
 	    	List<PricedItem> toSellItems = ui.islandTrader.getCurrentIsland().getStore().getToSell();
 	    	for (int i = 0; i < toSellItems.size(); i++) {
-	    		if (this.ui.islandTrader.getPlayer().validateBuy(toSellItems.get(i))) {	    			
+	    		if (this.ui.islandTrader.validatePurchase(toSellItems.get(i))) {	    			
 	    			this.options.add("* " +toSellItems.get(i).toString());
 	    		} else {
 	    			this.options.add(toSellItems.get(i).toString());
@@ -242,7 +242,7 @@ public class MainCmdUI implements IslandTraderUI {
 	    	this.options = new ArrayList<String>();
 	    	List<PricedItem> toBuyItems = ui.islandTrader.getCurrentIsland().getStore().getToBuy();
 	    	for (int i = 0; i < toBuyItems.size(); i++) {
-	    		if (this.ui.islandTrader.getPlayer().validateSell(toBuyItems.get(i))) {	    			
+	    		if (this.ui.islandTrader.validateSale(toBuyItems.get(i))) {	    			
 	    			this.options.add("* " +toBuyItems.get(i).toString());
 	    		} else {
 	    			this.options.add(toBuyItems.get(i).toString());
@@ -421,14 +421,14 @@ public class MainCmdUI implements IslandTraderUI {
 	
 	// TODO Need to check storage space and money. UI Shouldn't do that though.
 	private void buyStoreItem(int option) {
-		PricedItem purchase = this.islandTrader.getPlayer().buyItem(this.islandTrader.getCurrentIsland().getStore(), option);
+		PricedItem purchase = this.islandTrader.buyStoreItem(option);
 		System.out.println("You Are a hero");
 		System.out.println("Purchased:" +purchase.toString()); //This is kinda past tense
 	}
 	
 	// TODO Need to check storage space and money. UI Shouldn't do that though.
 	private void sellPlayerItem(int option) {
-		PricedItem sale = this.islandTrader.getPlayer().sellItem(this.islandTrader.getCurrentIsland().getStore(), option);
+		PricedItem sale = this.islandTrader.sellStoreItem(option);
 		System.out.println("You Are a hero");
 		System.out.println("Sold:" +sale.toString());
 	}	

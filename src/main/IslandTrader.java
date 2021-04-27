@@ -152,7 +152,36 @@ public class IslandTrader {
 		return score;
 	}	
 	
+	//Should be exceptions
+	public boolean validatePurchase(PricedItem purchase) {
+		return player.hasMoney(purchase) && player.getShip().hasSpace(purchase.getItem());
+	}	
 	
+	public PricedItem buyStoreItem(int option) {
+		PricedItem purchase = getCurrentIsland().getStore().getToSell().get(option);
+		if (validatePurchase(purchase)) {
+			getCurrentIsland().getStore().sellItem(purchase);
+			player.buyItem(purchase);
+			return purchase;
+		} else {
+			return null;
+		}
+	}
 	
+	//Should be exceptions	
+	public boolean validateSale(PricedItem sale) {
+		return player.getShip().hasItem(sale.getItem());
+	}		
+	
+	public PricedItem sellStoreItem(int option) {
+		PricedItem sale = getCurrentIsland().getStore().getToSell().get(option);
+		if (validateSale(sale)) {
+			getCurrentIsland().getStore().buyItem(sale);
+			player.sellItem(sale);
+			return sale;
+		} else {
+			return null;
+		}
+	}	
 	
 }

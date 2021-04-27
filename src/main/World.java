@@ -56,7 +56,7 @@ public class World {
 		islands.add(island);
 		//Add items to the store	
 		// CARGO
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 10; i++) {
 			pricedItem = createRandomPricedItem(store, rawCargoItems, ItemType.CARGO, 8, PriceType.FORSALE, island);
 			store.addToSell(pricedItem);
 			pricedItem = createRandomPricedItem(store, rawCargoItems, ItemType.CARGO, 6, PriceType.FORBUY, island);
