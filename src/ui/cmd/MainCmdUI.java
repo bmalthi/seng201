@@ -252,6 +252,7 @@ public class MainCmdUI implements IslandTraderUI {
 	}	
 	
 	// TODO, show which are valid for this user / money / time etc, once Kvie does her bits of code
+	// TODO, change time calc based on ship speed
 	private void routeList(Island island) {		
 		
 		System.out.println("Here are the routes available from your current island " +this.islandTrader.getCurrentIsland().getName() + " to " + island.getName());
@@ -261,6 +262,7 @@ public class MainCmdUI implements IslandTraderUI {
 			//	System.out.println("* " +item.toString());
 			//} else {
 				System.out.println("  " +route.getDescription());
+				System.out.println("  This route is " +route.getnumOfSailingDays() +" days.\n");
 			//}
 		}
 		System.out.println("\n");
