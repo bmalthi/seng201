@@ -1,4 +1,4 @@
-package main;
+ package main;
 public class Route {	
 	private int numOfSailingDays;
 	private Island islandStartPoint;

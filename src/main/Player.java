@@ -88,7 +88,7 @@ public class Player {
 		if (validateSell(sale)) {
 			//TODO THIS SHOULD BE store.buy
 			store.removeFromBuy(sale);
-			store.addToSell(new PricedItem(sale.getItem(), sale.getPrice(), PriceType.FORSALE, sale.getIsland()+"-sold"));
+			store.addToSell(new PricedItem(sale.getItem(), sale.getPrice(), PriceType.FORSALE, sale.getIsland()));
 			
 			this.transactions.add(new PricedItem(sale.getItem(), sale.getPrice(), PriceType.SOLD, sale.getIsland()));
 			setBalance(getBalance() +sale.getPrice());
