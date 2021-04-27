@@ -34,10 +34,11 @@ public class World {
 		this.routes = new ArrayList<Route>();
 		this.random = new Random();
 		this.random.setSeed(0);
-		setupWorld();
+		setUpIslands();
+		//setUpRoutes();
 	}
 	
-	private void setupWorld() {		
+	private void setUpIslands() {		
 		
 		PricedItem pricedItem;
 		Store store;
