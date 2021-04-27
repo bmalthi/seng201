@@ -21,7 +21,7 @@ public class Route {
 	
 	
 	public String getDescription() {
-		return("The route is between " + islandStartPoint.getName() + " and " + islandEndPoint.getName() + ".");
+		return("The route is between " + getislandStartPoint() + " and " + getislandEndPoint() + ".");
 	}
 	
 	

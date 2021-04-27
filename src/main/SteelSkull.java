@@ -6,7 +6,6 @@ public class SteelSkull extends Ship {
 	
 	//name: Steel Skull
 	//number of crew: 11
-	// cargo capacity: 45
 	// damage status: 20% broken
 	// repair cost: 280 coins/tokens/etc
 	
