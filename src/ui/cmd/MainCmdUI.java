@@ -174,8 +174,8 @@ public class MainCmdUI implements IslandTraderUI {
 	private class IslandMenu extends ListOption {		
 		
 		public IslandMenu(MainCmdUI ui) {
-			super(ui);		    		    	
-	    	this.options = ui.islandTrader.getWorld().getIslandNames();
+			super(ui);					
+	    	this.options = stringList(ui.islandTrader.getWorld().getIslands());
 	    	String exitOption = "(go back)";
 	    	this.options.add(0, exitOption);
 		}
@@ -509,6 +509,14 @@ public class MainCmdUI implements IslandTraderUI {
 		PricedItem sale = this.islandTrader.sellStoreItem(option);
 		System.out.println("You Are a hero");
 		System.out.println("Sold:" +sale.toString());
+	}	
+	
+	private ArrayList<String> stringList(List<?> list) {
+		ArrayList<String> names = new ArrayList<String>();				
+		for (Object obj : list) {
+			names.add(obj.toString());
+		}
+		return names;
 	}	
 
 }
