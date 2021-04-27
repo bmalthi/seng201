@@ -221,5 +221,23 @@ public class World {
 	public List<Route> getRoutes() {
 		return Collections.unmodifiableList(routes);
 	}
+	
+	public List<Route> getRoutes(Island startIsland, Island finishIsland) {
+		ArrayList<Route> validRoutes = new ArrayList<Route>();
+		for (Route route : routes) {
+			if (route.getislandStartPoint() == startIsland && route.getislandEndPoint() == finishIsland)
+				validRoutes.add(route);
+		}
+		return Collections.unmodifiableList(validRoutes);
+	}
+	
+	public List<Route> getRoutes(Island startIsland) {
+		ArrayList<Route> validRoutes = new ArrayList<Route>();
+		for (Route route : routes) {
+			if (route.getislandStartPoint() == startIsland)
+				validRoutes.add(route);
+		}
+		return Collections.unmodifiableList(validRoutes);
+	}	
 
 }
