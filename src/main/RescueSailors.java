@@ -1,9 +1,16 @@
 package main;
 
-public class RescueSailors implements RandomEvent {
+public class RescueSailors extends Events {
 	
-	public static void main(String[] args) {
-		System.out.println("Some sailors have been stucked in the island for 5 days. Let's rescue them!");
+	public RescueSailors(double probability, String eventName) {
+		this.probability = probability;
+		this.eventName = eventName;
+	}
+
+	@Override
+	public void handleEvent() {
+		// TODO Auto-generated method stub
 		
 	}
+	
 }

@@ -185,4 +185,15 @@ public class IslandTrader {
 		}
 	}	
 	
+	public boolean hasTime(Route route) {
+		if (gameLength-time >= route.getRouteDistance()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean validateRoute(Route route) {
+		return hasTime(route) && player.hasMoney(route);
+	}	
 }

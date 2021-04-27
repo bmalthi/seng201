@@ -2,20 +2,20 @@
  import java.util.ArrayList;
  
 public class Route {	
-	private int numOfSailingDays;
+	private int routeDistance;
 	private Island islandStartPoint;
 	private Island islandEndPoint;
 	private boolean isSafe;
-	private ArrayList<RandomEvent> events;
+	private ArrayList<Events> events;
 
 	public Route(Island islandStartPoint, Island islandEndPoint) {
 		this.islandStartPoint = islandStartPoint;
 		this.islandEndPoint = islandEndPoint;
-		this.events = new ArrayList<RandomEvent>();
+		this.events = new ArrayList<Events>();
 	}
 
-	public int getnumOfSailingDays() {
-		return numOfSailingDays;
+	public int getRouteDistance() {
+		return routeDistance;
 	}
 	
 	
@@ -41,10 +41,11 @@ public class Route {
 		}
 	}
 	
-	public String sailRoute() { 
-		/** 
-		 * called by the UI
-		 */
-	}
+//	public String sailRoute() { 
+//		/** 
+//		 * called by the UI
+//		 */
+//		
+//	}
 		
 }

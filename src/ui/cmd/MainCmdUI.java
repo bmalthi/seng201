@@ -262,7 +262,7 @@ public class MainCmdUI implements IslandTraderUI {
 			//	System.out.println("* " +item.toString());
 			//} else {
 				System.out.println("  " +route.getDescription());
-				System.out.println("  This route is " +route.getnumOfSailingDays() +" days.\n");
+				System.out.println("  This route is " +route.getRouteDistance() +" days.\n");
 			//}
 		}
 		System.out.println("\n");

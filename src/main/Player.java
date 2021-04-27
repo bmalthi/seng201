@@ -130,8 +130,8 @@ public class Player {
 		getShip().removeItem(sale.getItem());		
 	}
 	
-	public boolean hasMoney(Route) {
-		if (getBalance() >= ) {
+	public boolean hasMoney(Route route) {
+		if (getBalance() >= route.getRouteDistance()*ship.getCostPerDay()) {
 			return true;
 		} else {
 			return false;
