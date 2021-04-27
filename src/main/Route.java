@@ -5,6 +5,10 @@ public class Route {
 	private Island islandEndPoint;
 	private boolean isSafe;
 
+	public Route(Island islandStartPoint, Island islandEndPoint) {
+		this.islandStartPoint = islandStartPoint;
+		this.islandEndPoint = islandEndPoint;
+	}
 
 	public int getnumOfSailingDays() {
 		return numOfSailingDays;
