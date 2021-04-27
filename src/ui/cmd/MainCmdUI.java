@@ -112,7 +112,8 @@ public class MainCmdUI implements IslandTraderUI {
 	            	ui.storeMenu.getUserOption(ui.scanner);            	
 	                break;      
 	            case 6: //"Sail to another island"
-	                break;	 	                
+	                ui.routeMenu.getUserOption(ui.scanner);	 	 
+	                break;
 	            default:
 	                throw new IllegalStateException("Unexpected value: " + option);
 	        }
@@ -480,6 +481,7 @@ private class RouteMenu extends ListOption {
 	private SellMenu sellMenu;
 	private IslandMenu islandMenu;
 	private IslandDetailMenu islandDetailMenu;
+	private RouteMenu routeMenu;
 	
 	public MainCmdUI() {
 		scanner = new Scanner(System.in);
@@ -508,7 +510,8 @@ private class RouteMenu extends ListOption {
 		this.sellMenu = new SellMenu(this);	
 		this.islandMenu = new IslandMenu(this);
 		this.islandDetailMenu = new IslandDetailMenu(this);
-	
+		this.routeMenu = new RouteMenu(this);
+		
 		// Start the game. Kinda
 		game.onSetupFinished();
 		
