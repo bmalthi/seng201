@@ -170,11 +170,12 @@ public class IslandTrader {
 	
 	//Should be exceptions	
 	public boolean validateSale(PricedItem sale) {
-		return player.getShip().hasItem(sale.getItem());
+		boolean answer = player.getShip().hasItem(sale.getItem()); 
+		return answer;
 	}		
 	
 	public PricedItem sellStoreItem(int option) {
-		PricedItem sale = getCurrentIsland().getStore().getToSell().get(option);
+		PricedItem sale = getCurrentIsland().getStore().getToBuy().get(option);
 		if (validateSale(sale)) {
 			getCurrentIsland().getStore().buyItem(sale);
 			player.sellItem(sale);
