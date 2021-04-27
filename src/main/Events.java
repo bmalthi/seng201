@@ -1,17 +1,8 @@
 package main;
-
-public abstract class Events {
-	protected double probability;
-	protected String eventName;
+public class Events {
+	private String eventsName;
+	private boolean probability;
+	private WeatherType type;
 	
-	public abstract void handleEvent();
-
-	public double getProbability() {
-		return probability;
-	}
-
-	public String getEventName() {
-		return eventName;
-	}
-
+	
 }
