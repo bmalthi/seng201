@@ -57,5 +57,10 @@ public class Island {
 	private boolean routeExists(Route route) {
 		return routes.contains(route);
 	}
+	
+	@Override
+	public String toString() {
+		return getName();
+	}
 
 }

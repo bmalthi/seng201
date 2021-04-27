@@ -197,6 +197,17 @@ public class World {
 	public List<Island> getIslands() {
 		return Collections.unmodifiableList(islands);
 	}
+	
+	/**
+	 * @return the islands
+	 */
+	public ArrayList<String> getIslandNames() {
+		ArrayList<String> islandNames = new ArrayList<String>();				
+		for (Island island : getIslands()) {
+			islandNames.add(island.toString());
+		}
+		return islandNames;
+	}	
 
 	/**
 	 * @return the routes
