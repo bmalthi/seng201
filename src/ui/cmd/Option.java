@@ -24,16 +24,7 @@ public class Option {
 	protected final String INPUT_REGEX;
     
 	// Boolean to indicate that we have finished with this Input getter
-    protected boolean finish = false;
-    
-    // Header that is printed to the user once in the input gathering process
-    protected String oneHeader = "****************************************";
-    
-    // Header that is printed to the user each loop of the request
-    protected String eachHeader = "";
-    
-    // Footer after we have finished with the input gathering process 
-    protected String oneFooter = "";
+    protected boolean finish = false;    
     
     /**
 	 * Exception throw when we do not receive valid input
@@ -58,12 +49,11 @@ public class Option {
 	 * Method to collect user input, looping until valid input is received
 	 */      
 	protected void getUserOption(Scanner scanner) {
-		if (oneHeader != null)
-		System.out.println(oneHeader);
+		oneHeader();
 		
         while (!finish) {        	
-
-        	System.out.println(eachHeader);	
+	
+        	eachHeader();
             printOptions();            
     		
             try {
@@ -77,7 +67,7 @@ public class Option {
             }    		    		
 
         }	
-        System.out.println(oneFooter);
+        oneFooter();
         
         //Reset
         // Reset the Option to initial state, because it is often reused in game
@@ -92,6 +82,18 @@ public class Option {
 	protected void printOptions() {
 		//Default is blank
 	}
+	
+	protected void oneHeader() {
+    	System.out.println("****************************************");		
+	}
+	
+	protected void eachHeader() {
+    	System.out.println("");		
+	}
+	
+	protected void oneFooter() {
+    	System.out.println("");		
+	}	
 	
     /**
 	 * Validate that the user input matches the INPUT_REGEX, throw exception if not

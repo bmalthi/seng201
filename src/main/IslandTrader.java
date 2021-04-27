@@ -1,7 +1,5 @@
 package main;
 
-import java.util.Random;
-
 import ui.IslandTraderUI;
 
 /**
@@ -28,6 +26,8 @@ public class IslandTrader {
 	// The game can be between 20 and 50 days, this regex matches valid input for this period
 	public static final String GAME_LENGTH_REGEX = "^[2-4][0-9]|50$";	
 	
+	private Island currentIsland;
+	
 	/**
 	 * Creates a IslandManager with the given user interface. Then initializes the world objects
 	 * such as Stores, Islands and the Player.
@@ -38,6 +38,7 @@ public class IslandTrader {
 	public IslandTrader(IslandTraderUI ui) {
 		this.ui = ui;
 		this.world = new World();
+		this.currentIsland = this.world.getIslands().get(0);
 	}
 	
 	/**
@@ -46,12 +47,7 @@ public class IslandTrader {
 	 */
 	public void start() {
 		ui.setup(this);
-	}
-	
-	// TODO Remove once do wilder cleanup
-	public Store currentStore() {
-		return this.world.getIslands().get(0).getStore();
-	}
+	}	
 
 	/**
 	 * This method should be called by the user interface when {@link IslandTraderUI#setup(IslandTrader)}
@@ -122,6 +118,20 @@ public class IslandTrader {
 		this.time = time;
 	}
 	
+	/**
+	 * @return the currentIsland
+	 */
+	public Island getCurrentIsland() {
+		return currentIsland;
+	}
+
+	/**
+	 * @param currentIsland the currentIsland to set
+	 */
+	public void setCurrentIsland(Island currentIsland) {
+		this.currentIsland = currentIsland;
+	}
+
 	/**
 	 * Gets the game score illustrating how well the player has done. Points are awarded
 	 * for profit. Points are deducted if you could not keep playing before the time was up

@@ -20,11 +20,16 @@ public class MainCmdUI implements IslandTraderUI {
 	private class PlayerNameInput extends Option {	
 		
 		public PlayerNameInput(MainCmdUI ui) {
-			super(ui, Player.NAME_REGEX);
-			this.oneHeader = "Please choose a trader name:\n(between 3-15 characters)";			
+			super(ui, Player.NAME_REGEX);			
 		}
 		
 		@Override
+		public void oneHeader() {
+			System.out.println("Please choose a trader name:\n(between 3-15 characters)");
+		}		
+		
+		@Override
+		//TODO DO these have to be public?
 		public void handleOption(String option) {
 			ui.islandTrader.setPlayer(new Player(option));			
 			this.setFinish();
@@ -36,8 +41,12 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		public GameLengthInput(MainCmdUI ui) {
 			super(ui, IslandTrader.GAME_LENGTH_REGEX);
-			this.oneHeader = "How many days do you want to play for?\n(between 20-50 days)";			
 		}
+		
+		@Override
+		public void oneHeader() {
+			System.out.println("How many days do you want to play for?\n(between 20-50 days)");
+		}				
 		
 		@Override
 		public void handleOption(String option) {
@@ -52,8 +61,6 @@ public class MainCmdUI implements IslandTraderUI {
 				
 		public MainMenu(MainCmdUI ui) {
 			super(ui);
-		   	this.eachHeader = "What do you want to do next?\n";
-	    	this.oneFooter = "\n";
 	    	
 	    	//Set up Options
 	    	String[] base_options = {	    	
@@ -61,13 +68,23 @@ public class MainCmdUI implements IslandTraderUI {
 				"Ship status",
 				"View your past purchases & sales",
 				"View island properties",
-				"Visit the island store - WORKING",
+				"Visit the island store",
 				"Sail to another island"}; 
 	        
 	    	this.options = new ArrayList<String>(Arrays.asList(base_options));
 	    	String exitOption = "*** Quit Game ***";
 	    	this.options.add(0, exitOption);
 		}
+		
+		@Override
+		public void eachHeader() {
+			System.out.println("You are at " + ui.islandTrader.getCurrentIsland().getName() +"\nWhat do you want to do next?\n");
+		}	
+		
+		@Override
+		public void oneFooter() {
+			System.out.println("\n");
+		}			
 
 		@Override
 	    public void handleOption(String option) {
@@ -102,17 +119,29 @@ public class MainCmdUI implements IslandTraderUI {
 	private class StoreMenu extends ListOption {		
 		
 		public StoreMenu(MainCmdUI ui) {
-			super(ui);	
-		   	this.eachHeader = "How can we help you at our store?";
-	    	this.oneFooter = "Thanks for shopping in our store.\n";
+			super(ui);		    	
 	    	
 	    	//Set up Options
-	    	String[] base_options = {"FORSALE", "FORBUY", "PASTPURCHASE"};
+	    	String[] base_options = {	    	
+				"See what we have for sale",
+				"See what we are buying",
+				"View your past purchases & sales"}; 
+	    	
 	    	this.options = new ArrayList<String>(Arrays.asList(base_options));
 	    	String exitOption = "(leave store)";
 	    	this.options.add(0, exitOption);
 		}
 
+		@Override
+		public void eachHeader() {
+			System.out.println("Welcome to "+ ui.islandTrader.getCurrentIsland().getStore().getName() +". How can we help?");
+		}	
+		
+		@Override
+		public void oneFooter() {
+			System.out.println("Thanks for shopping at "+ ui.islandTrader.getCurrentIsland().getStore().getName() +".\n");
+		}	
+		
 		@Override
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
@@ -142,15 +171,22 @@ public class MainCmdUI implements IslandTraderUI {
 	private class BuyMenu extends ListOption {		
 		
 		public BuyMenu(MainCmdUI ui) {
-			super(ui); 		
-		   	this.eachHeader = "What do you want to buy?\n (* recommended for you)\n"; 
-	    	this.oneFooter = "\n";	    	
-	    	
+			super(ui); 		  		    	
 		}
+		
+		@Override
+		public void eachHeader() {
+			System.out.println("What do you want to buy?\n (* recommended for you)\n");
+		}	
+		
+		@Override
+		public void oneFooter() {
+			System.out.println("\n");
+		}	
 		
 		private void refreshOptions() {
 	    	this.options = new ArrayList<String>();
-	    	List<PricedItem> toSellItems = ui.islandTrader.currentStore().getToSell();
+	    	List<PricedItem> toSellItems = ui.islandTrader.getCurrentIsland().getStore().getToSell();
 	    	for (int i = 0; i < toSellItems.size(); i++) {
 	    		if (this.ui.islandTrader.getPlayer().validateBuy(toSellItems.get(i))) {	    			
 	    			this.options.add("* " +toSellItems.get(i).toString());
@@ -189,14 +225,22 @@ public class MainCmdUI implements IslandTraderUI {
 	private class SellMenu extends ListOption {
 		
 		public SellMenu(MainCmdUI ui) {
-			super(ui); 	
-		   	this.eachHeader = "What do you want to sell?\n (* recommended for you)\n";
-	    	this.oneFooter = "\n";	    		    	
+			super(ui);     	
 		}
 
+		@Override
+		public void eachHeader() {
+			System.out.println("What do you want to sell?\n (* recommended for you)\n");
+		}	
+		
+		@Override
+		public void oneFooter() {
+			System.out.println("\n");
+		}	
+		
 		private void refreshOptions() {
 	    	this.options = new ArrayList<String>();
-	    	List<PricedItem> toBuyItems = ui.islandTrader.currentStore().getToBuy();
+	    	List<PricedItem> toBuyItems = ui.islandTrader.getCurrentIsland().getStore().getToBuy();
 	    	for (int i = 0; i < toBuyItems.size(); i++) {
 	    		if (this.ui.islandTrader.getPlayer().validateSell(toBuyItems.get(i))) {	    			
 	    			this.options.add("* " +toBuyItems.get(i).toString());
@@ -235,8 +279,12 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		public PurchasesList(MainCmdUI ui) {
 			super(ui, ".+");
-			this.eachHeader = "Here are all your purchases & sales.\n";
 		}		
+		
+		@Override
+		public void eachHeader() {
+			System.out.println("Here are all your purchases & sales.\n");
+		}	
 		
 		@Override
 		public void printOptions() {
@@ -260,8 +308,12 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		public GameStatus(MainCmdUI ui) {
 			super(ui, ".+");
-		   	this.eachHeader = "Game Status\n";
 		}		
+		
+		@Override
+		public void eachHeader() {
+			System.out.println("Game Status\n");
+		}
 		
 		@Override
 		public void printOptions() {
@@ -369,14 +421,14 @@ public class MainCmdUI implements IslandTraderUI {
 	
 	// TODO Need to check storage space and money. UI Shouldn't do that though.
 	private void buyStoreItem(int option) {
-		PricedItem purchase = this.islandTrader.getPlayer().buyItem(this.islandTrader.currentStore(), option);
+		PricedItem purchase = this.islandTrader.getPlayer().buyItem(this.islandTrader.getCurrentIsland().getStore(), option);
 		System.out.println("You Are a hero");
 		System.out.println("Purchased:" +purchase.toString()); //This is kinda past tense
 	}
 	
 	// TODO Need to check storage space and money. UI Shouldn't do that though.
 	private void sellPlayerItem(int option) {
-		PricedItem sale = this.islandTrader.getPlayer().sellItem(this.islandTrader.currentStore(), option);
+		PricedItem sale = this.islandTrader.getPlayer().sellItem(this.islandTrader.getCurrentIsland().getStore(), option);
 		System.out.println("You Are a hero");
 		System.out.println("Sold:" +sale.toString());
 	}	
