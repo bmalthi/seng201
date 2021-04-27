@@ -10,6 +10,8 @@ import java.util.List;
 /**
  * @author bmalthi
  *
+ * TODO
+ *  - probably shouldn't return the full transactions
  */
 public class Player {
 
@@ -127,5 +129,12 @@ public class Player {
 		setBalance(getBalance() + sale.getPrice());
 		getShip().removeItem(sale.getItem());		
 	}
-
+	
+	public boolean hasMoney(Route route) {
+		if (getBalance() >= route.getRouteDistance()*ship.getCostPerDay()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

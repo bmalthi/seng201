@@ -65,11 +65,15 @@ public class Ship {
  		return false;
  	}	
 	
+	public int getCostPerDay() {
+		return getNumberOfCrew();
+	}
+	
 	public String getName() {
 		return name;
 	}
 	
-	public int getnumberOfCrew() {
+	public int getNumberOfCrew() {
 		return numberOfCrew;
 	}
 

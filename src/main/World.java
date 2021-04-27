@@ -166,6 +166,9 @@ public class World {
 		//TODO KVIE eg
 		//route11.addEvent(new UnfortinateWeather(10%))
 		routes.add(route11);
+		
+		Route route2 = new Route(island1, island3);
+		routes.add(route2);
 	}
 	
 	private PricedItem createRandomPricedItem(Store store, String[] itemNames, ItemType itemType, int maxPrice, PriceType priceType, Island island) {
@@ -197,6 +200,17 @@ public class World {
 	 */
 	public List<Island> getIslands() {
 		return Collections.unmodifiableList(islands);
+	}
+	
+	/**
+	 * @return the islands
+	 */
+	public ArrayList<String> getIslandNames() {
+		ArrayList<String> islandNames = new ArrayList<String>();				
+		for (Island island : getIslands()) {
+			islandNames.add(island.toString());
+		}
+		return islandNames;
 	}	
 
 	/**
