@@ -1,7 +1,6 @@
 package main;
 
-public class UnfortunateWeather {
+public class UnfortunateWeather implements RandomEvent {
 	private WeatherType type;
-	
 	
 }

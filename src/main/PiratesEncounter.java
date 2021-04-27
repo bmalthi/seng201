@@ -1,7 +1,7 @@
 package main;
 import java.util.Random;
 
-public class PiratesEncounter extends Events {
+public class PiratesEncounter implements RandomEvent {
 	
 	public String rollingadie(int pirateNumber) {
 		pirateNumber = 3;

@@ -129,5 +129,12 @@ public class Player {
 		setBalance(getBalance() + sale.getPrice());
 		getShip().removeItem(sale.getItem());		
 	}
-
+	
+	public boolean hasMoney(Route) {
+		if (getBalance() >= ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
