@@ -9,6 +9,7 @@ import main.Island;
 import main.IslandTrader;
 import main.Player;
 import main.PricedItem;
+import main.Route;
 import main.Store;
 import ui.IslandTraderUI;
 
@@ -70,7 +71,7 @@ public class MainCmdUI implements IslandTraderUI {
 				"Money & days remaining",
 				"Ship status - KVIE",
 				"View your past purchases & sales",
-				"View island properties - BEN",
+				"View island properties",
 				"Visit the island store",
 				"Sail to another island"}; 
 	        
@@ -230,7 +231,7 @@ public class MainCmdUI implements IslandTraderUI {
 					this.setFinish();
 		            break;        
 		        case 1: //"Routes"
-		        	//ui.buyMenu.getUserOption(ui.scanner);
+		        	routeList(island);
 		            break;
 		        case 2: //"Selling"
 		        	buyList(island.getStore());
@@ -249,6 +250,21 @@ public class MainCmdUI implements IslandTraderUI {
 		}
 
 	}	
+	
+	// TODO, show which are valid for this user / money / time etc, once Kvie does her bits of code
+	private void routeList(Island island) {		
+		
+		System.out.println("Here are the routes available from your current island " +this.islandTrader.getCurrentIsland().getName() + " to " + island.getName());
+		System.out.println("(* recommended for you)\n");
+		for (Route route :this.islandTrader.getWorld().getRoutes(this.islandTrader.getCurrentIsland(), island)) {
+			//if (this.islandTrader.validateRoute(route)) {
+			//	System.out.println("* " +item.toString());
+			//} else {
+				System.out.println("  " +route.getDescription());
+			//}
+		}
+		System.out.println("\n");
+	}		
 	
 	// Menu option for things the player can buy / store will sell
 	// TODO Say how much the player has in space and money
@@ -275,7 +291,7 @@ public class MainCmdUI implements IslandTraderUI {
 	    		if (this.ui.islandTrader.validatePurchase(toSellItems.get(i))) {	    			
 	    			this.options.add("* " +toSellItems.get(i).toString());
 	    		} else {
-	    			this.options.add(toSellItems.get(i).toString());
+	    			this.options.add("  " +toSellItems.get(i).toString());
 	    		}
 	    	}
 	    	
@@ -306,14 +322,16 @@ public class MainCmdUI implements IslandTraderUI {
 
 	private void buyList(Store store) {		
 		
-		System.out.println("The store sells the following items?\n (* recommended for you)\n");
+		System.out.println(store.getName() +" sells the following items?\n (* recommended for you)\n");
 		for (PricedItem item :store.getToSell()) {
 			if (this.islandTrader.validatePurchase(item)) {
 				System.out.println("* " +item.toString());
 			} else {
-				System.out.println(item.toString());
+				System.out.println("  " +item.toString());
 			}
 		}
+		if (store.getToSell().size() == 0)
+			System.out.println("We are not selling anyting today");
 		System.out.println("\n");
 	}		
 	
@@ -370,7 +388,7 @@ public class MainCmdUI implements IslandTraderUI {
 	}	
 	
 	private void sellList(Store store) {				
-		System.out.println("The store buys the following items?\n (* recommended for you)\n");
+		System.out.println(store.getName() +" buys the following items?\n (* recommended for you)\n");
 		for (PricedItem item :store.getToBuy()) {
 			if (this.islandTrader.validateSale(item)) {
 				System.out.println("* " +item.toString());
@@ -378,6 +396,8 @@ public class MainCmdUI implements IslandTraderUI {
 				System.out.println(item.toString());
 			}
 		}
+		if (store.getToBuy().size() == 0)
+			System.out.println("We are not buying anyting today");		
 		System.out.println("\n");
 	}	
 	

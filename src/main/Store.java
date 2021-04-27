@@ -94,7 +94,8 @@ public class Store {
 	
 	public void buyItem(PricedItem item) {
 		removeFromBuy(item);
-		addToSell(new PricedItem(item.getItem(), item.getPrice(), PriceType.FORSALE, item.getIsland()));
+		if (this.name != "Hotel California") //no selling anything
+			addToSell(new PricedItem(item.getItem(), item.getPrice(), PriceType.FORSALE, item.getIsland()));
 	}			
 	
 }

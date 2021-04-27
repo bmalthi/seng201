@@ -41,7 +41,7 @@ public class World {
 		
 		PricedItem pricedItem;
 		String[] rawCargoItems = {"Burger", "Fries", "Coke", "IceCream", "Chairs", "Dog", "Bananas", "Beer", "Water"};
-		String[] rawWeaponItems = {"Rifle", "Cannon", "Sheild"};		
+		String[] rawWeaponItems = {"Rifle", "Cannon", "Shield"};		
 		String[] rawUpgradeItems = {"Engine Upgrade", "Extra Cargo Bay10", "Extra Cargo Bay5"};	
 		
 		/*
@@ -121,19 +121,14 @@ public class World {
 		//Add items to the store
 		// CARGO
 		for (int i = 0; i < 10; i++) {
-			pricedItem = createRandomPricedItem(store4, rawCargoItems, ItemType.CARGO, 8, PriceType.FORSALE, island4);
-			store4.addToSell(pricedItem);
+			pricedItem = createRandomPricedItem(store4, rawCargoItems, ItemType.CARGO, 8, PriceType.FORBUY, island4);
+			store4.addToBuy(pricedItem);
 		}
 		// WEAPONS
 		for (int i = 0; i < 3; i++) {
-			pricedItem = createRandomPricedItem(store4, rawWeaponItems, ItemType.WEAPON, 15, PriceType.FORSALE, island4);
-			store4.addToSell(pricedItem);
+			pricedItem = createRandomPricedItem(store4, rawWeaponItems, ItemType.WEAPON, 15, PriceType.FORBUY, island4);
+			store4.addToBuy(pricedItem);
 		}	
-		// UPGRADES
-		for (int i = 0; i < 3; i++) {
-			pricedItem = createRandomPricedItem(store4, rawUpgradeItems, ItemType.UPGRADE, 15, PriceType.FORSALE, island4);
-			store4.addToSell(pricedItem);
-		}			
 		
 		/*
 		 * Danger Island #5
