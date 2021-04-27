@@ -403,6 +403,49 @@ public class MainCmdUI implements IslandTraderUI {
 		System.out.println("\n");
 	}	
 	
+private class RouteMenu extends ListOption {		
+		
+		public RouteMenu(MainCmdUI ui) {
+			super(ui); 		  		    	
+		}
+		
+		@Override
+		public void eachHeader() {
+			System.out.println("What do you want to go?\n (* possible for you)\n");
+		}	
+		
+		@Override
+		public void oneFooter() {
+			System.out.println("\n");
+		}	
+		
+		private void refreshOptions() {
+			this.options = stringList(ui.islandTrader.getWorld().getRoutes(ui.islandTrader.getCurrentIsland()));
+			String exitOption = "(back to main menu)";
+			this.options.add(0, exitOption);
+		}
+		
+		@Override
+		public void printOptions() {
+			refreshOptions();
+			super.printOptions();
+		}
+
+		@Override
+		public void handleOption(String option) {
+			int intOption = Integer.parseInt(option);			
+			//ui.game.getPlayer().getShip().dumpList();
+			if (intOption == -1) {
+				this.setFinish();
+			} else { //THIS IS UGLY check this has to work, ie no pass through of bad ints
+				ui.sailRoute(intOption-1);
+			}	
+			//ui.game.getPlayer().dumpList();
+			//ui.game.getPlayer().dumpTransactions();
+		}
+
+	}		
+
 	private void purchasesList() {
 		List<PricedItem> transactions = this.islandTrader.getPlayer().getTransactions();
 		System.out.println("****************************************");
@@ -539,6 +582,9 @@ public class MainCmdUI implements IslandTraderUI {
 			names.add(obj.toString());
 		}
 		return names;
-	}	
-
+	}
+	
+	private void sailRoute(int option) {
+		
+	}
 }
