@@ -41,6 +41,9 @@ public class Route {
 		}
 	}
 	
+	public String toString() {
+		return getDescription();
+	}
 //	public String sailRoute() { 
 //		/** 
 //		 * called by the UI
