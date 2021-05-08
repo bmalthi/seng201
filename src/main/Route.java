@@ -5,7 +5,6 @@ public class Route {
 	private int routeDistance;
 	private Island islandStartPoint;
 	private Island islandEndPoint;
-	private boolean isSafe;
 	private ArrayList<Events> events;
 
 	public Route(Island islandStartPoint, Island islandEndPoint) {
@@ -14,6 +13,10 @@ public class Route {
 		this.events = new ArrayList<Events>();
 	}
 
+	public void getEvents() {
+		
+	}
+	
 	public int getRouteDistance() {
 		return routeDistance;
 	}
@@ -29,17 +32,14 @@ public class Route {
 	
 	
 	public String getDescription() {
-		return("The route is between " + getislandStartPoint().getName() + " and " + getislandEndPoint().getName() + ".");
+		return("The route is between " + getislandStartPoint().getName() + " and " + getislandEndPoint().getName() + "." + "\nThis route is safe to go!");
+		
 	}
 	
-	
-	public String isRouteSafe() {
-		if (isSafe == true) {	
-			return ("This route is safe. Let's go!");
-		} else {
-			return ("This route has some risks: " + events + ", but brave people will choose to go.");
-		}
-	}
+
+//			return ("This route has some risks: " + events + ", but brave people will choose to go.");
+//		}
+//	}
 	
 	public String toString() {
 		return getDescription();

@@ -7,7 +7,6 @@ public class UnfortunateWeather extends Events {
 		this.eventName = eventName;
 	}
 
-
 	@Override
 	public void handleEvent() {
 		// TODO Auto-generated method stub

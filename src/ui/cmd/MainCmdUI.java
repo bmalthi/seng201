@@ -200,6 +200,13 @@ public class MainCmdUI implements IslandTraderUI {
 
 	}	
 	
+	private class ShipMenu extends ListOption {
+		
+		public ShipMenu(MainCmdUI ui) {
+			super(ui);
+			
+		}
+	}
 	// Class (glorified enum) for the main store menu
 	private class IslandDetailMenu extends ListOption {		
 		

@@ -162,13 +162,43 @@ public class World {
 		/*
 		 * Routes 
 		 */		
-		Route route11 = new Route(island1, island2);
+		Route route1 = new Route(island1, island2);
 		//TODO KVIE eg
 		//route11.addEvent(new UnfortinateWeather(10%))
-		routes.add(route11);
+		routes.add(route1);
 		
-		Route route2 = new Route(island1, island3);
+		Route route2 = new Route(island1, island2);
 		routes.add(route2);
+		
+		Route route3 = new Route(island1, island3);
+		routes.add(route3);
+		
+		Route route4 = new Route(island2, island3);
+		routes.add(route4);
+		route1.addEvent(new Unfortunate Weather());
+		
+		Route route5 = new Route(island3, island4);
+		routes.add(route5);
+		route1.addEvent(new Unfortunate Weather());
+		
+		Route route6 = new Route(island3, island5);
+		routes.add(route6);
+		route1.addEvent(new Unfortunate Weather());
+		
+		Route route7 = new Route(island4, island1);
+		routes.add(route7);
+		
+		Route route8 = new Route(island4, island2);
+		routes.add(route8);
+		
+		Route route9 = new Route(island5, island2);
+		routes.add(route9);
+		
+		Route route10 = new Route(island5, island3);
+		routes.add(route10);
+		
+		
+		
 	}
 	
 	private PricedItem createRandomPricedItem(Store store, String[] itemNames, ItemType itemType, int maxPrice, PriceType priceType, Island island) {
