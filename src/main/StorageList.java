@@ -58,13 +58,16 @@ public class StorageList {
 	}
 
 	/**
+	 * @return 
 	 * 
 	 */
-	public void addItem(Item item) {
-		// TODO HMMN, maybe make exception or move to extenal check
-		if (remainingSpace() >= item.getSize()) {
+	public boolean addItem(Item item) {
+		// TODO HMMN, maybe make exception or move to external check
+		if (remainingSpace() >= item.getSize() && this.type == item.getType()) {
 			items.add(item);
+			return true;
 		}
+		return false;
 	}
 	
 	public boolean hasItem(Item item) {
@@ -92,15 +95,17 @@ public class StorageList {
 	}
 	
 	/**
+	 * @return 
 	 * 
 	 */
-	public void removeItem(Item item) {
+	public boolean removeItem(Item item) {
 		for (int i = 0; i < items.size(); i++) {
 			if (items.get(i).equals(item)) {
 				items.remove(i);
-				return;
+				return true;
 			}
 		}
+		return false;
 	}	
 	
 	public void dumpList() {

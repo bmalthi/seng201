@@ -35,10 +35,7 @@ public class Item {
 	 * @param The size of item, how much ship space it takes up
 	 */	
 	public Item(String name, String description, int size) {
-		this.name = name;
-		this.description = description;
-		this.size = size;
-		this.type = ItemType.CARGO;
+		this(name, description, size, ItemType.CARGO);
 	}		
 
 	/**
