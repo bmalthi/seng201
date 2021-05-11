@@ -24,6 +24,7 @@ public class World {
 	private ArrayList<Route> routes;
 	
 	private Random random;
+	private ArrayList<Ship> ships; //ArrayList of ships that contain 4 ships
 
 	/**
 	 * Initializes the world for our game. Currently with fixed islands and routes. 
@@ -34,6 +35,7 @@ public class World {
 		this.routes = new ArrayList<Route>();
 		this.random = new Random();
 		this.random.setSeed(0);
+		this.ships = new ArrayList<Ship>();
 		setUpWorld();
 	}
 	
@@ -167,37 +169,56 @@ public class World {
 		//route11.addEvent(new UnfortinateWeather(10%))
 		routes.add(route1);
 		
-		Route route2 = new Route(island1, island2);
+		Route route2 = new Route(island1, island5);
+		route2.addEvent(new PiratesEncounter(80, "Pirates Encounter"));
 		routes.add(route2);
 		
 		Route route3 = new Route(island1, island3);
 		routes.add(route3);
 		
 		Route route4 = new Route(island2, island3);
+		route4.addEvent(new RescueSailors(30, "Rescue Sailors"));
 		routes.add(route4);
-		route1.addEvent(new Unfortunate Weather());
 		
 		Route route5 = new Route(island3, island4);
+		route5.addEvent(new UnfortunateWeather(70, "Rain"));
 		routes.add(route5);
-		route1.addEvent(new Unfortunate Weather());
 		
 		Route route6 = new Route(island3, island5);
 		routes.add(route6);
-		route1.addEvent(new Unfortunate Weather());
+		route6.addEvent(new UnfortunateWeather(65, "Tornado"));
 		
 		Route route7 = new Route(island4, island1);
+		route7.addEvent(new PiratesEncounter(60, "Pirates Encounter"));
 		routes.add(route7);
 		
 		Route route8 = new Route(island4, island2);
+		route8.addEvent(new RescueSailors(80, "Sailors"));
 		routes.add(route8);
 		
 		Route route9 = new Route(island5, island2);
+		route9.addEvent(new PiratesEncounter(80, "Pirates Encounter"));
 		routes.add(route9);
 		
 		Route route10 = new Route(island5, island3);
+		route10.addEvent(new UnfortunateWeather(90, "Thunderstorm"));
 		routes.add(route10);
 		
+		/*
+		 * Ship
+		 */
 		
+		Ship ship1 = new Ship("Speedy Soul", 9, 10, 180);
+		ships.add(ship1);
+		
+		Ship ship2 = new Ship("Sudden Storm", 10, 15, 200);
+		ships.add(ship2);
+		
+		Ship ship3 = new Ship("Steel Skull", 11, 20, 280);
+		ships.add(ship3);
+		
+		Ship ship4 = new Ship("Savage Sloop", 12, 25, 300);
+		ships.add(ship4);
 		
 	}
 	
@@ -224,7 +245,13 @@ public class World {
 		return newItem;
 	}
 	
-
+	public List<Ship> getShips() {
+		/**
+		 * @return the ships
+		 */
+		return Collections.unmodifiableList(ships);
+	}
+	
 	/**
 	 * @return the islands
 	 */

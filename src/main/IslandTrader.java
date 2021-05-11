@@ -28,6 +28,8 @@ public class IslandTrader {
 	
 	private Island currentIsland;
 	
+	private Ship currentShip;
+	
 	/**
 	 * Creates a IslandManager with the given user interface. Then initializes the world objects
 	 * such as Stores, Islands and the Player.
@@ -100,6 +102,11 @@ public class IslandTrader {
 		this.gameLength = gameLength;
 	}
 
+	public Ship setShip() {
+		return currentShip;
+		// TODO Auto-generated method stub
+		
+	}	
 	/**
 	 * Get the current time in the game
 	 * 
@@ -117,6 +124,7 @@ public class IslandTrader {
 	public void setTime(int time) {
 		this.time = time;
 	}
+	
 	
 	/**
 	 * @return the currentIsland
@@ -195,5 +203,7 @@ public class IslandTrader {
 	
 	public boolean validateRoute(Route route) {
 		return hasTime(route) && player.hasMoney(route);
-	}	
+	}
+
+
 }
