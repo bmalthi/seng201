@@ -10,6 +10,7 @@ import main.IslandTrader;
 import main.Player;
 import main.PricedItem;
 import main.Route;
+import main.Ship;
 import main.Store;
 import ui.IslandTraderUI;
 
@@ -20,6 +21,8 @@ public class MainCmdUI implements IslandTraderUI {
 
     // The rocket manager this ui interacts with
     private IslandTrader islandTrader;
+
+	public Object ShipChoiceInput;
     
 	private class PlayerNameInput extends Option {	
 		
@@ -101,6 +104,7 @@ public class MainCmdUI implements IslandTraderUI {
 	            	gameStatus();
 	                break;
 	            case 2: //"Ship status"
+	            	ui.ShipChoiceInput.getUserOption(ui.scanner);
 	                break;
 	            case 3: //"View purchases"
 	            	purchasesList();
@@ -200,6 +204,43 @@ public class MainCmdUI implements IslandTraderUI {
 
 	}	
 	
+	private class ShipChoiceInput extends ListOption {
+		
+		public ShipChoiceInput(MainCmdUI ui) {
+			super(ui);
+			
+			String[] base_options = {
+				"Speedy Soul - 9 crews, 10% damage, cost $180 to repair",
+				"Sudden Storm - 10 crews, 15% damage, cost $200 to repair",
+				"Steel Skull - 11 crews, 20% damage, cost $280 to repair",
+				"Savage Sloop - 12 crews, 25% damage, cost $300 to repair"
+			};
+			
+			this.options = new ArrayList<String>(Arrays.asList(base_options));
+			String exitOption = "(go back)";
+			this.options.add(0, exitOption);
+		}
+		
+		public void eachHeader() {
+			System.out.println("Which Ship do you want to choose? ");
+			
+		}
+		
+		public void handleOption(String option) {
+			int intOption = Integer.parseInt(option);
+			if (intOption == -1) {
+				this.setFinish();
+			} else {
+				ui.(intOption-1)); 
+			}
+		}
+		
+//		public void setShip(Ship ship) {
+//			this.ship = ship;
+//		}
+	}
+	
+
 	// Class (glorified enum) for the main store menu
 	private class IslandDetailMenu extends ListOption {		
 		
@@ -474,6 +515,7 @@ private class RouteMenu extends ListOption {
 	private PlayerNameInput playerNameInput;
 	@SuppressWarnings("unused")
 	private GameLengthInput gameLengthInput;
+	private ShipChoiceInput shipChoiceInput;
 	
 	private MainMenu mainMenu;
 	private StoreMenu storeMenu;	
@@ -501,6 +543,7 @@ private class RouteMenu extends ListOption {
 		
 		// Set up game length input
 		this.gameLengthInput = new GameLengthInput(this);
+		this.shipChoiceInput = new ShipChoiceInput(this);
 		// TODO Set up ship choice input
 		
 		//Set up command menus
@@ -511,7 +554,6 @@ private class RouteMenu extends ListOption {
 		this.islandMenu = new IslandMenu(this);
 		this.islandDetailMenu = new IslandDetailMenu(this);
 		this.routeMenu = new RouteMenu(this);
-		
 		// Start the game. Kinda
 		game.onSetupFinished();
 		
@@ -535,7 +577,7 @@ private class RouteMenu extends ListOption {
 		System.out.println("Game will run for " +this.islandTrader.getGameLength() +" days\n");	
 		
 		// Get the ship choice
-		// TODO @kvie GetShipinput 
+		this.islandTrader.setShip();
 		System.out.println("TODO What an awesome ship\n");
 		
 		//Start the main menu
