@@ -1,7 +1,7 @@
 package main;
 
 public abstract class Events {
-	protected double probability;
+	protected double chance;
 	protected String eventName;
 	
 	public abstract void handleEvent();
