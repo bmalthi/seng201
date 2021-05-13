@@ -4,7 +4,7 @@ package main;
 public class PiratesEncounter extends Events {
 	
 	public PiratesEncounter(double probability, String eventName) {
-		this.probability = probability;
+		this.chance = probability;
 		this.eventName = eventName;
 	}
 

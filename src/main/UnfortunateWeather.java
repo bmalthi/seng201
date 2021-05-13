@@ -3,7 +3,7 @@ package main;
 public class UnfortunateWeather extends Events {
 	
 	public UnfortunateWeather(double probability, String eventName) {
-		this.probability = probability;
+		this.chance = probability;
 		this.eventName = eventName;
 	}
 

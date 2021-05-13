@@ -21,9 +21,7 @@ public class MainCmdUI implements IslandTraderUI {
 
     // The rocket manager this ui interacts with
     private IslandTrader islandTrader;
-
-	public Object ShipChoiceInput;
-    
+ 
 	private class PlayerNameInput extends Option {	
 		
 		public PlayerNameInput(MainCmdUI ui) {
@@ -62,6 +60,83 @@ public class MainCmdUI implements IslandTraderUI {
 			this.setFinish();
 		}		
 	}
+	
+	private class ShipChoiceInput extends Option {
+		
+		public ShipChoiceInput(MainCmdUI ui) {
+			super(ui, "1-4");
+		
+		}
+		
+		@Override
+		public void oneHeader() {
+			System.out.println("Which Ship do you want to choose? ");
+			
+		}
+		
+		@Override
+		public void handleOption(String option) {
+			int intOption = Integer.parseInt(option);
+			if (intOption == -1) {
+				this.setFinish();
+			} else {
+				ui.islandTrader.getPlayer().setShip(new Ship); 
+				this.setFinish();
+			}
+		}
+//print list of ships to choose 
+	}
+	
+	/**
+	 * This ship shows the detail of ship to the player 
+	 *
+	 */
+	private class ShipChoiceDetail extends ListOption {
+
+		private Ship ship;
+		
+		public ShipChoiceDetail(MainCmdUI ui) {
+			super(ui);
+			
+			// Set up Ship Options
+		String[] base_options = {
+				"Speedy Soul",
+				"Sudden Storm",
+				"Steel Skull",
+				"Savage Sloop"}; 
+		
+		this.options = new ArrayList<String>(Arrays.asList(base_options));
+		String exitOption = "(go back)";
+		this.options.add(0, exitOption);
+		
+		}
+		
+		@Override
+		public void eachHeader() {
+			System.out.println("Which ship do you want to get more information " + ship.getName());
+		}
+		
+		@Override
+		public void handleOption(String option) {
+			int intOption = Integer.parseInt(option);
+			switch(intOption) {
+			case -1:
+				this.setFinish();
+				break;
+			case 1: //Speedy Soul information
+				System.out.println("Speedy Soul - 9 crews, 10% damage, cost $180 to repair");
+			case 2: //Sudden Storm information
+				System.out.println("Sudden Storm - 10 crews, 15% damage, cost $200 to repair");
+			case 3: //Steel Skull information
+				System.out.println("Steel Skull - 11 crews, 20% damage, cost $280 to repair");
+			case 4: //Savage Sloop information
+				System.out.println("Savage Sloop - 12 crews, 25% damage, cost $300 to repair");
+            default:
+                throw new IllegalStateException("Unexpected value: " + option);
+			}
+		}
+	}
+	
 	
 	// Class (glorified enum) for the main store menu
 	private class MainMenu extends ListOption {		
@@ -104,7 +179,7 @@ public class MainCmdUI implements IslandTraderUI {
 	            	gameStatus();
 	                break;
 	            case 2: //"Ship status"
-	            	ui.ShipChoiceInput.getUserOption(ui.scanner);
+	            	ui.shipChoiceInput.getUserOption(ui.scanner);
 	                break;
 	            case 3: //"View purchases"
 	            	purchasesList();
@@ -202,42 +277,6 @@ public class MainCmdUI implements IslandTraderUI {
 			}
 		}
 
-	}	
-	
-	private class ShipChoiceInput extends ListOption {
-		
-		public ShipChoiceInput(MainCmdUI ui) {
-			super(ui);
-			
-			String[] base_options = {
-				"Speedy Soul - 9 crews, 10% damage, cost $180 to repair",
-				"Sudden Storm - 10 crews, 15% damage, cost $200 to repair",
-				"Steel Skull - 11 crews, 20% damage, cost $280 to repair",
-				"Savage Sloop - 12 crews, 25% damage, cost $300 to repair"
-			};
-			
-			this.options = new ArrayList<String>(Arrays.asList(base_options));
-			String exitOption = "(go back)";
-			this.options.add(0, exitOption);
-		}
-		
-		public void eachHeader() {
-			System.out.println("Which Ship do you want to choose? ");
-			
-		}
-		
-		public void handleOption(String option) {
-			int intOption = Integer.parseInt(option);
-			if (intOption == -1) {
-				this.setFinish();
-			} else {
-				ui.(intOption-1)); 
-			}
-		}
-		
-//		public void setShip(Ship ship) {
-//			this.ship = ship;
-//		}
 	}
 	
 
@@ -303,7 +342,7 @@ public class MainCmdUI implements IslandTraderUI {
 			//if (this.islandTrader.validateRoute(route)) {
 			//	System.out.println("* " +item.toString());
 			//} else {
-				System.out.println("  " +route.getDescription());
+				System.out.println("  " +route.toString());
 				System.out.println("  This route is " +route.getRouteDistance() +" days.\n");
 			//}
 		}
@@ -516,7 +555,8 @@ private class RouteMenu extends ListOption {
 	@SuppressWarnings("unused")
 	private GameLengthInput gameLengthInput;
 	private ShipChoiceInput shipChoiceInput;
-	
+	@SuppressWarnings("unused")
+	private ShipChoiceDetail shipChoiceDetail;
 	private MainMenu mainMenu;
 	private StoreMenu storeMenu;	
 	private BuyMenu buyMenu;
@@ -543,9 +583,11 @@ private class RouteMenu extends ListOption {
 		
 		// Set up game length input
 		this.gameLengthInput = new GameLengthInput(this);
-		this.shipChoiceInput = new ShipChoiceInput(this);
-		// TODO Set up ship choice input
 		
+		// Set up ship choice input
+		this.shipChoiceInput = new ShipChoiceInput(this);
+		this.shipChoiceDetail = new ShipChoiceDetail(this);
+
 		//Set up command menus
 		this.mainMenu = new MainMenu(this);		
 		this.storeMenu = new StoreMenu(this);		
@@ -578,7 +620,7 @@ private class RouteMenu extends ListOption {
 		
 		// Get the ship choice
 		this.islandTrader.setShip();
-		System.out.println("TODO What an awesome ship\n");
+		System.out.println("What an awesome ship\n");
 		
 		//Start the main menu
 		mainMenu.getUserOption(this.scanner);	

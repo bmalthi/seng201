@@ -196,11 +196,11 @@ public class World {
 		route8.addEvent(new RescueSailors(80, "Sailors"));
 		routes.add(route8);
 		
-		Route route9 = new Route(island5, island2);
+		Route route9 = new Route(island4, island5);
 		route9.addEvent(new PiratesEncounter(80, "Pirates Encounter"));
 		routes.add(route9);
 		
-		Route route10 = new Route(island5, island3);
+		Route route10 = new Route(island5, island2);
 		route10.addEvent(new UnfortunateWeather(90, "Thunderstorm"));
 		routes.add(route10);
 		

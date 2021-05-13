@@ -13,7 +13,7 @@ public abstract class Events {
 		
 	}
 	public double getProbability() {
-		return probability;
+		return chance;
 	}
 
 	public String getEventName() {

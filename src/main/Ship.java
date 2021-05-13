@@ -14,18 +14,13 @@ public class Ship {
 	private int repairCost;
 	private ArrayList<StorageList> storage; //ArrayList of storage that contain cargo
 	
-	/** 
-	 * 
-	 * @param name - name of the ship
-	 * @param numberOfCrew - number of crew on the ship
-	 * @param damage - the ship's current damage status
-	 * @param repairCost - the cost to repair the ship's damage
+	/**
 	 */
 	
-	public Ship(String name, int numberOfCrew, int damage, int repairCost) {
+	public Ship(String name, int numberOfCrew, int damageStatus, int repairCost) {
 		this.name = name;
 		this.numberOfCrew = numberOfCrew;
-		this.damageStatus = damage;
+		this.damageStatus = damageStatus;
 		this.repairCost = repairCost;
 		this.storage = new ArrayList<StorageList>();
 		
@@ -35,7 +30,7 @@ public class Ship {
 		
 	}
 	
-	public boolean hasSpace(Item item) {
+ boolean hasSpace(Item item) {
 		/**
 		 * This method check if the storage has enough space for more items
 		 */
