@@ -80,7 +80,7 @@ public class MainCmdUI implements IslandTraderUI {
 			if (intOption == -1) {
 				this.setFinish();
 			} else {
-				//ui.islandTrader.getPlayer().setShip(new Ship()); 
+				ui.islandTrader.getPlayer().setShip(new Ship(option, intOption, intOption, intOption)); 
 				this.setFinish();
 			}
 		}
