@@ -11,8 +11,6 @@ import java.util.Random;
 /**
  * This class represents the physical world in our game, the islands, the routes and methods to 
  * survey the world
- *
- * TODO DO WE NEED THIS CLASS AT ALL
  */
 public class World {
 	
@@ -20,11 +18,12 @@ public class World {
 	private ArrayList<Island> islands; 	
 
 	// ArrayList of Routes between Islands	
-	// TODO do we need this?, if we dont' need this whats the point of this class
 	private ArrayList<Route> routes;
+
+	//ArrayList of ships that contain 4 ships
+	private ArrayList<Ship> ships; 
 	
 	private Random random;
-	private ArrayList<Ship> ships; //ArrayList of ships that contain 4 ships
 
 	/**
 	 * Initializes the world for our game. Currently with fixed islands and routes. 
@@ -33,9 +32,9 @@ public class World {
 	public World() {
 		this.islands = new ArrayList<Island>();
 		this.routes = new ArrayList<Route>();
+		this.ships = new ArrayList<Ship>();		
 		this.random = new Random();
 		this.random.setSeed(0);
-		this.ships = new ArrayList<Ship>();
 		setUpWorld();
 	}
 	
@@ -245,10 +244,10 @@ public class World {
 		return newItem;
 	}
 	
+	/**
+	 * @return the ships
+	 */	
 	public List<Ship> getShips() {
-		/**
-		 * @return the ships
-		 */
 		return Collections.unmodifiableList(ships);
 	}
 	
@@ -258,29 +257,22 @@ public class World {
 	public List<Island> getIslands() {
 		return Collections.unmodifiableList(islands);
 	}
-	
-	/**
-	 * @return the islands
-	 */
-	public ArrayList<String> getIslandNames() {
-		ArrayList<String> islandNames = new ArrayList<String>();				
-		for (Island island : getIslands()) {
-			islandNames.add(island.toString());
-		}
-		return islandNames;
-	}	
 
 	/**
-	 * @return the routes
+	 * @return all the routes
 	 */
 	public List<Route> getRoutes() {
 		return Collections.unmodifiableList(routes);
 	}
 	
+	/**
+	 * @return the routes that start and finish at certain island
+	 */	
 	public List<Route> getRoutes(Island startIsland, Island finishIsland) {
 		ArrayList<Route> validRoutes = new ArrayList<Route>();
 		for (Route route : routes) {
-			if (route.getislandStartPoint() == startIsland && route.getislandEndPoint() == finishIsland)
+			if ((route.getislandStartPoint() == startIsland && route.getislandEndPoint() == finishIsland)
+				|| (route.getislandEndPoint() == startIsland && route.getislandStartPoint() == finishIsland))
 				validRoutes.add(route);
 		}
 		return Collections.unmodifiableList(validRoutes);
@@ -289,7 +281,7 @@ public class World {
 	public List<Route> getRoutes(Island startIsland) {
 		ArrayList<Route> validRoutes = new ArrayList<Route>();
 		for (Route route : routes) {
-			if (route.getislandStartPoint() == startIsland)
+			if (route.getislandStartPoint() == startIsland || route.getislandEndPoint() == startIsland)
 				validRoutes.add(route);
 		}
 		return Collections.unmodifiableList(validRoutes);

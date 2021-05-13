@@ -6,11 +6,7 @@ package main;
 /**
  * @author bmalthi
  * This class implements an Item that a player can buy and sell at stores
- * 
- * TODO
- *  - tostring is wrong for non cargo items...maybe we need separate class
- *  - tostring has no description
- *
+ * and have in their cargo bay/s
  */
 public class Item {
 	
@@ -68,29 +64,35 @@ public class Item {
 
 	/**
 	 * @return a string representation of the Item
+	 *  TODO does not include description, just name
 	 */
+	@Override
 	public String toString() {
         switch (this.type) {
     		case CARGO:	
-    			return type.name() +": " +name + ", takes up " + size;
+    			return name +", " +type.name() +":"+ size;
     		case WEAPON:
-    			return type.name() +": " +name + ", takes up " + size;
+    			return name +", " +type.name() +":"+ size;
     		case UPGRADE:
-    			return type.name() +": " +name;
+    			return name +", " +type.name();
     		case REPAIR:
-    			return type.name() +": " +name;    	
+    			return name +", " +type.name();    	
 	        default:
-	            return type.name() +": " +name;
+	        	return name +", " +type.name();
         }
 	}		
 	
-	//TODO SHOULD I OVERIDE HE obj version
-	public boolean equals(Item item) {
+	/**
+	 * @return a boolean representing equality with another Item
+	 */	
+	@Override	
+	public boolean equals(Object item) {
 		return (	
-			   (this.getName() == item.getName())
-			&& (this.getType() == item.getType())
-			&& (this.getSize() == item.getSize())
+			   (this.getName() == ((Item) item).getName())
+			&& (this.getType() == ((Item) item).getType())
+			&& (this.getSize() == ((Item) item).getSize())
 		);		
 	}
 
+	
 }
