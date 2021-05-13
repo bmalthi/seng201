@@ -22,15 +22,13 @@ public class Route {
 		this.events = new ArrayList<Events>();
 	//	this.probability = probability;
 	}
-	
-	/**
-	 * 
-	 * @param unfortunateWeather - depend on the probability of happening
-	 * bad weather can cause damage to the ship
-	 */
-
-	public void addEvent(Events events) {
-		events.add(new Unfortunate Weather());
+	public void addEvent(UnfortunateWeather unfortunateWeather) {
+		if (probability.chance >= 50) {
+			System.out.println("The weather is not very great!");
+			events.add(unfortunateWeather);
+		} else {
+			System.out.println("How lucky we are to sail in this wonderful weather!");
+		}
 	}
 	
 	/**
@@ -38,7 +36,7 @@ public class Route {
 	 * @param rescueSailors - player can earn monetary reward by rescueing some sailors
 	 */
 	public void addEvent(RescueSailors rescueSailors) {
-		if (chance >= 50) {
+		if (probability.chance >= 50) {
 			System.out.println("You have found some lost sailors! Let's rescue them!");
 			events.add(rescueSailors);
 		} else {
@@ -53,7 +51,7 @@ public class Route {
 	
 	public void addEvent(PiratesEncounter piratesEncounter) {
 		// TODO Auto-generated method stub
-		if (probability >= 50) {
+		if (probability.chance >= 50) {
 			System.out.println("Pirates ENCOUNTER! You have to roll a die!");
 			
 			events.add(piratesEncounter);

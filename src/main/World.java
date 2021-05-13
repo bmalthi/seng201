@@ -162,11 +162,10 @@ public class World {
 		}	
 		
 		/*
-		 * Routes 
+		 * Routes - create routes from an island to another 
+		with some events that may occur (depend on the probability) 
 		 */		
 		Route route1 = new Route(island1, island2);
-		//TODO KVIE eg
-		//route11.addEvent(new UnfortinateWeather(10%))
 		routes.add(route1);
 		
 		Route route2 = new Route(island1, island5);
@@ -201,6 +200,7 @@ public class World {
 		routes.add(route9);
 		
 		Route route10 = new Route(island5, island2);
+
 		route10.addEvent(new UnfortunateWeather(90, "Thunderstorm"));
 		routes.add(route10);
 		

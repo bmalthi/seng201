@@ -21,7 +21,7 @@ public class MainCmdUI implements IslandTraderUI {
 
     // The rocket manager this ui interacts with
     private IslandTrader islandTrader;
- 
+
 	private class PlayerNameInput extends Option {	
 		
 		public PlayerNameInput(MainCmdUI ui) {
@@ -80,7 +80,7 @@ public class MainCmdUI implements IslandTraderUI {
 			if (intOption == -1) {
 				this.setFinish();
 			} else {
-				ui.islandTrader.getPlayer().setShip(new Ship); 
+				//ui.islandTrader.getPlayer().setShip(new Ship()); 
 				this.setFinish();
 			}
 		}
@@ -278,7 +278,6 @@ public class MainCmdUI implements IslandTraderUI {
 		}
 
 	}
-	
 
 	// Class (glorified enum) for the main store menu
 	private class IslandDetailMenu extends ListOption {		
@@ -557,6 +556,7 @@ private class RouteMenu extends ListOption {
 	private ShipChoiceInput shipChoiceInput;
 	@SuppressWarnings("unused")
 	private ShipChoiceDetail shipChoiceDetail;
+
 	private MainMenu mainMenu;
 	private StoreMenu storeMenu;	
 	private BuyMenu buyMenu;
@@ -583,7 +583,6 @@ private class RouteMenu extends ListOption {
 		
 		// Set up game length input
 		this.gameLengthInput = new GameLengthInput(this);
-		
 		// Set up ship choice input
 		this.shipChoiceInput = new ShipChoiceInput(this);
 		this.shipChoiceDetail = new ShipChoiceDetail(this);
@@ -621,6 +620,7 @@ private class RouteMenu extends ListOption {
 		// Get the ship choice
 		this.islandTrader.setShip();
 		System.out.println("What an awesome ship\n");
+
 		
 		//Start the main menu
 		mainMenu.getUserOption(this.scanner);	
