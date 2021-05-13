@@ -41,7 +41,10 @@ public class MainCmdUI implements IslandTraderUI {
 		}
 	
 	}
-	
+	/**
+	 * This class gets the game length based on player's choice
+	 *
+	 */
 	private class GameLengthInput extends Option {	
 		
 		public GameLengthInput(MainCmdUI ui) {
@@ -61,34 +64,41 @@ public class MainCmdUI implements IslandTraderUI {
 		}		
 	}
 	
+	/**
+	 * This class gets the ship that the player choose
+	 * 	
+	 */
 	private class ShipChoiceInput extends Option {
 		
 		public ShipChoiceInput(MainCmdUI ui) {
-			super(ui, "1-4");
+			super(ui, IslandTrader.SHIP_REGEX);
 		
 		}
 		
 		@Override
 		public void oneHeader() {
 			System.out.println("Which Ship do you want to choose? ");
+			ui.islandTrader.getWorld().getShips();
+		}
+		
+		protected void eachHeader() {
+			List<Ship> ships = ui.islandTrader.getWorld().getShips();
 			
+			for (int i=0; i < ships.size(); i++) {
+				System.out.println("(" + (i+1) + ") " + ships.get(i).getName());
+			}
 		}
 		
 		@Override
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
-			if (intOption == -1) {
-				this.setFinish();
-			} else {
-				ui.islandTrader.getPlayer().setShip(new Ship(option, intOption, intOption, intOption)); 
-				this.setFinish();
-			}
+			ui.islandTrader.getWorld().getShips().get(intOption); 
+			this.setFinish();
 		}
-//print list of ships to choose 
 	}
 	
 	/**
-	 * This ship shows the detail of ship to the player 
+	 * This class shows the detail of ship to the player 
 	 *
 	 */
 	private class ShipChoiceDetail extends ListOption {
@@ -147,7 +157,7 @@ public class MainCmdUI implements IslandTraderUI {
 	    	//Set up Options
 	    	String[] base_options = {	    	
 				"Money & days remaining",
-				"Ship status - KVIE",
+				"Ship status",
 				"View your past purchases & sales",
 				"View island properties",
 				"Visit the island store",
@@ -618,7 +628,7 @@ private class RouteMenu extends ListOption {
 		System.out.println("Game will run for " +this.islandTrader.getGameLength() +" days\n");	
 		
 		// Get the ship choice
-		this.islandTrader.setShip();
+		this.islandTrader.setShip(new Ship("Sudden Storm", 10, 35, 30));
 		System.out.println("What an awesome ship\n");
 
 		

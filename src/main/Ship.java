@@ -138,15 +138,15 @@ public class Ship {
 		}
 	
 	}
-//	
-//	public String toString() {
-//		/**
-//		 * This method let the player know that the ship has been created successfully
-//		 */
-//		return ("Great choice! Now ship " + getName() + " is your ship" + "\n The ship has been damaged " + getdamageAmount() + " so you have to be careful while sailing");
-//		
-//	}
-//	
+	
+	public String toString() {
+		/**
+		 * This method let the player know that the ship has been created successfully
+		 */
+		return ("Great choice! Now ship " + getName() + " is your ship" + "\n The ship has been damaged " + getdamageAmount() + " so you have to be careful while sailing");
+		
+	}
+	
 	
 }
 

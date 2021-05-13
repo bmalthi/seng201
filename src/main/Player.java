@@ -79,7 +79,7 @@ public class Player {
 	}
 
 	/**
-	 * @param ship the ship to set
+	 * @param set the ship
 	 */
 	public void setShip(Ship ship) {
 		this.ship = ship;

@@ -20,15 +20,20 @@ public class IslandTrader {
 	// The length of the game, set from user input on initialization
 	private int gameLength;
 	
+	// The name of the ship
+	private Ship playerShip;
+	
 	// The current position of the game in time
 	private int time = 1;
 	
 	// The game can be between 20 and 50 days, this regex matches valid input for this period
 	public static final String GAME_LENGTH_REGEX = "^[2-4][0-9]|50$";	
+	public static final String SHIP_REGEX = "[1-4]";
 	
 	private Island currentIsland;
 	
-	private Ship currentShip;
+	
+	
 	
 	/**
 	 * Creates a IslandManager with the given user interface. Then initializes the world objects
@@ -41,6 +46,7 @@ public class IslandTrader {
 		this.ui = ui;
 		this.world = new World();
 		this.currentIsland = this.world.getIslands().get(0);
+		//this.shipName = this.world.getShips().get(0);
 	}
 	
 	/**
@@ -101,12 +107,15 @@ public class IslandTrader {
 	public void setGameLength(int gameLength) {
 		this.gameLength = gameLength;
 	}
-
-	public Ship setShip() {
-		return currentShip;
-		// TODO Auto-generated method stub
-		
+	
+	/**
+	 * Set up the ship 
+	 * @return the current ship
+	 */
+	public void setShip(Ship playerShip) {
+		this.playerShip = playerShip;
 	}	
+	
 	/**
 	 * Get the current time in the game
 	 * 
