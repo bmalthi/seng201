@@ -10,26 +10,19 @@ import java.util.ArrayList;
 public class Ship {
 	private String name; 
 	private int numberOfCrew; 
-	private String damageStatus; 
+	private int damageStatus; 
 	private int repairCost;
 	private ArrayList<StorageList> storage; //ArrayList of storage that contain cargo
-	private ArrayList<Ship> ships; //ArrayList of ships that contain 4 ships
 	
-	/** 
-	 * 
-	 * @param name - name of the ship
-	 * @param numberOfCrew - number of crew on the ship
-	 * @param damageStatus - the ship's current damage status
-	 * @param repairCost - the cost to repair the ship's damage
+	/**
 	 */
 	
-	public Ship(String name, int numberOfCrew, String damageStatus, int repairCost) {
+	public Ship(String name, int numberOfCrew, int damageStatus, int repairCost) {
 		this.name = name;
 		this.numberOfCrew = numberOfCrew;
 		this.damageStatus = damageStatus;
 		this.repairCost = repairCost;
 		this.storage = new ArrayList<StorageList>();
-		this.ships = new ArrayList<Ship>();
 		
 		this.storage.add(new StorageList("Cargo Hold 1", 10, ItemType.CARGO));
 		this.storage.add(new StorageList("Cannon Bay", 1, ItemType.WEAPON));
@@ -37,27 +30,7 @@ public class Ship {
 		
 	}
 	
-	public void createShip() {
-		/**
-		 * This method creates the four ships for the player to choose:
-		 * 
-		 * Ship: name, numberOfCrew, damageStatus, repairCost
-		 * 
-		 */
-		Ship ship1 = new Ship("Speedy Soul", 9, "10%", 180);
-		ships.add(ship1);
-		
-		Ship ship2 = new Ship("Sudden Storm", 10, "15%", 200);
-		ships.add(ship2);
-		
-		Ship ship3 = new Ship("Steel Skull", 11, "20%", 280);
-		ships.add(ship3);
-		
-		Ship ship4 = new Ship("Savage Sloop", 12, "25%", 300);
-		ships.add(ship4);
-	}
-	
-	public boolean hasSpace(Item item) {
+ boolean hasSpace(Item item) {
 		/**
 		 * This method check if the storage has enough space for more items
 		 */
@@ -141,7 +114,7 @@ public class Ship {
 		return repairCost;
 	}
 	
-	public String getdamageStatus() {
+	public int getdamageStatus() {
 		/**
 		 * This method gets the damage status of the ship
 		 */
