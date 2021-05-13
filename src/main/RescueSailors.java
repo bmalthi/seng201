@@ -4,8 +4,8 @@ public class RescueSailors extends Events {
 	/*
 	 * This method initializes the probability and the name of the event
 	 */
-	public RescueSailors(double probability, String eventName) {
-		this.chance = probability;
+	public RescueSailors(String eventName) {
+		//this.chance = probability;
 		this.eventName = eventName;
 	}
 

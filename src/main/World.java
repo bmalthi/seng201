@@ -169,55 +169,55 @@ public class World {
 		routes.add(route1);
 		
 		Route route2 = new Route(island1, island5);
-		route2.addEvent(new PiratesEncounter(80, "Pirates Encounter"));
+		route2.addEvent(new PiratesEncounter("Pirates Encounter"));
 		routes.add(route2);
 		
 		Route route3 = new Route(island1, island3);
 		routes.add(route3);
 		
 		Route route4 = new Route(island2, island3);
-		route4.addEvent(new RescueSailors(30, "Rescue Sailors"));
+		route4.addEvent(new RescueSailors("Rescue Sailors"));
 		routes.add(route4);
 		
 		Route route5 = new Route(island3, island4);
-		route5.addEvent(new UnfortunateWeather(70, "Rain"));
+		route5.addEvent(new UnfortunateWeather("Rain"));
 		routes.add(route5);
 		
 		Route route6 = new Route(island3, island5);
 		routes.add(route6);
-		route6.addEvent(new UnfortunateWeather(65, "Tornado"));
+		route6.addEvent(new UnfortunateWeather("Tornado"));
 		
 		Route route7 = new Route(island4, island1);
-		route7.addEvent(new PiratesEncounter(60, "Pirates Encounter"));
+		route7.addEvent(new PiratesEncounter("Pirates Encounter"));
 		routes.add(route7);
 		
 		Route route8 = new Route(island4, island2);
-		route8.addEvent(new RescueSailors(80, "Sailors"));
+		route8.addEvent(new RescueSailors("Sailors"));
 		routes.add(route8);
 		
 		Route route9 = new Route(island4, island5);
-		route9.addEvent(new PiratesEncounter(80, "Pirates Encounter"));
+		route9.addEvent(new PiratesEncounter("Pirates Encounter"));
 		routes.add(route9);
 		
 		Route route10 = new Route(island5, island2);
 
-		route10.addEvent(new UnfortunateWeather(90, "Thunderstorm"));
+		route10.addEvent(new UnfortunateWeather("Thunderstorm"));
 		routes.add(route10);
 		
 		/*
 		 * Ship
 		 */
 		
-		Ship ship1 = new Ship("Speedy Soul", 9, 10, 180);
+		Ship ship1 = new Ship("Speedy Soul", 9, 50, 20);
 		ships.add(ship1);
 		
-		Ship ship2 = new Ship("Sudden Storm", 10, 15, 200);
+		Ship ship2 = new Ship("Sudden Storm", 10, 42, 30);
 		ships.add(ship2);
 		
-		Ship ship3 = new Ship("Steel Skull", 11, 20, 280);
+		Ship ship3 = new Ship("Steel Skull", 11, 38, 35);
 		ships.add(ship3);
 		
-		Ship ship4 = new Ship("Savage Sloop", 12, 25, 300);
+		Ship ship4 = new Ship("Savage Sloop", 12, 30, 40);
 		ships.add(ship4);
 		
 	}

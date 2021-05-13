@@ -1,6 +1,6 @@
 package main;
 import java.util.ArrayList;
-
+import java.util.Random;
 /**
  * This class represents the four ships that the player can choose 
  * at the beginning of the game
@@ -10,18 +10,20 @@ import java.util.ArrayList;
 public class Ship {
 	private String name; 
 	private int numberOfCrew; 
-	private int damageStatus; 
-	private int repairCost;
+	private int sailSpeed; 
+	private int damageAmount;
 	private ArrayList<StorageList> storage; //ArrayList of storage that contain cargo
 	
 	/**
+	 * Initialize the ship properties
+	 * Add items to the ship
 	 */
 	
-	public Ship(String name, int numberOfCrew, int damageStatus, int repairCost) {
+	public Ship(String name, int numberOfCrew, int sailSpeed, int damageAmount) {
 		this.name = name;
 		this.numberOfCrew = numberOfCrew;
-		this.damageStatus = damageStatus;
-		this.repairCost = repairCost;
+		this.sailSpeed = sailSpeed;
+		this.damageAmount = damageAmount;
 		this.storage = new ArrayList<StorageList>();
 		
 		this.storage.add(new StorageList("Cargo Hold 1", 10, ItemType.CARGO));
@@ -107,28 +109,44 @@ public class Ship {
 	}
 
 	
-	public int repairCost() {
+	public int getSailSpeed() {
 		/**
-		 * This method gets the repair cost for the ship
+		 * This method gets the sail speed of the ship
 		 */
-		return repairCost;
+		return sailSpeed;
 	}
 	
-	public int getdamageStatus() {
+	public int getdamageAmount() {
 		/**
-		 * This method gets the damage status of the ship
+		 * This method gets how much damage the ship can take
 		 */
-		return damageStatus;
+		return damageAmount;
 	}
 	
-	public String toString() {
-		/**
-		 * This method let the player know that the ship has been created successfully
-		 */
-		return ("Great choice! Now ship " + getName() + " is your ship" + "\n The ship has been damaged " + getdamageStatus() + " so you have to be careful while sailing");
+	public int getRepairCost(int damageAmount) {
 		
-	}
+		Random cost = new Random();
+		if (damageAmount <= 30) {
+			int repairCost = cost.nextInt(30-20) + 20;
+			return repairCost;
+		} else if ((damageAmount > 30) && (damageAmount <= 40)) {
+			int repairCost = cost.nextInt(50-30) + 30;
+			return repairCost;
+		} else {
+			int repairCost = cost.nextInt(80-50) + 50;
+			return repairCost;
+		}
 	
+	}
+//	
+//	public String toString() {
+//		/**
+//		 * This method let the player know that the ship has been created successfully
+//		 */
+//		return ("Great choice! Now ship " + getName() + " is your ship" + "\n The ship has been damaged " + getdamageAmount() + " so you have to be careful while sailing");
+//		
+//	}
+//	
 	
 }
 

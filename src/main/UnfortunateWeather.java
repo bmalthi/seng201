@@ -2,8 +2,8 @@ package main;
 
 public class UnfortunateWeather extends Events {
 	
-	public UnfortunateWeather(double probability, String eventName) {
-		this.chance = probability;
+	public UnfortunateWeather(String eventName) {
+		//this.chance = probability;
 		this.eventName = eventName;
 	}
 

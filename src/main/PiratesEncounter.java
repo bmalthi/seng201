@@ -3,8 +3,8 @@ package main;
 
 public class PiratesEncounter extends Events {
 	
-	public PiratesEncounter(double probability, String eventName) {
-		this.chance = probability;
+	public PiratesEncounter(String eventName) {
+		//this.chance = probability;
 		this.eventName = eventName;
 	}
 

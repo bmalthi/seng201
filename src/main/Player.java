@@ -34,7 +34,7 @@ public class Player {
 		this.name = name;
 		this.balance = STARTING_BALANCE;
 		this.transactions = new ArrayList<PricedItem>();	
-		this.ship = new Ship("Sudden Storm", 10, 15, 200);
+		this.ship = new Ship("Sudden Storm", 10, 35, 30);
 	}
 
 	/**

@@ -22,11 +22,7 @@ public class Route {
 	//	this.probability = probability;
 	}
 	public void addEvent(Events event) {
-		if (event.getProbability() >= 50) {
-			events.add(event);
-		} else {
-			System.out.println("How lucky we are to sail safely");
-		}
+		events.add(event);
 	}
 	
 //	/**
