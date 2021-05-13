@@ -38,7 +38,7 @@ public class Route {
 	 * @param rescueSailors - player can earn monetary reward by rescueing some sailors
 	 */
 	public void addEvent(RescueSailors rescueSailors) {
-		if (probability >= 50) {
+		if (chance >= 50) {
 			System.out.println("You have found some lost sailors! Let's rescue them!");
 			events.add(rescueSailors);
 		} else {
