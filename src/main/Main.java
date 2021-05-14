@@ -3,11 +3,9 @@
  */
 package main;
 
-import javax.swing.SwingUtilities;
-
-import ui.gui.Gui;
 import ui.IslandTraderUI;
 import ui.cmd.MainCmdUI;
+import ui.gui.Gui;
 
 /**
  * @author bmalthi

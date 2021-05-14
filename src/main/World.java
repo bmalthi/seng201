@@ -168,39 +168,39 @@ public class World {
 		routes.add(route1);
 		
 		Route route2 = new Route(island1, island5);
-		route2.addEvent(new PiratesEncounter("Pirates Encounter"));
+		route2.addEvent(new PiratesEncounter(50));
 		routes.add(route2);
 		
 		Route route3 = new Route(island1, island3);
 		routes.add(route3);
 		
 		Route route4 = new Route(island2, island3);
-		route4.addEvent(new RescueSailors("Rescue Sailors"));
+		route4.addEvent(new RescueSailors(50));
 		routes.add(route4);
 		
 		Route route5 = new Route(island3, island4);
-		route5.addEvent(new UnfortunateWeather("Rain"));
+		route5.addEvent(new UnfortunateWeather(50));
 		routes.add(route5);
 		
 		Route route6 = new Route(island3, island5);
 		routes.add(route6);
-		route6.addEvent(new UnfortunateWeather("Tornado"));
+		route6.addEvent(new UnfortunateWeather(50));
 		
 		Route route7 = new Route(island4, island1);
-		route7.addEvent(new PiratesEncounter("Pirates Encounter"));
+		route7.addEvent(new PiratesEncounter(50));
 		routes.add(route7);
 		
 		Route route8 = new Route(island4, island2);
-		route8.addEvent(new RescueSailors("Sailors"));
+		route8.addEvent(new RescueSailors(50));
 		routes.add(route8);
 		
 		Route route9 = new Route(island4, island5);
-		route9.addEvent(new PiratesEncounter("Pirates Encounter"));
+		route9.addEvent(new PiratesEncounter(50));
 		routes.add(route9);
 		
 		Route route10 = new Route(island5, island2);
 
-		route10.addEvent(new UnfortunateWeather("Thunderstorm"));
+		route10.addEvent(new UnfortunateWeather(50));
 		routes.add(route10);
 		
 		/*

@@ -8,7 +8,7 @@ public class Route {
 	private int routeDistance;
 	private Island islandStartPoint;
 	private Island islandEndPoint;
-	private ArrayList<Events> events;
+	private ArrayList<RandomEvent> events;
 
 	/**
 	 * 
@@ -18,41 +18,12 @@ public class Route {
 	public Route(Island islandStartPoint, Island islandEndPoint) {
 		this.islandStartPoint = islandStartPoint;
 		this.islandEndPoint = islandEndPoint;
-		this.events = new ArrayList<Events>();
+		this.events = new ArrayList<RandomEvent>();
 	//	this.probability = probability;
 	}
-	public void addEvent(Events event) {
-		events.add(event);
+	public void addEvent(RandomEvent randomEvent) {
+		events.add(randomEvent);
 	}
-	
-//	/**
-//	 * 
-//	 * @param rescueSailors - player can earn monetary reward by rescueing some sailors
-//	 */
-//	public void addEvent(Events rescueSailors) {
-//		if (probability.chance >= 50) {
-//			System.out.println("You have found some lost sailors! Let's rescue them!");
-//			events.add(rescueSailors);
-//		} else {
-//			System.out.println("Sailors are not in this island.");
-//		}
-//	}
-//	
-//	/**
-//	 * 
-//	 * @param piratesencounter - player must win the roll a die game to continue the game
-//	 */
-//	
-//	public void addEvent(Events piratesEncounter) {
-//		// TODO Auto-generated method stub
-//		if (probability.chance >= 50) {
-//			System.out.println("Pirates ENCOUNTER! You have to roll a die!");
-//			
-//			events.add(piratesEncounter);
-//		} else {
-//			System.out.println("Luckily pirates are not in this island");
-//		}
-//	}
 
 	/**
 	 * 
@@ -78,24 +49,9 @@ public class Route {
 		return islandEndPoint;
 	}
 	
-
-	
-
-//			return ("This route has some risks: " + events + ", but brave people will choose to go.");
-//		}
-//	}
 	
 	public String toString() {
 		return("The route is between " + getislandStartPoint().getName() + " and " + getislandEndPoint().getName() + "." + "\nThis route is safe to go!");
 	}
-//	public String sailRoute() { 
-//		/** 
-//		 * called by the UI
-//		 */
-//		
-//	}
-
-
-
 		
 }

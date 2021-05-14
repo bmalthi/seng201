@@ -1,23 +1,26 @@
 package main;
 
-public class RescueSailors extends Events {
+public class RescueSailors implements RandomEvent {
+	
+	// Probability the event will be triggered during a sailing
+	private double probability;	
+	
+	public RescueSailors(double probability) {
+		this.probability = probability;
+	}
+
 	/*
-	 * This method initializes the probability and the name of the event
-	 */
-	public RescueSailors(String eventName) {
-		//this.chance = probability;
-		this.eventName = eventName;
+	 * return the probability of the event being triggered during sailing
+	 */	
+	@Override
+	public double getProbability() {
+		return this.probability;
 	}
 
 	@Override
-	public void handleEvent() {
+	public void eventTriggered() {
 		// TODO Auto-generated method stub
-		if (chance >= 50) {
-			System.out.println("You have found some lost sailors! Let's rescue them!");
-			
-		} else {
-			System.out.println("Sailors are not in this island.");
-		}
+		
 	}
 	
 }
