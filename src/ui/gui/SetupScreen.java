@@ -60,7 +60,7 @@ public class SetupScreen {
 		frmWelcomeToIsland.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWelcomeToIsland.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("Lets Play");
+		JButton btnNewButton = new JButton("Let's Play");
 		btnNewButton.setBackground(Color.RED);
 		btnNewButton.setEnabled(false);
 		btnNewButton.setForeground(Color.RED);
@@ -143,7 +143,7 @@ public class SetupScreen {
 		frmWelcomeToIsland.getContentPane().add(txtbetweenCharacters);
 		txtbetweenCharacters.setColumns(10);
 		
-		JTextArea lblNewLabel_1 = new JTextArea("Lets get started");
+		JTextArea lblNewLabel_1 = new JTextArea("Let's get started!!!");
 		lblNewLabel_1.setForeground(new Color(0, 0, 255));
 		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		lblNewLabel_1.setBackground(SystemColor.window);

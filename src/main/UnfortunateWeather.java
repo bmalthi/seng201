@@ -9,7 +9,6 @@ public class UnfortunateWeather extends Events {
 
 	@Override
 	public void handleEvent() {
-		// TODO Auto-generated method stub
 		
 	}
 	
