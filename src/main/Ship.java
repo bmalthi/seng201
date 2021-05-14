@@ -143,7 +143,7 @@ public class Ship {
 		/**
 		 * This method let the player know that the ship has been created successfully
 		 */
-		return ("- " + getNumberOfCrew() + " crews, " + getdamageAmount() + "% damage, " + "cost $" + getRepairCost(damageAmount) + " to repair");		
+		return ("- " + getNumberOfCrew() + " crews, sail fast with speed " + getSailSpeed() + "km/h, " + "cost $" + getRepairCost(damageAmount) + " to repair if damaged");		
 	}
 	
 	
