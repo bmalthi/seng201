@@ -3,26 +3,24 @@
  */
 package main;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * @author bmalthi
  *
  */
 public class Island {
 
+	// The Name of the Island
 	private final String name;
+	
+	// Link to the store on the island
 	private final Store store;
-	private ArrayList<Route> routes;
+	
 	/**
-	 * 
+	 * Create and Island with a name and a store
 	 */
 	public Island(String name, Store store) {
 		this.name = name;
 		this.store = store;
-		this.routes = new ArrayList<Route>();
 	}
 	/**
 	 * @return the name
@@ -38,28 +36,9 @@ public class Island {
 		return store;
 	}
 
-	/**
-	 * @return the routes
-	 */
-	public List<Route> getRoutes() {
-		return Collections.unmodifiableList(routes);
-	}
-	
-	/**
-	 * @param routes the routes to set
-	 */
-	public void addRoute(Route route) {
-		if(routeExists(route) == false) {
-			routes.add(route);
-		}
-	}
-	
-	private boolean routeExists(Route route) {
-		return routes.contains(route);
-	}
 	
 	@Override
-	public String toString() {
+	public String toString() {		
 		return getName();
 	}
 
