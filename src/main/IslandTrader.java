@@ -1,6 +1,8 @@
 package main;
 
 import ui.IslandTraderUI;
+import ui.gui.MainScreen;
+import ui.gui.SetupScreen;
 
 /**
  * Manages the IslandTrader game, allowing the {@link Player} to travel to {@link Island}s and trade
@@ -32,6 +34,7 @@ public class IslandTrader {
 	
 	private Island currentIsland;
 	
+
 	
 	
 	
@@ -214,5 +217,25 @@ public class IslandTrader {
 		return hasTime(route) && player.hasMoney(route);
 	}
 
-
+	/**
+	 * Launch GUI
+	 */
+	
+	public void launchSetupScreen() {
+		SetupScreen setupWindow = new SetupScreen(this);
+	}
+	
+	public void closeSetupScreen(SetupScreen setupWindow) {
+		setupWindow.closeWindow();
+		launchMainScreen();
+	}
+	
+	public void launchMainScreen() {
+		MainScreen mainWindow = new MainScreen(this);
+	}
+	
+	public void closeMainScreen(MainScreen mainWindow) {
+		mainWindow.closeWindow();
+	}
+	
 }
