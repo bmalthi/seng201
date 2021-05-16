@@ -65,9 +65,9 @@ public class SetupScreen {
 		frmWelcomeToIsland.getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("Let's Play");
-		btnNewButton.setBackground(Color.RED);
+		btnNewButton.setBackground(new Color(25, 25, 112));
 		btnNewButton.setEnabled(false);
-		btnNewButton.setForeground(Color.RED);
+		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		btnNewButton.setBounds(653, 506, 141, 48);
 		btnNewButton.setOpaque(true);
@@ -114,6 +114,7 @@ public class SetupScreen {
 		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1_1);
 		
 		txtbetweenCharacters = new JTextField();
+		txtbetweenCharacters.setHorizontalAlignment(SwingConstants.CENTER);
 		txtbetweenCharacters.getDocument().addDocumentListener(new DocumentListener() {
 		    @Override public void changedUpdate(DocumentEvent e) { updateNameField(); }
 		    @Override public void insertUpdate(DocumentEvent e) { updateNameField(); }
@@ -241,7 +242,6 @@ public class SetupScreen {
 		pirate.setIcon(new ImageIcon(SetupScreen.class.getResource("/pirate1.png")));
 		pirate.setBounds(647, 6, 147, 221);
 		frmWelcomeToIsland.getContentPane().add(pirate);
-		
 
 	}
 	
