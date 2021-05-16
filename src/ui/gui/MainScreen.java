@@ -35,7 +35,7 @@ public class MainScreen {
 	private void initialize() {
 		mainMenu = new JFrame();
 		mainMenu.getContentPane().setBackground(new Color(70, 130, 180));
-		mainMenu.setBounds(100, 100, 796, 611);
+		mainMenu.setBounds(100, 100, 792, 612);
 		mainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainMenu.getContentPane().setLayout(null);
 		
@@ -97,21 +97,5 @@ public class MainScreen {
 		islandTrader.closeMainScreen(this);
 	}
 }
-    
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					MainScreen window = new MainScreen(islandTrader);
-//					window.mainMenu.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 

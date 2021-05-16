@@ -50,7 +50,7 @@ public class MainMenu {
 		frame.getContentPane().setLayout(null);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello new trader! Every day is a new adventure, and today it begins with you. \nAs a trader, you can buy items in the current island store and sell them in another island. \n\nYou are currently at the Home Island. What do you want to do now? ");
-		lblNewLabel_1_1.setBounds(20, 46, 666, 112);
+		lblNewLabel_1_1.setBounds(20, 49, 666, 112);
 		lblNewLabel_1_1.setLineWrap(true);
 		lblNewLabel_1_1.setForeground(Color.WHITE);
 		lblNewLabel_1_1.setFont(new Font("Devanagari MT", Font.PLAIN, 17));

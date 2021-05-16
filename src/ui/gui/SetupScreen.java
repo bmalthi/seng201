@@ -245,7 +245,6 @@ public class SetupScreen {
 
 	}
 	
-	
     protected void show() {
     	frmWelcomeToIsland.setVisible(true);
     }	
