@@ -20,6 +20,7 @@ import main.IslandTrader;
 import main.Ship;
 
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.Image;
 
 import javax.swing.JRadioButton;
@@ -27,17 +28,17 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import javax.swing.UIManager;
+import javax.swing.SwingConstants;
 
 public class SetupScreen {
 
 	private JFrame frmWelcomeToIsland;
 	private JTextField txtbetweenCharacters;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
 	
 	public static final String NAME_REGEX = "^[a-z A-Z]{3,15}$";
 	
@@ -68,7 +69,7 @@ public class SetupScreen {
 		btnNewButton.setEnabled(false);
 		btnNewButton.setForeground(Color.RED);
 		btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		btnNewButton.setBounds(626, 507, 141, 48);
+		btnNewButton.setBounds(653, 506, 141, 48);
 		btnNewButton.setOpaque(true);
 		frmWelcomeToIsland.getContentPane().add(btnNewButton);		
 		
@@ -109,7 +110,7 @@ public class SetupScreen {
 		lblNewLabel_1_1.setFont(new Font("Devanagari MT", Font.PLAIN, 17));
 		lblNewLabel_1_1.setLineWrap(true);
 		lblNewLabel_1_1.setBackground(new Color(0, 0, 102));
-		lblNewLabel_1_1.setBounds(35, 58, 728, 52);
+		lblNewLabel_1_1.setBounds(35, 58, 608, 52);
 		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1_1);
 		
 		txtbetweenCharacters = new JTextField();
@@ -195,46 +196,55 @@ public class SetupScreen {
 		rdbtnNewRadioButton.setForeground(new Color(0, 0, 0));
 		buttonGroup.add(rdbtnNewRadioButton);
 		rdbtnNewRadioButton.setSelected(true);
-		rdbtnNewRadioButton.setBounds(35, 460, 141, 23);
+		rdbtnNewRadioButton.setBounds(40, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton(ships.get(1).getName());
 		buttonGroup.add(rdbtnNewRadioButton_1);
-		rdbtnNewRadioButton_1.setBounds(211, 460, 141, 23);
+		rdbtnNewRadioButton_1.setBounds(221, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1);
 		
 		JRadioButton rdbtnNewRadioButton_1_1 = new JRadioButton(ships.get(2).getName());
 		buttonGroup.add(rdbtnNewRadioButton_1_1);
-		rdbtnNewRadioButton_1_1.setBounds(375, 460, 141, 23);
+		rdbtnNewRadioButton_1_1.setBounds(385, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1_1);
 		
 		JRadioButton rdbtnNewRadioButton_1_1_1 = new JRadioButton(ships.get(3).getName());
 		buttonGroup.add(rdbtnNewRadioButton_1_1_1);
-		rdbtnNewRadioButton_1_1_1.setBounds(540, 460, 141, 23);
+		rdbtnNewRadioButton_1_1_1.setBounds(563, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1_1_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(211, 330, 130, 130);
-		frmWelcomeToIsland.getContentPane().add(textField_1);
+		JLabel show_image = new JLabel("");
+		show_image.setHorizontalAlignment(SwingConstants.LEFT);
+		show_image.setIcon(new ImageIcon(SetupScreen.class.getResource("/0001.png")));
+		show_image.setBounds(351, 324, 163, 159);
+		frmWelcomeToIsland.getContentPane().add(show_image);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(372, 325, 130, 130);
-		frmWelcomeToIsland.getContentPane().add(textField_2);
+		JLabel ship2 = new JLabel("");
+		ship2.setIcon(new ImageIcon(SetupScreen.class.getResource("/02.png")));
+		ship2.setBounds(211, 324, 163, 159);
+		frmWelcomeToIsland.getContentPane().add(ship2);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(540, 325, 130, 130);
-		frmWelcomeToIsland.getContentPane().add(textField_3);
+		JLabel ship3 = new JLabel("");
+		ship3.setIcon(new ImageIcon(SetupScreen.class.getResource("/another3.png")));
+		ship3.setBounds(40, 314, 147, 169);
+		frmWelcomeToIsland.getContentPane().add(ship3);
 		
-		JLabel lblNewLabel_3 = new JLabel("New label");
-		Image img = new ImageIcon(this.getClass().getResource("/1.jpg")).getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT);
-		lblNewLabel_3.setIcon(new ImageIcon(img));
-		lblNewLabel_3.setBounds(40, 330, 164, 130);
-		frmWelcomeToIsland.getContentPane().add(lblNewLabel_3);
+		JLabel ship4 = new JLabel("");
+		ship4.setIcon(new ImageIcon(SetupScreen.class.getResource("/14.png")));
+		ship4.setBounds(538, 324, 192, 159);
+		frmWelcomeToIsland.getContentPane().add(ship4);
 		
+		JLabel pirate = new JLabel("");
+		pirate.setHorizontalAlignment(SwingConstants.CENTER);
+		pirate.setBackground(new Color(70, 130, 180));
+		pirate.setIcon(new ImageIcon(SetupScreen.class.getResource("/pirate1.png")));
+		pirate.setBounds(647, 6, 147, 221);
+		frmWelcomeToIsland.getContentPane().add(pirate);
+		
+
 	}
+	
 	
     protected void show() {
     	frmWelcomeToIsland.setVisible(true);
