@@ -20,9 +20,6 @@ public class IslandTrader {
 	// The length of the game, set from user input on initialization
 	private int gameLength;
 	
-	// The name of the ship
-	private Ship playerShip;
-	
 	// The current position of the game in time
 	private int time = 1;
 	
@@ -31,9 +28,6 @@ public class IslandTrader {
 	public static final String SHIP_REGEX = "[1-4]";
 	
 	private Island currentIsland;
-	
-	
-	
 	
 	/**
 	 * Creates a IslandManager with the given user interface. Then initializes the world objects
@@ -107,14 +101,6 @@ public class IslandTrader {
 	public void setGameLength(int gameLength) {
 		this.gameLength = gameLength;
 	}
-	
-	/**
-	 * Set up the ship 
-	 * @return the current ship
-	 */
-	public void setShip(Ship playerShip) {
-		this.playerShip = playerShip;
-	}	
 	
 	/**
 	 * Get the current time in the game
