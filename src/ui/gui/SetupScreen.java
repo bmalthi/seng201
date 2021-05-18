@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.SystemColor;
 import javax.swing.JSlider;
 import javax.swing.border.CompoundBorder;
@@ -18,21 +19,18 @@ import javax.swing.event.DocumentListener;
 
 import main.IslandTrader;
 import main.Ship;
-
+import ui.cmd.MainCmdUI;
 import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Image;
 
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.util.List;
-import javax.swing.UIManager;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SetupScreen {
 
@@ -45,6 +43,22 @@ public class SetupScreen {
     // The rocket manager that this screen interacts with
     private IslandTrader islandTrader;	
     
+    /**
+     * Launch the application
+     * @param args
+     */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SetupScreen window = new SetupScreen(new IslandTrader(new MainCmdUI()));
+					window.frmWelcomeToIsland.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	/**
 	 * Create the application.
 	 */
@@ -65,6 +79,13 @@ public class SetupScreen {
 		frmWelcomeToIsland.getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("Let's Play");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmWelcomeToIsland.dispose();
+				BeforeMain beforeMain = new BeforeMain(islandTrader);
+				beforeMain.setVisible(true);
+			}
+		});
 		btnNewButton.setBackground(new Color(25, 25, 112));
 		btnNewButton.setEnabled(false);
 		btnNewButton.setForeground(new Color(255, 255, 255));
@@ -194,6 +215,8 @@ public class SetupScreen {
 		
 		List<Ship> ships = islandTrader.getWorld().getShips();
 		JRadioButton rdbtnNewRadioButton = new JRadioButton(ships.get(0).getName());
+		rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(0)));
+		
 		rdbtnNewRadioButton.setForeground(new Color(0, 0, 0));
 		buttonGroup.add(rdbtnNewRadioButton);
 		rdbtnNewRadioButton.setSelected(true);
@@ -201,19 +224,24 @@ public class SetupScreen {
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton(ships.get(1).getName());
+		rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(1)));
 		buttonGroup.add(rdbtnNewRadioButton_1);
 		rdbtnNewRadioButton_1.setBounds(221, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1);
 		
 		JRadioButton rdbtnNewRadioButton_1_1 = new JRadioButton(ships.get(2).getName());
+		rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(2)));
 		buttonGroup.add(rdbtnNewRadioButton_1_1);
 		rdbtnNewRadioButton_1_1.setBounds(385, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1_1);
 		
 		JRadioButton rdbtnNewRadioButton_1_1_1 = new JRadioButton(ships.get(3).getName());
+		rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(3)));
 		buttonGroup.add(rdbtnNewRadioButton_1_1_1);
 		rdbtnNewRadioButton_1_1_1.setBounds(563, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1_1_1);
+		
+		buttonGroup.clearSelection();
 		
 		JLabel show_image = new JLabel("");
 		show_image.setHorizontalAlignment(SwingConstants.LEFT);
@@ -242,18 +270,17 @@ public class SetupScreen {
 		pirate.setIcon(new ImageIcon(SetupScreen.class.getResource("/pirate1.png")));
 		pirate.setBounds(647, 6, 147, 221);
 		frmWelcomeToIsland.getContentPane().add(pirate);
-
+		
 	}
 	
     protected void show() {
     	frmWelcomeToIsland.setVisible(true);
     }	
-    
-    public void closeWindow() {
-    	frmWelcomeToIsland.dispose();
+//    
+//    public void closeWindow() {
+//    	frmWelcomeToIsland.dispose();
+//    }
+//    
+//    public void finishedWindow() {
+//    	islandTrader.closeSetupScreen(this);
     }
-    
-    public void finishedWindow() {
-    	islandTrader.closeSetupScreen(this);
-    }
-}

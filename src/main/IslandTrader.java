@@ -119,6 +119,9 @@ public class IslandTrader {
 		this.playerShip = playerShip;
 	}	
 	
+	public Ship getShip() {
+		return playerShip;
+	}
 	/**
 	 * Get the current time in the game
 	 * 
@@ -217,25 +220,4 @@ public class IslandTrader {
 		return hasTime(route) && player.hasMoney(route);
 	}
 
-	/**
-	 * Launch GUI
-	 */
-	
-	public void launchSetupScreen() {
-		SetupScreen setupWindow = new SetupScreen(this);
-	}
-	
-	public void closeSetupScreen(SetupScreen setupWindow) {
-		setupWindow.closeWindow();
-		launchMainScreen();
-	}
-	
-	public void launchMainScreen() {
-		MainScreen mainWindow = new MainScreen(this);
-	}
-	
-	public void closeMainScreen(MainScreen mainWindow) {
-		mainWindow.closeWindow();
-	}
-	
 }
