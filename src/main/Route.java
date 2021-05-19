@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Route {	
 	
 	// The length of the route
-	private int routeDistance;
+	private int distance;
 	
 	// one of the islands attached to the route
 	private Island island1;
@@ -24,7 +24,8 @@ public class Route {
 	 * @param island1 - one of the islands attached to the route
 	 * @param island2 - one of the islands attached to the route
 	 */
-	public Route(Island island1, Island island2) {
+	public Route(int distance, Island island1, Island island2) {
+		this.distance = distance;
 		this.island1 = island1;
 		this.island2 = island2;
 		this.events = new ArrayList<RandomEvent>();
@@ -43,8 +44,8 @@ public class Route {
 	 * route distance and the ship's sailing speed
 	 * @return the route distance
 	 */
-	public int getRouteDistance() {
-		return routeDistance;
+	public int getDistance() {
+		return distance;
 	}
 	
 	/**
@@ -76,11 +77,11 @@ public class Route {
 	public String description(Island startIsland) {
 		String output = "";	
 		if (getIsland1() == startIsland)
-			output = output + "***  The route is between " + getIsland1().getName() + " and " + getIsland2().getName() +"  ***\n";	
+			output = output + getIsland1().getName() + " to " + getIsland2().getName() +"  ***";	
 		else
-			output = output + "***  The route is between " + getIsland2().getName() + " and " + getIsland1().getName() +"  ***\n";
+			output = output + getIsland2().getName() + " to " + getIsland1().getName() +"  ***";
 		for (RandomEvent event : events) {
-			output = output + event.riskDescription() +"\n";
+			output = output + "\n  " +event.riskDescription();
 		}
 		return output;
 	}

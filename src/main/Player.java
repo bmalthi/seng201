@@ -40,8 +40,7 @@ public class Player {
 	public Player(String name) {
 		this.name = name;
 		this.balance = STARTING_BALANCE;
-		this.transactions = new ArrayList<PricedItem>();	
-		this.ship = new Ship("Sudden Storm", 10, 35, 30);
+		this.transactions = new ArrayList<PricedItem>();
 	}
 
 	/**

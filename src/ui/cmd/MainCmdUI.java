@@ -91,7 +91,7 @@ public class MainCmdUI implements IslandTraderUI {
 		@Override
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
-			ui.islandTrader.getWorld().getShips().get(intOption); 
+			ui.islandTrader.getPlayer().setShip(ui.islandTrader.getWorld().getShips().get(intOption));
 			this.setFinish();
 		}
 	}
@@ -293,16 +293,16 @@ public class MainCmdUI implements IslandTraderUI {
 	// TODO, change time calc based on ship speed
 	private void routeList(Island island) {		
 		
-		System.out.println("Here are the routes available from your current island " +this.islandTrader.getCurrentIsland().getName() + " to " + island.getName());
-		System.out.println("(* recommended for you)\n");
+		System.out.println("Here are the routes available from your current island " +this.islandTrader.getCurrentIsland().getName() + " to " + island.getName());		
 		for (Route route :this.islandTrader.getWorld().getRoutes(this.islandTrader.getCurrentIsland(), island)) {
-			//if (this.islandTrader.validateRoute(route)) {
-			//	System.out.println("* " +item.toString());
-			//} else {
-				System.out.println("  " +route.toString());
-				System.out.println("  This route is " +route.getRouteDistance() +" days.\n");
-			//}
+			if (this.islandTrader.validateRoute(route)) {
+				System.out.println("(*) " + route.toString());
+			} else {
+				System.out.println(route.toString());
+			}
+			System.out.println("  This route is " +route.getDistance() +"km. It will take you " +this.islandTrader.getPlayer().getShip().sailingDays(route) +" days\n");			
 		}
+		System.out.println("(X recommended for you)\n");		
 		System.out.println("\n");
 	}		
 	
@@ -512,8 +512,6 @@ private class RouteMenu extends ListOption {
 	@SuppressWarnings("unused")
 	private GameLengthInput gameLengthInput;
 	private ShipChoiceInput shipChoiceInput;
-	@SuppressWarnings("unused")
-	//private ShipChoiceDetail shipChoiceDetail;
 
 	private MainMenu mainMenu;
 	private StoreMenu storeMenu;	
@@ -541,9 +539,9 @@ private class RouteMenu extends ListOption {
 		
 		// Set up game length input
 		this.gameLengthInput = new GameLengthInput(this);
+		
 		// Set up ship choice input
 		this.shipChoiceInput = new ShipChoiceInput(this);
-//		this.shipChoiceDetail = new ShipChoiceDetail(this);
 
 		//Set up command menus
 		this.mainMenu = new MainMenu(this);		

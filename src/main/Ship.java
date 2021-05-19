@@ -183,8 +183,24 @@ public class Ship {
 		return getName();						
 	}
 	
+	/**
+	 * This method returns a the time it will take the player to sail a route, given their ship
+	 * 
+	 * @param route, the route the user wishes to sale on
+	 * @return int the number of sailing days
+	 */		
+	public int sailingDays(Route route) {
+		return (int) (route.getDistance() / getSailSpeed());
+	}
+	
+	/**
+	 * This method returns a the cost for a player to sail a route
+	 * 
+	 * @param route, the route the user wishes to sale on
+	 * @return int the cost of the route
+	 */		
 	public int costOfRoute(Route route) {
-		return (int) getCostPerDay() * (route.getRouteDistance() / getSailSpeed());		
+		return getCostPerDay() * sailingDays(route);		
 	}
 }
 

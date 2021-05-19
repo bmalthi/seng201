@@ -216,10 +216,9 @@ public class IslandTrader {
 	 * 
 	 * @param route, the route the user wishes to sale on
 	 * @return boolean indicating if they have enough time
-	 * TODO Should incorporate sailing speed
 	 */		
-	public boolean hasTime(Route route) {
-		if (gameLength-time >= route.getRouteDistance()) {
+	private boolean hasTime(Route route) {
+		if (gameLength-time >= player.getShip().sailingDays(route)) {
 			return true;
 		} else {
 			return false;
@@ -236,6 +235,5 @@ public class IslandTrader {
 	public boolean validateRoute(Route route) {
 		return hasTime(route) && player.hasMoney(route);
 	}
-
 
 }
