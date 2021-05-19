@@ -30,8 +30,11 @@ public class UnfortunateWeather implements RandomEvent {
 	 */		
 	@Override
 	public void eventTriggered(IslandTrader game) {
-		// TODO Auto-generated method stub
-		
+		// On Noe, you got bad weather, does 20% damage to your ship
+		Ship ship = game.getPlayer().getShip();
+		int damage = (int) (ship.getEndurance() * 0.2);
+		ship.setDamageAmount(ship.getDamageAmount() + damage);		
+		int repairCost = ship.getRepairCost();	
 	}
 
 	/**

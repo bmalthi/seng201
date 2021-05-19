@@ -66,9 +66,17 @@ public class Ship {
 	/**
 	 * @return the current damage level of the ship
 	 */		
-	public int getdamageAmount() {
+	public int getDamageAmount() {
 		return this.damageAmount;
 	}
+	
+	/**
+	 * @param damageAmount, the new amount of damage for the ship
+	 * @return the current damage level of the ship
+	 */		
+	public void setDamageAmount(int damageAmount) {
+		this.damageAmount = damageAmount;
+	}	
 	
 	/**
 	 * @return the endurance, ie how much damage the ship can take
@@ -158,7 +166,7 @@ public class Ship {
 	 * @return cost of repair
 	 */	
 	public int getRepairCost() {
-		return getdamageAmount();
+		return 1 * getDamageAmount();
 	}
 	
 	/**
