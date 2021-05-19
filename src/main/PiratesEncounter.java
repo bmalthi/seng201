@@ -6,13 +6,13 @@ package main;
 public class PiratesEncounter implements RandomEvent {
 	
 	// Probability the event will be triggered during a sailing
-	private double probability;	
+	private int probability;	
 	
 	/**
 	 * Creates a new PiratesEncouter instance
 	 * @param probability, the probability pirates will be encountered
 	 */	
-	public PiratesEncounter(double probability) {
+	public PiratesEncounter(int probability) {
 		this.probability = probability;
 	}
 	
@@ -20,7 +20,7 @@ public class PiratesEncounter implements RandomEvent {
 	 * @return the probability of the event being triggered during sailing
 	 */		
 	@Override
-	public double getProbability() {
+	public int getProbability() {
 		return this.probability;
 	}
 
@@ -31,6 +31,23 @@ public class PiratesEncounter implements RandomEvent {
 	public void eventTriggered() {
 		// TODO Auto-generated method stub
 		
+	}	
+	
+	/**
+	 * Method to describe how likely and what the impact will be of the event
+	 * @return description of the event
+	 */		
+	@Override
+	public String riskDescription() {
+		if (getProbability() >= 90) {
+			return "You will meet pirates, and they might take everything from you";
+		} else if (getProbability() >= 50) {
+			return "Pirates are likely, watch out";
+		} else if (getProbability() >= 25) {
+			return "You might get lucky and not meet pirates";
+		} else {
+			return "There are probably no pirates this route";
+		}
 	}	
 	
 }	

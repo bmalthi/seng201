@@ -72,13 +72,17 @@ public class Route {
 	/**
 	 * Get a description of the route, given a startIsland
 	 * @param startIsland, the island to be represented first in the description
-	 * TODO add safety
 	 */		
 	public String description(Island startIsland) {
+		String output = "";	
 		if (getIsland1() == startIsland)
-			return "The route is between " + getIsland1().getName() + " and " + getIsland2().getName() + "." + "\nThis route is safe to go!";
+			output = output + "***  The route is between " + getIsland1().getName() + " and " + getIsland2().getName() +"  ***\n";	
 		else
-			return "The route is between " + getIsland2().getName() + " and " + getIsland1().getName() + "." + "\nThis route is safe to go!";
+			output = output + "***  The route is between " + getIsland2().getName() + " and " + getIsland1().getName() +"  ***\n";
+		for (RandomEvent event : events) {
+			output = output + event.riskDescription() +"\n";
+		}
+		return output;
 	}
 	
 	/**

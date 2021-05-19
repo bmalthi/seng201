@@ -14,10 +14,15 @@ public interface RandomEvent {
 	 * 
 	 * @return probability of event happening during the route
 	 */
-	public double getProbability();	
+	public int getProbability();	
 
 	/**
 	 * Method called if the event is triggered, actions the random event 
 	 */
 	public void eventTriggered();
+
+	/**
+	 * Method to describe riskyness of the event 
+	 */	
+	public String riskDescription();
 }

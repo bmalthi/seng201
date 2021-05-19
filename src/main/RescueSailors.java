@@ -6,13 +6,13 @@ package main;
 public class RescueSailors implements RandomEvent {
 	
 	// Probability the event will be triggered during a sailing
-	private double probability;	
+	private int probability;	
 	
 	/**
 	 * Creates a new RescueSailors instance
 	 * @param probability, the probability sailors will be rescued
 	 */		
-	public RescueSailors(double probability) {
+	public RescueSailors(int probability) {
 		this.probability = probability;
 	}
 
@@ -20,7 +20,7 @@ public class RescueSailors implements RandomEvent {
 	 * @return the probability of the event being triggered during sailing
 	 */		
 	@Override
-	public double getProbability() {
+	public int getProbability() {
 		return this.probability;
 	}
 
@@ -31,6 +31,21 @@ public class RescueSailors implements RandomEvent {
 	public void eventTriggered() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	/**
+	 * Method to describe how likely and what the impact will be of the event
+	 * @return description of the event
+	 */	
+	@Override
+	public String riskDescription() {
+		if (getProbability() >= 90) {
+			return "I think you will be lucky and save sailors who will pay a reward";
+		} else if (getProbability() >= 25) {
+			return "You might meet sailors and get a reward for their rescue";
+		} else {
+			return "You won't meet sailors this trip";
+		}
 	}
 	
 }
