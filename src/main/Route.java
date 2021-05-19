@@ -1,6 +1,8 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /** 
  * This class represents a route from an island to another. It is undirected
@@ -61,6 +63,13 @@ public class Route {
 	public Island getIsland2() {	
 		return island2;
 	}
+	
+	/**
+	 * @return the List of Events that might happen as you sail this route 
+	 */
+	public List<RandomEvent> getEvents() {
+		return Collections.unmodifiableList(events);
+	}	
 
 	/**
 	 * Get a description of the route, island1 is represented first in the description
@@ -92,6 +101,16 @@ public class Route {
 	@Override
 	public String toString() {
 		return description();
+	}
+	
+	/**
+	 * @return the other island attached to a route given one island
+	 */
+	public Island otherIsland(Island island) {
+		if (getIsland1() == island)
+			return getIsland2();
+		else
+			return getIsland1();
 	}
 		
 }

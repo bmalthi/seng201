@@ -26,9 +26,10 @@ public class RescueSailors implements RandomEvent {
 
 	/**
 	 * Method triggered if the event happens during sailing
+	 * Written as if this is an extension of game / IslandTrader code 
 	 */		
 	@Override
-	public void eventTriggered() {
+	public void eventTriggered(IslandTrader game) {
 		// TODO Auto-generated method stub
 		
 	}

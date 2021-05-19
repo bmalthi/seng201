@@ -448,14 +448,11 @@ private class RouteMenu extends ListOption {
 		@Override
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);			
-			//ui.game.getPlayer().getShip().dumpList();
 			if (intOption == -1) {
 				this.setFinish();
 			} else { //THIS IS UGLY check this has to work, ie no pass through of bad ints
 				ui.sailRoute(intOption-1);
 			}	
-			//ui.game.getPlayer().dumpList();
-			//ui.game.getPlayer().dumpTransactions();
 		}
 
 	}		
@@ -541,10 +538,10 @@ private class RouteMenu extends ListOption {
 	public void start() {
 		// Print Intro
 		System.out.println("****************************************");
-		System.out.println("Welcome to Island Trader V0.3");
+		System.out.println("Welcome to Island Trader V0.6");
 		System.out.println("****************************************\n");		
 		
-		// Get the player name from the player
+		// Get the player name from the player 
 		this.islandTrader.setPlayer(new Player("Ben"));
 		//TODO Restore playerNameInput.getUserOption(scanner);
 		System.out.println("Great name, " +this.islandTrader.getPlayer().getName() +"\n");
@@ -555,16 +552,13 @@ private class RouteMenu extends ListOption {
 		System.out.println("Game will run for " +this.islandTrader.getGameLength() +" days\n");	
 		
 		// Get the ship choice
-		//shipChoiceInput.getUserOption(scanner);
+		//TODO Restore shipChoiceInput.getUserOption(scanner);
 		this.islandTrader.getPlayer().setShip(this.islandTrader.getWorld().getShips().get(2));		
 		System.out.println("Great choice, your ship is: " +this.islandTrader.getPlayer().getShip() +"\n");
 		
 		//Start the main menu
 		mainMenu.getUserOption(this.scanner);	
-		
-		//System.out.println("****************************************");
-		//System.out.println("Hi " + this.game.getPlayer().getName() +" welcome to " + this.game.getStore().getName());
-		//System.out.println("You have " +this.game.getPlayer().getBalance() +" dollars to spend\n");			
+					
 	}	           
 
 	@Override
@@ -584,20 +578,6 @@ private class RouteMenu extends ListOption {
 	public void showError(String error) {
 		System.out.println("!!!!!!!! " + error + " !!!!!!!!");
 		
-	}
-	
-	// TODO Need to check storage space and money. UI Shouldn't do that though.
-	private void buyStoreItem(int option) {
-		PricedItem purchase = this.islandTrader.buyStoreItem(option);
-		System.out.println("You Are a hero");
-		System.out.println("Purchased:" +purchase.toString()); //This is kinda past tense
-	}
-	
-	// TODO Need to check storage space and money. UI Shouldn't do that though.
-	private void sellPlayerItem(int option) {
-		PricedItem sale = this.islandTrader.sellStoreItem(option);
-		System.out.println("You Are a hero");
-		System.out.println("Sold:" +sale.toString());
 	}	
 	
 	private ArrayList<String> stringList(List<?> list, boolean validate, boolean numbered) {
@@ -639,7 +619,35 @@ private class RouteMenu extends ListOption {
 				
 	}	
 	
+	// TODO Need to check storage space and money. UI Shouldn't do that though.
+	private void buyStoreItem(int option) {
+		PricedItem purchase = this.islandTrader.buyStoreItem(option);
+		if (purchase != null) {
+			System.out.println("You Are a hero");
+			System.out.println("Purchased:" +purchase.toString());
+		} else {
+			showError("The Purchase Failed");
+		}
+	}
+	
+	// TODO Need to check storage space and money. UI Shouldn't do that though.
+	// TODO exception handling more better
+	private void sellPlayerItem(int option) {
+		PricedItem sale = this.islandTrader.sellStoreItem(option);
+		if (sale != null) {		
+			System.out.println("You Are a hero");
+			System.out.println("Sold:" +sale.toString());
+		} else {
+			showError("The Sail Failed");
+		}		
+	}		
+	
 	private void sailRoute(int option) {
-		
+		Route route = this.islandTrader.sailRoute(option);
+		if (route != null) {		
+			System.out.println("Congrats on your journey");
+		} else {
+			showError("The Sail Failed");
+		}				
 	}
 }

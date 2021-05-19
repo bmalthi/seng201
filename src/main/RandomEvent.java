@@ -19,7 +19,7 @@ public interface RandomEvent {
 	/**
 	 * Method called if the event is triggered, actions the random event 
 	 */
-	public void eventTriggered();
+	public void eventTriggered(IslandTrader game);
 
 	/**
 	 * Method to describe riskyness of the event 

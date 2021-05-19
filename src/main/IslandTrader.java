@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Random;
+
 import ui.IslandTraderUI;
 
 /**
@@ -29,6 +31,9 @@ public class IslandTrader {
 	
 	// The island the player is currently on
 	private Island currentIsland;
+	
+	// Random object to use for game options like do we encounter pirates
+	private Random random;	
 	
 	/**
 	 * Creates a IslandManager with the given user interface. Then initializes the world objects
@@ -256,5 +261,45 @@ public class IslandTrader {
 			return false;
 		}
 	}	
+	
+	/**
+	 * Sails the route
+	 * @param option, the route index chosen by the user in the route list from the current island
+	 * @return the route object sailed
+	 */
+	public Route sailRoute(int option) {
+		Route route = this.getWorld().getRoutes(this.getCurrentIsland()).get(option);
+		if (validateRoute(route)) {			
+			int wages = this.getPlayer().deductRouteWages(route);
+			// TODO tell user wages are deducted
+			
+			// Do the routes events
+			for (RandomEvent event : route.getEvents()) {
+				triggerEvent(event);				
+			}
+			
+			this.setCurrentIsland(route.otherIsland(this.getCurrentIsland()));
+			// TODO tell user we moved islands
+			int sailingTime = this.getPlayer().getShip().sailingDays(route);
+			this.setTime(this.getTime() + sailingTime);
+			// TODO Tell user we lost some time
+			return route;
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * Triggers the random event attached to the route if it is randomly called. 
+	 * A random number between 1-100 is created, if the event probability is lower 
+	 * than this then trigger the event
+	 */	
+	//TODO probably has a off by 1 error in nextint code
+	private void triggerEvent(RandomEvent event) {
+		int probabilityOutcome = random.nextInt(100) + 1;
+		if (probabilityOutcome < event.getProbability()) {
+			event.eventTriggered(this);
+		}
+	}
 
 }

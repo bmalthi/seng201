@@ -151,4 +151,16 @@ public class Player {
 	public boolean hasMoney(Route route) {
 		return (getBalance() >= ship.costOfRoute(route));
 	}
+	
+	/**
+	 * Updates the players balance money to pay for the sailing
+	 * 
+	 * @param route, the route the user wishes to sail
+	 * @return int, how much wages were deducted
+	 */			
+	public int deductRouteWages(Route route) {
+		int wages = this.getShip().costOfRoute(route);
+		setBalance(getBalance() - wages);
+		return wages;
+	}
 }
