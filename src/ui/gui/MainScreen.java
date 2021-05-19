@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,6 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
+
+import main.IslandTrader;
 
 public class MainScreen extends JFrame {
 
@@ -54,7 +57,7 @@ public class MainScreen extends JFrame {
 		contentPane.setLayout(null);
 		
 		JTextArea txtrANewAdventure = new JTextArea("A new adventure begins");
-		txtrANewAdventure.setBounds(32, 21, 242, 40);
+		txtrANewAdventure.setBounds(18, 6, 242, 33);
 		txtrANewAdventure.setForeground(Color.WHITE);
 		txtrANewAdventure.setFont(new Font("Holiday Sun", Font.PLAIN, 24));
 		txtrANewAdventure.setBackground(new Color(70, 130, 180));
@@ -64,38 +67,48 @@ public class MainScreen extends JFrame {
 		lblNewLabel_1_1.setLineWrap(true);
 		lblNewLabel_1_1.setForeground(Color.WHITE);
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 17));
-		lblNewLabel_1_1.setBackground(new Color(25, 25, 112));
-		lblNewLabel_1_1.setBounds(32, 63, 709, 112);
+		lblNewLabel_1_1.setBackground(new Color(0, 0, 128));
+		lblNewLabel_1_1.setBounds(18, 39, 704, 111);
 		contentPane.add(lblNewLabel_1_1);
 		
 		/*
 		 * Add choices in main menu
 		 */
 		JButton btnNewButton = new JButton("VIEW MONEY & DAYS REMAINING");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setBounds(131, 198, 237, 74);
+		btnNewButton.setBounds(56, 175, 237, 74);
 		contentPane.add(btnNewButton);
 		
 		JButton btnViewPastPurchases = new JButton("VIEW PAST PURCHASES & SALES");
-		btnViewPastPurchases.setBounds(131, 284, 237, 74);
+		btnViewPastPurchases.setBounds(56, 261, 237, 74);
 		contentPane.add(btnViewPastPurchases);
 		
 		JButton btnVisitIslandStore = new JButton("VISIT ISLAND STORE");
-		btnVisitIslandStore.setBounds(131, 371, 237, 74);
+		btnVisitIslandStore.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+			
+		});
+		btnVisitIslandStore.setBounds(56, 347, 237, 74);
 		contentPane.add(btnVisitIslandStore);
 		
 		JButton btnViewShipStatus = new JButton("VIEW SHIP STATUS");
-		btnViewShipStatus.setBounds(412, 198, 234, 74);
+		btnViewShipStatus.setBounds(317, 175, 234, 74);
 		contentPane.add(btnViewShipStatus);
 		
 		JButton btnViewIslandProperties = new JButton("VIEW ISLAND PROPERTIES");
-		btnViewIslandProperties.setBounds(412, 284, 237, 74);
+		btnViewIslandProperties.setBounds(317, 261, 237, 74);
 		contentPane.add(btnViewIslandProperties);
 		
 		JButton btnSailToAnother = new JButton("SAIL TO ANOTHER ISLAND");
-		btnSailToAnother.setBounds(290, 461, 207, 74);
+		btnSailToAnother.setBounds(317, 347, 234, 74);
 		contentPane.add(btnSailToAnother);
 		
 		JButton btnNewButton_1 = new JButton("QUIT GAME");
@@ -113,8 +126,27 @@ public class MainScreen extends JFrame {
 			}
 				//JOptionPane.showMessageDialog(mainMenu, "You pressed the button!");
 		});
-		btnNewButton_1.setBounds(412, 371, 237, 74);
+		btnNewButton_1.setBounds(235, 490, 143, 59);
 		contentPane.add(btnNewButton_1);
+		
+		JButton btnChangeSetupInformation = new JButton("CHANGE INFORMATION");
+		btnChangeSetupInformation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			//	SetupScreen frmWelcomeToIsland = new SetupScreen(IslandTrader);
+				
+			}
+			
+		});
+		btnChangeSetupInformation.setBounds(23, 490, 164, 59);
+		contentPane.add(btnChangeSetupInformation);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(MainScreen.class.getResource("/HOMEISLAND.png")));
+		lblNewLabel.setBounds(0, 214, 792, 360);
+		contentPane.add(lblNewLabel);
+		
+
 	}
 	
 }

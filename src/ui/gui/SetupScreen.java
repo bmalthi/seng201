@@ -82,8 +82,8 @@ public class SetupScreen {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmWelcomeToIsland.dispose();
-				BeforeMain beforeMain = new BeforeMain(islandTrader);
-				beforeMain.setVisible(true);
+				MainScreen mainScreen = new MainScreen();
+				mainScreen.setVisible(true);
 			}
 		});
 		btnNewButton.setBackground(new Color(25, 25, 112));
@@ -180,7 +180,7 @@ public class SetupScreen {
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblNewLabel_1.setBackground(new Color(70, 130, 180));
-		lblNewLabel_1.setBounds(35, 116, 639, 38);
+		lblNewLabel_1.setBounds(35, 116, 172, 38);
 		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1);
 		
 		JSlider slider = new JSlider();
