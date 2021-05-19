@@ -91,7 +91,7 @@ public class MainCmdUI implements IslandTraderUI {
 		@Override
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
-			ui.islandTrader.getPlayer().setShip(ui.islandTrader.getWorld().getShips().get(intOption));
+			ui.islandTrader.getPlayer().setShip(ui.islandTrader.getWorld().getShips().get(intOption-1));
 			this.setFinish();
 		}
 	}
