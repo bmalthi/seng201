@@ -46,35 +46,42 @@ public class Ship {
 	 * @return the name of the ship
 	 */	
 	public String getName() {
-		return name;
+		return this.name;
 	}
 	
 	/** 
 	 * @return the number of crew on the ship
 	 */		
 	public int getNumberOfCrew() {
-		return numberOfCrew;
+		return this.numberOfCrew;
 	}
 
 	/**
 	 * @return the sailing speed of the ship
 	 */	
 	public int getSailSpeed() {
-		return sailSpeed;
+		return this.sailSpeed;
 	}
 	
 	/**
 	 * @return the current damage level of the ship
 	 */		
 	public int getdamageAmount() {
-		return damageAmount;
+		return this.damageAmount;
 	}
 	
 	/**
 	 * @return the endurance, ie how much damage the ship can take
 	 */
 	public int getEndurance() {
-		return endurance;
+		return this.endurance;
+	}
+	
+	/**
+	 * @return the list of storage bays on the ship
+	 */	
+	public ArrayList<StorageList> getStorageBays() {
+		return this.storage;
 	}
 	
 	/**
@@ -160,10 +167,10 @@ public class Ship {
 	 */		
 	public String description() {		
 		String output = "***  " + getName() +"  ***\n";
-		output = output + "It has " +getNumberOfCrew() + " crew and speed of " + getSailSpeed() + " and can take " +getEndurance() +" damage\n";
-		output = output + "It has the following storage:";
+		output = output + "  It has " +getNumberOfCrew() + " crew and speed of " + getSailSpeed() + " and can take " +getEndurance() +" damage\n";
+		output = output + "  It has the following storage:\n";
 		for (StorageList list : storage) {
-			output = output +"  " + list.description() +"\n";
+			output = output +"    " + list.description() +"\n";
 		}
 		return output;						
 	}

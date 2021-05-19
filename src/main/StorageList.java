@@ -139,7 +139,16 @@ public class StorageList {
 	 * @return the string description
 	 */		
 	public String description() {
-		return getType() +" of size:" +getCapacity();
+        switch (getType()) {
+    		case CARGO:	
+    			return getType() +":" +getName() +" of size:" +getCapacity();
+    		case WEAPON:
+    			return getType() +":" +getName() +" of size:" +getCapacity();
+    		case UPGRADE:
+    			return "UPGRADABLE";    	
+	        default:
+	        	return getName();
+        }		
 						
 	}
 	

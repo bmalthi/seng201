@@ -218,23 +218,27 @@ public class World {
 		/*
 		 * Ship
 		 */		
-		Ship ship1 = new Ship("Speedy Soul", 9, 50, 20);
+		Ship ship1 = new Ship("Speedy Soul", 3, 3, 10);
+		ship1.getStorageBays().add(new StorageList("Cargo Hold 1", 10, ItemType.CARGO));
+		ship1.getStorageBays().add(new StorageList("Upgradable", 1, ItemType.UPGRADE));	
 		ships.add(ship1);
 		
-		Ship ship2 = new Ship("Sudden Storm", 10, 42, 30);
+		Ship ship2 = new Ship("Sudden Storm", 6, 2, 20);
+		ship2.getStorageBays().add(new StorageList("Cargo Hold 1", 30, ItemType.CARGO));
+		ship2.getStorageBays().add(new StorageList("Upgradable", 1, ItemType.UPGRADE));		
 		ships.add(ship2);
 		
-		Ship ship3 = new Ship("Steel Skull", 11, 38, 35);
+		Ship ship3 = new Ship("Steel Skull", 4, 1, 40);
+		ship3.getStorageBays().add(new StorageList("Cargo Hold 1", 20, ItemType.CARGO));	
+		ship3.getStorageBays().add(new StorageList("Cannon Bay 1", 2, ItemType.WEAPON));
+		ship3.getStorageBays().add(new StorageList("Upgradable", 1, ItemType.UPGRADE));		
 		ships.add(ship3);
 		
-		Ship ship4 = new Ship("Savage Sloop", 12, 30, 40);
-		ships.add(ship4);
-		
-		
-		/// Indicates ship type
-		//this.storage.add(new StorageList("Cargo Hold 1", 10, ItemType.CARGO));
-		//this.storage.add(new StorageList("Cannon Bay", 1, ItemType.WEAPON));
-		//this.storage.add(new StorageList("Upgradable", 1, ItemType.UPGRADE));		
+		Ship ship4 = new Ship("Savage Sloop", 4, 2, 20);
+		ship4.getStorageBays().add(new StorageList("Cargo Hold 1", 20, ItemType.CARGO));	
+		ship4.getStorageBays().add(new StorageList("Cannon Bay 1", 2, ItemType.WEAPON));
+		ship4.getStorageBays().add(new StorageList("Missle Bay 1", 2, ItemType.WEAPON));
+		ships.add(ship4);		
 		
 	}
 	
