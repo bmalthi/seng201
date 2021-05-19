@@ -4,8 +4,7 @@
 package main;
 
 /**
- * @author bmalthi
- * Each Item can be of x types
+ * Enum to represent the type of item
  */
 public enum ItemType {
 	CARGO, WEAPON, UPGRADE, REPAIR

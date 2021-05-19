@@ -84,8 +84,7 @@ public class MainCmdUI implements IslandTraderUI {
 			List<Ship> ships = ui.islandTrader.getWorld().getShips();
 			
 			for (int i=0; i < ships.size(); i++) {
-				System.out.println("(" + (i+1) + ") " + ships.get(i).getName());
-				System.out.println(ships.get(i));
+				System.out.println("(" + (i+1) + ") " + ships.get(i).description());
 			}
 		}
 		
@@ -96,57 +95,6 @@ public class MainCmdUI implements IslandTraderUI {
 			this.setFinish();
 		}
 	}
-	
-	/**
-	 * This class shows the detail of ship to the player 
-	 *
-	 */
-//	private class ShipChoiceDetail extends ListOption {
-//
-//		private Ship ship;
-//		
-//		public ShipChoiceDetail(MainCmdUI ui) {
-//			super(ui);
-//			
-//			// Set up Ship Options
-//		String[] base_options = {
-//				"Speedy Soul",
-//				"Sudden Storm",
-//				"Steel Skull",
-//				"Savage Sloop"}; 
-//		
-//		this.options = new ArrayList<String>(Arrays.asList(base_options));
-//		String exitOption = "(go back)";
-//		this.options.add(0, exitOption);
-//		
-//		}
-//		
-//		@Override
-//		public void eachHeader() {
-//			System.out.println("Which ship do you want to get more information " + ship.getName());
-//		}
-//		
-//		@Override
-//		public void handleOption(String option) {
-//			int intOption = Integer.parseInt(option);
-//			switch(intOption) {
-//			case -1:
-//				this.setFinish();
-//				break;
-//			case 1: //Speedy Soul information
-//				System.out.println("Speedy Soul - 9 crews, 10% damage, cost $180 to repair");
-//			case 2: //Sudden Storm information
-//				System.out.println("Sudden Storm - 10 crews, 15% damage, cost $200 to repair");
-//			case 3: //Steel Skull information
-//				System.out.println("Steel Skull - 11 crews, 20% damage, cost $280 to repair");
-//			case 4: //Savage Sloop information
-//				System.out.println("Savage Sloop - 12 crews, 25% damage, cost $300 to repair");
-//            default:
-//                throw new IllegalStateException("Unexpected value: " + option);
-//			}
-//		}
-//	}
-//	
 	
 	// Class (glorified enum) for the main store menu
 	private class MainMenu extends ListOption {		
@@ -378,7 +326,7 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		private void refreshOptions() {
 	    	this.options = new ArrayList<String>();
-	    	List<PricedItem> toSellItems = ui.islandTrader.getCurrentIsland().getStore().getToSell();
+	    	List<PricedItem> toSellItems = ui.islandTrader.getCurrentIsland().getStore().getToSellList();
 	    	for (int i = 0; i < toSellItems.size(); i++) {
 	    		if (this.ui.islandTrader.validatePurchase(toSellItems.get(i))) {	    			
 	    			this.options.add("* " +toSellItems.get(i).toString());
@@ -415,14 +363,14 @@ public class MainCmdUI implements IslandTraderUI {
 	private void buyList(Store store) {		
 		
 		System.out.println(store.getName() +" sells the following items?\n (* recommended for you)\n");
-		for (PricedItem item :store.getToSell()) {
+		for (PricedItem item :store.getToSellList()) {
 			if (this.islandTrader.validatePurchase(item)) {
 				System.out.println("* " +item.toString());
 			} else {
 				System.out.println("  " +item.toString());
 			}
 		}
-		if (store.getToSell().size() == 0)
+		if (store.getToSellList().size() == 0)
 			System.out.println("We are not selling anyting today");
 		System.out.println("\n");
 	}		
@@ -447,7 +395,7 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		private void refreshOptions() {
 	    	this.options = new ArrayList<String>();
-	    	List<PricedItem> toBuyItems = ui.islandTrader.getCurrentIsland().getStore().getToBuy();
+	    	List<PricedItem> toBuyItems = ui.islandTrader.getCurrentIsland().getStore().getToBuyList();
 	    	for (int i = 0; i < toBuyItems.size(); i++) {
 	    		if (this.ui.islandTrader.validateSale(toBuyItems.get(i))) {	    			
 	    			this.options.add("* " +toBuyItems.get(i).toString());
@@ -481,14 +429,14 @@ public class MainCmdUI implements IslandTraderUI {
 	
 	private void sellList(Store store) {				
 		System.out.println(store.getName() +" buys the following items?\n (* recommended for you)\n");
-		for (PricedItem item :store.getToBuy()) {
+		for (PricedItem item :store.getToBuyList()) {
 			if (this.islandTrader.validateSale(item)) {
 				System.out.println("* " +item.toString());
 			} else {
 				System.out.println(item.toString());
 			}
 		}
-		if (store.getToBuy().size() == 0)
+		if (store.getToBuyList().size() == 0)
 			System.out.println("We are not buying anyting today");		
 		System.out.println("\n");
 	}	

@@ -4,18 +4,29 @@
 package main;
 
 /**
- * @author bmalthi
- *
+ * Represent a {@link Item} linked to a price and an {@link PriceType} type and the
+ * island the Item was transacted on
  */
 public class PricedItem {
 
+	//The Item the record represents
 	private Item item;
+	
+	//The price of the transaction
 	private int price;
+	
+	//The transaction type
 	private PriceType priceType;
+	
+	//The Island the Item was transacted on
 	private Island island;
 
 	/**
-	 * 
+	 * Creates a new PricedItem
+	 * @param item, the Item the record represents
+	 * @param price, the price of the transaction
+	 * @param type, the transaction type
+	 * @param island, the island the transaction happened on 
 	 */
 	public PricedItem(Item item, int price, PriceType type, Island island) {
 		this.item = item;
@@ -48,6 +59,7 @@ public class PricedItem {
 	/**
 	 * @return a string representation of the Item
 	 */
+	@Override
 	public String toString() {
         switch (this.priceType) {
     		case FORSALE:	

@@ -1,57 +1,92 @@
- package main;
- import java.util.ArrayList;
+package main;
 
+import java.util.ArrayList;
+
+/** 
+ * This class represents a route from an island to another. It is undirected
+ */ 
 public class Route {	
-	/** 
-	 * This class represents the routes from an island to another
-	 */
+	
+	// The length of the route
 	private int routeDistance;
-	private Island islandStartPoint;
-	private Island islandEndPoint;
+	
+	// one of the islands attached to the route
+	private Island island1;
+	
+	// The other island attached to the route
+	private Island island2;
+	
+	// List of random events that might happen while sailing the route
 	private ArrayList<RandomEvent> events;
 
 	/**
-	 * 
-	 * @param islandStartPoint - where the ship is currently docked
-	 * @param islandEndPoint - where player want to travel to
+	 * Creates a new route
+	 * @param island1 - one of the islands attached to the route
+	 * @param island2 - one of the islands attached to the route
 	 */
-	public Route(Island islandStartPoint, Island islandEndPoint) {
-		this.islandStartPoint = islandStartPoint;
-		this.islandEndPoint = islandEndPoint;
+	public Route(Island island1, Island island2) {
+		this.island1 = island1;
+		this.island2 = island2;
 		this.events = new ArrayList<RandomEvent>();
-	//	this.probability = probability;
 	}
+	
+	/**
+	 * Adds a random event to the route
+	 * @param randomEvent a randomEvent a user could encounter on the route
+	 */	
 	public void addEvent(RandomEvent randomEvent) {
 		events.add(randomEvent);
 	}
 
 	/**
-	 * 
-	 * @return the route distance (how many days to travel)
+	 * Get the length of the route. Note this is not sailing time, sailing time is determined by
+	 * route distance and the ship's sailing speed
+	 * @return the route distance
 	 */
 	public int getRouteDistance() {
 		return routeDistance;
 	}
 	
 	/**
-	 * 
-	 * @return the name of the island where the ship is currently docked
+	 * @return island1, one of the islands attached to the route
 	 */
-	public Island getislandStartPoint() {
-		return islandStartPoint;
+	public Island getIsland1() {
+		return island1;
 	}
 	
 	/**
-	 * 
-	 * @return the name of the island where player wants to travel to
+	 * @return island2, one of the islands attached to the route
 	 */
-	public Island getislandEndPoint() {	
-		return islandEndPoint;
+	public Island getIsland2() {	
+		return island2;
+	}
+
+	/**
+	 * Get a description of the route, island1 is represented first in the description
+	 * @return a string description of the route
+	 */	
+	public String description() {
+		return description(getIsland1());
 	}
 	
+	/**
+	 * Get a description of the route, given a startIsland
+	 * @param startIsland, the island to be represented first in the description
+	 * TODO add safety
+	 */		
+	public String description(Island startIsland) {
+		if (getIsland1() == startIsland)
+			return "The route is between " + getIsland1().getName() + " and " + getIsland2().getName() + "." + "\nThis route is safe to go!";
+		else
+			return "The route is between " + getIsland2().getName() + " and " + getIsland1().getName() + "." + "\nThis route is safe to go!";
+	}
 	
+	/**
+	 * @return string description of the route, including its safety 
+	 */	
+	@Override
 	public String toString() {
-		return("The route is between " + getislandStartPoint().getName() + " and " + getislandEndPoint().getName() + "." + "\nThis route is safe to go!");
+		return description();
 	}
 		
 }

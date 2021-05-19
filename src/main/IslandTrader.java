@@ -14,7 +14,7 @@ public class IslandTrader {
 	// The player playing the game
 	private Player player;
 	
-	// The world, the Islands and Routes
+	// The world. An object to hold the Islands and Routes 
 	private World world;
 	
 	// The length of the game, set from user input on initialization
@@ -27,6 +27,7 @@ public class IslandTrader {
 	public static final String GAME_LENGTH_REGEX = "^[2-4][0-9]|50$";	
 	public static final String SHIP_REGEX = "[1-4]";
 	
+	// The island the player is currently on
 	private Island currentIsland;
 	
 	/**
@@ -34,13 +35,11 @@ public class IslandTrader {
 	 * such as Stores, Islands and the Player.
 	 * 
 	 * @param ui The user interface that this manager should use
-	 * TODO bmalthus: Split out the world code into new method, maybe in Island Class
 	 */
 	public IslandTrader(IslandTraderUI ui) {
 		this.ui = ui;
 		this.world = new World();
 		this.currentIsland = this.world.getIslands().get(0);
-		//this.shipName = this.world.getShips().get(0);
 	}
 	
 	/**
@@ -155,13 +154,25 @@ public class IslandTrader {
 		return score;
 	}	
 	
-	//Should be exceptions
+	/**
+	 * This method validates if the player can purchase an item given their money,
+	 * given the storage on this ship
+	 * 
+	 * @param purchase, the priced item that player is attempting to purchase
+	 * TODO Should this be exception instead of boolean 
+	 */	
 	public boolean validatePurchase(PricedItem purchase) {
 		return player.hasMoney(purchase) && player.getShip().hasSpace(purchase.getItem());
 	}	
 	
+	/**
+	 * This method transacts a purchase of an item in a store. Returns the purchased item if successful
+	 * 
+	 * @param option The 0 based index of the item in the store's {@link Store#getToSellList()} list
+	 * @return a {@link PricedItem} representing the item the user purchased
+	 */		
 	public PricedItem buyStoreItem(int option) {
-		PricedItem purchase = getCurrentIsland().getStore().getToSell().get(option);
+		PricedItem purchase = getCurrentIsland().getStore().getToSellList().get(option);
 		if (validatePurchase(purchase)) {
 			getCurrentIsland().getStore().sellItem(purchase);
 			player.buyItem(purchase);
@@ -171,14 +182,26 @@ public class IslandTrader {
 		}
 	}
 	
-	//Should be exceptions	
+	/**
+	 * This method validates if the player can sell an item to a store given them
+	 * having the item
+	 * 
+	 * @param sale, the priced item that player is attempting to sale
+	 * TODO Should this be exception instead of boolean
+	 */	
 	public boolean validateSale(PricedItem sale) {
 		boolean answer = player.getShip().hasItem(sale.getItem()); 
 		return answer;
 	}		
 	
+	/**
+	 * This method transacts a sale of an item to a store. Returns the sold item if successful
+	 * 
+	 * @param option The 0 based index of the item in the store's {@link Store#getToBuyList()} list
+	 * @return a {@link PricedItem} representing the item the user sale
+	 */	
 	public PricedItem sellStoreItem(int option) {
-		PricedItem sale = getCurrentIsland().getStore().getToBuy().get(option);
+		PricedItem sale = getCurrentIsland().getStore().getToBuyList().get(option);
 		if (validateSale(sale)) {
 			getCurrentIsland().getStore().buyItem(sale);
 			player.sellItem(sale);
@@ -188,6 +211,13 @@ public class IslandTrader {
 		}
 	}	
 	
+	/**
+	 * This method returns a boolean indicating if the user has enough game time left to sail a route
+	 * 
+	 * @param route, the route the user wishes to sale on
+	 * @return boolean indicating if they have enough time
+	 * TODO Should incorporate sailing speed
+	 */		
 	public boolean hasTime(Route route) {
 		if (gameLength-time >= route.getRouteDistance()) {
 			return true;
@@ -196,6 +226,13 @@ public class IslandTrader {
 		}
 	}
 	
+	/**
+	 * This method returns a boolean indicating if the user can sail a route
+	 * given their money and remaining gametime
+	 * 
+	 * @param route, the route the user wishes to sale on
+	 * @return boolean indicating if they can sail the route
+	 */	
 	public boolean validateRoute(Route route) {
 		return hasTime(route) && player.hasMoney(route);
 	}

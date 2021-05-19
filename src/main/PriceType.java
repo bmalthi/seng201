@@ -1,8 +1,7 @@
 package main;
 
 /**
- * @author bmalthi
- * Each PricedItem will have a type
+ * Enum to represent the type of transaction a PricedItem might represent
  */
 public enum PriceType {
 	FORSALE, FORBUY, PURCHASED, SOLD 
