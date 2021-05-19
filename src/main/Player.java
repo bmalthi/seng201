@@ -150,10 +150,6 @@ public class Player {
 	 * @return boolean indicating true / false if they have enough money
 	 */			
 	public boolean hasMoney(Route route) {
-		if (getBalance() >= route.getRouteDistance()*ship.getCostPerDay()) {
-			return true;
-		} else {
-			return false;
-		}
+		return (getBalance() >= ship.costOfRoute(route));
 	}
 }

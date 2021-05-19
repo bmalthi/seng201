@@ -176,6 +176,8 @@ public class Ship {
 		return getName();						
 	}
 	
-	
+	public int costOfRoute(Route route) {
+		return (int) getCostPerDay() * (route.getRouteDistance() / getSailSpeed());		
+	}
 }
 
