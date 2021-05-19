@@ -235,5 +235,26 @@ public class IslandTrader {
 	public boolean validateRoute(Route route) {
 		return hasTime(route) && player.hasMoney(route);
 	}
+	
+	/**
+	 * This method validates if the user can buy / sell / travel an Item or route. Helper method
+	 * to enable the ui to highlight better options for the user 
+	 * 
+	 * @param obj, the object being validated as a option for the user
+	 * @return boolean indicating if it is valid for the user
+	 */		
+	public boolean validate(Object obj) {
+		if (obj instanceof Route) {
+			return validateRoute((Route)obj);
+		} else if (obj instanceof PricedItem) {
+			if (((PricedItem)obj).getType() == PriceType.FORBUY) {
+				return validateSale((PricedItem)obj);
+			} else {
+				return validatePurchase((PricedItem)obj);
+			}
+		} else {
+			return false;
+		}
+	}	
 
 }

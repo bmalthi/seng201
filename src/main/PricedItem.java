@@ -55,6 +55,13 @@ public class PricedItem {
 	public PriceType getType() {
 		return priceType;
 	}
+	
+	/**
+	 * @return the island
+	 */
+	public Island getIsland() {
+		return island;
+	}	
 
 	/**
 	 * @return a string representation of the Item
@@ -73,13 +80,6 @@ public class PricedItem {
 	        default:
 	            return item.toString() +", is $" +price;
         }
-	}
-
-	/**
-	 * @return the island
-	 */
-	public Island getIsland() {
-		return island;
 	}
 
 }
