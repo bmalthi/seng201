@@ -1,5 +1,6 @@
 package main;
 
+import java.util.List;
 import java.util.Random;
 
 import ui.IslandTraderUI;
@@ -45,6 +46,8 @@ public class IslandTrader {
 		this.ui = ui;
 		this.world = new World();
 		this.currentIsland = this.world.getIslands().get(0);
+		this.random = new Random();
+		this.random.setSeed(1);
 	}
 	
 	/**
@@ -124,6 +127,15 @@ public class IslandTrader {
 		this.time = time;
 	}
 	
+	/**
+	 * Gets the ui attached to the game
+	 *
+	 * @return the ui
+	 */
+	public IslandTraderUI getUI() {
+		return this.ui;
+	}	
+	
 	
 	/**
 	 * @return the currentIsland
@@ -137,7 +149,7 @@ public class IslandTrader {
 	 */
 	public void setCurrentIsland(Island currentIsland) {
 		this.currentIsland = currentIsland;
-	}
+	}	
 
 	/**
 	 * Gets the game score illustrating how well the player has done. Points are awarded
@@ -270,7 +282,9 @@ public class IslandTrader {
 	 * @return the route object sailed
 	 */
 	public Route sailRoute(int option) {
-		Route route = this.getWorld().getRoutes(this.getCurrentIsland()).get(option);
+		//Route route = this.getWorld().getRoutes(this.getCurrentIsland()).get(option);
+		List<Route> routes = this.getWorld().getRoutes(this.getCurrentIsland());
+		Route route = routes.get(option);
 		if (validateRoute(route)) {			
 			int wages = this.getPlayer().deductRouteWages(route);
 			// TODO tell user wages are deducted
@@ -298,7 +312,7 @@ public class IslandTrader {
 	 */	
 	//TODO probably has a off by 1 error in nextint code
 	private void triggerEvent(RandomEvent event) {
-		int probabilityOutcome = random.nextInt(100) + 1;
+		int probabilityOutcome = this.random.nextInt(100) + 1;		
 		if (probabilityOutcome < event.getProbability()) {
 			event.eventTriggered(this);
 		}

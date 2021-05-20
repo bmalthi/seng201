@@ -1,5 +1,7 @@
 package main;
 
+import ui.IslandTraderUI;
+
 /**
 * Class to model if a user encounters bad weather during the sailing
 */
@@ -26,15 +28,21 @@ public class UnfortunateWeather implements RandomEvent {
 
 	/**
 	 * Method triggered if the event happens during sailing
-	 * Written as if this is an extension of game / IslandTrader code
+	 * @param game, the IslandTrader object
 	 */		
 	@Override
 	public void eventTriggered(IslandTrader game) {
 		// On Noe, you got bad weather, does 20% damage to your ship
 		Ship ship = game.getPlayer().getShip();
 		int damage = (int) (ship.getEndurance() * 0.2);
+		int repairCostBefore = ship.getRepairCost();
 		ship.setDamageAmount(ship.getDamageAmount() + damage);		
-		int repairCost = ship.getRepairCost();	
+		int repairCostAfter = ship.getRepairCost();
+		int repairCost = repairCostAfter-repairCostBefore;
+		boolean gameOver = false;
+		if (repairCost > game.getPlayer().getBalance())
+			gameOver = true;
+		game.getUI().encounterWeather(damage, repairCost, gameOver);
 	}
 
 	/**

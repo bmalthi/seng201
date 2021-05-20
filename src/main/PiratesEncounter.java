@@ -1,5 +1,7 @@
 package main;
 
+import ui.IslandTraderUI;
+
 /**
  * Class to model if a user encounters pirates during sailing
  */
@@ -26,7 +28,7 @@ public class PiratesEncounter implements RandomEvent {
 
 	/**
 	 * Method triggered if the event happens during sailing
-	 * Written as if this is an extension of game / IslandTrader code 
+	 * @param game, the IslandTrader object 
 	 */			
 	@Override
 	public void eventTriggered(IslandTrader game) {

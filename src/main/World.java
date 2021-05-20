@@ -177,7 +177,8 @@ public class World {
 		 * with some events that may occur (depend on the probability) 
 		 */		
 		Route route1 = new Route(10, island1, island2);
-		route1.addEvent(new PiratesEncounter(40));
+		// TODO PUT BACK LATER route1.addEvent(new PiratesEncounter(40));
+		route1.addEvent(new UnfortunateWeather(100));
 		routes.add(route1);
 		
 		Route route2 = new Route(10, island1, island5);

@@ -2,6 +2,7 @@ package ui.gui;
 
 import java.awt.EventQueue;
 
+import main.Island;
 import main.IslandTrader;
 import main.PricedItem;
 import ui.IslandTraderUI;
@@ -62,5 +63,17 @@ public class Gui implements IslandTraderUI {
 	@Override
 	public void processTransaction(PricedItem transaction) {
 		//TODO
-	}    
+	}  
+	
+    /**
+     * Reports details to the user of encounter with bad weather while sailing
+     *
+     * @param transaction The transaction to display
+     * @return 
+     */
+	@Override	
+    public void encounterWeather(int damage, int repairCost, boolean gameOver) {
+		//TODO
+	}
+	
 }

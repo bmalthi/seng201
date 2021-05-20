@@ -446,7 +446,8 @@ private class RouteMenu extends ListOption {
 			if (intOption == -1) {
 				this.setFinish();
 			} else { //THIS IS UGLY check this has to work, ie no pass through of bad ints
-				ui.sailRoute(intOption-1);
+				ui.sailRoute(intOption-1);	
+				this.setFinish();
 			}	
 		}
 
@@ -639,4 +640,22 @@ private class RouteMenu extends ListOption {
 			showError("The Sail Failed");
 		}				
 	}
+	
+    /**
+     * Show the user how bad weather impacted them on their sailing
+     *
+     * @param damage, how much damage the weather caused
+     * @param repairCost, the extra repair cost from the weather
+     * @param gameOver, indicates that this event will cause the game to end
+     */
+	@Override	
+    public void encounterWeather(int damage, int repairCost, boolean gameOver) {
+		System.out.println("*** You encountered bad weather ***\n");
+		System.out.println("Unfortunately the weather caused " +damage +" damage.");
+		System.out.println("It will cost " +repairCost +" to repair\n");
+		if (gameOver) {
+			System.out.println("\n You only have" +this.islandTrader.getPlayer().getBalance() +" dollars though.");
+		}
+		System.out.println("***********************************\n");
+	}	
 }

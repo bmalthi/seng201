@@ -18,6 +18,7 @@ public interface RandomEvent {
 
 	/**
 	 * Method called if the event is triggered, actions the random event 
+	 * @param game, the IslandTrader object
 	 */
 	public void eventTriggered(IslandTrader game);
 
