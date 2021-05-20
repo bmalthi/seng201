@@ -1,7 +1,5 @@
 package main;
 
-import ui.IslandTraderUI;
-
 /**
  * Class to model if a user encounters pirates during sailing
  */
