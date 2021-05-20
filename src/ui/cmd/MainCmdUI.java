@@ -334,14 +334,11 @@ public class MainCmdUI implements IslandTraderUI {
 		@Override
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);			
-			//ui.game.getPlayer().getShip().dumpList();
 			if (intOption == -1) {
 				this.setFinish();
 			} else { //THIS IS UGLY check this has to work, ie no passthrough of bad ints
-				ui.buyStoreItem(intOption-1);
+				ui.islandTrader.buyStoreItem(intOption-1);
 			}	
-			//ui.game.getPlayer().dumpList();
-			//ui.game.getPlayer().dumpTransactions();
 		}
 
 	}		
@@ -397,10 +394,8 @@ public class MainCmdUI implements IslandTraderUI {
 			if (intOption == -1) {
 				this.setFinish();
 			} else { //check this has to work, ie no passthrough of bad ints
-				ui.sellPlayerItem(intOption-1);
+				ui.islandTrader.sellStoreItem(intOption-1);
 			}	
-			//ui.game.getPlayer().dumpList();
-			//ui.game.getPlayer().dumpTransactions();
 		}
 
 	}	
@@ -621,29 +616,20 @@ private class RouteMenu extends ListOption {
 		
 				
 	}	
-	
-	// TODO Need to check storage space and money. UI Shouldn't do that though.
-	private void buyStoreItem(int option) {
-		PricedItem purchase = this.islandTrader.buyStoreItem(option);
-		if (purchase != null) {
-			System.out.println("You Are a hero");
-			System.out.println("Purchased:" +purchase.toString());
+
+	/**
+	 * Show the user the details of the transaction, if successful
+	 * @param PricedItem the transaction
+	 */	
+	@Override
+	public void processTransaction(PricedItem transaction) {
+		if (transaction != null) {		
+			System.out.println(transaction.toString());
 		} else {
-			showError("The Purchase Failed");
-		}
+			//Really shoudldo better error
+			showError("Oppsie");
+		}			
 	}
-	
-	// TODO Need to check storage space and money. UI Shouldn't do that though.
-	// TODO exception handling more better
-	private void sellPlayerItem(int option) {
-		PricedItem sale = this.islandTrader.sellStoreItem(option);
-		if (sale != null) {		
-			System.out.println("You Are a hero");
-			System.out.println("Sold:" +sale.toString());
-		} else {
-			showError("The Sail Failed");
-		}		
-	}		
 	
 	private void sailRoute(int option) {
 		Route route = this.islandTrader.sailRoute(option);

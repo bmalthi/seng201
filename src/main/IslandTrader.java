@@ -174,16 +174,17 @@ public class IslandTrader {
 	 * This method transacts a purchase of an item in a store. Returns the purchased item if successful
 	 * 
 	 * @param option The 0 based index of the item in the store's {@link Store#getToSellList()} list
-	 * @return a {@link PricedItem} representing the item the user purchased
 	 */		
-	public PricedItem buyStoreItem(int option) {
+	public void buyStoreItem(int option) {
+		//Get the chosen item
 		PricedItem purchase = getCurrentIsland().getStore().getToSellList().get(option);
+		//Validate the user can do this
 		if (validatePurchase(purchase)) {
 			getCurrentIsland().getStore().sellItem(purchase);
-			player.buyItem(purchase);
-			return purchase;
+			PricedItem transaction = player.buyItem(purchase);
+			ui.processTransaction(transaction);
 		} else {
-			return null;
+			ui.showError("The purchase failed");
 		}
 	}
 	
@@ -203,16 +204,17 @@ public class IslandTrader {
 	 * This method transacts a sale of an item to a store. Returns the sold item if successful
 	 * 
 	 * @param option The 0 based index of the item in the store's {@link Store#getToBuyList()} list
-	 * @return a {@link PricedItem} representing the item the user sale
 	 */	
-	public PricedItem sellStoreItem(int option) {
+	public void sellStoreItem(int option) {
+		//Get the chosen item
 		PricedItem sale = getCurrentIsland().getStore().getToBuyList().get(option);
+		//Validate the user can do this
 		if (validateSale(sale)) {
 			getCurrentIsland().getStore().buyItem(sale);
-			player.sellItem(sale);
-			return sale;
+			PricedItem transaction = player.sellItem(sale);
+			ui.processTransaction(transaction);
 		} else {
-			return null;
+			ui.showError("The sale failed");
 		}
 	}	
 	

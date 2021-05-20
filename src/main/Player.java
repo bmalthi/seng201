@@ -121,11 +121,14 @@ public class Player {
 	 * and it adds it to the users list of transactions 
 	 * 
 	 * @param purchase, the PricedItem the player is purchasing
+	 * @return transaction, the record of the transaction from player pov	 * 
 	 */		
-	public void buyItem(PricedItem purchase) {
-		addTransaction(new PricedItem(purchase.getItem(), purchase.getPrice(), PriceType.PURCHASED, purchase.getIsland()));
+	public PricedItem buyItem(PricedItem purchase) {
+		PricedItem transaction = new PricedItem(purchase.getItem(), purchase.getPrice(), PriceType.PURCHASED, purchase.getIsland());
+		addTransaction(transaction);
 		setBalance(getBalance() - purchase.getPrice());
 		getShip().addItem(purchase.getItem());
+		return transaction;
 	}	
 	
 	/**
@@ -134,11 +137,14 @@ public class Player {
 	 * and it adds it to the users list of transactions 
 	 * 
 	 * @param sale, the PricedItem the player just sold
+	 * @return transaction, the record of the transaction from player pov
 	 */		
-	public void sellItem(PricedItem sale) {
-		addTransaction(new PricedItem(sale.getItem(), sale.getPrice(), PriceType.SOLD, sale.getIsland()));
+	public PricedItem sellItem(PricedItem sale) {
+		PricedItem transaction = new PricedItem(sale.getItem(), sale.getPrice(), PriceType.SOLD, sale.getIsland());
+		addTransaction(transaction);
 		setBalance(getBalance() + sale.getPrice());
-		getShip().removeItem(sale.getItem());		
+		getShip().removeItem(sale.getItem());	
+		return transaction;		
 	}
 	
 	/**

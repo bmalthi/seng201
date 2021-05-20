@@ -1,6 +1,7 @@
 package ui;
 
 import main.IslandTrader;
+import main.PricedItem;
 
 /**
  * Defines a user interface (UI) for a {@link IslandTrader}.
@@ -30,4 +31,11 @@ public interface IslandTraderUI {
      * @param error The error to display
      */
     void showError(String error);
+    
+    /**
+     * Reports details to the user after a successful buy / sell transaction
+     *
+     * @param transaction The transaction to display
+     */
+    void processTransaction(PricedItem transaction);    
 }

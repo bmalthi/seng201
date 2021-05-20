@@ -3,6 +3,7 @@ package ui.gui;
 import java.awt.EventQueue;
 
 import main.IslandTrader;
+import main.PricedItem;
 import ui.IslandTraderUI;
 
 /**
@@ -53,4 +54,13 @@ public class Gui implements IslandTraderUI {
     public void quit() {
         //screen.quit();
     }
+    
+	/**
+	 * Show the user the details of the transaction, if successful
+	 * @param PricedItem the transaction
+	 */	
+	@Override
+	public void processTransaction(PricedItem transaction) {
+		//TODO
+	}    
 }
