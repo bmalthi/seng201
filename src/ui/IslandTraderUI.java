@@ -1,6 +1,8 @@
 package ui;
 
 import main.IslandTrader;
+import main.PricedItem;
+import main.Route;
 
 /**
  * Defines a user interface (UI) for a {@link IslandTrader}.
@@ -30,4 +32,28 @@ public interface IslandTraderUI {
      * @param error The error to display
      */
     void showError(String error);
+    
+    /**
+     * Reports details to the user after a successful buy / sell transaction
+     *
+     * @param transaction The transaction to display
+     */
+    void processTransaction(PricedItem transaction);
+    
+    /**
+     * Reports to the user the progress of sailing a route
+     *
+     * @param route, the route the user sailed / is sailing
+     */
+    void sailRoute(Route route, PricedItem wageRecord, int sailingTime);    
+    
+    
+    /**
+     * Reports details to the user of encounter with bad weather while sailing
+     *
+     * @param damage, the damage that the weather caused
+     * @param repairCost, the cost that will be needed to repair the damage
+     */
+    void encounterWeather(int damage, int repairCost, boolean gameOver);
+  
 }

@@ -2,7 +2,10 @@ package ui.gui;
 
 import java.awt.EventQueue;
 
+import main.Island;
 import main.IslandTrader;
+import main.PricedItem;
+import main.Route;
 import ui.IslandTraderUI;
 
 /**
@@ -53,4 +56,34 @@ public class Gui implements IslandTraderUI {
     public void quit() {
         //screen.quit();
     }
+    
+	/**
+	 * Show the user the details of the transaction, if successful
+	 * @param PricedItem the transaction
+	 */	
+	@Override
+	public void processTransaction(PricedItem transaction) {
+		//TODO
+	}  
+	
+    /**
+     * Reports to the user the progress of sailing a route
+     *
+     * @param route, the route the user sailed / is sailing
+     */
+    public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {
+    	//TODO
+    }
+	
+    /**
+     * Reports details to the user of encounter with bad weather while sailing
+     *
+     * @param transaction The transaction to display
+     * @return 
+     */
+	@Override	
+    public void encounterWeather(int damage, int repairCost, boolean gameOver) {
+		//TODO
+	}
+	
 }

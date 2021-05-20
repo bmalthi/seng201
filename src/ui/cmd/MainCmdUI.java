@@ -5,10 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import main.FailureState;
 import main.Island;
 import main.IslandTrader;
 import main.Player;
 import main.PricedItem;
+import main.RandomEvent;
 import main.Route;
 import main.Ship;
 import main.Store;
@@ -41,6 +43,7 @@ public class MainCmdUI implements IslandTraderUI {
 		}
 	
 	}
+	
 	/**
 	 * This class gets the game length based on player's choice
 	 *
@@ -80,73 +83,21 @@ public class MainCmdUI implements IslandTraderUI {
 			System.out.println("Which Ship do you want to choose? ");
 		}
 		
-		protected void eachHeader() {
+		protected void printOptions() {
 			List<Ship> ships = ui.islandTrader.getWorld().getShips();
 			
 			for (int i=0; i < ships.size(); i++) {
-				System.out.println("(" + (i+1) + ") " + ships.get(i).getName());
-				System.out.println(ships.get(i));
+				System.out.println("(" + (i+1) + ") " + ships.get(i).description());
 			}
 		}
 		
 		@Override
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
-			ui.islandTrader.getWorld().getShips().get(intOption); 
+			ui.islandTrader.selectShip(intOption-1);
 			this.setFinish();
 		}
 	}
-	
-	/**
-	 * This class shows the detail of ship to the player 
-	 *
-	 */
-//	private class ShipChoiceDetail extends ListOption {
-//
-//		private Ship ship;
-//		
-//		public ShipChoiceDetail(MainCmdUI ui) {
-//			super(ui);
-//			
-//			// Set up Ship Options
-//		String[] base_options = {
-//				"Speedy Soul",
-//				"Sudden Storm",
-//				"Steel Skull",
-//				"Savage Sloop"}; 
-//		
-//		this.options = new ArrayList<String>(Arrays.asList(base_options));
-//		String exitOption = "(go back)";
-//		this.options.add(0, exitOption);
-//		
-//		}
-//		
-//		@Override
-//		public void eachHeader() {
-//			System.out.println("Which ship do you want to get more information " + ship.getName());
-//		}
-//		
-//		@Override
-//		public void handleOption(String option) {
-//			int intOption = Integer.parseInt(option);
-//			switch(intOption) {
-//			case -1:
-//				this.setFinish();
-//				break;
-//			case 1: //Speedy Soul information
-//				System.out.println("Speedy Soul - 9 crews, 10% damage, cost $180 to repair");
-//			case 2: //Sudden Storm information
-//				System.out.println("Sudden Storm - 10 crews, 15% damage, cost $200 to repair");
-//			case 3: //Steel Skull information
-//				System.out.println("Steel Skull - 11 crews, 20% damage, cost $280 to repair");
-//			case 4: //Savage Sloop information
-//				System.out.println("Savage Sloop - 12 crews, 25% damage, cost $300 to repair");
-//            default:
-//                throw new IllegalStateException("Unexpected value: " + option);
-//			}
-//		}
-//	}
-//	
 	
 	// Class (glorified enum) for the main store menu
 	private class MainMenu extends ListOption {		
@@ -157,9 +108,9 @@ public class MainCmdUI implements IslandTraderUI {
 	    	//Set up Options
 	    	String[] base_options = {	    	
 				"Money & days remaining",
-				"Ship status",
-				"View your past purchases & sales",
-				"View island properties",
+				"Ship properties",
+				"Past purchases & sales",
+				"Island properties",
 				"Visit the island store",
 				"Sail to another island"}; 
 	        
@@ -170,7 +121,7 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		@Override
 		public void eachHeader() {
-			System.out.println("You are at " + ui.islandTrader.getCurrentIsland().getName() +"\nWhat do you want to do next?\n");
+			System.out.println("You are at " + ui.getCurrentIsland() +"\nWhat do you want to do next?\n");
 		}	
 		
 		@Override
@@ -189,7 +140,7 @@ public class MainCmdUI implements IslandTraderUI {
 	            	gameStatus();
 	                break;
 	            case 2: //"Ship status"
-	            	ui.shipChoiceInput.getUserOption(ui.scanner);
+	            	shipProperties();
 	                break;
 	            case 3: //"View purchases"
 	            	purchasesList();
@@ -229,12 +180,12 @@ public class MainCmdUI implements IslandTraderUI {
 
 		@Override
 		public void eachHeader() {
-			System.out.println("Welcome to "+ ui.islandTrader.getCurrentIsland().getStore().getName() +". How can we help?");
+			System.out.println("Welcome to "+ ui.getCurrentIsland().getStore() +". How can we help?");
 		}	
 		
 		@Override
 		public void oneFooter() {
-			System.out.println("Thanks for shopping at "+ ui.islandTrader.getCurrentIsland().getStore().getName() +".\n");
+			System.out.println("Thanks for shopping at "+ ui.getCurrentIsland().getStore() +".\n");
 		}	
 		
 		@Override
@@ -266,7 +217,7 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		public IslandMenu(MainCmdUI ui) {
 			super(ui);					
-	    	this.options = stringList(ui.islandTrader.getWorld().getIslands());
+	    	this.options = stringList(ui.islandTrader.getWorld().getIslands(), false, false);
 	    	String exitOption = "(go back)";
 	    	this.options.add(0, exitOption);
 		}
@@ -310,7 +261,7 @@ public class MainCmdUI implements IslandTraderUI {
 
 		@Override
 		public void eachHeader() {
-			System.out.println("What do you want to know about " +island.getName()+"?");
+			System.out.println("What do you want to know about " +island+"?");
 		}			
 		
 		@Override
@@ -321,13 +272,13 @@ public class MainCmdUI implements IslandTraderUI {
 					this.setFinish();
 		            break;        
 		        case 1: //"Routes"
-		        	routeList(island);
+		        	showRouteList(island);
 		            break;
 		        case 2: //"Selling"
-		        	buyList(island.getStore());
+		        	showBuyList(island.getStore());
 		            break;
 		        case 3: //"Buying"
-		        	sellList(island.getStore());
+		        	showSellList(island.getStore());
 		            break;             
 		        default:
 		            throw new IllegalStateException("Unexpected value: " + option);
@@ -341,25 +292,19 @@ public class MainCmdUI implements IslandTraderUI {
 
 	}	
 	
-	// TODO, show which are valid for this user / money / time etc, once Kvie does her bits of code
-	// TODO, change time calc based on ship speed
-	private void routeList(Island island) {		
+	private void showRouteList(Island island) {		
 		
-		System.out.println("Here are the routes available from your current island " +this.islandTrader.getCurrentIsland().getName() + " to " + island.getName());
-		System.out.println("(* recommended for you)\n");
-		for (Route route :this.islandTrader.getWorld().getRoutes(this.islandTrader.getCurrentIsland(), island)) {
-			//if (this.islandTrader.validateRoute(route)) {
-			//	System.out.println("* " +item.toString());
-			//} else {
-				System.out.println("  " +route.toString());
-				System.out.println("  This route is " +route.getRouteDistance() +" days.\n");
-			//}
-		}
+		System.out.println("Here are the routes available from your current island " +getCurrentIsland() + " to " + island);
+		
+		ArrayList<String> options = routeStringList(this.islandTrader.getWorld().getRoutes(getCurrentIsland(), island), true, false);
+		for (String option: options) {
+			System.out.println(option);
+		}	
+		System.out.println("(* recommended for you)\n");		
 		System.out.println("\n");
 	}		
 	
 	// Menu option for things the player can buy / store will sell
-	// TODO Say how much the player has in space and money
 	private class BuyMenu extends ListOption {		
 		
 		public BuyMenu(MainCmdUI ui) {
@@ -376,59 +321,42 @@ public class MainCmdUI implements IslandTraderUI {
 			System.out.println("\n");
 		}	
 		
-		private void refreshOptions() {
-	    	this.options = new ArrayList<String>();
-	    	List<PricedItem> toSellItems = ui.islandTrader.getCurrentIsland().getStore().getToSell();
-	    	for (int i = 0; i < toSellItems.size(); i++) {
-	    		if (this.ui.islandTrader.validatePurchase(toSellItems.get(i))) {	    			
-	    			this.options.add("* " +toSellItems.get(i).toString());
-	    		} else {
-	    			this.options.add("  " +toSellItems.get(i).toString());
-	    		}
-	    	}
-	    	
-	    	String exitOption = "(back to store front)";
-	    	this.options.add(0, exitOption);
-		}
-		
 		@Override
 		public void printOptions() {
-			refreshOptions();
+	    	this.options = stringList(ui.getCurrentIsland().getStore().getToSellList(), true, false); 
+	    	String exitOption = "(back to store front)";
+	    	this.options.add(0, exitOption);
 			super.printOptions();
 		}
 
 		@Override
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);			
-			//ui.game.getPlayer().getShip().dumpList();
 			if (intOption == -1) {
 				this.setFinish();
 			} else { //THIS IS UGLY check this has to work, ie no passthrough of bad ints
-				ui.buyStoreItem(intOption-1);
+				ui.islandTrader.buyStoreItem(intOption-1);
 			}	
-			//ui.game.getPlayer().dumpList();
-			//ui.game.getPlayer().dumpTransactions();
 		}
 
 	}		
 
-	private void buyList(Store store) {		
+	private void showBuyList(Store store) {				
+		System.out.println(store +" sells the following items?\n (* recommended for you)\n");
 		
-		System.out.println(store.getName() +" sells the following items?\n (* recommended for you)\n");
-		for (PricedItem item :store.getToSell()) {
-			if (this.islandTrader.validatePurchase(item)) {
-				System.out.println("* " +item.toString());
-			} else {
-				System.out.println("  " +item.toString());
-			}
+		ArrayList<String> options = stringList(store.getToSellList(), true, false);
+		for (String option: options) {
+			System.out.println(option);
 		}
-		if (store.getToSell().size() == 0)
+		if (options.size() == 0)
 			System.out.println("We are not selling anyting today");
 		System.out.println("\n");
-	}		
+	}		 
 	
-	// Menu option for things the player can sell / store will buy
-	// TODO Say how much the player has in space and money	
+	
+	//private ArrayList<String> stringList(List<?> list)
+	
+	// Menu option for things the player can sell / store will buy	
 	private class SellMenu extends ListOption {
 		
 		public SellMenu(MainCmdUI ui) {
@@ -445,23 +373,11 @@ public class MainCmdUI implements IslandTraderUI {
 			System.out.println("\n");
 		}	
 		
-		private void refreshOptions() {
-	    	this.options = new ArrayList<String>();
-	    	List<PricedItem> toBuyItems = ui.islandTrader.getCurrentIsland().getStore().getToBuy();
-	    	for (int i = 0; i < toBuyItems.size(); i++) {
-	    		if (this.ui.islandTrader.validateSale(toBuyItems.get(i))) {	    			
-	    			this.options.add("* " +toBuyItems.get(i).toString());
-	    		} else {
-	    			this.options.add(toBuyItems.get(i).toString());
-	    		}
-	    	}
-	    	String exitOption = "(back to store front)";
-	    	this.options.add(0, exitOption);
-		}	
-		
 		@Override
 		public void printOptions() {
-			refreshOptions();
+	    	this.options = stringList(ui.getCurrentIsland().getStore().getToBuyList(), true, false);
+	    	String exitOption = "(back to store front)";
+	    	this.options.add(0, exitOption);
 			super.printOptions();
 		}		
 
@@ -471,29 +387,25 @@ public class MainCmdUI implements IslandTraderUI {
 			if (intOption == -1) {
 				this.setFinish();
 			} else { //check this has to work, ie no passthrough of bad ints
-				ui.sellPlayerItem(intOption-1);
+				ui.islandTrader.sellStoreItem(intOption-1);
 			}	
-			//ui.game.getPlayer().dumpList();
-			//ui.game.getPlayer().dumpTransactions();
 		}
 
 	}	
 	
-	private void sellList(Store store) {				
-		System.out.println(store.getName() +" buys the following items?\n (* recommended for you)\n");
-		for (PricedItem item :store.getToBuy()) {
-			if (this.islandTrader.validateSale(item)) {
-				System.out.println("* " +item.toString());
-			} else {
-				System.out.println(item.toString());
-			}
+	private void showSellList(Store store) {			
+		System.out.println(store +" buys the following items?\n (* recommended for you)\n");
+		ArrayList<String> options = stringList(store.getToBuyList(), true, false);
+		for (String option: options) {
+			System.out.println(option);
 		}
-		if (store.getToBuy().size() == 0)
+		if (store.getToBuyList().size() == 0)
 			System.out.println("We are not buying anyting today");		
 		System.out.println("\n");
+				
 	}	
 	
-private class RouteMenu extends ListOption {		
+	private class RouteMenu extends ListOption {		
 		
 		public RouteMenu(MainCmdUI ui) {
 			super(ui); 		  		    	
@@ -507,65 +419,36 @@ private class RouteMenu extends ListOption {
 		@Override
 		public void oneFooter() {
 			System.out.println("\n");
-		}	
-		
-		private void refreshOptions() {
-			this.options = stringList(ui.islandTrader.getWorld().getRoutes(ui.islandTrader.getCurrentIsland()));
-			String exitOption = "(back to main menu)";
-			this.options.add(0, exitOption);
-		}
+		}			
 		
 		@Override
 		public void printOptions() {
-			refreshOptions();
+			this.options = routeStringList(ui.islandTrader.getWorld().getRoutesFromCurrent(), true, false);
+			String exitOption = "(back to main menu)";
+			this.options.add(0, exitOption);
 			super.printOptions();
 		}
 
 		@Override
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);			
-			//ui.game.getPlayer().getShip().dumpList();
 			if (intOption == -1) {
 				this.setFinish();
-			} else { //THIS IS UGLY check this has to work, ie no pass through of bad ints
-				ui.sailRoute(intOption-1);
+			} else {
+				//ui.sailRoute(intOption-1);				
+				this.setFinish();
+				ui.islandTrader.sailRoute(intOption-1);				
 			}	
-			//ui.game.getPlayer().dumpList();
-			//ui.game.getPlayer().dumpTransactions();
 		}
 
 	}		
-
-	private void purchasesList() {
-		List<PricedItem> transactions = this.islandTrader.getPlayer().getTransactions();
-		System.out.println("****************************************");
-		System.out.println("Here are all your purchases & sales.\n");
-		System.out.println("You currently have " +this.islandTrader.getPlayer().getBalance() +" dollars.\n");
-		if(transactions.size() == 0) {
-			System.out.println("You have no transactions yet\n");
-		} else {
-			for (int i = 0; i < transactions.size(); i++) {
-				System.out.println(transactions.get(i).toString());
-			}
-			System.out.println("\n");
-		}		
-	}
-	
-	private void gameStatus() {
-		System.out.println("****************************************");
-		System.out.println("Game Status\n");
-		System.out.println("Hi " + this.islandTrader.getPlayer().getName());
-		System.out.println("You currently have " +this.islandTrader.getPlayer().getBalance() +" dollars.");
-		System.out.println("You are on day " +this.islandTrader.getTime() +" of " +this.islandTrader.getGameLength() +". " +(this.islandTrader.getGameLength()-this.islandTrader.getTime()) +" days left.\n");	
-	}
     
 	@SuppressWarnings("unused")
 	private PlayerNameInput playerNameInput;
 	@SuppressWarnings("unused")
 	private GameLengthInput gameLengthInput;
-	private ShipChoiceInput shipChoiceInput;
 	@SuppressWarnings("unused")
-	//private ShipChoiceDetail shipChoiceDetail;
+	private ShipChoiceInput shipChoiceInput;
 
 	private MainMenu mainMenu;
 	private StoreMenu storeMenu;	
@@ -578,6 +461,30 @@ private class RouteMenu extends ListOption {
 	public MainCmdUI() {
 		scanner = new Scanner(System.in);
 	}
+	
+	/**
+	 * Helper method to simplify code. Get the current island from the world class
+	 * @return Island, the current island the user is on
+	 */
+	private Island getCurrentIsland() {
+		return this.islandTrader.getWorld().getCurrentIsland();
+	}
+	
+	/**
+	 * Helper method to simplify code. Get the player from the game
+	 * @return Player, the player object
+	 */
+	private Player getPlayer() {
+		return this.islandTrader.getPlayer();
+	}	
+	
+	/**
+	 * Helper method to simplify code. Get the ship the player has
+	 * @return Ship, the ship the player is using
+	 */
+	private Ship getShip() {
+		return getPlayer().getShip();
+	}		
 
 	@Override
 	// Splash Screen
@@ -593,9 +500,9 @@ private class RouteMenu extends ListOption {
 		
 		// Set up game length input
 		this.gameLengthInput = new GameLengthInput(this);
+		
 		// Set up ship choice input
 		this.shipChoiceInput = new ShipChoiceInput(this);
-//		this.shipChoiceDetail = new ShipChoiceDetail(this);
 
 		//Set up command menus
 		this.mainMenu = new MainMenu(this);		
@@ -614,13 +521,13 @@ private class RouteMenu extends ListOption {
 	public void start() {
 		// Print Intro
 		System.out.println("****************************************");
-		System.out.println("Welcome to Island Trader V0.3");
+		System.out.println("Welcome to Island Trader V0.6");
 		System.out.println("****************************************\n");		
 		
-		// Get the player name from the player
+		// Get the player name from the player 
 		this.islandTrader.setPlayer(new Player("Ben"));
 		//TODO Restore playerNameInput.getUserOption(scanner);
-		System.out.println("Great name, " +this.islandTrader.getPlayer().getName() +"\n");
+		System.out.println("Great name, " +getPlayer() +"\n");
 		
 		// Get the game length from the player
 		this.islandTrader.setGameLength(20);
@@ -628,16 +535,13 @@ private class RouteMenu extends ListOption {
 		System.out.println("Game will run for " +this.islandTrader.getGameLength() +" days\n");	
 		
 		// Get the ship choice
-		shipChoiceInput.getUserOption(scanner);		
-		System.out.println("What an awesome ship\n");
-
+		//TODO Restore shipChoiceInput.getUserOption(scanner);
+		getPlayer().setShip(this.islandTrader.getWorld().getShips().get(2));		
+		System.out.println("Great choice, your ship is: " +getShip() +"\n");
 		
 		//Start the main menu
 		mainMenu.getUserOption(this.scanner);	
-		
-		//System.out.println("****************************************");
-		//System.out.println("Hi " + this.game.getPlayer().getName() +" welcome to " + this.game.getStore().getName());
-		//System.out.println("You have " +this.game.getPlayer().getBalance() +" dollars to spend\n");			
+					
 	}	           
 
 	@Override
@@ -646,42 +550,148 @@ private class RouteMenu extends ListOption {
 		System.out.println("****************************************");
 		System.out.println("GAME OVER");
 		System.out.println("****************************************\n");
-		System.out.println(this.islandTrader.getPlayer().getName());
+		System.out.println(getPlayer());
 		System.out.println("You played for " + this.islandTrader.getTime() +" days, out of " + this.islandTrader.getGameLength());
-		System.out.println("You made " +this.islandTrader.getPlayer().getProfit() +" dollars\n");
+		System.out.println("You made " +getPlayer().getProfit() +" dollars\n");
 		System.out.println("Your score is:" +this.islandTrader.gameScore());
 		System.out.println("\nThanks for playing");		
 	}
 
 	@Override
 	public void showError(String error) {
-		System.out.println("!!!!!!!! " + error + " !!!!!!!!");
+		System.out.println("!!!! " + error + " !!!!");
 		
-	}
-	
-	// TODO Need to check storage space and money. UI Shouldn't do that though.
-	private void buyStoreItem(int option) {
-		PricedItem purchase = this.islandTrader.buyStoreItem(option);
-		System.out.println("You Are a hero");
-		System.out.println("Purchased:" +purchase.toString()); //This is kinda past tense
-	}
-	
-	// TODO Need to check storage space and money. UI Shouldn't do that though.
-	private void sellPlayerItem(int option) {
-		PricedItem sale = this.islandTrader.sellStoreItem(option);
-		System.out.println("You Are a hero");
-		System.out.println("Sold:" +sale.toString());
 	}	
 	
-	private ArrayList<String> stringList(List<?> list) {
+	private void purchasesList() {
+		System.out.println("****************************************");
+		System.out.println("Here are all your purchases & sales.\n");
+		System.out.println("You currently have " +getPlayer().getBalance() +" dollars.\n");
+		
+		ArrayList<String> options = stringList(getPlayer().getTransactions(), false, false);
+		for (String option: options) {
+			System.out.println(option);
+		}		
+		if(options.size() == 0) {
+			System.out.println("You have no transactions yet\n");
+		}	
+		System.out.println("\n");
+	}
+	
+    /**
+     * Show the user properties of their ship. 2nd Main Menu Option
+     */
+	private void shipProperties() {
+		System.out.println("****************************************");
+		System.out.println("Ship Properties\n");
+		System.out.println(getShip().description());
+	}
+	
+	private void gameStatus() {
+		System.out.println("****************************************");
+		System.out.println("Game Status\n");
+		System.out.println("Hi " + getPlayer());
+		System.out.println("You currently have " +getPlayer().getBalance() +" dollars.");
+		System.out.println("You are on day " +this.islandTrader.getTime() +" of " +this.islandTrader.getGameLength() +". " +(this.islandTrader.getGameLength()-this.islandTrader.getTime()) +" days left.\n");	
+	}
+	
+	/**
+	 * Helper method to take a list of objects and format them in list form to display to the user.
+	 * Can add a 1 based counter and also can validate if this user can purchase / action the item
+	 * @param list, the list of objects to convert into a string list (using toString method)
+	 * @param validate, boolean do we want to validate the item and indicate to the user validation
+	 * @param numbered, boolean should the output items have a 1 based index in front of them 
+	 */	
+	private ArrayList<String> stringList(List<?> list, boolean validate, boolean numbered) {
+		int counter = 1;
+		String validPrefix;
+		String numberPrefix;
 		ArrayList<String> names = new ArrayList<String>();				
 		for (Object obj : list) {
-			names.add(obj.toString());
+			// Add a prefix if the item is valid for the user
+			if (validate && this.islandTrader.validate(obj) == FailureState.SUCCESS)
+				validPrefix = "* ";
+			else
+				validPrefix = "";
+			
+			// Add a prefix if the item should be numbered in the list (1 based)
+			if (numbered)
+				numberPrefix = "(" +counter +") ";
+			else
+				numberPrefix = "";
+			
+			names.add(numberPrefix + validPrefix + obj.toString());
+			counter++;
 		}
 		return names;
 	}
 	
-	private void sailRoute(int option) {
-		
+	/**
+	 * Helper method to take a list of Routes and format them in list form to display to the user.
+	 * Can add a 1 based counter and also can validate if this user can purchase / action the item
+	 * @param list, the list of objects to convert into a string list (using toString method)
+	 * @param validate, boolean do we want to validate the item and indicate to the user validation
+	 * @param numbered, boolean should the output items have a 1 based index in front of them 
+	 */	
+	private ArrayList<String> routeStringList(List<?> list, boolean validate, boolean numbered) {		
+		ArrayList<String> routes = stringList(list, validate, numbered);
+		String routeSuffix;
+		Route route;
+		for (int i = 0; i < routes.size(); i++) {
+			route = (Route) list.get(i);
+			// For each route add a suffix with more detail for the user
+			routeSuffix = "\n  This route is " +route.getDistance() +"km. It will take you " +getShip().sailingDays(route) +" days\n"; 
+			routes.set(i, routes.get(i) + routeSuffix);
+		}
+		return routes;		
+	}	
+	
+	/**
+	 * Show the user the details of the transaction, if successful
+	 * @param PricedItem the transaction
+	 */	
+	@Override
+	public void processTransaction(PricedItem transaction) {
+		System.out.println(transaction.toString()+"\n");		
 	}
+	
+    /**
+     * Show the user what happened on their sailing
+     *
+     * @param route, the route being sailed
+     * @param wageRecord, the transaction record for our wage payment
+     * @param sailingTime, days it took to sail the route
+     */
+	@Override	
+	public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {		
+		// Start the Journey
+		System.out.println("*** Starting our journey ***");
+		
+		// Show the user the wages we paid
+		this.processTransaction(wageRecord);
+		
+		// Call the game code
+		for (RandomEvent event : route.getEvents()) {
+			this.islandTrader.triggerSailingEvent(event);				
+		}
+		
+		// Assume we made the next island (for now)
+		System.out.println("Congrats on your journey");
+	}
+	
+    /**
+     * Show the user how bad weather impacted them on their sailing. If you hit bad weather it
+     * damages your ship by 20% of its total endurance. This needs to be paid before another sailing
+     *
+     * @param damage, how much damage the weather caused
+     * @param repairCost, the extra repair cost from the weather
+     */
+	@Override	
+    public void encounterWeather(int damage, int repairCost, boolean notEnoughFunds) {
+		System.out.println("*** You encountered bad weather ***");
+		System.out.println("Unfortunately the weather caused " +damage +" damage.");
+		System.out.println("It will cost " +repairCost +" to repair\n");
+		if (notEnoughFunds)
+			System.out.println("This is more money than you have you will have to trade before you can sail again\n");
+	}	
 }

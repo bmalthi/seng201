@@ -1,49 +1,54 @@
 package main;
-import java.util.Random;
 
-public class PiratesEncounter extends Events {
+/**
+ * Class to model if a user encounters pirates during sailing
+ */
+public class PiratesEncounter implements RandomEvent {
 	
-	private int pirateNumber;
-	public PiratesEncounter(String eventName) {
-		//this.chance = probability;
-		this.eventName = eventName;
+	// Probability the event will be triggered during a sailing
+	private int probability;	
+	
+	/**
+	 * Creates a new PiratesEncouter instance
+	 * @param probability, the probability pirates will be encountered
+	 */	
+	public PiratesEncounter(int probability) {
+		this.probability = probability;
 	}
-
-
+	
+	/**
+	 * @return the probability of the event being triggered during sailing
+	 */		
 	@Override
-	public void handleEvent() {
-		pirateNumber = 3;
-		int playerNumber = 0;
-		for (int i=0; i < 3; i++) {
-			Random dice = new Random();
-			playerNumber = dice.nextInt(6);
-			playerNumber++; }
-			
-		if (playerNumber == pirateNumber) {
-			System.out.println("You win the game by rolling a " + playerNumber + "\nNow let's continue your journey.");
+	public int getProbability() {
+		return this.probability;
+	}
+
+	/**
+	 * Method triggered if the event happens during sailing
+	 * @param game, the IslandTrader object 
+	 */			
+	@Override
+	public void eventTriggered(IslandTrader game) {
+		// TODO Auto-generated method stub
+		
+	}	
+	
+	/**
+	 * Method to describe how likely and what the impact will be of the event
+	 * @return description of the event
+	 */		
+	@Override
+	public String riskDescription() {
+		if (getProbability() >= 90) {
+			return "You will meet pirates, and they might take everything from you";
+		} else if (getProbability() >= 50) {
+			return "Pirates are likely, watch out";
+		} else if (getProbability() >= 25) {
+			return "You might get lucky and not meet pirates";
 		} else {
-			System.out.println("You lose the game by rolling a " + playerNumber + "\nNow give the pirates all your goods.");
-//			if (true) {
-//				System.out.println("The pirates don't satisfy with your goods. You and your crew have to walk the plank now. Game is over!");
-//			} else {
-//				System.out.println("What a good trader! The pirates really like your goods. Now let's continue your journey without them.");
-//			}
-//		}
-
-	}
-	}
-}
-
-//	public String rollingadie(int pirateNumber) {
-
-//		
-
-//}
-//	public String isSatisfy() {
-//		if (true) {
-//			return ""; //
-//		} else {
-//			return ""; //false;
-//		}
-//	}
-
+			return "There are probably no pirates this route";
+		}
+	}	
+	
+}	

@@ -1,101 +1,112 @@
- package main;
- import java.util.ArrayList;
+package main;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/** 
+ * This class represents a route from an island to another. It is undirected
+ */ 
 public class Route {	
-	/** 
-	 * This class represents the routes from an island to another
-	 */
-	private int routeDistance;
-	private Island islandStartPoint;
-	private Island islandEndPoint;
-	private ArrayList<Events> events;
-
-	/**
-	 * 
-	 * @param islandStartPoint - where the ship is currently docked
-	 * @param islandEndPoint - where player want to travel to
-	 */
-	public Route(Island islandStartPoint, Island islandEndPoint) {
-		this.islandStartPoint = islandStartPoint;
-		this.islandEndPoint = islandEndPoint;
-		this.events = new ArrayList<Events>();
-	//	this.probability = probability;
-	}
-	public void addEvent(Events event) {
-		events.add(event);
-	}
 	
-//	/**
-//	 * 
-//	 * @param rescueSailors - player can earn monetary reward by rescueing some sailors
-//	 */
-//	public void addEvent(Events rescueSailors) {
-//		if (probability.chance >= 50) {
-//			System.out.println("You have found some lost sailors! Let's rescue them!");
-//			events.add(rescueSailors);
-//		} else {
-//			System.out.println("Sailors are not in this island.");
-//		}
-//	}
-//	
-//	/**
-//	 * 
-//	 * @param piratesencounter - player must win the roll a die game to continue the game
-//	 */
-//	
-//	public void addEvent(Events piratesEncounter) {
-//		// TODO Auto-generated method stub
-//		if (probability.chance >= 50) {
-//			System.out.println("Pirates ENCOUNTER! You have to roll a die!");
-//			
-//			events.add(piratesEncounter);
-//		} else {
-//			System.out.println("Luckily pirates are not in this island");
-//		}
-//	}
+	// The length of the route
+	private int distance;
+	
+	// one of the islands attached to the route
+	private Island island1;
+	
+	// The other island attached to the route
+	private Island island2;
+	
+	// List of random events that might happen while sailing the route
+	private ArrayList<RandomEvent> events;
+	
+	// The world the route is part of
+	private World world;
 
 	/**
-	 * 
-	 * @return the route distance (how many days to travel)
+	 * Creates a new route
+	 * @param island1 - one of the islands attached to the route
+	 * @param island2 - one of the islands attached to the route
 	 */
-	public int getRouteDistance() {
-		return routeDistance;
+	public Route(int distance, Island island1, Island island2, World world) {
+		this.distance = distance;
+		this.island1 = island1;
+		this.island2 = island2;
+		this.events = new ArrayList<RandomEvent>();
+		this.world = world;
 	}
 	
 	/**
-	 * 
-	 * @return the name of the island where the ship is currently docked
+	 * Adds a random event to the route
+	 * @param randomEvent a randomEvent a user could encounter on the route
+	 */	
+	public void addEvent(RandomEvent randomEvent) {
+		events.add(randomEvent);
+	}
+
+	/**
+	 * Get the length of the route. Note this is not sailing time, sailing time is determined by
+	 * route distance and the ship's sailing speed
+	 * @return the route distance
 	 */
-	public Island getislandStartPoint() {
-		return islandStartPoint;
+	public int getDistance() {
+		return distance;
 	}
 	
 	/**
-	 * 
-	 * @return the name of the island where player wants to travel to
+	 * @return island1, one of the islands attached to the route
 	 */
-	public Island getislandEndPoint() {	
-		return islandEndPoint;
+	public Island getIsland1() {
+		return island1;
 	}
 	
-
+	/**
+	 * @return island2, one of the islands attached to the route
+	 */
+	public Island getIsland2() {	
+		return island2;
+	}
 	
-
-//			return ("This route has some risks: " + events + ", but brave people will choose to go.");
-//		}
-//	}
+	/**
+	 * @return the List of Events that might happen as you sail this route 
+	 */
+	public List<RandomEvent> getEvents() {
+		return Collections.unmodifiableList(events);
+	}	
 	
+	/**
+	 * Get a description of the route, given a startIsland
+	 * @param startIsland, the island to be represented first in the description
+	 */		
+	public String description() {
+		String output = "";	
+		if (getIsland1() == this.world.getCurrentIsland())
+			output = output + getIsland1() + " to " + getIsland2();	
+		else
+			output = output + getIsland2() + " to " + getIsland1();
+		for (RandomEvent event : events) {
+			output = output + "\n  " +event.riskDescription();
+		}
+		return output;
+	}
+	
+	/**
+	 * @return string description of the route, including its safety 
+	 */	
+	@Override
 	public String toString() {
-		return("The route is between " + getislandStartPoint().getName() + " and " + getislandEndPoint().getName() + "." + "\nThis route is safe to go!");
+		return description();
 	}
-//	public String sailRoute() { 
-//		/** 
-//		 * called by the UI
-//		 */
-//		
-//	}
-
-
-
+	
+	/**
+	 * @return the other island attached to a route given one island
+	 */
+	public Island otherIsland(Island island) {
+		if (getIsland1() == island)
+			return getIsland2();
+		else
+			return getIsland1();
+	}
 		
 }
