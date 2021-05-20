@@ -30,7 +30,7 @@ public class Gui implements IslandTraderUI {
     			}
     		}
     	});
-    }
+   }
 
     @Override
     public void showError(String error) {

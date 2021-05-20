@@ -81,9 +81,7 @@ public class SetupScreen {
 		JButton btnNewButton = new JButton("Let's Play");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmWelcomeToIsland.dispose();
-				MainScreen mainScreen = new MainScreen();
-				mainScreen.setVisible(true);
+
 			}
 		});
 		btnNewButton.setBackground(new Color(25, 25, 112));
@@ -276,11 +274,4 @@ public class SetupScreen {
     protected void show() {
     	frmWelcomeToIsland.setVisible(true);
     }	
-//    
-//    public void closeWindow() {
-//    	frmWelcomeToIsland.dispose();
-//    }
-//    
-//    public void finishedWindow() {
-//    	islandTrader.closeSetupScreen(this);
-    }
+   }

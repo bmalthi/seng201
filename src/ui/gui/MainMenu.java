@@ -16,22 +16,6 @@ public class MainMenu {
 	private JFrame frame;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainMenu window = new MainMenu();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public MainMenu() {
@@ -50,50 +34,57 @@ public class MainMenu {
 		frame.getContentPane().setLayout(null);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello new trader! Every day is a new adventure, and today it begins with you. \nAs a trader, you can buy items in the current island store and sell them in another island. \n\nYou are currently at the Home Island. What do you want to do now? ");
-		lblNewLabel_1_1.setBounds(20, 49, 666, 112);
+		lblNewLabel_1_1.setBounds(30, 59, 709, 112);
 		lblNewLabel_1_1.setLineWrap(true);
 		lblNewLabel_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1.setFont(new Font("Devanagari MT", Font.PLAIN, 17));
-		lblNewLabel_1_1.setBackground(new Color(0, 0, 102));
+		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 17));
+		lblNewLabel_1_1.setBackground(new Color(25, 25, 112));
 		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		JTextArea txtrHelloNewTrader = new JTextArea("A new adventure begins");
 		txtrHelloNewTrader.setForeground(Color.WHITE);
-		txtrHelloNewTrader.setFont(new Font("Holiday Sun", Font.PLAIN, 24));
+		txtrHelloNewTrader.setFont(new Font("Holiday Sun", Font.PLAIN, 26));
 		txtrHelloNewTrader.setBackground(new Color(70, 130, 180));
-		txtrHelloNewTrader.setBounds(20, 6, 639, 31);
+		txtrHelloNewTrader.setBounds(30, 16, 639, 31);
 		frame.getContentPane().add(txtrHelloNewTrader);
 		
-		JButton btnNewButton = new JButton("View money & days remaining");
-		btnNewButton.setBounds(116, 197, 207, 64);
+		JButton btnNewButton = new JButton("VIEW MONEY & DAYS REMAINING");
+		btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setBackground(new Color(255, 255, 255));
+		btnNewButton.setForeground(new Color(0, 0, 0));
+		btnNewButton.setBounds(141, 195, 237, 74);
 		frame.getContentPane().add(btnNewButton);
 		
-		JButton btnViewPastPurchases = new JButton("View past purchases and sales");
-		btnViewPastPurchases.setBounds(116, 273, 207, 64);
+		JButton btnViewPastPurchases = new JButton("VIEW PAST PURCHASES & SALES");
+		btnViewPastPurchases.setBounds(141, 281, 237, 74);
 		frame.getContentPane().add(btnViewPastPurchases);
 		
-		JButton btnVisitIslandStore = new JButton("Visit Island store");
-		btnVisitIslandStore.setBounds(116, 349, 207, 64);
+		JButton btnVisitIslandStore = new JButton("VISIT ISLAND STORE");
+		btnVisitIslandStore.setBounds(141, 368, 237, 74);
 		frame.getContentPane().add(btnVisitIslandStore);
 		
-		JButton btnViewShipStatus = new JButton("View ship status\n");
-		btnViewShipStatus.setBounds(353, 197, 207, 64);
+		JButton btnViewShipStatus = new JButton("VIEW SHIP STATUS");
+		btnViewShipStatus.setBounds(422, 195, 234, 74);
 		frame.getContentPane().add(btnViewShipStatus);
 		
-		JButton btnViewIslandProperties = new JButton("View Island properties\n");
-		btnViewIslandProperties.setBounds(353, 273, 207, 64);
+		JButton btnViewIslandProperties = new JButton("VIEW ISLAND PROPERTIES");
+		btnViewIslandProperties.setBounds(422, 281, 237, 74);
 		frame.getContentPane().add(btnViewIslandProperties);
 		
-		JButton btnSailToAnother = new JButton("Sail to another island");
-		btnSailToAnother.setBounds(233, 436, 207, 64);
+		JButton btnSailToAnother = new JButton("SAIL TO ANOTHER ISLAND");
+		btnSailToAnother.setBounds(300, 458, 207, 74);
 		frame.getContentPane().add(btnSailToAnother);
 		
-		JButton btnNewButton_1 = new JButton("Quit game!");
+		JButton btnNewButton_1 = new JButton("QUIT GAME");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_1.setBounds(353, 349, 197, 64);
+		btnNewButton_1.setBounds(422, 368, 237, 74);
 		frame.getContentPane().add(btnNewButton_1);
 	}
 }
