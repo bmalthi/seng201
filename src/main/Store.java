@@ -132,6 +132,14 @@ public class Store {
 		// Ugly hard coding, store of that name doesn't sell anything
 		if (this.name != "Hotel California")
 			addToSell(new PricedItem(item.getItem(), item.getPrice(), PriceType.FORSALE, item.getIsland()));
-	}			
+	}		
+	
+	/**
+	 * @return a string representation of the store, the name
+	 */	
+	@Override
+	public String toString() {		
+		return getName();
+	}	
 	
 }

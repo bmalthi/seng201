@@ -28,6 +28,9 @@ public class World {
 	
 	// Random object to use for creating random items for the stores
 	private Random random;
+	
+	// Current island the user is on
+	private Island currentIsland;
 
 	/**
 	 * Creates a new world object. Currently with fixed islands and routes. 
@@ -41,6 +44,7 @@ public class World {
 		this.random = new Random();
 		this.random.setSeed(0);
 		setUpWorld();
+		this.setCurrentIsland(getIslands().get(0));
 	}
 	
 	/**
@@ -176,46 +180,46 @@ public class World {
 		 * Routes - create routes from an island to another 
 		 * with some events that may occur (depend on the probability) 
 		 */		
-		Route route1 = new Route(10, island1, island2);
+		Route route1 = new Route(10, island1, island2, this);
 		// TODO PUT BACK LATER route1.addEvent(new PiratesEncounter(40));
 		route1.addEvent(new UnfortunateWeather(100));
 		routes.add(route1);
 		
-		Route route2 = new Route(10, island1, island5);
+		Route route2 = new Route(10, island1, island5, this);
 		route2.addEvent(new PiratesEncounter(20));
 		routes.add(route2);
 		
-		Route route3 = new Route(3, island1, island3);
+		Route route3 = new Route(3, island1, island3, this);
 		route3.addEvent(new UnfortunateWeather(90));
 		routes.add(route3);
 		
-		Route route4 = new Route(20, island2, island3);
+		Route route4 = new Route(20, island2, island3, this);
 		route4.addEvent(new RescueSailors(80));
 		routes.add(route4);
 		
-		Route route5 = new Route(10, island3, island4);
+		Route route5 = new Route(10, island3, island4, this);
 		route5.addEvent(new UnfortunateWeather(50));
 		routes.add(route5);
 		
-		Route route6 = new Route(10, island3, island5);
+		Route route6 = new Route(10, island3, island5, this);
 		routes.add(route6);
 		route6.addEvent(new UnfortunateWeather(50));
 		
-		Route route7 = new Route(2, island4, island1);
+		Route route7 = new Route(2, island4, island1, this);
 		route7.addEvent(new PiratesEncounter(70));
 		route7.addEvent(new UnfortunateWeather(70));
 		routes.add(route7);
 		
-		Route route8 = new Route(10, island4, island2);
+		Route route8 = new Route(10, island4, island2, this);
 		route8.addEvent(new RescueSailors(50));
 		routes.add(route8);
 		
-		Route route9 = new Route(10, island4, island5);
+		Route route9 = new Route(10, island4, island5, this);
 		route9.addEvent(new PiratesEncounter(50));
 		route9.addEvent(new RescueSailors(20));
 		routes.add(route9);
 		
-		Route route10 = new Route(10, island5, island2);
+		Route route10 = new Route(10, island5, island2, this);
 		route10.addEvent(new UnfortunateWeather(50));
 		routes.add(route10);
 		
@@ -333,6 +337,33 @@ public class World {
 				validRoutes.add(route);
 		}
 		return Collections.unmodifiableList(validRoutes);
+	}
+	
+	/**
+	 * Gets list of routes from the current island 
+	 * @return the routes
+	 */		
+	public List<Route> getRoutesFromCurrent() {
+		ArrayList<Route> validRoutes = new ArrayList<Route>();
+		for (Route route : routes) {
+			if (route.getIsland1() == getCurrentIsland() || route.getIsland2() == getCurrentIsland())
+				validRoutes.add(route);
+		}
+		return Collections.unmodifiableList(validRoutes);
+	}	
+
+	/**
+	 * @return the currentIsland
+	 */
+	public Island getCurrentIsland() {
+		return currentIsland;
+	}
+
+	/**
+	 * @param currentIsland the currentIsland to set
+	 */
+	public void setCurrentIsland(Island currentIsland) {
+		this.currentIsland = currentIsland;
 	}		
 
 }

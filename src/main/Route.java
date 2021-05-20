@@ -20,17 +20,21 @@ public class Route {
 	
 	// List of random events that might happen while sailing the route
 	private ArrayList<RandomEvent> events;
+	
+	// The world the route is part of
+	private World world;
 
 	/**
 	 * Creates a new route
 	 * @param island1 - one of the islands attached to the route
 	 * @param island2 - one of the islands attached to the route
 	 */
-	public Route(int distance, Island island1, Island island2) {
+	public Route(int distance, Island island1, Island island2, World world) {
 		this.distance = distance;
 		this.island1 = island1;
 		this.island2 = island2;
 		this.events = new ArrayList<RandomEvent>();
+		this.world = world;
 	}
 	
 	/**
@@ -70,25 +74,17 @@ public class Route {
 	public List<RandomEvent> getEvents() {
 		return Collections.unmodifiableList(events);
 	}	
-
-	/**
-	 * Get a description of the route, island1 is represented first in the description
-	 * @return a string description of the route
-	 */	
-	public String description() {
-		return description(getIsland1());
-	}
 	
 	/**
 	 * Get a description of the route, given a startIsland
 	 * @param startIsland, the island to be represented first in the description
 	 */		
-	public String description(Island startIsland) {
+	public String description() {
 		String output = "";	
-		if (getIsland1() == startIsland)
-			output = output + getIsland1().getName() + " to " + getIsland2().getName() +"  ***";	
+		if (getIsland1() == this.world.getCurrentIsland())
+			output = output + getIsland1() + " to " + getIsland2();	
 		else
-			output = output + getIsland2().getName() + " to " + getIsland1().getName() +"  ***";
+			output = output + getIsland2() + " to " + getIsland1();
 		for (RandomEvent event : events) {
 			output = output + "\n  " +event.riskDescription();
 		}

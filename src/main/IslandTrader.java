@@ -1,6 +1,5 @@
 package main;
 
-import java.util.List;
 import java.util.Random;
 
 import ui.IslandTraderUI;
@@ -30,9 +29,6 @@ public class IslandTrader {
 	public static final String GAME_LENGTH_REGEX = "^[2-4][0-9]|50$";	
 	public static final String SHIP_REGEX = "[1-4]";
 	
-	// The island the player is currently on
-	private Island currentIsland;
-	
 	// Random object to use for game options like do we encounter pirates
 	private Random random;	
 	
@@ -45,7 +41,6 @@ public class IslandTrader {
 	public IslandTrader(IslandTraderUI ui) {
 		this.ui = ui;
 		this.world = new World();
-		this.currentIsland = this.world.getIslands().get(0);
 		this.random = new Random();
 		this.random.setSeed(1);
 	}
@@ -135,21 +130,6 @@ public class IslandTrader {
 	public IslandTraderUI getUI() {
 		return this.ui;
 	}	
-	
-	
-	/**
-	 * @return the currentIsland
-	 */
-	public Island getCurrentIsland() {
-		return currentIsland;
-	}
-
-	/**
-	 * @param currentIsland the currentIsland to set
-	 */
-	public void setCurrentIsland(Island currentIsland) {
-		this.currentIsland = currentIsland;
-	}	
 
 	/**
 	 * Gets the game score illustrating how well the player has done. Points are awarded
@@ -170,6 +150,14 @@ public class IslandTrader {
 		
 		return score;
 	}	
+	
+	/**
+	 *  Sets the ship the player has chosen. Option
+	 */
+	public void selectShip(int option) {
+		//Option should be already validated by the calling code
+		this.getPlayer().setShip(getWorld().getShips().get(option));		
+	}
 	
 	/**
 	 * This method validates if the player can purchase an item given their money,
@@ -194,11 +182,12 @@ public class IslandTrader {
 	 */		
 	public void buyStoreItem(int option) {
 		//Get the chosen item
-		PricedItem purchase = getCurrentIsland().getStore().getToSellList().get(option);
+		Store store = getWorld().getCurrentIsland().getStore();
+		PricedItem purchase = store.getToSellList().get(option);
 		//Validate the user can do this
 		FailureState validationResult = validatePurchase(purchase);
 		if (validationResult == FailureState.SUCCESS) {
-			getCurrentIsland().getStore().sellItem(purchase);
+			store.sellItem(purchase);
 			PricedItem transaction = player.buyItem(purchase);
 			ui.processTransaction(transaction);
 		} else {
@@ -227,11 +216,12 @@ public class IslandTrader {
 	 */	
 	public void sellStoreItem(int option) {
 		//Get the chosen item
-		PricedItem sale = getCurrentIsland().getStore().getToBuyList().get(option);
+		Store store = getWorld().getCurrentIsland().getStore();
+		PricedItem sale = store.getToBuyList().get(option);
 		//Validate the user can do this
 		FailureState validationResult = validatePurchase(sale);
 		if (validationResult == FailureState.SUCCESS) {
-			getCurrentIsland().getStore().buyItem(sale);
+			store.buyItem(sale);
 			PricedItem transaction = player.sellItem(sale);
 			ui.processTransaction(transaction);
 		} else {
@@ -299,19 +289,19 @@ public class IslandTrader {
 	 */
 	public void sailRoute(int option) {
 		// Get the route the user choose
-		Route route = this.getWorld().getRoutes(this.getCurrentIsland()).get(option);
+		Route route = this.getWorld().getRoutes(this.getWorld().getCurrentIsland()).get(option);
 		
 		// Validate the route (money to sail, time in game)
 		FailureState validationResult = validateRoute(route);
 		if (validationResult == FailureState.SUCCESS) {			
 			//Get the wages for the route, they are paid upfront
 			int wages = this.getPlayer().deductRouteWages(route);
-			String name = "Crew to " +route.otherIsland(this.getCurrentIsland()).getName();
-			PricedItem wageRecord = new PricedItem(new Item(name, "No Description", 0, ItemType.WAGES), wages, PriceType.PURCHASED,this.getCurrentIsland());
+			String name = "Crew to " +route.otherIsland(this.getWorld().getCurrentIsland());
+			PricedItem wageRecord = new PricedItem(new Item(name, "No Description", 0, ItemType.WAGES), wages, PriceType.PURCHASED, this.getWorld().getCurrentIsland());
 			this.getPlayer().addTransaction(wageRecord);
 			
 			//Move player to the new island
-			this.setCurrentIsland(route.otherIsland(this.getCurrentIsland()));
+			this.getWorld().setCurrentIsland(route.otherIsland(this.getWorld().getCurrentIsland()));
 			
 			// Assume the time passed, even if we meet pirates etc,
 			// you sail the route and you effectively get all the bad effects at the end

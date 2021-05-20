@@ -169,4 +169,12 @@ public class Player {
 		setBalance(getBalance() - wages);
 		return wages;
 	}
+	
+	/**
+	 * @return a string representation of the player, the name
+	 */	
+	@Override
+	public String toString() {		
+		return getName();
+	}	
 }
