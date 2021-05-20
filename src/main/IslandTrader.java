@@ -281,30 +281,30 @@ public class IslandTrader {
 	 * @param option, the route index chosen by the user in the route list from the current island
 	 * @return the route object sailed
 	 */
-	public Route sailRoute(int option) {
-		//Route route = this.getWorld().getRoutes(this.getCurrentIsland()).get(option);
-		List<Route> routes = this.getWorld().getRoutes(this.getCurrentIsland());
-		Route route = routes.get(option);
+	public void sailRoute(int option) {
+		// Get the route the user choose
+		Route route = this.getWorld().getRoutes(this.getCurrentIsland()).get(option);
+		
+		// Validate the route (money to sail, time in game)
 		if (validateRoute(route)) {			
+			//Get the wages for the route, they are paid upfront
 			int wages = this.getPlayer().deductRouteWages(route);
 			String name = "Crew to " +route.otherIsland(this.getCurrentIsland()).getName();
 			PricedItem wageRecord = new PricedItem(new Item(name, "No Description", 0, ItemType.WAGES), wages, PriceType.PURCHASED,this.getCurrentIsland());
 			this.getPlayer().addTransaction(wageRecord);
-			// TODO tell user wages are deducted
 			
-			// Do the routes events
-			for (RandomEvent event : route.getEvents()) {
-				triggerEvent(event);				
-			}
-			
+			//Move player to the new island
 			this.setCurrentIsland(route.otherIsland(this.getCurrentIsland()));
-			// TODO tell user we moved islands
+			
+			// Assume the time passed, even if we meet pirates etc,
+			// you sail the route and you effectively get all the bad effects at the end
 			int sailingTime = this.getPlayer().getShip().sailingDays(route);
 			this.setTime(this.getTime() + sailingTime);
-			// TODO Tell user we lost some time
-			return route;
+			
+			// Tell the user about it
+			ui.sailRoute(route, wageRecord, sailingTime);
 		} else {
-			return null;
+			ui.showError("You don't enough money or time to sail this route");
 		}
 	}
 	
@@ -312,10 +312,10 @@ public class IslandTrader {
 	 * Triggers the random event attached to the route if it is randomly called. 
 	 * A random number between 1-100 is created, if the event probability is lower 
 	 * than this then trigger the event
+	 * @param event, the event to potentially trigger randomly
 	 */	
-	//TODO probably has a off by 1 error in nextint code
-	private void triggerEvent(RandomEvent event) {
-		int probabilityOutcome = this.random.nextInt(100) + 1;		
+	public void triggerSailingEvent(RandomEvent event) {
+		int probabilityOutcome = this.random.nextInt(101);		
 		if (probabilityOutcome < event.getProbability()) {
 			event.eventTriggered(this);
 		}

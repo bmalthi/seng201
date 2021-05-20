@@ -3,6 +3,7 @@ package ui;
 import main.Island;
 import main.IslandTrader;
 import main.PricedItem;
+import main.Route;
 
 /**
  * Defines a user interface (UI) for a {@link IslandTrader}.
@@ -39,6 +40,14 @@ public interface IslandTraderUI {
      * @param transaction The transaction to display
      */
     void processTransaction(PricedItem transaction);
+    
+    /**
+     * Reports to the user the progress of sailing a route
+     *
+     * @param route, the route the user sailed / is sailing
+     */
+    void sailRoute(Route route, PricedItem wageRecord, int sailingTime);    
+    
     
     /**
      * Reports details to the user of encounter with bad weather while sailing

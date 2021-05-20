@@ -9,6 +9,7 @@ import main.Island;
 import main.IslandTrader;
 import main.Player;
 import main.PricedItem;
+import main.RandomEvent;
 import main.Route;
 import main.Ship;
 import main.Store;
@@ -403,7 +404,7 @@ public class MainCmdUI implements IslandTraderUI {
 				
 	}	
 	
-private class RouteMenu extends ListOption {		
+	private class RouteMenu extends ListOption {		
 		
 		public RouteMenu(MainCmdUI ui) {
 			super(ui); 		  		    	
@@ -432,9 +433,10 @@ private class RouteMenu extends ListOption {
 			int intOption = Integer.parseInt(option);			
 			if (intOption == -1) {
 				this.setFinish();
-			} else { //THIS IS UGLY check this has to work, ie no pass through of bad ints
-				ui.sailRoute(intOption-1);	
+			} else {
+				//ui.sailRoute(intOption-1);				
 				this.setFinish();
+				ui.islandTrader.sailRoute(intOption-1);				
 			}	
 		}
 
@@ -617,7 +619,7 @@ private class RouteMenu extends ListOption {
 		}
 		return routes;		
 	}	
-
+	
 	/**
 	 * Show the user the details of the transaction, if successful
 	 * @param PricedItem the transaction
@@ -625,20 +627,27 @@ private class RouteMenu extends ListOption {
 	@Override
 	public void processTransaction(PricedItem transaction) {
 		if (transaction != null) {		
-			System.out.println(transaction.toString());
+			System.out.println(transaction.toString()+"\n");
 		} else {
 			//Really shoudldo better error
 			showError("Oppsie");
 		}			
 	}
 	
-	private void sailRoute(int option) {
-		Route route = this.islandTrader.sailRoute(option);
-		if (route != null) {		
-			System.out.println("Congrats on your journey");
-		} else {
-			showError("The Sail Failed");
-		}				
+	public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {		
+		// Start the Journey
+		System.out.println("*** Starting our journey ***");
+		
+		// Show the user the wages we paid
+		this.processTransaction(wageRecord);
+		
+		// Call the game code
+		for (RandomEvent event : route.getEvents()) {
+			this.islandTrader.triggerSailingEvent(event);				
+		}
+		
+		// Assume we made the next island (for now)
+		System.out.println("Congrats on your journey");
 	}
 	
     /**
@@ -646,16 +655,13 @@ private class RouteMenu extends ListOption {
      *
      * @param damage, how much damage the weather caused
      * @param repairCost, the extra repair cost from the weather
-     * @param gameOver, indicates that this event will cause the game to end
      */
 	@Override	
-    public void encounterWeather(int damage, int repairCost, boolean gameOver) {
-		System.out.println("*** You encountered bad weather ***\n");
+    public void encounterWeather(int damage, int repairCost, boolean notEnoughFunds) {
+		System.out.println("*** You encountered bad weather ***");
 		System.out.println("Unfortunately the weather caused " +damage +" damage.");
 		System.out.println("It will cost " +repairCost +" to repair\n");
-		if (gameOver) {
-			System.out.println("\n You only have" +this.islandTrader.getPlayer().getBalance() +" dollars though.");
-		}
-		System.out.println("***********************************\n");
+		if (notEnoughFunds)
+			System.out.println("This is more money than you have you will have to trade before you can sail again\n");
 	}	
 }
