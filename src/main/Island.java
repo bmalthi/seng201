@@ -3,63 +3,46 @@
  */
 package main;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 /**
- * @author bmalthi
- *
+ * Class that models an island in the game. Each island has a name and a store
  */
 public class Island {
 
+	// The Name of the Island
 	private final String name;
+	
+	// Link to the store on the island
 	private final Store store;
-	private ArrayList<Route> routes;
+	
 	/**
-	 * 
+	 * Create and Island with a name and a store
+	 * @param name The name of the island
+	 * @param store The store that is on the island
 	 */
 	public Island(String name, Store store) {
 		this.name = name;
 		this.store = store;
-		this.routes = new ArrayList<Route>();
 	}
+	
 	/**
-	 * @return the name
+	 * @return the name of this Island
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * @return the store
+	 * @return the store on the island
 	 */
 	public Store getStore() {
 		return store;
 	}
 
 	/**
-	 * @return the routes
-	 */
-	public List<Route> getRoutes() {
-		return Collections.unmodifiableList(routes);
-	}
-	
-	/**
-	 * @param routes the routes to set
-	 */
-	public void addRoute(Route route) {
-		if(routeExists(route) == false) {
-			routes.add(route);
-		}
-	}
-	
-	private boolean routeExists(Route route) {
-		return routes.contains(route);
-	}
-	
+	 * @return a string representation of the island, the name
+	 */	
 	@Override
-	public String toString() {
+	public String toString() {		
 		return getName();
 	}
 

@@ -49,7 +49,7 @@ public class IslandPropertiesScreen {
 		frame.getContentPane().setLayout(null);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("How's the sailing going? Hope it is going all well and \nyou haven't seen any pirates yet!\n");
-		lblNewLabel_1_1.setBounds(20, 41, 710, 63);
+		lblNewLabel_1_1.setBounds(20, 41, 466, 63);
 		lblNewLabel_1_1.setLineWrap(true);
 		lblNewLabel_1_1.setForeground(new Color(0, 0, 0));
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
@@ -107,24 +107,34 @@ public class IslandPropertiesScreen {
 		frame.getContentPane().add(rdbtnNewRadioButton_4);
 		
 		JButton btnNewButton = new JButton("View Routes to this Island");
-		btnNewButton.setBounds(205, 451, 178, 73);
+		btnNewButton.setBounds(104, 451, 178, 73);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnSeeWhatThe = new JButton("See what this island sells");
-		btnSeeWhatThe.setBounds(205, 366, 178, 73);
+		btnSeeWhatThe.setBounds(104, 366, 178, 73);
 		frame.getContentPane().add(btnSeeWhatThe);
 		
 		JButton btnSeeWhatThis = new JButton("See what this island buys\n");
-		btnSeeWhatThis.setBounds(418, 366, 178, 73);
+		btnSeeWhatThis.setBounds(436, 366, 178, 73);
 		frame.getContentPane().add(btnSeeWhatThis);
 		
 		JButton btnNewButton_3 = new JButton("Back to main menu");
-		btnNewButton_3.setBounds(418, 451, 178, 73);
+		btnNewButton_3.setBounds(436, 451, 178, 73);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		frame.getContentPane().add(btnNewButton_3);
+		
+		JLabel captain = new JLabel("");
+		captain.setIcon(new ImageIcon(IslandPropertiesScreen.class.getResource("/captain.png")));
+		captain.setBounds(294, 366, 127, 169);
+		frame.getContentPane().add(captain);
+		
+		JLabel lblWhatDoYou = new JLabel("What do you want to know about this island?");
+		lblWhatDoYou.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
+		lblWhatDoYou.setBounds(20, 316, 454, 38);
+		frame.getContentPane().add(lblWhatDoYou);
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

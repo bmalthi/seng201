@@ -1,151 +1,242 @@
 package main;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.List;
+
 /**
- * This class represents the four ships that the player can choose 
- * at the beginning of the game
- * 
- * @author kvie
+ * This class represents a ship that the player uses on their quest 
  */
 public class Ship {
+	
+	//The name of the ship
 	private String name; 
+	
+	//The number of crew the ship has
 	private int numberOfCrew; 
-	private int sailSpeed; 
+	
+	// How fast the ship can sail, distance per day
+	private int sailSpeed;  
+	
+	// The current damage status of the ship
 	private int damageAmount;
-	private ArrayList<StorageList> storage; //ArrayList of storage that contain cargo
+	
+	//How much damage the ship can take
+	private int endurance;
+	
+	// List of storageLists the ship has
+	// Different lists indicate differing ability to store cargo
+	private ArrayList<StorageList> storage;
 	
 	/**
-	 * Initialize the ship properties
-	 * Add items to the ship
-	 */
-	
-	public Ship(String name, int numberOfCrew, int sailSpeed, int damageAmount) {
+	 * Creates a new ship
+	 * @param name, the name of the ship
+	 * @param numberOfCrew, the number of crew the ship takes
+	 * @param sailSpeed, the speed of the ship
+	 * @param endurance, how much damage the ship can take
+	 */	
+	public Ship(String name, int numberOfCrew, int sailSpeed, int endurance) {
 		this.name = name;
 		this.numberOfCrew = numberOfCrew;
 		this.sailSpeed = sailSpeed;
-		this.damageAmount = damageAmount;
+		this.endurance = endurance;
+		this.damageAmount = 0;
 		this.storage = new ArrayList<StorageList>();
 		
-		this.storage.add(new StorageList("Cargo Hold 1", 10, ItemType.CARGO));
-		this.storage.add(new StorageList("Cannon Bay", 1, ItemType.WEAPON));
-		this.storage.add(new StorageList("Upgradable", 1, ItemType.UPGRADE));
-		
 	}
 	
- boolean hasSpace(Item item) {
-		/**
-		 * This method check if the storage has enough space for more items
-		 */
- 		for (int i = 0; i < storage.size(); i++) {
- 			if (storage.get(i).getType() == item.getType()) {
- 				if (storage.get(i).remainingSpace() >= item.getSize()) {
+	/** 
+	 * @return the name of the ship
+	 */	
+	public String getName() {
+		return this.name;
+	}
+	
+	/** 
+	 * @return the number of crew on the ship
+	 */		
+	public int getNumberOfCrew() {
+		return this.numberOfCrew;
+	}
+
+	/**
+	 * @return the sailing speed of the ship
+	 */	
+	public int getSailSpeed() {
+		return this.sailSpeed;
+	}
+	
+	/**
+	 * @return the current damage level of the ship
+	 */		
+	public int getDamageAmount() {
+		return this.damageAmount;
+	}
+	
+	/**
+	 * @param damageAmount, the new amount of damage for the ship
+	 * @return the current damage level of the ship
+	 */		
+	public void setDamageAmount(int damageAmount) {
+		this.damageAmount = damageAmount;
+	}	
+	
+	/**
+	 * @return the endurance, ie how much damage the ship can take
+	 */
+	public int getEndurance() {
+		return this.endurance;
+	}
+	
+	/**
+	 * @return the list of storage bays on the ship
+	 */	
+	public ArrayList<StorageList> getStorageBays() {
+		return this.storage;
+	}
+	
+	/**
+	 * Checks of the ship has enough space on in any relevant storage bay to add the item.
+	 * @param item, the Item we are checking if there is enough space for
+	 * @return boolean indicating if the item can be added to the ship of not
+	 */	
+	public boolean hasSpace(Item item) {
+		for (StorageList storagebay : storage) {
+			if (storagebay.validateAdd(item)) {
  					return true;
- 				}
  			}
 
  		}
  		return false;
  	}
 
+	/**
+	 * Adds the item to the ship's storage if it can
+	 * @param item, the item to be added
+	 * @return boolean indicating success
+	 */
+	public boolean addItem(Item item) {
+		for (StorageList storagebay : storage) {
+			if (storagebay.validateAdd(item)) {
+				//this is a bit ugly by this point we have triple checked, could be refactored
+				return storagebay.addItem(item);
+ 			}
 
-	public void addItem(Item item) {
-		/**
-		 * This method adds item to the storage if the storage has space
-		 */
- 		for (int i = 0; i < storage.size(); i++) {
- 			if (storage.get(i).getType() == item.getType()) {
- 				if (storage.get(i).remainingSpace() >= item.getSize()) {
- 					storage.get(i).addItem(item);
- 				}
- 			}			
  		}
+ 		return false;
  	}
 
+	/**
+	 * Checks if the item is on the ship
+	 * @param item, the item to be added
+	 * @return boolean indicating if the item is on the ship or not
+	 */	
 	public boolean hasItem(Item item) {
-		/**
-		 * This method checks if the item already in the storage 
-		 */
- 		for (int i = 0; i < storage.size(); i++) {
- 			if (storage.get(i).getType() == item.getType()) {
- 				if (storage.get(i).hasItem(item)) {
- 					return true;
- 				}
- 			}
- 		}
- 		return false;
+		for (StorageList storagebay : storage) {
+			if (storagebay.hasItem(item)) {
+				return true;
+			}
+		}
+		return false;
  	}
 
+	/**
+	 * Remove the item from storage if the ship has the item
+	 * @param item, the item to be removed
+	 * @return boolean indicating if the item was removed or not
+	 */		
 	public boolean removeItem(Item item) {
-		/**
-		 * This method removes item if it is already in the storage
-		 */
- 		for (int i = 0; i < storage.size(); i++) {
- 			if (storage.get(i).getType() == item.getType()) {
- 				storage.get(i).removeItem(item);
- 			}
- 		}
- 		return false;
+		for (StorageList storagebay : storage) {
+			if(storagebay.removeItem(item)) {
+				return true;
+			}
+		}
+		return false;
  	}	
 	
+	/**
+	 * Gets the sailing cost per day for the ship.
+	 * Calculated as the number of crew on the ship 
+	 * @return the cost per day
+	 */
 	public int getCostPerDay() {
-		/**
-		 * This method get the cost per day
-		 */
-		return getNumberOfCrew();
+		return 1 * getNumberOfCrew();
 	}
 	
-	public String getName() {
-		/** 
-		 * This method gets the name of the ship
-		 */
-		return name;
+	/**
+	 * Gets the repair cost for the ship. 
+	 * Cost is 1 for unit of damage
+	 * @return cost of repair
+	 */	
+	public int getRepairCost() {
+		return 1 * getDamageAmount();
 	}
 	
-	public int getNumberOfCrew() {
-		/**
-		 * This method gets the number of crew
-		 */
-		return numberOfCrew;
-	}
-
-	
-	public int getSailSpeed() {
-		/**
-		 * This method gets the sail speed of the ship
-		 */
-		return sailSpeed;
-	}
-	
-	public int getdamageAmount() {
-		/**
-		 * This method gets how much damage the ship can take
-		 */
-		return damageAmount;
-	}
-	
-	public int getRepairCost(int damageAmount) {
-		
-		Random cost = new Random();
-		if (damageAmount <= 30) {
-			int repairCost = cost.nextInt(30-20) + 20;
-			return repairCost;
-		} else if ((damageAmount > 30) && (damageAmount <= 40)) {
-			int repairCost = cost.nextInt(50-30) + 30;
-			return repairCost;
-		} else {
-			int repairCost = cost.nextInt(80-50) + 50;
-			return repairCost;
+	/**
+	 * Returns a description of the ship
+	 * @return the string description
+	 */		
+	public String description() {		
+		String output = "***  " + getName() +"  ***\n";
+		output = output + "  It has " +getNumberOfCrew() + " crew and speed of " + getSailSpeed() +" at cost of " +getCostPerDay() +" per day wages.\n";
+		output = output + "  It can take " +getEndurance() +" damage. Currently " +getDamageAmount() +" damage.";
+		if (getDamageAmount() > 0)
+			output = output + " It will cost " +getRepairCost() +" to repair.\n";
+		else
+			output = output + "\n";
+		output = output + "  It has the following storage:\n";
+		for (StorageList list : storage) {
+			output = output +"    " + list.description() +"\n";
 		}
-	
+		List<Item> upgrades = getUpgrades();
+		if (upgrades.size() > 0) {
+			output = output +"  It has been upgraded:\n";
+			for (Item upgrade : upgrades) {
+				output = output +"    " + upgrade.getDescription() +"\n";
+			}			
+		}
+		return output;						
 	}
 	
+	/**
+	 * Returns a string representation of the ship
+	 */	
+	@Override
 	public String toString() {
-		/**
-		 * This method let the player know that the ship has been created successfully
-		 */
-		return ("- " + getNumberOfCrew() + " crews, sail fast with speed " + getSailSpeed() + "km/h, " + "cost $" + getRepairCost(damageAmount) + " to repair if damaged");		
+		return getName();						
 	}
 	
+	/**
+	 * This method returns a the time it will take the player to sail a route, given their ship
+	 * 
+	 * @param route, the route the user wishes to sale on
+	 * @return int the number of sailing days
+	 */		
+	public int sailingDays(Route route) {
+		return (int) (route.getDistance() / getSailSpeed());
+	}
 	
+	/**
+	 * This method returns a the cost for a player to sail a route
+	 * 
+	 * @param route, the route the user wishes to sale on
+	 * @return int the cost of the route
+	 */		
+	public int costOfRoute(Route route) {
+		return getCostPerDay() * sailingDays(route);		
+	}
+	
+	/**
+	 * Gets any upgrades
+	 * @return the upgrades
+	 */
+	private List<Item> getUpgrades() {
+		ArrayList<Item> upgrades = new ArrayList<Item>();
+		for (StorageList list : storage) {
+			if (list.getType() == ItemType.UPGRADE) {
+				for (Item item: list.getItems()) {
+					upgrades.add(item);
+				}
+			}
+		}
+		return upgrades;
+	}	
 }
-

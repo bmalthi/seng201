@@ -6,6 +6,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JTextArea;
+
+import main.IslandTrader;
+
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,30 +19,40 @@ import java.awt.event.ActionEvent;
 public class MainScreen {
 
 	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainScreen window = new MainScreen();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private IslandTrader islandTrader;
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					MainScreen window = new MainScreen();
+//					window.frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
+	 * @param islandTrader 
 	 */
-	public MainScreen() {
+	public MainScreen(IslandTrader islandTrader) {
+		this.islandTrader = islandTrader;
 		initialize();
+		frame.setVisible(true);
 	}
-
+	
+	public void closeWindow() {
+		frame.dispose();
+	}
+	
+	public void finishedWindow() {
+		frame.closeMainScreen(this);
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -99,10 +112,12 @@ public class MainScreen {
 			public void actionPerformed(ActionEvent e) {
 				int choice = JOptionPane.showConfirmDialog(frame, "Are you sure you want to quit?",  "Quit Game", JOptionPane.YES_NO_OPTION);
 				if (choice == JOptionPane.YES_OPTION) {
-					System.out.println("Sad to see you leave!");
+					frame.dispose();
+					//System.out.println("Sad to see you leave!");
 					// quit the game
 				} else if (choice == JOptionPane.NO_OPTION) {
-					System.out.println("Let's continue the game");
+					frame.setVisible(true);
+					//System.out.println("Let's continue the game");
 					//continue main Menu as usual
 
 				} 
@@ -119,4 +134,5 @@ public class MainScreen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	
 }

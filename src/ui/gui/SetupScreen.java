@@ -43,28 +43,38 @@ public class SetupScreen {
     // The rocket manager that this screen interacts with
     private IslandTrader islandTrader;	
     
-    /**
-     * Launch the application
-     * @param args
-     */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SetupScreen window = new SetupScreen(new IslandTrader(new MainCmdUI()));
-					window.frmWelcomeToIsland.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    
+//    /**
+//     * Launch the application
+//     * @param args
+//     */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					SetupScreen window = new SetupScreen(new IslandTrader(new MainCmdUI()));
+//					window.frmWelcomeToIsland.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 	/**
 	 * Create the application.
 	 */
 	public SetupScreen(IslandTrader islandTrader) {
 		this.islandTrader = islandTrader;
 		initialize();
+		frmWelcomeToIsland.setVisible(true);
+	}
+	
+	public void closeWindow() {
+		frmWelcomeToIsland.dispose();
+	}
+	
+	public void finishedWindow() {
+		islandTrader.closeSetupScreen(this);
 	}
 
 	/**

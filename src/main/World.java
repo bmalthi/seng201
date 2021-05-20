@@ -10,7 +10,10 @@ import java.util.Random;
 
 /**
  * This class represents the physical world in our game, the islands, the routes and methods to 
- * survey the world
+ * survey the world. It contains private methods to initialize the world with fixed 
+ * islands / routes but random Items to buy at the islands stores
+ * 
+ * Also creates 4 ships for the user to choose from when the game starts
  */
 public class World {
 	
@@ -23,11 +26,13 @@ public class World {
 	//ArrayList of ships that contain 4 ships
 	private ArrayList<Ship> ships; 
 	
+	// Random object to use for creating random items for the stores
 	private Random random;
 
 	/**
-	 * Initializes the world for our game. Currently with fixed islands and routes. 
+	 * Creates a new world object. Currently with fixed islands and routes. 
 	 * Stores within islands will have random selection of objects to buy or sell
+	 * 
 	 */
 	public World() {
 		this.islands = new ArrayList<Island>();
@@ -38,6 +43,13 @@ public class World {
 		setUpWorld();
 	}
 	
+	/**
+	 * Method to create the world 
+	 * Creates 5 islands
+	 * Creates a store on each island
+	 * Adds items to the store according to some store criteria (hard coded)
+	 * Adds routes between each island pair (undirected), including random events that might be encountered
+	 */	
 	private void setUpWorld() {		
 		
 		PricedItem pricedItem;
@@ -162,65 +174,88 @@ public class World {
 		
 		/*
 		 * Routes - create routes from an island to another 
-		with some events that may occur (depend on the probability) 
+		 * with some events that may occur (depend on the probability) 
 		 */		
-		Route route1 = new Route(island1, island2);
+		Route route1 = new Route(10, island1, island2);
+		// TODO PUT BACK LATER route1.addEvent(new PiratesEncounter(40));
+		route1.addEvent(new UnfortunateWeather(100));
 		routes.add(route1);
 		
-		Route route2 = new Route(island1, island5);
-		route2.addEvent(new PiratesEncounter("Pirates Encounter"));
+		Route route2 = new Route(10, island1, island5);
+		route2.addEvent(new PiratesEncounter(20));
 		routes.add(route2);
 		
-		Route route3 = new Route(island1, island3);
+		Route route3 = new Route(3, island1, island3);
+		route3.addEvent(new UnfortunateWeather(90));
 		routes.add(route3);
 		
-		Route route4 = new Route(island2, island3);
-		route4.addEvent(new RescueSailors("Rescue Sailors"));
+		Route route4 = new Route(20, island2, island3);
+		route4.addEvent(new RescueSailors(80));
 		routes.add(route4);
 		
-		Route route5 = new Route(island3, island4);
-		route5.addEvent(new UnfortunateWeather("Rain"));
+		Route route5 = new Route(10, island3, island4);
+		route5.addEvent(new UnfortunateWeather(50));
 		routes.add(route5);
 		
-		Route route6 = new Route(island3, island5);
+		Route route6 = new Route(10, island3, island5);
 		routes.add(route6);
-		route6.addEvent(new UnfortunateWeather("Tornado"));
+		route6.addEvent(new UnfortunateWeather(50));
 		
-		Route route7 = new Route(island4, island1);
-		route7.addEvent(new PiratesEncounter("Pirates Encounter"));
+		Route route7 = new Route(2, island4, island1);
+		route7.addEvent(new PiratesEncounter(70));
+		route7.addEvent(new UnfortunateWeather(70));
 		routes.add(route7);
 		
-		Route route8 = new Route(island4, island2);
-		route8.addEvent(new RescueSailors("Sailors"));
+		Route route8 = new Route(10, island4, island2);
+		route8.addEvent(new RescueSailors(50));
 		routes.add(route8);
 		
-		Route route9 = new Route(island4, island5);
-		route9.addEvent(new PiratesEncounter("Pirates Encounter"));
+		Route route9 = new Route(10, island4, island5);
+		route9.addEvent(new PiratesEncounter(50));
+		route9.addEvent(new RescueSailors(20));
 		routes.add(route9);
 		
-		Route route10 = new Route(island5, island2);
-
-		route10.addEvent(new UnfortunateWeather("Thunderstorm"));
+		Route route10 = new Route(10, island5, island2);
+		route10.addEvent(new UnfortunateWeather(50));
 		routes.add(route10);
 		
 		/*
 		 * Ship
-		 */
-		
-		Ship ship1 = new Ship("Speedy Soul", 9, 50, 20);
+		 */		
+		Ship ship1 = new Ship("Speedy Soul", 3, 3, 10);
+		ship1.getStorageBays().add(new StorageList("Cargo Hold 1", 10, ItemType.CARGO));
+		ship1.getStorageBays().add(new StorageList("Upgradable", 1, ItemType.UPGRADE));	
 		ships.add(ship1);
 		
-		Ship ship2 = new Ship("Sudden Storm", 10, 42, 30);
+		Ship ship2 = new Ship("Sudden Storm", 6, 2, 20);
+		ship2.getStorageBays().add(new StorageList("Cargo Hold 1", 30, ItemType.CARGO));
+		ship2.getStorageBays().add(new StorageList("Upgradable", 1, ItemType.UPGRADE));		
 		ships.add(ship2);
 		
-		Ship ship3 = new Ship("Steel Skull", 11, 38, 35);
+		Ship ship3 = new Ship("Steel Skull", 4, 1, 40);
+		ship3.getStorageBays().add(new StorageList("Cargo Hold 1", 20, ItemType.CARGO));	
+		ship3.getStorageBays().add(new StorageList("Cannon Bay 1", 2, ItemType.WEAPON));
+		ship3.getStorageBays().add(new StorageList("Upgradable", 1, ItemType.UPGRADE));		
 		ships.add(ship3);
 		
-		Ship ship4 = new Ship("Savage Sloop", 12, 30, 40);
-		ships.add(ship4);
+		Ship ship4 = new Ship("Savage Sloop", 4, 2, 20);
+		ship4.getStorageBays().add(new StorageList("Cargo Hold 1", 20, ItemType.CARGO));	
+		ship4.getStorageBays().add(new StorageList("Cannon Bay 1", 2, ItemType.WEAPON));
+		ship4.getStorageBays().add(new StorageList("Missle Bay 1", 2, ItemType.WEAPON));
+		ships.add(ship4);		
 		
 	}
 	
+	/**
+	 * Method to create a new random priced item
+	 * 
+	 *  @param store, the Store the Item will be on
+	 *  @param itemNames, a string List of names to randomly choose from
+	 *  @param itemType, the ItemType (eg Cargo / Update) that is being created
+	 *  @param maxPrice, the max price of the item, will be a random int under this value
+	 *  @param priceType, the type of priced Item being made eg FORSALE or FORBUY
+	 *  @param island, the Island that the item is being sold / bought on 
+	 */		
 	private PricedItem createRandomPricedItem(Store store, String[] itemNames, ItemType itemType, int maxPrice, PriceType priceType, Island island) {
 		Item item;
 		if (itemType == ItemType.UPGRADE) {
@@ -235,6 +270,13 @@ public class World {
 		return pricedItem;
 	}	
 	
+	/**
+	 * Method to create a new random
+	 * 
+	 *  @param itemNames, a string List of names to randomly choose from
+	 *  @param itemType, the ItemType (eg Cargo / Update) that is being created
+	 *  @param maxsize, how big the item is in terms of cargo space
+	 */		
 	private Item createRandomItem(String[] itemNames, ItemType itemType, int maxSize) {
 		String newName = itemNames[random.nextInt(itemNames.length)];
 		int newSize = 0;
@@ -245,43 +287,49 @@ public class World {
 	}
 	
 	/**
-	 * @return the ships
+	 * @return the ships the user can choose from
 	 */	
 	public List<Ship> getShips() {
 		return Collections.unmodifiableList(ships);
 	}
 	
 	/**
-	 * @return the islands
+	 * @return the islands in the game
 	 */
 	public List<Island> getIslands() {
 		return Collections.unmodifiableList(islands);
 	}
 
 	/**
-	 * @return all the routes
+	 * Gets list of routes that exist in the game
+	 * @return all the routes in the game
 	 */
 	public List<Route> getRoutes() {
 		return Collections.unmodifiableList(routes);
 	}
 	
 	/**
+	 * Gets list of routes that exist in the game, limited to routes that touch island1 & island2
 	 * @return the routes that start and finish at certain island
 	 */	
-	public List<Route> getRoutes(Island startIsland, Island finishIsland) {
+	public List<Route> getRoutes(Island island1, Island island2) {
 		ArrayList<Route> validRoutes = new ArrayList<Route>();
 		for (Route route : routes) {
-			if ((route.getislandStartPoint() == startIsland && route.getislandEndPoint() == finishIsland)
-				|| (route.getislandEndPoint() == startIsland && route.getislandStartPoint() == finishIsland))
+			if ((route.getIsland1() == island1 && route.getIsland2() == island2)
+				|| (route.getIsland1() == island2 && route.getIsland2() == island1))
 				validRoutes.add(route);
 		}
 		return Collections.unmodifiableList(validRoutes);
 	}
 	
-	public List<Route> getRoutes(Island startIsland) {
+	/**
+	 * Gets list of routes that exist in the game, limited to routes that touch island 
+	 * @return the routes that start OR finish at a certain island
+	 */		
+	public List<Route> getRoutes(Island island) {
 		ArrayList<Route> validRoutes = new ArrayList<Route>();
 		for (Route route : routes) {
-			if (route.getislandStartPoint() == startIsland || route.getislandEndPoint() == startIsland)
+			if (route.getIsland1() == island || route.getIsland2() == island)
 				validRoutes.add(route);
 		}
 		return Collections.unmodifiableList(validRoutes);

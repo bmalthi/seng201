@@ -2,7 +2,9 @@ package ui.gui;
 
 import java.awt.EventQueue;
 
+import main.Island;
 import main.IslandTrader;
+import main.PricedItem;
 import ui.IslandTraderUI;
 
 /**
@@ -30,55 +32,48 @@ public class Gui implements IslandTraderUI {
     			}
     		}
     	});
-   }
+    }
 
+    @Override
+    public void showError(String error) {
+        //screen.showError(error);
+    }
+
+    @Override
+    public void start() {
+        //screen.quit();
+        //screen = new MainScreen(rocketManager);
+        //screen.show();
+    }
+
+    //@Override
+    //public boolean confirmQuit() {
+    //    //return screen.confirmQuit();
+    //}
+
+    @Override
+    public void quit() {
+        //screen.quit();
+    }
     
-	public void launchMainScreen() {
-		MainScreen mainWindow = new MainScreen(this);
+	/**
+	 * Show the user the details of the transaction, if successful
+	 * @param PricedItem the transaction
+	 */	
+	@Override
+	public void processTransaction(PricedItem transaction) {
+		//TODO
+	}  
+	
+    /**
+     * Reports details to the user of encounter with bad weather while sailing
+     *
+     * @param transaction The transaction to display
+     * @return 
+     */
+	@Override	
+    public void encounterWeather(int damage, int repairCost, boolean gameOver) {
+		//TODO
 	}
 	
-	public void closeMainScreen(MainScreen mainWindow) {
-		mainWindow.closeWindow();
-	}
-	
-	public void launchSetupScreen() {
-		SetupScreen setupWindow = new SetupScreen(this);
-	}
-	
-	public void closeSetupScreen(SetupScreen setupWindow) {
-		setupWindow.closeWindow();
-		launchMainScreen();
-	
-	}
-	public static void main(String[] args) {
-		IslandTrader islandTrader = new IslandTrader();
-		islandTrader.launchSetupScreen();
-	}
-	
-//    @Override
-//    public void showError(String error) {
-//        //screen.showError(error);
-//    }
-//
-//    public void launchMainScreen() {
-//    	MainScreen mainWindow = new MainScreen(this);
-//    }
-//    
-//    
-//    @Override
-//    public void start() {
-//        //screen.quit();
-//        //screen = new MainScreen(rocketManager);
-//        //screen.show();
-//    }
-//
-//    //@Override
-//    //public boolean confirmQuit() {
-//    //    //return screen.confirmQuit();
-//    //}
-//
-//    @Override
-//    public void quit() {
-//        //screen.quit();
-//    }
 }
