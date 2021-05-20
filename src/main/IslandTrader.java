@@ -1,9 +1,9 @@
 package main;
 
-import java.util.List;
 import java.util.Random;
 
 import ui.IslandTraderUI;
+import ui.gui.Gui;
 
 /**
  * Manages the IslandTrader game, allowing the {@link Player} to travel to {@link Island}s and trade
@@ -30,9 +30,6 @@ public class IslandTrader {
 	public static final String GAME_LENGTH_REGEX = "^[2-4][0-9]|50$";	
 	public static final String SHIP_REGEX = "[1-4]";
 	
-	// The island the player is currently on
-	private Island currentIsland;
-	
 	// Random object to use for game options like do we encounter pirates
 	private Random random;	
 	
@@ -45,11 +42,14 @@ public class IslandTrader {
 	public IslandTrader(IslandTraderUI ui) {
 		this.ui = ui;
 		this.world = new World();
-		this.currentIsland = this.world.getIslands().get(0);
 		this.random = new Random();
 		this.random.setSeed(1);
 	}
 	
+	public static void main(String[] args) {
+		IslandTrader islandTrader = new IslandTrader(new Gui());
+		islandTrader.start();
+	}
 	/**
 	 * Starts this IslandTrader. 
 	 * This method calls {@link IslandTraderUI#setup(IslandTrader)} to initiate setup of the user interface.
@@ -135,21 +135,6 @@ public class IslandTrader {
 	public IslandTraderUI getUI() {
 		return this.ui;
 	}	
-	
-	
-	/**
-	 * @return the currentIsland
-	 */
-	public Island getCurrentIsland() {
-		return currentIsland;
-	}
-
-	/**
-	 * @param currentIsland the currentIsland to set
-	 */
-	public void setCurrentIsland(Island currentIsland) {
-		this.currentIsland = currentIsland;
-	}	
 
 	/**
 	 * Gets the game score illustrating how well the player has done. Points are awarded
@@ -172,14 +157,27 @@ public class IslandTrader {
 	}	
 	
 	/**
+	 *  Sets the ship the player has chosen. Option
+	 */
+	public void selectShip(int option) {
+		//Option should be already validated by the calling code
+		this.getPlayer().setShip(getWorld().getShips().get(option));		
+	}
+	
+	/**
 	 * This method validates if the player can purchase an item given their money,
 	 * given the storage on this ship
 	 * 
 	 * @param purchase, the priced item that player is attempting to purchase
-	 * TODO Should this be exception instead of boolean 
+	 * @return FailureState, Enum representing outcome of the validation
 	 */	
-	public boolean validatePurchase(PricedItem purchase) {
-		return player.hasMoney(purchase) && player.getShip().hasSpace(purchase.getItem());
+	public FailureState validatePurchase(PricedItem purchase) {
+		if (player.hasMoney(purchase) == false)
+			return FailureState.NOMONEY;
+		else if (player.getShip().hasSpace(purchase.getItem()) == false)
+			return FailureState.NOSPACE;
+		else
+			return FailureState.SUCCESS;
 	}	
 	
 	/**
@@ -189,14 +187,16 @@ public class IslandTrader {
 	 */		
 	public void buyStoreItem(int option) {
 		//Get the chosen item
-		PricedItem purchase = getCurrentIsland().getStore().getToSellList().get(option);
+		Store store = getWorld().getCurrentIsland().getStore();
+		PricedItem purchase = store.getToSellList().get(option);
 		//Validate the user can do this
-		if (validatePurchase(purchase)) {
-			getCurrentIsland().getStore().sellItem(purchase);
+		FailureState validationResult = validatePurchase(purchase);
+		if (validationResult == FailureState.SUCCESS) {
+			store.sellItem(purchase);
 			PricedItem transaction = player.buyItem(purchase);
 			ui.processTransaction(transaction);
 		} else {
-			ui.showError("The purchase failed");
+			ui.showError("The purchase failed: " + validationResult.name);
 		}
 	}
 	
@@ -205,11 +205,13 @@ public class IslandTrader {
 	 * having the item
 	 * 
 	 * @param sale, the priced item that player is attempting to sale
-	 * TODO Should this be exception instead of boolean
+	 * @return FailureState, Enum representing outcome of the validation
 	 */	
-	public boolean validateSale(PricedItem sale) {
-		boolean answer = player.getShip().hasItem(sale.getItem()); 
-		return answer;
+	public FailureState validateSale(PricedItem sale) {
+		if (player.getShip().hasItem(sale.getItem()) == false)
+			return FailureState.NOITEM;
+		else
+			return FailureState.SUCCESS;
 	}		
 	
 	/**
@@ -219,14 +221,16 @@ public class IslandTrader {
 	 */	
 	public void sellStoreItem(int option) {
 		//Get the chosen item
-		PricedItem sale = getCurrentIsland().getStore().getToBuyList().get(option);
+		Store store = getWorld().getCurrentIsland().getStore();
+		PricedItem sale = store.getToBuyList().get(option);
 		//Validate the user can do this
-		if (validateSale(sale)) {
-			getCurrentIsland().getStore().buyItem(sale);
+		FailureState validationResult = validatePurchase(sale);
+		if (validationResult == FailureState.SUCCESS) {
+			store.buyItem(sale);
 			PricedItem transaction = player.sellItem(sale);
 			ui.processTransaction(transaction);
 		} else {
-			ui.showError("The sale failed");
+			ui.showError("The sale failed: " + validationResult.name);
 		}
 	}	
 	
@@ -249,10 +253,17 @@ public class IslandTrader {
 	 * given their money and remaining gametime
 	 * 
 	 * @param route, the route the user wishes to sale on
-	 * @return boolean indicating if they can sail the route
+	 * @return FailureState, Enum representing outcome of the validation
 	 */	
-	public boolean validateRoute(Route route) {
-		return hasTime(route) && player.hasMoney(route);
+	public FailureState validateRoute(Route route) {
+		if (player.getShip().getRepairCost() > 0)
+			return FailureState.MUSTREPAIR;		
+		if (player.hasMoney(route) == false)
+			return FailureState.NOMONEY;
+		else if (hasTime(route) == false)
+			return FailureState.NOTIME;
+		else
+			return FailureState.SUCCESS;
 	}
 	
 	/**
@@ -260,9 +271,9 @@ public class IslandTrader {
 	 * to enable the ui to highlight better options for the user 
 	 * 
 	 * @param obj, the object being validated as a option for the user
-	 * @return boolean indicating if it is valid for the user
+	 * @return FailureState, Enum representing outcome of the validation
 	 */		
-	public boolean validate(Object obj) {
+	public FailureState validate(Object obj) {
 		if (obj instanceof Route) {
 			return validateRoute((Route)obj);
 		} else if (obj instanceof PricedItem) {
@@ -272,7 +283,7 @@ public class IslandTrader {
 				return validatePurchase((PricedItem)obj);
 			}
 		} else {
-			return false;
+			return FailureState.UNKNOWN;
 		}
 	}	
 	
@@ -281,30 +292,31 @@ public class IslandTrader {
 	 * @param option, the route index chosen by the user in the route list from the current island
 	 * @return the route object sailed
 	 */
-	public Route sailRoute(int option) {
-		//Route route = this.getWorld().getRoutes(this.getCurrentIsland()).get(option);
-		List<Route> routes = this.getWorld().getRoutes(this.getCurrentIsland());
-		Route route = routes.get(option);
-		if (validateRoute(route)) {			
+	public void sailRoute(int option) {
+		// Get the route the user choose
+		Route route = this.getWorld().getRoutes(this.getWorld().getCurrentIsland()).get(option);
+		
+		// Validate the route (money to sail, time in game)
+		FailureState validationResult = validateRoute(route);
+		if (validationResult == FailureState.SUCCESS) {			
+			//Get the wages for the route, they are paid upfront
 			int wages = this.getPlayer().deductRouteWages(route);
-			String name = "Crew to " +route.otherIsland(this.getCurrentIsland()).getName();
-			PricedItem wageRecord = new PricedItem(new Item(name, "No Description", 0, ItemType.WAGES), wages, PriceType.PURCHASED,this.getCurrentIsland());
+			String name = "Crew to " +route.otherIsland(this.getWorld().getCurrentIsland());
+			PricedItem wageRecord = new PricedItem(new Item(name, "No Description", 0, ItemType.WAGES), wages, PriceType.PURCHASED, this.getWorld().getCurrentIsland());
 			this.getPlayer().addTransaction(wageRecord);
-			// TODO tell user wages are deducted
 			
-			// Do the routes events
-			for (RandomEvent event : route.getEvents()) {
-				triggerEvent(event);				
-			}
+			//Move player to the new island
+			this.getWorld().setCurrentIsland(route.otherIsland(this.getWorld().getCurrentIsland()));
 			
-			this.setCurrentIsland(route.otherIsland(this.getCurrentIsland()));
-			// TODO tell user we moved islands
+			// Assume the time passed, even if we meet pirates etc,
+			// you sail the route and you effectively get all the bad effects at the end
 			int sailingTime = this.getPlayer().getShip().sailingDays(route);
 			this.setTime(this.getTime() + sailingTime);
-			// TODO Tell user we lost some time
-			return route;
+			
+			// Tell the user about it
+			ui.sailRoute(route, wageRecord, sailingTime);
 		} else {
-			return null;
+			ui.showError("Sailing Failed: " + validationResult.name);
 		}
 	}
 	
@@ -312,10 +324,10 @@ public class IslandTrader {
 	 * Triggers the random event attached to the route if it is randomly called. 
 	 * A random number between 1-100 is created, if the event probability is lower 
 	 * than this then trigger the event
+	 * @param event, the event to potentially trigger randomly
 	 */	
-	//TODO probably has a off by 1 error in nextint code
-	private void triggerEvent(RandomEvent event) {
-		int probabilityOutcome = this.random.nextInt(100) + 1;		
+	public void triggerSailingEvent(RandomEvent event) {
+		int probabilityOutcome = this.random.nextInt(101);		
 		if (probabilityOutcome < event.getProbability()) {
 			event.eventTriggered(this);
 		}

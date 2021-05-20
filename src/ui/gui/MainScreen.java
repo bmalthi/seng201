@@ -1,6 +1,6 @@
 package ui.gui;
 
-import java.awt.EventQueue;
+
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -16,10 +16,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class MainScreen {
+public class MainScreen extends Screen {
 
 	private JFrame frame;
-	private IslandTrader islandTrader;
 //	/**
 //	 * Launch the application.
 //	 */
@@ -37,26 +36,23 @@ public class MainScreen {
 //	}
 
 	/**
-	 * Create the application.
-	 * @param islandTrader 
+	 * Create this screen
+	 * @param islandTrader - the trader this screen interacts with
 	 */
-	public MainScreen(IslandTrader islandTrader) {
-		this.islandTrader = islandTrader;
+	public MainScreen(IslandTrader islandTrader)  {
+		super("Island Trader", islandTrader);
 		initialize();
-		frame.setVisible(true);
+		
 	}
 	
-	public void closeWindow() {
-		frame.dispose();
-	}
 	
-	public void finishedWindow() {
-		frame.closeMainScreen(this);
-	}
+	//private rocket get selected rocket
+	
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
 		frame.getContentPane().setLayout(null);

@@ -8,7 +8,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.SystemColor;
 import javax.swing.JSlider;
 import javax.swing.border.CompoundBorder;
@@ -19,7 +18,6 @@ import javax.swing.event.DocumentListener;
 
 import main.IslandTrader;
 import main.Ship;
-import ui.cmd.MainCmdUI;
 import java.awt.Font;
 
 import javax.swing.JRadioButton;
@@ -32,55 +30,40 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class SetupScreen {
+public class SetupScreen extends Screen {
 
 	private JFrame frmWelcomeToIsland;
+	
 	private JTextField txtbetweenCharacters;
+		
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
 	public static final String NAME_REGEX = "^[a-z A-Z]{3,15}$";
 	
-    // The rocket manager that this screen interacts with
-    private IslandTrader islandTrader;	
-    
-    
-//    /**
-//     * Launch the application
-//     * @param args
-//     */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					SetupScreen window = new SetupScreen(new IslandTrader(new MainCmdUI()));
-//					window.frmWelcomeToIsland.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+ 
 	/**
-	 * Create the application.
+	 * Create the Setup Screen
+	 * 
+	 * @param islandTrader the island trader to configure
 	 */
-	public SetupScreen(IslandTrader islandTrader) {
-		this.islandTrader = islandTrader;
+	protected SetupScreen(IslandTrader islandTrader) {
+		super("Island Trader Setup", islandTrader);
 		initialize();
-		frmWelcomeToIsland.setVisible(true);
 	}
 	
-	public void closeWindow() {
-		frmWelcomeToIsland.dispose();
-	}
-	
-	public void finishedWindow() {
-		islandTrader.closeSetupScreen(this);
-	}
+//	/**
+//	 * Completes the setup of our {@link IslandTrader}
+//	 */
+//	
+//	private void setupComplete() {
+//		final TraderModel model = (TraderModel) table.getmodel();
+//		getIslandTrader().onSetupFinished(txtbetweenCharacters.getText(), model.
+//	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public void initialize() {
 		frmWelcomeToIsland = new JFrame();
 		frmWelcomeToIsland.getContentPane().setBackground(new Color(70, 130, 180));
 		frmWelcomeToIsland.setTitle("Welcome to Island Trader V0.5");
@@ -91,7 +74,7 @@ public class SetupScreen {
 		JButton btnNewButton = new JButton("Let's Play");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				getIslandTrader().onSetupFinished();
 			}
 		});
 		btnNewButton.setBackground(new Color(25, 25, 112));
@@ -221,9 +204,9 @@ public class SetupScreen {
 		lblNewLabel_1_2_2.setBounds(35, 287, 235, 31);
 		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1_2_2);
 		
-		List<Ship> ships = islandTrader.getWorld().getShips();
+		List<Ship> ships = getIslandTrader().getWorld().getShips();
 		JRadioButton rdbtnNewRadioButton = new JRadioButton(ships.get(0).getName());
-		rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(0)));
+		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(0)));
 		
 		rdbtnNewRadioButton.setForeground(new Color(0, 0, 0));
 		buttonGroup.add(rdbtnNewRadioButton);
@@ -232,19 +215,19 @@ public class SetupScreen {
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton(ships.get(1).getName());
-		rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(1)));
+		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(1)));
 		buttonGroup.add(rdbtnNewRadioButton_1);
 		rdbtnNewRadioButton_1.setBounds(221, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1);
 		
 		JRadioButton rdbtnNewRadioButton_1_1 = new JRadioButton(ships.get(2).getName());
-		rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(2)));
+		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(2)));
 		buttonGroup.add(rdbtnNewRadioButton_1_1);
 		rdbtnNewRadioButton_1_1.setBounds(385, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1_1);
 		
 		JRadioButton rdbtnNewRadioButton_1_1_1 = new JRadioButton(ships.get(3).getName());
-		rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(3)));
+		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(3)));
 		buttonGroup.add(rdbtnNewRadioButton_1_1_1);
 		rdbtnNewRadioButton_1_1_1.setBounds(563, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1_1_1);
@@ -284,4 +267,6 @@ public class SetupScreen {
     protected void show() {
     	frmWelcomeToIsland.setVisible(true);
     }	
+    
+    
    }
