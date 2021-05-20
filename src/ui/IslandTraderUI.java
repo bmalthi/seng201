@@ -1,6 +1,5 @@
 package ui;
 
-import main.Island;
 import main.IslandTrader;
 import main.PricedItem;
 import main.Route;
