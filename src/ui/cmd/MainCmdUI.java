@@ -468,11 +468,13 @@ private class RouteMenu extends ListOption {
 		System.out.println("\n");
 	}
 	
+    /**
+     * Show the user properties of their ship. 2nd Main Menu Option
+     */
 	private void shipProperties() {
 		System.out.println("****************************************");
 		System.out.println("Ship Properties\n");
 		System.out.println(this.islandTrader.getPlayer().getShip().description());
-		
 	}
 	
 	private void gameStatus() {
@@ -579,6 +581,13 @@ private class RouteMenu extends ListOption {
 		
 	}	
 	
+	/**
+	 * Helper method to take a list of objects and format them in list form to display to the user.
+	 * Can add a 1 based counter and also can validate if this user can purchase / action the item
+	 * @param list, the list of objects to convert into a string list (using toString method)
+	 * @param validate, boolean do we want to validate the item and indicate to the user validation
+	 * @param numbered, boolean should the output items have a 1 based index in front of them 
+	 */	
 	private ArrayList<String> stringList(List<?> list, boolean validate, boolean numbered) {
 		int counter = 1;
 		String validPrefix;
@@ -603,7 +612,13 @@ private class RouteMenu extends ListOption {
 		return names;
 	}
 	
-	//Kinda Ugly
+	/**
+	 * Helper method to take a list of Routes and format them in list form to display to the user.
+	 * Can add a 1 based counter and also can validate if this user can purchase / action the item
+	 * @param list, the list of objects to convert into a string list (using toString method)
+	 * @param validate, boolean do we want to validate the item and indicate to the user validation
+	 * @param numbered, boolean should the output items have a 1 based index in front of them 
+	 */	
 	private ArrayList<String> routeStringList(List<?> list, boolean validate, boolean numbered) {		
 		ArrayList<String> routes = stringList(list, validate, numbered);
 		String routeSuffix;
@@ -613,9 +628,7 @@ private class RouteMenu extends ListOption {
 			routeSuffix = "\n  This route is " +route.getDistance() +"km. It will take you " +this.islandTrader.getPlayer().getShip().sailingDays(route) +" days\n"; 
 			routes.set(i, routes.get(i) + routeSuffix);
 		}
-		return routes;
-		
-				
+		return routes;		
 	}	
 
 	/**

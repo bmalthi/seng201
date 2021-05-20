@@ -287,6 +287,9 @@ public class IslandTrader {
 		Route route = routes.get(option);
 		if (validateRoute(route)) {			
 			int wages = this.getPlayer().deductRouteWages(route);
+			String name = "Crew to " +route.otherIsland(this.getCurrentIsland()).getName();
+			PricedItem wageRecord = new PricedItem(new Item(name, "No Description", 0, ItemType.WAGES), wages, PriceType.PURCHASED,this.getCurrentIsland());
+			this.getPlayer().addTransaction(wageRecord);
 			// TODO tell user wages are deducted
 			
 			// Do the routes events
