@@ -176,10 +176,15 @@ public class IslandTrader {
 	 * given the storage on this ship
 	 * 
 	 * @param purchase, the priced item that player is attempting to purchase
-	 * TODO Should this be exception instead of boolean 
+	 * @return FailureState, Enum representing outcome of the validation
 	 */	
-	public boolean validatePurchase(PricedItem purchase) {
-		return player.hasMoney(purchase) && player.getShip().hasSpace(purchase.getItem());
+	public FailureState validatePurchase(PricedItem purchase) {
+		if (player.hasMoney(purchase) == false)
+			return FailureState.NOMONEY;
+		else if (player.getShip().hasSpace(purchase.getItem()) == false)
+			return FailureState.NOSPACE;
+		else
+			return FailureState.SUCCESS;
 	}	
 	
 	/**
@@ -191,12 +196,13 @@ public class IslandTrader {
 		//Get the chosen item
 		PricedItem purchase = getCurrentIsland().getStore().getToSellList().get(option);
 		//Validate the user can do this
-		if (validatePurchase(purchase)) {
+		FailureState validationResult = validatePurchase(purchase);
+		if (validationResult == FailureState.SUCCESS) {
 			getCurrentIsland().getStore().sellItem(purchase);
 			PricedItem transaction = player.buyItem(purchase);
 			ui.processTransaction(transaction);
 		} else {
-			ui.showError("The purchase failed");
+			ui.showError("The purchase failed: " + validationResult.name);
 		}
 	}
 	
@@ -205,11 +211,13 @@ public class IslandTrader {
 	 * having the item
 	 * 
 	 * @param sale, the priced item that player is attempting to sale
-	 * TODO Should this be exception instead of boolean
+	 * @return FailureState, Enum representing outcome of the validation
 	 */	
-	public boolean validateSale(PricedItem sale) {
-		boolean answer = player.getShip().hasItem(sale.getItem()); 
-		return answer;
+	public FailureState validateSale(PricedItem sale) {
+		if (player.getShip().hasItem(sale.getItem()) == false)
+			return FailureState.NOITEM;
+		else
+			return FailureState.SUCCESS;
 	}		
 	
 	/**
@@ -221,12 +229,13 @@ public class IslandTrader {
 		//Get the chosen item
 		PricedItem sale = getCurrentIsland().getStore().getToBuyList().get(option);
 		//Validate the user can do this
-		if (validateSale(sale)) {
+		FailureState validationResult = validatePurchase(sale);
+		if (validationResult == FailureState.SUCCESS) {
 			getCurrentIsland().getStore().buyItem(sale);
 			PricedItem transaction = player.sellItem(sale);
 			ui.processTransaction(transaction);
 		} else {
-			ui.showError("The sale failed");
+			ui.showError("The sale failed: " + validationResult.name);
 		}
 	}	
 	
@@ -249,10 +258,17 @@ public class IslandTrader {
 	 * given their money and remaining gametime
 	 * 
 	 * @param route, the route the user wishes to sale on
-	 * @return boolean indicating if they can sail the route
+	 * @return FailureState, Enum representing outcome of the validation
 	 */	
-	public boolean validateRoute(Route route) {
-		return hasTime(route) && player.hasMoney(route);
+	public FailureState validateRoute(Route route) {
+		if (player.getShip().getRepairCost() > 0)
+			return FailureState.MUSTREPAIR;		
+		if (player.hasMoney(route) == false)
+			return FailureState.NOMONEY;
+		else if (hasTime(route) == false)
+			return FailureState.NOTIME;
+		else
+			return FailureState.SUCCESS;
 	}
 	
 	/**
@@ -260,9 +276,9 @@ public class IslandTrader {
 	 * to enable the ui to highlight better options for the user 
 	 * 
 	 * @param obj, the object being validated as a option for the user
-	 * @return boolean indicating if it is valid for the user
+	 * @return FailureState, Enum representing outcome of the validation
 	 */		
-	public boolean validate(Object obj) {
+	public FailureState validate(Object obj) {
 		if (obj instanceof Route) {
 			return validateRoute((Route)obj);
 		} else if (obj instanceof PricedItem) {
@@ -272,7 +288,7 @@ public class IslandTrader {
 				return validatePurchase((PricedItem)obj);
 			}
 		} else {
-			return false;
+			return FailureState.UNKNOWN;
 		}
 	}	
 	
@@ -286,7 +302,8 @@ public class IslandTrader {
 		Route route = this.getWorld().getRoutes(this.getCurrentIsland()).get(option);
 		
 		// Validate the route (money to sail, time in game)
-		if (validateRoute(route)) {			
+		FailureState validationResult = validateRoute(route);
+		if (validationResult == FailureState.SUCCESS) {			
 			//Get the wages for the route, they are paid upfront
 			int wages = this.getPlayer().deductRouteWages(route);
 			String name = "Crew to " +route.otherIsland(this.getCurrentIsland()).getName();
@@ -304,7 +321,7 @@ public class IslandTrader {
 			// Tell the user about it
 			ui.sailRoute(route, wageRecord, sailingTime);
 		} else {
-			ui.showError("You don't enough money or time to sail this route");
+			ui.showError("Sailing Failed: " + validationResult.name);
 		}
 	}
 	

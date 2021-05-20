@@ -238,6 +238,6 @@ public class Ship {
 			}
 		}
 		return upgrades;
-	}	
+	}
 }
 

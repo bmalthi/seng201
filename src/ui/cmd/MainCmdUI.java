@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import main.FailureState;
 import main.Island;
 import main.IslandTrader;
 import main.Player;
@@ -534,7 +535,7 @@ public class MainCmdUI implements IslandTraderUI {
 
 	@Override
 	public void showError(String error) {
-		System.out.println("!!!!!!!! " + error + " !!!!!!!!");
+		System.out.println("!!!! " + error + " !!!!");
 		
 	}	
 	
@@ -584,7 +585,7 @@ public class MainCmdUI implements IslandTraderUI {
 		ArrayList<String> names = new ArrayList<String>();				
 		for (Object obj : list) {
 			// Add a prefix if the item is valid for the user
-			if (validate && this.islandTrader.validate(obj))
+			if (validate && this.islandTrader.validate(obj) == FailureState.SUCCESS)
 				validPrefix = "* ";
 			else
 				validPrefix = "";
@@ -634,6 +635,14 @@ public class MainCmdUI implements IslandTraderUI {
 		}			
 	}
 	
+    /**
+     * Show the user what happened on their sailing
+     *
+     * @param route, the route being sailed
+     * @param wageRecord, the transaction record for our wage payment
+     * @param sailingTime, days it took to sail the route
+     */
+	@Override	
 	public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {		
 		// Start the Journey
 		System.out.println("*** Starting our journey ***");
@@ -651,7 +660,8 @@ public class MainCmdUI implements IslandTraderUI {
 	}
 	
     /**
-     * Show the user how bad weather impacted them on their sailing
+     * Show the user how bad weather impacted them on their sailing. If you hit bad weather it
+     * damages your ship by 20% of its total endurance. This needs to be paid before another sailing
      *
      * @param damage, how much damage the weather caused
      * @param repairCost, the extra repair cost from the weather
