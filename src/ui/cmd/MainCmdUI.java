@@ -106,9 +106,9 @@ public class MainCmdUI implements IslandTraderUI {
 	    	//Set up Options
 	    	String[] base_options = {	    	
 				"Money & days remaining",
-				"Ship status",
-				"View your past purchases & sales",
-				"View island properties",
+				"Ship properties",
+				"Past purchases & sales",
+				"Island properties",
 				"Visit the island store",
 				"Sail to another island"}; 
 	        
@@ -473,6 +473,9 @@ private class RouteMenu extends ListOption {
 	}
 	
 	private void shipProperties() {
+		System.out.println("****************************************");
+		System.out.println("Ship Properties\n");
+		System.out.println(this.islandTrader.getPlayer().getShip().description());
 		
 	}
 	

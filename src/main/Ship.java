@@ -1,5 +1,7 @@
 package main;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This class represents a ship that the player uses on their quest 
@@ -157,7 +159,7 @@ public class Ship {
 	 * @return the cost per day
 	 */
 	public int getCostPerDay() {
-		return getNumberOfCrew();
+		return 1 * getNumberOfCrew();
 	}
 	
 	/**
@@ -175,10 +177,22 @@ public class Ship {
 	 */		
 	public String description() {		
 		String output = "***  " + getName() +"  ***\n";
-		output = output + "  It has " +getNumberOfCrew() + " crew and speed of " + getSailSpeed() + " and can take " +getEndurance() +" damage\n";
+		output = output + "  It has " +getNumberOfCrew() + " crew and speed of " + getSailSpeed() +" at cost of " +getCostPerDay() +" per day wages.\n";
+		output = output + "  It can take " +getEndurance() +" damage. Currently " +getDamageAmount() +" damage.";
+		if (getDamageAmount() > 0)
+			output = output + " It will cost " +getRepairCost() +" to repair.\n";
+		else
+			output = output + "\n";
 		output = output + "  It has the following storage:\n";
 		for (StorageList list : storage) {
 			output = output +"    " + list.description() +"\n";
+		}
+		List<Item> upgrades = getUpgrades();
+		if (upgrades.size() > 0) {
+			output = output +"  It has been upgraded:\n";
+			for (Item upgrade : upgrades) {
+				output = output +"    " + upgrade.getDescription() +"\n";
+			}			
 		}
 		return output;						
 	}
@@ -210,5 +224,21 @@ public class Ship {
 	public int costOfRoute(Route route) {
 		return getCostPerDay() * sailingDays(route);		
 	}
+	
+	/**
+	 * Gets any upgrades
+	 * @return the upgrades
+	 */
+	private List<Item> getUpgrades() {
+		ArrayList<Item> upgrades = new ArrayList<Item>();
+		for (StorageList list : storage) {
+			if (list.getType() == ItemType.UPGRADE) {
+				for (Item item: list.getItems()) {
+					upgrades.add(item);
+				}
+			}
+		}
+		return upgrades;
+	}	
 }
 

@@ -4,6 +4,8 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Class that models of list of Items of a certain type with methods to check for space remaining and item type checking
@@ -57,6 +59,14 @@ public class StorageList {
 	public ItemType getType() {
 		return type;
 	}
+	
+	/**
+	 * Gets the items in the storage list 
+	 * @return the Items
+	 */
+	public List<Item> getItems() {
+		return Collections.unmodifiableList(items);
+	}		
 
 	/**
 	 * Adds the item to the list. Checks to see if there is space and the item is of the correct type
@@ -141,9 +151,9 @@ public class StorageList {
 	public String description() {
         switch (getType()) {
     		case CARGO:	
-    			return getType() +":" +getName() +" of size:" +getCapacity();
+    			return getType() +":" +getName() +". " +"Capacity is " +getCapacity() +", " +getSpaceUsed() +" used";
     		case WEAPON:
-    			return getType() +":" +getName() +" of size:" +getCapacity();
+    			return getType() +":" +getName() +". " +"Capacity is " +getCapacity() +", " +getSpaceUsed() +" used";
     		case UPGRADE:
     			return "UPGRADABLE";    	
 	        default:

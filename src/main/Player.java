@@ -70,7 +70,7 @@ public class Player {
 	 */
 	public List<PricedItem> getTransactions() {
 		return Collections.unmodifiableList(transactions);
-	}	
+	}		
 	
 	/**
 	 * Adds a transaction to the list of the transactions the player has made
