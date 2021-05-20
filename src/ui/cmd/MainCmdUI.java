@@ -319,15 +319,11 @@ public class MainCmdUI implements IslandTraderUI {
 			System.out.println("\n");
 		}	
 		
-		private void refreshOptions() {
+		@Override
+		public void printOptions() {
 	    	this.options = stringList(ui.islandTrader.getCurrentIsland().getStore().getToSellList(), true, false); 
 	    	String exitOption = "(back to store front)";
 	    	this.options.add(0, exitOption);
-		}
-		
-		@Override
-		public void printOptions() {
-			refreshOptions();
 			super.printOptions();
 		}
 
@@ -375,16 +371,11 @@ public class MainCmdUI implements IslandTraderUI {
 			System.out.println("\n");
 		}	
 		
-		private void refreshOptions() {
-			
+		@Override
+		public void printOptions() {
 	    	this.options = stringList(ui.islandTrader.getCurrentIsland().getStore().getToBuyList(), true, false);
 	    	String exitOption = "(back to store front)";
 	    	this.options.add(0, exitOption);
-		}	
-		
-		@Override
-		public void printOptions() {
-			refreshOptions();
 			super.printOptions();
 		}		
 
@@ -426,17 +417,13 @@ private class RouteMenu extends ListOption {
 		@Override
 		public void oneFooter() {
 			System.out.println("\n");
-		}	
-		
-		private void refreshOptions() {
-			this.options = routeStringList(ui.islandTrader.getWorld().getRoutes(ui.islandTrader.getCurrentIsland()), true, false);
-			String exitOption = "(back to main menu)";
-			this.options.add(0, exitOption);
-		}
+		}			
 		
 		@Override
 		public void printOptions() {
-			refreshOptions();
+			this.options = routeStringList(ui.islandTrader.getWorld().getRoutes(ui.islandTrader.getCurrentIsland()), true, false);
+			String exitOption = "(back to main menu)";
+			this.options.add(0, exitOption);
 			super.printOptions();
 		}
 
@@ -452,38 +439,6 @@ private class RouteMenu extends ListOption {
 		}
 
 	}		
-
-	private void purchasesList() {
-		System.out.println("****************************************");
-		System.out.println("Here are all your purchases & sales.\n");
-		System.out.println("You currently have " +this.islandTrader.getPlayer().getBalance() +" dollars.\n");
-		
-		ArrayList<String> options = stringList(this.islandTrader.getPlayer().getTransactions(), false, false);
-		for (String option: options) {
-			System.out.println(option);
-		}		
-		if(options.size() == 0) {
-			System.out.println("You have no transactions yet\n");
-		}	
-		System.out.println("\n");
-	}
-	
-    /**
-     * Show the user properties of their ship. 2nd Main Menu Option
-     */
-	private void shipProperties() {
-		System.out.println("****************************************");
-		System.out.println("Ship Properties\n");
-		System.out.println(this.islandTrader.getPlayer().getShip().description());
-	}
-	
-	private void gameStatus() {
-		System.out.println("****************************************");
-		System.out.println("Game Status\n");
-		System.out.println("Hi " + this.islandTrader.getPlayer().getName());
-		System.out.println("You currently have " +this.islandTrader.getPlayer().getBalance() +" dollars.");
-		System.out.println("You are on day " +this.islandTrader.getTime() +" of " +this.islandTrader.getGameLength() +". " +(this.islandTrader.getGameLength()-this.islandTrader.getTime()) +" days left.\n");	
-	}
     
 	@SuppressWarnings("unused")
 	private PlayerNameInput playerNameInput;
@@ -580,6 +535,38 @@ private class RouteMenu extends ListOption {
 		System.out.println("!!!!!!!! " + error + " !!!!!!!!");
 		
 	}	
+	
+	private void purchasesList() {
+		System.out.println("****************************************");
+		System.out.println("Here are all your purchases & sales.\n");
+		System.out.println("You currently have " +this.islandTrader.getPlayer().getBalance() +" dollars.\n");
+		
+		ArrayList<String> options = stringList(this.islandTrader.getPlayer().getTransactions(), false, false);
+		for (String option: options) {
+			System.out.println(option);
+		}		
+		if(options.size() == 0) {
+			System.out.println("You have no transactions yet\n");
+		}	
+		System.out.println("\n");
+	}
+	
+    /**
+     * Show the user properties of their ship. 2nd Main Menu Option
+     */
+	private void shipProperties() {
+		System.out.println("****************************************");
+		System.out.println("Ship Properties\n");
+		System.out.println(this.islandTrader.getPlayer().getShip().description());
+	}
+	
+	private void gameStatus() {
+		System.out.println("****************************************");
+		System.out.println("Game Status\n");
+		System.out.println("Hi " + this.islandTrader.getPlayer().getName());
+		System.out.println("You currently have " +this.islandTrader.getPlayer().getBalance() +" dollars.");
+		System.out.println("You are on day " +this.islandTrader.getTime() +" of " +this.islandTrader.getGameLength() +". " +(this.islandTrader.getGameLength()-this.islandTrader.getTime()) +" days left.\n");	
+	}
 	
 	/**
 	 * Helper method to take a list of objects and format them in list form to display to the user.
