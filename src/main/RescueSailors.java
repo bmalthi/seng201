@@ -34,12 +34,11 @@ public class RescueSailors implements RandomEvent {
 		int numRescuedSailors = game.getRandomInt(game.getPlayer().getShip().getNumberOfCrew()*2)+1;
 
 		// Calc random reward per sailor 1-10$
-		int rewardPerSailor = game.getRandomInt(9)+1;
+		int rewardPerSailor = game.getRandomInt(10)+1;
 		int reward = numRescuedSailors * rewardPerSailor; 
 		
 		//Create a transaction record for the rescue funds
-		String name = "Sailor Rescue";
-		PricedItem rescueRecord = new PricedItem(new Item(name, "No Description", 0, ItemType.RESCUE), reward, PriceType.REWARD, game.getWorld().getCurrentIsland());
+		PricedItem rescueRecord = new PricedItem(new Item("Sailor Rescue", "No Description", 0, ItemType.RESCUE), reward, PriceType.REWARD, game.getWorld().getCurrentIsland());
 		game.getPlayer().addTransaction(rescueRecord);			
 		
 		// Call the rescueSailors UI method

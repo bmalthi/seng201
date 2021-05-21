@@ -33,7 +33,7 @@ public class UnfortunateWeather implements RandomEvent {
 		Ship ship = game.getPlayer().getShip();
 		
 		//Calculate damage
-		int probabilityOutcome = game.getRandomInt(100);
+		int probabilityOutcome = game.getRandomInt(101);
 		int damage = (int) (ship.getEndurance() * probabilityOutcome / 100);
 		
 		// Calc repair cost

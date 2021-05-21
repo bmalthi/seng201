@@ -739,10 +739,12 @@ public class MainCmdUI implements IslandTraderUI {
      *
      * @param damage, how much damage the weather caused
      * @param repairCost, the extra repair cost from the weather
+     * @param repairValidation, indicates if the user can afford repair
      */
 	@Override	
     public void encounterWeather(int damage, int repairCost, FailureState repairValidation) {
 		System.out.println("*** You encountered bad weather ***");
+		try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
 		System.out.println("Unfortunately the weather caused " +damage +" damage.");
 		System.out.println("It will cost " +repairCost +" to repair\n");
 		if (repairValidation == FailureState.NOMONEY)
@@ -753,13 +755,69 @@ public class MainCmdUI implements IslandTraderUI {
      * Reports details to the user of encounter with sailors who are rescued
      *
      * @param numRescuedSailors, the random number of sailors rescued, depends on ship size
-     * @param reward, each sailor gives a random reward, this is the total
+     * @param rewardRecord, each sailor gives a random reward, this is the total
      */
     public void rescueSailors(int numRescuedSailors, PricedItem rewardRecord) {
     	System.out.println("*** You encountered sailors in distress ***");
+    	try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
     	System.out.println("There are " +numRescuedSailors +" sailors, who are very greatful for their rescue");
     	
 		// Show the user their reward
 		this.processTransaction(rewardRecord);    	
     }	
+    
+    /**
+     * Reports details to the user of encounter with pirates
+     * 
+     * @param diceThrow, the random number that the user got to determine success when fighting the pirates
+     * @param boardship, the boolean result of the dicethrow if pirates boardded the ship
+     * @param transactions, the record of items the pirates stole from the player
+     * @param goodsSatisfy, boolean indicating if the goods were enough for the pirate, you lose game if false
+     * @throws InterruptedException 
+     */
+    public void encounterPirates(int diceThrow, boolean boardShip, ArrayList<PricedItem> transactions, boolean goodsSatisfy) {
+    	System.out.println("*** !!! You encountered Pirates !!! ***");
+    	System.out.println("*** !!! They are trying to board your ship !!! ***\n");
+    	
+    	// Show dice game, result is predetermined
+    	System.out.println("You must roll a die to stop them");
+    	if (getShip().hasWeapons())
+    		System.out.println("Because you have weapons you have to roll a 3 or above\n");    		
+    	else
+    		System.out.println("You have no weapons to fight them off, you must roll 5 or 6\n");    		
+    	
+    	// Pause for 2 seconds
+    	try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}    
+    	
+    	// Show result of dice game
+		if (diceThrow > 2 && getShip().hasWeapons())
+			System.out.println("You rolled a " +diceThrow +" you fend off the pirates.\n");
+		else if (diceThrow > 4)
+			System.out.println("You rolled a " +diceThrow +" you fend off the pirates.\n");		
+		else
+			System.out.println("You rolled a " +diceThrow +" the pirates board your ship.\n");    	
+    	
+		//Board the ship, if we lost the dice game
+    	if (boardShip) {    		
+    		//Steal the goods
+    		System.out.println("The pirates now steal all of your goods\n");
+    		for (PricedItem transaction : transactions) {    			
+    			//Show the user what was stolen
+    			this.processTransaction(transaction);
+    		}
+    		
+    		// Pause for 2 seconds
+    		try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
+    		
+    		// Does this satisfy them
+    		if (goodsSatisfy) {
+    			System.out.println("The pirates are happy with your cargo. You live another day\n");
+    		} else {
+    			System.out.println("Unfortunately that wasn't enough for them");
+    			System.out.println("The pirates take everything");
+    			System.out.println("GAME OVER\n");
+    		}
+    		
+    	}
+    }
 }

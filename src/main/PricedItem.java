@@ -78,7 +78,9 @@ public class PricedItem {
     		case SOLD:
     			return item +", was sold for $" +price +" at " +getIsland();
     		case REWARD:
-    			return item.getName() +" Reward of $" +price +", was given onroute to " +getIsland();    			
+    			return item.getName() +" Reward of $" +price +", was given onroute to " +getIsland();
+    		case STOLEN:
+    			return item.getName() +" was stolen by pirates onroute to " +getIsland();    			
 	        default:
 	            return item +", is $" +price;
         }
