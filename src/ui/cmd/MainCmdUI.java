@@ -814,8 +814,8 @@ public class MainCmdUI implements IslandTraderUI {
     			System.out.println("The pirates are happy with your cargo. You live another day\n");
     		} else {
     			System.out.println("Unfortunately that wasn't enough for them");
-    			System.out.println("The pirates take everything");
-    			System.out.println("GAME OVER\n");
+    			System.out.println("The pirates take everything and you are forced to walk the plank");
+    			System.out.println("GAME OVER, Hope you can swim\n");
     		}
     		
     	}
