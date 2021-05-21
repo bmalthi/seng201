@@ -18,7 +18,6 @@ import java.awt.event.ActionEvent;
 
 public class MainScreen extends Screen {
 
-	private JFrame frame;
 //	/**
 //	 * Launch the application.
 //	 */
@@ -53,7 +52,7 @@ public class MainScreen extends Screen {
 	 * Initialize the contents of the frame.
 	 */
 	public void initialize() {
-		frame = new JFrame();
+		JFrame frame = getFrame();
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
 		frame.getContentPane().setLayout(null);
 		

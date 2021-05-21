@@ -55,6 +55,9 @@ public abstract class Screen {
 		return islandTrader;
 	}
 	
+	protected JFrame getFrame() {
+		return frame;
+	}
 	/**
 	 * Shows this screen
 	 */
