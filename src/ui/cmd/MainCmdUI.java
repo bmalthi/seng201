@@ -20,7 +20,7 @@ public class MainCmdUI implements IslandTraderUI {
     // The scanner used to read input from the console
     private final Scanner scanner;
 
-    // The rocket manager this ui interacts with
+    // The islandtrader this ui interacts with
     private IslandTrader islandTrader;
 
 	private class PlayerNameInput extends Option {	
