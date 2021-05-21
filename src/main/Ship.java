@@ -1,6 +1,5 @@
 package main;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class represents a ship that the player uses on their quest 
@@ -186,7 +185,7 @@ public class Ship {
 		for (StorageList list : storage) {
 			output = output +"    " + list.description() +"\n";
 		}
-		List<Item> upgrades = getUpgrades();
+		ArrayList<Item> upgrades = getUpgrades();
 		if (upgrades.size() > 0) {
 			output = output +"  It has been upgraded:\n";
 			for (Item upgrade : upgrades) {
@@ -228,7 +227,7 @@ public class Ship {
 	 * Gets any upgrades
 	 * @return the upgrades
 	 */
-	private List<Item> getUpgrades() {
+	private ArrayList<Item> getUpgrades() {
 		ArrayList<Item> upgrades = new ArrayList<Item>();
 		for (StorageList list : storage) {
 			if (list.getType() == ItemType.UPGRADE) {
@@ -239,5 +238,35 @@ public class Ship {
 		}
 		return upgrades;
 	}
+	
+	/**
+	 * Removes all the user's cargo (Ignores weapons)
+	 * @return the stolen items
+	 */
+	public ArrayList<Item> removeCargo() {
+		ArrayList<Item> stolenCargo = new ArrayList<Item>();
+		for (StorageList list : storage) {
+			if (list.getType() == ItemType.UPGRADE) {
+				for (Item item: list.getItems()) {
+					stolenCargo.add(item);
+					list.removeItem(item);
+				}
+			}
+		}
+		return stolenCargo;
+	}
+	
+	/**
+	 * Method to check if the ship has weapons
+	 * @return boolean indicating if the ship has weapons or not
+	 */
+	public boolean hasWeapons() {
+		for (StorageList list : storage) {
+			if (list.getType() == ItemType.WEAPON && list.getSpaceUsed() > 0)
+				return true;
+		}
+		return false;
+	}	
+	
 }
 

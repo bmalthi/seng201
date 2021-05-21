@@ -181,8 +181,9 @@ public class World {
 		 */		
 		Route route1 = new Route(10, island1, island2, this);
 		// TODO PUT BACK LATER route1.addEvent(new PiratesEncounter(40));
+		route1.addEvent(new PiratesEncounter(100));		
 		route1.addEvent(new RescueSailors(100));		
-		route1.addEvent(new UnfortunateWeather(100));
+		route1.addEvent(new UnfortunateWeather(100));		
 		routes.add(route1);
 		
 		Route route2 = new Route(10, island1, island5, this);

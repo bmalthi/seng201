@@ -101,7 +101,7 @@ public class StorageList {
 	 * Gets the current space used in the storagelist
 	 * @returns the current space used
 	 */
-	private int getSpaceUsed() {
+	public int getSpaceUsed() {
 		int space = 0;
 		for (Item existingItem : items) {
 			space = space + existingItem.getSize();
