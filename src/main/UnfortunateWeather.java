@@ -32,9 +32,11 @@ public class UnfortunateWeather implements RandomEvent {
 	public void eventTriggered(IslandTrader game) {
 		Ship ship = game.getPlayer().getShip();
 		
-		//Damage is fixed at 20% of the ships endurance
-		// TODO should be random
-		int damage = (int) (ship.getEndurance() * 0.2);
+		//Calculate damage
+		int probabilityOutcome = game.getRandomInt(100);
+		int damage = (int) (ship.getEndurance() * probabilityOutcome / 100);
+		
+		// Calc repair cost
 		int repairCostBefore = ship.getRepairCost();
 		ship.setDamageAmount(ship.getDamageAmount() + damage);		
 		int repairCostAfter = ship.getRepairCost();

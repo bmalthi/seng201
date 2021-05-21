@@ -718,7 +718,7 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		// Call the game code
 		for (RandomEvent event : route.getEvents()) {
-			this.islandTrader.triggerSailingEvent(event);				
+			this.islandTrader.triggerRandomSailingEvent(event);				
 		}
 		
 		// Assume we made the next island (for now)

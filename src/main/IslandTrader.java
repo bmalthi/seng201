@@ -40,9 +40,9 @@ public class IslandTrader {
 	 */
 	public IslandTrader(IslandTraderUI ui) {
 		this.ui = ui;
-		this.world = new World();
 		this.random = new Random();
-		this.random.setSeed(1);
+		this.random.setSeed(10);		
+		this.world = new World(random);
 	}
 	
 	/**
@@ -94,6 +94,15 @@ public class IslandTrader {
 	public int getGameLength() {
 		return gameLength;
 	}
+	
+	/**
+	 * Gets a random int using the games single random
+	 * 
+	 * @return the length of the game
+	 */
+	public int getRandomInt(int maxInt) {
+		return random.nextInt(maxInt+1);
+	}	
 
 	/**
 	 * Sets the length of the game
@@ -337,8 +346,8 @@ public class IslandTrader {
 	 * than this then trigger the event
 	 * @param event, the event to potentially trigger randomly
 	 */	
-	public void triggerSailingEvent(RandomEvent event) {
-		int probabilityOutcome = this.random.nextInt(101);		
+	public void triggerRandomSailingEvent(RandomEvent event) {
+		int probabilityOutcome = getRandomInt(100);
 		if (probabilityOutcome < event.getProbability()) {
 			event.eventTriggered(this);
 		}
