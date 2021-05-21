@@ -64,7 +64,7 @@ public class SetupScreen extends Screen {
 		
 		JButton btnNewButton = new JButton("Let's Play");
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {				
 				quit();
 				getIslandTrader().onSetupFinished();
 			}

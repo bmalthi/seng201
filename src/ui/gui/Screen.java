@@ -46,9 +46,6 @@ public abstract class Screen {
  		return frame;
  	}
 	
-	protected JFrame getFrame() {
-		return frame;
-	}
 	/**
 	 * Shows this screen
 	 */

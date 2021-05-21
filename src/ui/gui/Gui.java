@@ -46,70 +46,7 @@ public class Gui implements IslandTraderUI {
     @Override
     public void quit() {
         theScreen.quit();
-    }
-    
-    /**
-     * Starts the Game Status screen
-     */
-	public void startGameStatus() {
-    	theScreen.quit();
-    	theScreen = new GameStatus(islandTrader);
-    	theScreen.show();
-    }
-	
-	/**
-	 * Starts the Ship Status screen
-	 */
-	public void startShipStatus() {
-		theScreen.quit();
-		theScreen = new ShipStatusScreen(islandTrader);
-		theScreen.show();
-	}
-	
-	/**
-	 * Starts the Past Purchases & Sales screen
-	 */
-	public void startPastPurchases() {
-		theScreen.quit();
-		theScreen = new PastPurchases(islandTrader);
-		theScreen.show();
-	}
-	
-	/**
-	 * Starts the Island Properties screen
-	 */
-	public void startIslandProperties() {
-		theScreen.quit();
-		theScreen = new IslandProperties(islandTrader);
-		theScreen.show();
-	}
-	
-	/**
-	 * Starts the Home Island Store screen
-	 */
-	public void startIslandStore() {
-		theScreen.quit();
-		theScreen = new IslandStore(islandTrader);
-		theScreen.show();
-	}
-	
-	/**
-	 * Starts the SetSailingIsland() {
-	 */
-	public void startSailingIsland() {
-		theScreen.quit();
-		theScreen = new SetSailingIsland(islandTrader);
-		theScreen.show();
-	}
-	
-	/**
-	 * Starts the Setup screen
-	 */
-	public void backtoSetup() {
-		theScreen.quit();
-		theScreen = new SetupScreen(islandTrader);
-		theScreen.show();
-	}
+    }	
 	
 	/**
 	 * Show the user the details of the transaction, if successful
@@ -129,18 +66,6 @@ public class Gui implements IslandTraderUI {
      */	
 	@Override
 	public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void startSetSailingIsland() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void startSetupScreen() {
 		// TODO Auto-generated method stub
 		
 	}
