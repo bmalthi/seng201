@@ -58,6 +58,19 @@ public class IslandTrader {
 	public void onSetupFinished() {
 		ui.start();
 	}
+	/**
+	 * This method will be called when the player clicked the "View Money & Days Remaining" button
+	 */
+	public void onRunningGameStatus() {
+		ui.startGameStatus();
+	}
+	
+	/**
+	 * This method will be called when the player clicked the "View Ship Status" button
+	 */
+	public void onRunningShipStatus() {
+		ui.startShipStatus();
+	}
 	
 	/**
 	 * This method should be called by the {@link IslandTraderUI} when the user has requested

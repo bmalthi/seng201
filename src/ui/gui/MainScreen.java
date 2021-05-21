@@ -17,23 +17,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class MainScreen extends Screen {
-
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					MainScreen window = new MainScreen();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
 	/**
 	 * Create this screen
 	 * @param islandTrader - the trader this screen interacts with
@@ -43,10 +26,6 @@ public class MainScreen extends Screen {
 		initialize();
 		
 	}
-	
-	
-	//private rocket get selected rocket
-	
 	
 	/**
 	 * Initialize the contents of the frame.
@@ -72,6 +51,13 @@ public class MainScreen extends Screen {
 		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		JButton btnNewButton = new JButton("VIEW MONEY & DAYS REMAINING");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				quit();
+				//IslandTrader islandTrader = getIslandTrader()
+				islandTrader.onRunningGameStatus();
+			}
+		});
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		btnNewButton.setBackground(Color.WHITE);
@@ -79,26 +65,62 @@ public class MainScreen extends Screen {
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnViewPastPurchases = new JButton("VIEW PAST PURCHASES & SALES");
+		btnViewPastPurchases.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				quit();
+				islandTrader.onRunningPastPurchases();
+			}
+		});
 		btnViewPastPurchases.setBounds(56, 268, 237, 74);
 		frame.getContentPane().add(btnViewPastPurchases);
 		
 		JButton btnVisitIslandStore = new JButton("VISIT ISLAND STORE");
+		btnVisitIslandStore.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				quit();
+				islandTrader.onRunningIslandStore();
+			}
+		});
 		btnVisitIslandStore.setBounds(56, 354, 237, 74);
 		frame.getContentPane().add(btnVisitIslandStore);
 		
 		JButton btnViewShipStatus = new JButton("VIEW SHIP STATUS");
+		btnViewShipStatus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				quit();
+				islandTrader.onRunningShipStatus();
+			}
+		});
 		btnViewShipStatus.setBounds(325, 182, 234, 74);
 		frame.getContentPane().add(btnViewShipStatus);
 		
 		JButton btnViewIslandProperties = new JButton("VIEW ISLAND PROPERTIES");
+		btnViewIslandProperties.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				quit();
+				islandTrader.onRunningIslandProperties();
+			}
+		});
 		btnViewIslandProperties.setBounds(325, 268, 237, 74);
 		frame.getContentPane().add(btnViewIslandProperties);
 		
 		JButton btnSailToAnother = new JButton("SAIL TO ANOTHER ISLAND");
+		btnSailToAnother.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				quit();
+				islandTrader.onRunningSetSailingIsland();
+			}
+		});
 		btnSailToAnother.setBounds(325, 354, 234, 74);
 		frame.getContentPane().add(btnSailToAnother);
 		
 		JButton btnChangeSetupInformation = new JButton("CHANGE INFORMATION");
+		btnChangeSetupInformation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				quit();
+				islandTrader.onRunningSetupScreen();
+			}
+		});
 		btnChangeSetupInformation.setBounds(20, 489, 164, 59);
 		frame.getContentPane().add(btnChangeSetupInformation);
 		

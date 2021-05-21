@@ -50,15 +50,6 @@ public class SetupScreen extends Screen {
 		super("Island Trader Setup", islandTrader);
 		initialize();
 	}
-	
-//	/**
-//	 * Completes the setup of our {@link IslandTrader}
-//	 */
-//	
-//	private void setupComplete() {
-//		final TraderModel model = (TraderModel) table.getmodel();
-//		getIslandTrader().onSetupFinished(txtbetweenCharacters.getText(), model.
-//	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -67,7 +58,7 @@ public class SetupScreen extends Screen {
 		frmWelcomeToIsland = new JFrame();
 		frmWelcomeToIsland.getContentPane().setBackground(new Color(70, 130, 180));
 		frmWelcomeToIsland.setTitle("Welcome to Island Trader V0.5");
-		frmWelcomeToIsland.setBounds(100, 100, 800, 600);
+		frmWelcomeToIsland.setBounds(100, 100, 785, 582);
 		frmWelcomeToIsland.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWelcomeToIsland.getContentPane().setLayout(null);
 		
@@ -82,7 +73,7 @@ public class SetupScreen extends Screen {
 		btnNewButton.setEnabled(false);
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		btnNewButton.setBounds(653, 506, 141, 48);
+		btnNewButton.setBounds(653, 506, 126, 42);
 		btnNewButton.setOpaque(true);
 		frmWelcomeToIsland.getContentPane().add(btnNewButton);		
 		
