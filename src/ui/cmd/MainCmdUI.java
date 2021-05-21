@@ -123,11 +123,6 @@ public class MainCmdUI implements IslandTraderUI {
 		public void eachHeader() {
 			System.out.println("You are at " + ui.getCurrentIsland() +"\nWhat do you want to do next?\n");
 		}	
-		
-		@Override
-		public void oneFooter() {
-			System.out.println("\n");
-		}			
 
 		@Override
 	    public void handleOption(String option) {
@@ -171,7 +166,8 @@ public class MainCmdUI implements IslandTraderUI {
 	    	String[] base_options = {	    	
 				"See what we have for sale",
 				"See what we are buying",
-				"View your past purchases & sales"}; 
+				"View your past purchases & sales",
+				"Repair your ship"}; 
 	    	
 	    	this.options = new ArrayList<String>(Arrays.asList(base_options));
 	    	String exitOption = "(leave store)";
@@ -180,7 +176,7 @@ public class MainCmdUI implements IslandTraderUI {
 
 		@Override
 		public void eachHeader() {
-			System.out.println("Welcome to "+ ui.getCurrentIsland().getStore() +". How can we help?");
+			System.out.println("Welcome to "+ ui.getCurrentIsland().getStore() +" on " + ui.getCurrentIsland() +". How can we help?\n");
 		}	
 		
 		@Override
@@ -192,18 +188,21 @@ public class MainCmdUI implements IslandTraderUI {
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
 	        switch (intOption) {
-		        case -1: //"QUIT":
+		        case -1: //Exit the store menu
 					this.setFinish();
 		            break;        
-		        case 1: //"FORSALE":
+		        case 1: //User buys an item
 		        	ui.buyMenu.getUserOption(ui.scanner);
 		            break;
-		        case 2: //"FORBUY":
+		        case 2: //User sells an item
 		        	ui.sellMenu.getUserOption(ui.scanner);
 		            break;
-		        case 3: //"PASTPURCHASES":
+		        case 3: //Show the users's transaction list
 		        	purchasesList();
-		            break;             
+		            break; 
+		        case 4: // Repair the ship damage
+		        	ui.repairShipInput.getUserOption(ui.scanner);
+		            break; 		            
 		        default:
 		            throw new IllegalStateException("Unexpected value: " + option);
 	        }		
@@ -317,11 +316,6 @@ public class MainCmdUI implements IslandTraderUI {
 		}	
 		
 		@Override
-		public void oneFooter() {
-			System.out.println("\n");
-		}	
-		
-		@Override
 		public void printOptions() {
 	    	this.options = stringList(ui.getCurrentIsland().getStore().getToSellList(), true, false); 
 	    	String exitOption = "(back to store front)";
@@ -366,12 +360,7 @@ public class MainCmdUI implements IslandTraderUI {
 		@Override
 		public void eachHeader() {
 			System.out.println("What do you want to sell?\n (* recommended for you)\n");
-		}	
-		
-		@Override
-		public void oneFooter() {
-			System.out.println("\n");
-		}	
+		}		
 		
 		@Override
 		public void printOptions() {
@@ -413,13 +402,12 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		@Override
 		public void eachHeader() {
-			System.out.println("What do you want to go?\n (* possible for you)\n");
-		}	
-		
-		@Override
-		public void oneFooter() {
-			System.out.println("\n");
-		}			
+			System.out.println("Where do you want to go?\n (* possible for you)\n");
+			if (ui.getShip().getRepairCost() > 0) {
+				System.out.println(" *** You can't sail anywhere until you repair your ship ***");
+				System.out.println(" *** You can get it repaired at the Island store ***\n");
+			}
+		}				
 		
 		@Override
 		public void printOptions() {
@@ -442,6 +430,51 @@ public class MainCmdUI implements IslandTraderUI {
 		}
 
 	}		
+	
+	// Class (glorified enum) for the main store menu
+	private class RepairShipInput extends ListOption {		
+		
+		public RepairShipInput(MainCmdUI ui) {
+			super(ui);
+		}
+		
+		@Override
+		public void eachHeader() {
+	    	int damage = ui.getShip().getDamageAmount();
+	    	int repairCost = ui.getShip().getDamageAmount();
+	    	if (damage > 0) {
+	    		System.out.println("You have " +damage +" damage to your ship. This will cost " +repairCost +"dollars to repair.\n");
+	    		if (ui.islandTrader.validateRepair(ui.getShip()) == FailureState.NOMONEY)
+	    			System.out.println("However, you only have " +ui.getPlayer().getBalance() +". Trade to get more money");
+	    	} else {
+	    		System.out.println("You have no damage to your ship");
+	    	}	
+		}			
+		
+		@Override
+		public void printOptions() {
+	    	this.options = new ArrayList<String>();
+	    	int repairCost = ui.getShip().getDamageAmount();
+	    	if (repairCost > 0 && ui.islandTrader.validateRepair(ui.getShip()) == FailureState.SUCCESS)
+	    		this.options.add("Repair ship damage for " +repairCost);
+	    	String exitOption = "(back to store front)";
+	    	this.options.add(0, exitOption);
+			super.printOptions();
+		}			
+		
+		@Override
+		public void handleOption(String option) {
+			int intOption = Integer.parseInt(option);
+			if (intOption == -1) {
+				this.setFinish();
+			} else {
+				ui.islandTrader.repairShip();
+				System.out.println("Ship is repaired\n");
+				this.setFinish();
+			}
+		}
+
+	}	
     
 	@SuppressWarnings("unused")
 	private PlayerNameInput playerNameInput;
@@ -457,6 +490,7 @@ public class MainCmdUI implements IslandTraderUI {
 	private IslandMenu islandMenu;
 	private IslandDetailMenu islandDetailMenu;
 	private RouteMenu routeMenu;
+	private RepairShipInput repairShipInput;
 	
 	public MainCmdUI() {
 		scanner = new Scanner(System.in);
@@ -486,11 +520,13 @@ public class MainCmdUI implements IslandTraderUI {
 		return getPlayer().getShip();
 	}		
 
+    /**
+     * Initialises this UI and sets up the given IslandTrader, with the ships, islands, stores to be managed
+     * Once setup is complete this UI must call {@link IslandTrader#onSetupFinished(String, List)}.
+     *
+     * @param game, the islandTrader game instance that this UI interacts with
+     */	
 	@Override
-	// Splash Screen
-	// Get player name
-	// Get game length
-	// Get ship / fact
 	public void setup(IslandTrader game) {
 		// Set up game item
 		this.islandTrader = game;
@@ -512,30 +548,37 @@ public class MainCmdUI implements IslandTraderUI {
 		this.islandMenu = new IslandMenu(this);
 		this.islandDetailMenu = new IslandDetailMenu(this);
 		this.routeMenu = new RouteMenu(this);
-		// Start the game. Kinda
+		this.repairShipInput = new RepairShipInput(this);
+		
+		// Start the game
 		game.onSetupFinished();
 		
 	}
 
+    /**
+     * Method used to start the game, where the user selects a ship, playername and game length
+     * before triggering the main menu
+     * TODO bmalthus, remove the default name/ship/length
+     */		
 	@Override
 	public void start() {
 		// Print Intro
 		System.out.println("****************************************");
-		System.out.println("Welcome to Island Trader V0.6");
+		System.out.println("Welcome to Island Trader V0.9");
 		System.out.println("****************************************\n");		
 		
 		// Get the player name from the player 
 		this.islandTrader.setPlayer(new Player("Ben"));
-		//TODO Restore playerNameInput.getUserOption(scanner);
+		//playerNameInput.getUserOption(scanner);
 		System.out.println("Great name, " +getPlayer() +"\n");
 		
 		// Get the game length from the player
 		this.islandTrader.setGameLength(20);
-		//TODO Restore gameLengthInput.getUserOption(scanner);
+		//gameLengthInput.getUserOption(scanner);
 		System.out.println("Game will run for " +this.islandTrader.getGameLength() +" days\n");	
 		
 		// Get the ship choice
-		//TODO Restore shipChoiceInput.getUserOption(scanner);
+		//shipChoiceInput.getUserOption(scanner);
 		getPlayer().setShip(this.islandTrader.getWorld().getShips().get(2));		
 		System.out.println("Great choice, your ship is: " +getShip() +"\n");
 		
@@ -557,6 +600,9 @@ public class MainCmdUI implements IslandTraderUI {
 		System.out.println("\nThanks for playing");		
 	}
 
+    /**
+     * Show the user an error message if what they were attempting to do failed
+     */	
 	@Override
 	public void showError(String error) {
 		System.out.println("!!!! " + error + " !!!!");
@@ -687,11 +733,11 @@ public class MainCmdUI implements IslandTraderUI {
      * @param repairCost, the extra repair cost from the weather
      */
 	@Override	
-    public void encounterWeather(int damage, int repairCost, boolean notEnoughFunds) {
+    public void encounterWeather(int damage, int repairCost, FailureState repairValidation) {
 		System.out.println("*** You encountered bad weather ***");
 		System.out.println("Unfortunately the weather caused " +damage +" damage.");
 		System.out.println("It will cost " +repairCost +" to repair\n");
-		if (notEnoughFunds)
+		if (repairValidation == FailureState.NOMONEY)
 			System.out.println("This is more money than you have you will have to trade before you can sail again\n");
 	}	
 }

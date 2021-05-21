@@ -1,5 +1,6 @@
 package ui;
 
+import main.FailureState;
 import main.IslandTrader;
 import main.PricedItem;
 import main.Route;
@@ -12,7 +13,7 @@ public interface IslandTraderUI {
      * Initialises this UI and sets up the given IslandTrader, with the ships, islands, stores to be managed
      * Once setup is complete this UI must call {@link IslandTrader#onSetupFinished(String, List)}.
      *
-     * @param islandTrader The game instance that this UI interacts with
+     * @param game, the islandTrader game instance that this UI interacts with
      */
     void setup(IslandTrader islandTrader);
 
@@ -54,6 +55,6 @@ public interface IslandTraderUI {
      * @param damage, the damage that the weather caused
      * @param repairCost, the cost that will be needed to repair the damage
      */
-    void encounterWeather(int damage, int repairCost, boolean gameOver);
+    void encounterWeather(int damage, int repairCost, FailureState repairvalidation);
   
 }

@@ -156,7 +156,7 @@ public class IslandTrader {
 	 */
 	public void selectShip(int option) {
 		//Option should be already validated by the calling code
-		this.getPlayer().setShip(getWorld().getShips().get(option));		
+		getPlayer().setShip(getWorld().getShips().get(option));		
 	}
 	
 	/**
@@ -262,6 +262,20 @@ public class IslandTrader {
 	}
 	
 	/**
+	 * This method returns a boolean indicating if the user has
+	 * enough money to repair their ship
+	 * 
+	 * @param ship, the ship to repair
+	 * @return FailureState, Enum representing outcome of the validation
+	 */	
+	public FailureState validateRepair(Ship ship) {
+		if (player.getShip().getRepairCost() > this.getPlayer().getBalance())
+			return FailureState.NOMONEY;
+		else
+			return FailureState.SUCCESS;
+	}	
+	
+	/**
 	 * This method validates if the user can buy / sell / travel an Item or route. Helper method
 	 * to enable the ui to highlight better options for the user 
 	 * 
@@ -277,6 +291,8 @@ public class IslandTrader {
 			} else {
 				return validatePurchase((PricedItem)obj);
 			}
+		} else if (obj instanceof Ship) {
+			return validateRepair((Ship) obj);
 		} else {
 			return FailureState.UNKNOWN;
 		}
@@ -289,24 +305,24 @@ public class IslandTrader {
 	 */
 	public void sailRoute(int option) {
 		// Get the route the user choose
-		Route route = this.getWorld().getRoutes(this.getWorld().getCurrentIsland()).get(option);
+		Route route = getWorld().getRoutes(getWorld().getCurrentIsland()).get(option);
 		
 		// Validate the route (money to sail, time in game)
 		FailureState validationResult = validateRoute(route);
 		if (validationResult == FailureState.SUCCESS) {			
 			//Get the wages for the route, they are paid upfront
-			int wages = this.getPlayer().deductRouteWages(route);
-			String name = "Crew to " +route.otherIsland(this.getWorld().getCurrentIsland());
-			PricedItem wageRecord = new PricedItem(new Item(name, "No Description", 0, ItemType.WAGES), wages, PriceType.PURCHASED, this.getWorld().getCurrentIsland());
-			this.getPlayer().addTransaction(wageRecord);
+			int wages = getPlayer().deductRouteWages(route);
+			String name = "Crew to " +route.otherIsland(getWorld().getCurrentIsland());
+			PricedItem wageRecord = new PricedItem(new Item(name, "No Description", 0, ItemType.WAGES), wages, PriceType.PURCHASED, getWorld().getCurrentIsland());
+			getPlayer().addTransaction(wageRecord);
 			
 			//Move player to the new island
-			this.getWorld().setCurrentIsland(route.otherIsland(this.getWorld().getCurrentIsland()));
+			getWorld().setCurrentIsland(route.otherIsland(getWorld().getCurrentIsland()));
 			
 			// Assume the time passed, even if we meet pirates etc,
 			// you sail the route and you effectively get all the bad effects at the end
-			int sailingTime = this.getPlayer().getShip().sailingDays(route);
-			this.setTime(this.getTime() + sailingTime);
+			int sailingTime = getPlayer().getShip().sailingDays(route);
+			setTime(getTime() + sailingTime);
 			
 			// Tell the user about it
 			ui.sailRoute(route, wageRecord, sailingTime);
@@ -326,6 +342,21 @@ public class IslandTrader {
 		if (probabilityOutcome < event.getProbability()) {
 			event.eventTriggered(this);
 		}
+	}
+	
+	/**
+	 * Method called to repair this ship. Deducts money from the player and creates a transaction record
+	 */		
+	public void repairShip() {
+		//Repair the ship & deduct funds
+		int repairCost = getPlayer().getShip().getRepairCost();
+		getPlayer().setBalance(getPlayer().getBalance()-repairCost);
+		getPlayer().getShip().setDamageAmount(0);
+		
+		//Create a transaction record for the repair
+		String name = "Repair ship " + getWorld().getCurrentIsland();
+		PricedItem repairRecord = new PricedItem(new Item(name, "No Description", 0, ItemType.REPAIR), repairCost, PriceType.PURCHASED, getWorld().getCurrentIsland());
+		this.getPlayer().addTransaction(repairRecord);		
 	}
 
 }

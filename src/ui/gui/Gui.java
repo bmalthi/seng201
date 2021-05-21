@@ -2,6 +2,7 @@ package ui.gui;
 
 import java.awt.EventQueue;
 
+import main.FailureState;
 import main.Island;
 import main.IslandTrader;
 import main.PricedItem;
@@ -82,7 +83,7 @@ public class Gui implements IslandTraderUI {
      * @return 
      */
 	@Override	
-    public void encounterWeather(int damage, int repairCost, boolean gameOver) {
+    public void encounterWeather(int damage, int repairCost, FailureState repairvalidation) {
 		//TODO
 	}
 	
