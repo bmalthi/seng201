@@ -60,6 +60,19 @@ public class IslandTrader {
 	}
 	
 	/**
+	 * This method should be called by the {@link IslandTraderUI} when the user has requested
+	 * to quit the application. This method calls {@link IslandTraderUI#quit()} after first confirming the
+	 * user really wants to quit.
+	 */
+	public void onFinish() {
+		if (ui.confirmQuit()) {
+			// If we had any clean up to do before quitting we should do it here before telling
+			// the ui to quit.
+			ui.quit();
+		}
+	}	
+	
+	/**
 	 * @return the world
 	 */
 	public World getWorld() {

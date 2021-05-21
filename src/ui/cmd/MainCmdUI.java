@@ -39,7 +39,7 @@ public class MainCmdUI implements IslandTraderUI {
 		//TODO DO these have to be public?
 		public void handleOption(String option) {
 			ui.islandTrader.setPlayer(new Player(option));			
-			this.setFinish();
+			this.setMenuFinish();
 		}
 	
 	}
@@ -63,7 +63,7 @@ public class MainCmdUI implements IslandTraderUI {
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
 			ui.islandTrader.setGameLength(intOption);
-			this.setFinish();
+			this.setMenuFinish();
 		}		
 	}
 	
@@ -95,7 +95,7 @@ public class MainCmdUI implements IslandTraderUI {
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
 			ui.islandTrader.selectShip(intOption-1);
-			this.setFinish();
+			this.setMenuFinish();
 		}
 	}
 	
@@ -129,7 +129,7 @@ public class MainCmdUI implements IslandTraderUI {
 			int intOption = Integer.parseInt(option);
 	        switch (intOption) {
 	        	case -1: //"Quit"
-	        		ui.quit();
+	        		ui.islandTrader.onFinish();
 	        		break;  
 	            case 1: //"Money & days remaining
 	            	gameStatus();
@@ -189,7 +189,7 @@ public class MainCmdUI implements IslandTraderUI {
 			int intOption = Integer.parseInt(option);
 	        switch (intOption) {
 		        case -1: //Exit the store menu
-					this.setFinish();
+					this.setMenuFinish();
 		            break;        
 		        case 1: //User buys an item
 		        	ui.buyMenu.getUserOption(ui.scanner);
@@ -230,7 +230,7 @@ public class MainCmdUI implements IslandTraderUI {
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
 			if (intOption == -1) {
-				this.setFinish();
+				this.setMenuFinish();
 			} else {
 				ui.islandDetailMenu.setIsland(ui.islandTrader.getWorld().getIslands().get(intOption-1));
 				ui.islandDetailMenu.getUserOption(ui.scanner);
@@ -268,7 +268,7 @@ public class MainCmdUI implements IslandTraderUI {
 			int intOption = Integer.parseInt(option);
 	        switch (intOption) {
 		        case -1: //"QUIT"
-					this.setFinish();
+					this.setMenuFinish();
 		            break;        
 		        case 1: //"Routes"
 		        	showRouteList(island);
@@ -327,7 +327,7 @@ public class MainCmdUI implements IslandTraderUI {
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);			
 			if (intOption == -1) {
-				this.setFinish();
+				this.setMenuFinish();
 			} else { //THIS IS UGLY check this has to work, ie no passthrough of bad ints
 				ui.islandTrader.buyStoreItem(intOption-1);
 			}	
@@ -374,7 +374,7 @@ public class MainCmdUI implements IslandTraderUI {
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);			
 			if (intOption == -1) {
-				this.setFinish();
+				this.setMenuFinish();
 			} else { //check this has to work, ie no passthrough of bad ints
 				ui.islandTrader.sellStoreItem(intOption-1);
 			}	
@@ -421,10 +421,10 @@ public class MainCmdUI implements IslandTraderUI {
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);			
 			if (intOption == -1) {
-				this.setFinish();
+				this.setMenuFinish();
 			} else {
 				//ui.sailRoute(intOption-1);				
-				this.setFinish();
+				this.setMenuFinish();
 				ui.islandTrader.sailRoute(intOption-1);				
 			}	
 		}
@@ -466,11 +466,11 @@ public class MainCmdUI implements IslandTraderUI {
 		public void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
 			if (intOption == -1) {
-				this.setFinish();
+				this.setMenuFinish();
 			} else {
 				ui.islandTrader.repairShip();
 				System.out.println("Ship is repaired\n");
-				this.setFinish();
+				this.setMenuFinish();
 			}
 		}
 
@@ -597,7 +597,7 @@ public class MainCmdUI implements IslandTraderUI {
 
 	@Override
 	public void quit() {
-		mainMenu.setFinish();	
+		mainMenu.setMenuFinish();	
 		System.out.println("****************************************");
 		System.out.println("GAME OVER");
 		System.out.println("****************************************\n");
