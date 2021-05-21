@@ -12,23 +12,7 @@ public abstract class Screen {
 	private JFrame frame;
 	
 	// The game instance that this screen interacts with
-	private final IslandTrader islandTrader;
-
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Screen window = new Screen();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	protected final IslandTrader islandTrader;
 
 	/**
 	 * Create the application.

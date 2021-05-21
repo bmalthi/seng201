@@ -50,15 +50,6 @@ public class SetupScreen extends Screen {
 		super("Island Trader Setup", islandTrader);
 		initialize();
 	}
-	
-//	/**
-//	 * Completes the setup of our {@link IslandTrader}
-//	 */
-//	
-//	private void setupComplete() {
-//		final TraderModel model = (TraderModel) table.getmodel();
-//		getIslandTrader().onSetupFinished(txtbetweenCharacters.getText(), model.
-//	}
 
 	/**
 	 * Initialize the contents of the frame.

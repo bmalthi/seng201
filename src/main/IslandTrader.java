@@ -65,7 +65,54 @@ public class IslandTrader {
 	public void onSetupFinished() {
 		ui.start();
 	}
+	/**
+	 * This method will be called when the Main Screen finished
+	 */
+	public void onRunningGameStatus() {
+		ui.startGameStatus();
+	}
 	
+	/**
+	 * This method will be called when the player clicked the "View Ship Status" button
+	 */
+	public void onRunningShipStatus() {
+		ui.startShipStatus();
+	}
+	
+	/**
+	 * This method will be called when the player clicked the "View Ship Status" button
+	 */
+	public void onRunningPastPurchases() {
+		ui.startPastPurchases();
+	}
+	
+	/**
+	 * 
+	 */
+	public void onRunningIslandProperties() {
+		ui.startIslandProperties();
+	}
+	
+	/**
+	 * This method will be called when the player clicked the "View Ship Status" button
+	 */
+	public void onRunningIslandStore() {
+		ui.startIslandStore();
+	}
+	
+	/**
+	 * This method will be called when the player clicked the "View Ship Status" button
+	 */
+	public void onRunningSetSailingIsland() {
+		ui.startSetSailingIsland();
+	}
+	
+	/**
+	 * 
+	 */
+	public void onRunningSetupScreen() {
+		ui.startSetupScreen();
+	}
 	/**
 	 * @return the world
 	 */
@@ -332,5 +379,6 @@ public class IslandTrader {
 			event.eventTriggered(this);
 		}
 	}
+
 
 }

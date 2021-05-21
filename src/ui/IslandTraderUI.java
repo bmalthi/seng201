@@ -61,5 +61,37 @@ public interface IslandTraderUI {
      * @return
      */
 	boolean confirmQuit();
-  
+
+	/**
+	 * Starts the Game Status Screen
+	 */
+	void startGameStatus();
+	/**
+	 * Starts the Island Properties Screen
+	 */
+	void startIslandProperties();
+	
+	/**
+	 * Starts the Ship Status screen
+	 */
+	void startShipStatus();
+
+	/**
+	 * Starts the Past Purchase screen
+	 */
+	void startPastPurchases();
+	
+	/**
+	 * Starts the Island Store screen
+	 */
+	void startIslandStore();
+	
+	/**
+	 * Starts the Set Sailing Island screen
+	 */
+	void startSetSailingIsland();
+	/**
+	 * Starts the Setup Screen - change information
+	 */
+	void startSetupScreen();
 }

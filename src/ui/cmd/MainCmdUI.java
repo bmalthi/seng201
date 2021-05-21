@@ -699,5 +699,47 @@ public class MainCmdUI implements IslandTraderUI {
 	public boolean confirmQuit() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void startGameStatus() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startIslandProperties() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startShipStatus() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startPastPurchases() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startIslandStore() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startSetSailingIsland() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startSetupScreen() {
+		// TODO Auto-generated method stub
+		
 	}	
 }

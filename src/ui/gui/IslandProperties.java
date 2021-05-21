@@ -1,10 +1,11 @@
 package ui.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JTextArea;
+
+import main.IslandTrader;
+
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
@@ -13,30 +14,15 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class IslandPropertiesScreen {
+public class IslandProperties extends Screen {
 
 	private JFrame frame;
-
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					IslandPropertiesScreen window = new IslandPropertiesScreen();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the application.
 	 */
-	public IslandPropertiesScreen() {
+	public IslandProperties(IslandTrader islandTrader) {
+		super("Island Properties", islandTrader);
 		initialize();
 	}
 
@@ -44,7 +30,7 @@ public class IslandPropertiesScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = getFrame();
 		frame.getContentPane().setBackground(new Color(240, 230, 140));
 		frame.getContentPane().setLayout(null);
 		
@@ -63,27 +49,27 @@ public class IslandPropertiesScreen {
 		
 		JLabel island1 = new JLabel("");
 		island1.setBounds(30, 155, 117, 144);
-		island1.setIcon(new ImageIcon(IslandPropertiesScreen.class.getResource("/island01.png")));
+		island1.setIcon(new ImageIcon(IslandProperties.class.getResource("/island01.png")));
 		frame.getContentPane().add(island1);
 		
 		JLabel island2 = new JLabel("");
 		island2.setBounds(158, 169, 166, 124);
-		island2.setIcon(new ImageIcon(IslandPropertiesScreen.class.getResource("/island2-.png")));
+		island2.setIcon(new ImageIcon(IslandProperties.class.getResource("/island2-.png")));
 		frame.getContentPane().add(island2);
 		
 		JLabel island3 = new JLabel("");
 		island3.setBounds(331, 165, 143, 128);
-		island3.setIcon(new ImageIcon(IslandPropertiesScreen.class.getResource("/island3.png")));
+		island3.setIcon(new ImageIcon(IslandProperties.class.getResource("/island3.png")));
 		frame.getContentPane().add(island3);
 		
 		JLabel island4 = new JLabel("");
 		island4.setBounds(463, 185, 151, 108);
-		island4.setIcon(new ImageIcon(IslandPropertiesScreen.class.getResource("/island04.gif")));
+		island4.setIcon(new ImageIcon(IslandProperties.class.getResource("/island04.gif")));
 		frame.getContentPane().add(island4);
 		
 		JLabel island5 = new JLabel("");
 		island5.setBounds(623, 154, 143, 145);
-		island5.setIcon(new ImageIcon(IslandPropertiesScreen.class.getResource("/island5.png")));
+		island5.setIcon(new ImageIcon(IslandProperties.class.getResource("/island5.png")));
 		frame.getContentPane().add(island5);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Home Island");
@@ -106,28 +92,41 @@ public class IslandPropertiesScreen {
 		rdbtnNewRadioButton_4.setBounds(623, 297, 141, 23);
 		frame.getContentPane().add(rdbtnNewRadioButton_4);
 		
-		JButton btnNewButton = new JButton("View Routes to this Island");
-		btnNewButton.setBounds(104, 451, 178, 73);
-		frame.getContentPane().add(btnNewButton);
-		
-		JButton btnSeeWhatThe = new JButton("See what this island sells");
-		btnSeeWhatThe.setBounds(104, 366, 178, 73);
-		frame.getContentPane().add(btnSeeWhatThe);
-		
-		JButton btnSeeWhatThis = new JButton("See what this island buys\n");
-		btnSeeWhatThis.setBounds(436, 366, 178, 73);
-		frame.getContentPane().add(btnSeeWhatThis);
-		
-		JButton btnNewButton_3 = new JButton("Back to main menu");
-		btnNewButton_3.setBounds(436, 451, 178, 73);
-		btnNewButton_3.addActionListener(new ActionListener() {
+		JButton btnViewRoutes = new JButton("View Routes to this Island");
+		btnViewRoutes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		frame.getContentPane().add(btnNewButton_3);
+		btnViewRoutes.setBounds(104, 451, 178, 73);
+		frame.getContentPane().add(btnViewRoutes);
+		
+		JButton btnSeeWhatSells = new JButton("See what this island sells");
+		btnSeeWhatSells.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSeeWhatSells.setBounds(104, 366, 178, 73);
+		frame.getContentPane().add(btnSeeWhatSells);
+		
+		JButton btnSeeWhatBuys = new JButton("See what this island buys\n");
+		btnSeeWhatBuys.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSeeWhatBuys.setBounds(436, 366, 178, 73);
+		frame.getContentPane().add(btnSeeWhatBuys);
+		
+		JButton btnMainMenu = new JButton("Back to main menu");
+		btnMainMenu.setBounds(436, 451, 178, 73);
+		btnMainMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				islandTrader.onSetupFinished();
+			}
+		});
+		frame.getContentPane().add(btnMainMenu);
 		
 		JLabel captain = new JLabel("");
-		captain.setIcon(new ImageIcon(IslandPropertiesScreen.class.getResource("/captain.png")));
+		captain.setIcon(new ImageIcon(IslandProperties.class.getResource("/captain.png")));
 		captain.setBounds(294, 366, 127, 169);
 		frame.getContentPane().add(captain);
 		
