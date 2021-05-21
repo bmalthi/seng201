@@ -128,6 +128,13 @@ public class Player {
 		addTransaction(transaction);
 		setBalance(getBalance() - purchase.getPrice());
 		getShip().addItem(purchase.getItem());
+		
+		// if the item is an upgrade item, then upgrade the ship
+		Item item = purchase.getItem();
+		if (item.getType() ==  ItemType.UPGRADE) {
+			((UpgradeItem)item).upgradeShip(getShip());
+		}
+		
 		return transaction;
 	}	
 	

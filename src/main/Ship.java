@@ -64,6 +64,13 @@ public class Ship {
 	}
 	
 	/**
+	 * Doubles the sail speed of the ship, used after buying a certain upgrade
+	 */	
+	public void upgradeSailSpeed() {
+		this.sailSpeed = this.sailSpeed * 2; 
+	}	
+	
+	/**
 	 * @return the current damage level of the ship
 	 */		
 	public int getDamageAmount() {
@@ -189,7 +196,7 @@ public class Ship {
 		if (upgrades.size() > 0) {
 			output = output +"  It has been upgraded:\n";
 			for (Item upgrade : upgrades) {
-				output = output +"    " + upgrade.getDescription() +"\n";
+				output = output +"    " + upgrade +"\n";
 			}			
 		}
 		return output;						
