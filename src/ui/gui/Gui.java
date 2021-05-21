@@ -87,4 +87,14 @@ public class Gui implements IslandTraderUI {
 		//TODO
 	}
 	
+    /**
+     * Reports details to the user of encounter with sailors who are rescued
+     *
+     * @param numRescuedSailors, the random number of sailors rescued, depends on ship size
+     * @param reward, each sailor gives a random reward, this is the total
+     */
+    public void rescueSailors(int numRescuedSailors, PricedItem rewardRecord) {
+    	//TODO
+    }
+	
 }

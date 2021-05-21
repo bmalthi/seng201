@@ -1,7 +1,6 @@
 package main;
 
 import java.util.Random;
-
 import ui.IslandTraderUI;
 
 /**
@@ -41,7 +40,7 @@ public class IslandTrader {
 	public IslandTrader(IslandTraderUI ui) {
 		this.ui = ui;
 		this.random = new Random();
-		this.random.setSeed(10);		
+		this.random.setSeed(20);		
 		this.world = new World(random);
 	}
 	

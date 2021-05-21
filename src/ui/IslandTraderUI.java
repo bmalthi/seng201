@@ -15,38 +15,38 @@ public interface IslandTraderUI {
      *
      * @param game, the islandTrader game instance that this UI interacts with
      */
-    void setup(IslandTrader islandTrader);
+    public void setup(IslandTrader islandTrader);
 
     /**
      * Starts this UI
      */
-    void start();
+    public void start();
 
     /**
      * Quits the application.
      */
-    void quit();
+    public void quit();
 
     /**
      * Reports the given error to the user.
      *
      * @param error The error to display
      */
-    void showError(String error);
+    public void showError(String error);
     
     /**
      * Reports details to the user after a successful buy / sell transaction
      *
      * @param transaction The transaction to display
      */
-    void processTransaction(PricedItem transaction);
+    public void processTransaction(PricedItem transaction);
     
     /**
      * Reports to the user the progress of sailing a route
      *
      * @param route, the route the user sailed / is sailing
      */
-    void sailRoute(Route route, PricedItem wageRecord, int sailingTime);    
+    public void sailRoute(Route route, PricedItem wageRecord, int sailingTime);    
     
     
     /**
@@ -55,6 +55,14 @@ public interface IslandTraderUI {
      * @param damage, the damage that the weather caused
      * @param repairCost, the cost that will be needed to repair the damage
      */
-    void encounterWeather(int damage, int repairCost, FailureState repairvalidation);
+    public void encounterWeather(int damage, int repairCost, FailureState repairvalidation);
+    
+    /**
+     * Reports details to the user of encounter with sailors who are rescued
+     *
+     * @param numRescuedSailors, the random number of sailors rescued, depends on ship size
+     * @param reward, each sailor gives a random reward, this is the total
+     */
+    public void rescueSailors(int numRescuedSailors, PricedItem rewardRecord);
   
 }

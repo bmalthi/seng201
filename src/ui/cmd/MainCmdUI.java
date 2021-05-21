@@ -698,7 +698,7 @@ public class MainCmdUI implements IslandTraderUI {
 	 */	
 	@Override
 	public void processTransaction(PricedItem transaction) {
-		System.out.println(transaction.toString()+"\n");		
+		System.out.println(transaction+"\n");		
 	}
 	
     /**
@@ -722,7 +722,7 @@ public class MainCmdUI implements IslandTraderUI {
 		}
 		
 		// Assume we made the next island (for now)
-		System.out.println("Congrats on your journey");
+		System.out.println("Congrats on your journey, you made it");
 	}
 	
     /**
@@ -739,5 +739,19 @@ public class MainCmdUI implements IslandTraderUI {
 		System.out.println("It will cost " +repairCost +" to repair\n");
 		if (repairValidation == FailureState.NOMONEY)
 			System.out.println("This is more money than you have you will have to trade before you can sail again\n");
-	}	
+	}
+	
+    /**
+     * Reports details to the user of encounter with sailors who are rescued
+     *
+     * @param numRescuedSailors, the random number of sailors rescued, depends on ship size
+     * @param reward, each sailor gives a random reward, this is the total
+     */
+    public void rescueSailors(int numRescuedSailors, PricedItem rewardRecord) {
+    	System.out.println("*** You encountered sailors in distress ***");
+    	System.out.println("There are " +numRescuedSailors +" sailors, who are very greatful for their rescue");
+    	
+		// Show the user their reward
+		this.processTransaction(rewardRecord);    	
+    }	
 }
