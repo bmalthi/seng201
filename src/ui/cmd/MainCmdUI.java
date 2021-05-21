@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-
 import main.FailureState;
 import main.Island;
 import main.IslandTrader;
@@ -443,7 +442,7 @@ public class MainCmdUI implements IslandTraderUI {
 	    	int damage = ui.getShip().getDamageAmount();
 	    	int repairCost = ui.getShip().getDamageAmount();
 	    	if (damage > 0) {
-	    		System.out.println("You have " +damage +" damage to your ship. This will cost " +repairCost +"dollars to repair.\n");
+	    		System.out.println("You have " +damage +" damage to your ship. This will cost " +repairCost +" dollars to repair.\n");
 	    		if (ui.getManager().validateRepair(ui.getShip()) == FailureState.NOMONEY)
 	    			System.out.println("However, you only have " +ui.getPlayer().getBalance() +". Trade to get more money");
 	    	} else {
