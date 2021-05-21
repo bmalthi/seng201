@@ -30,8 +30,20 @@ public class RescueSailors implements RandomEvent {
 	 */		
 	@Override
 	public void eventTriggered(IslandTrader game) {
-		// TODO Auto-generated method stub
+		// Calculate Random sailors rescued, upto twice the number of crew 
+		int numRescuedSailors = game.getRandomInt(game.getPlayer().getShip().getNumberOfCrew()*2)+1;
+
+		// Calc random reward per sailor 1-10$
+		int rewardPerSailor = game.getRandomInt(9)+1;
+		int reward = numRescuedSailors * rewardPerSailor; 
 		
+		//Create a transaction record for the rescue funds
+		String name = "Sailor Rescue";
+		PricedItem rescueRecord = new PricedItem(new Item(name, "No Description", 0, ItemType.RESCUE), reward, PriceType.REWARD, game.getWorld().getCurrentIsland());
+		game.getPlayer().addTransaction(rescueRecord);			
+		
+		// Call the rescueSailors UI method
+		game.getUI().rescueSailors(numRescuedSailors, rescueRecord);				
 	}
 
 	/**
@@ -41,7 +53,7 @@ public class RescueSailors implements RandomEvent {
 	@Override
 	public String riskDescription() {
 		if (getProbability() >= 90) {
-			return "I think you will be lucky and save sailors who will pay a reward";
+			return "I think you will get lucky and save sailors with a reward";
 		} else if (getProbability() >= 25) {
 			return "You might meet sailors and get a reward for their rescue";
 		} else {

@@ -92,7 +92,7 @@ public class Option {
 	}
 	
 	protected void oneFooter() {
-    	System.out.println("");		
+    	System.out.println("\n");		
 	}	
 	
     /**
