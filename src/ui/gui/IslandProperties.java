@@ -120,7 +120,9 @@ public class IslandProperties extends Screen {
 		btnMainMenu.setBounds(436, 451, 178, 73);
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				islandTrader.onSetupFinished();
+				quit();
+				Screen screen = new MainScreen(islandTrader);
+		    	screen.show();
 			}
 		});
 		frame.getContentPane().add(btnMainMenu);

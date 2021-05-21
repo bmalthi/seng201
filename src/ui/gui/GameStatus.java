@@ -71,7 +71,8 @@ public class GameStatus extends Screen {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				islandTrader.onSetupFinished();
+				Screen screen = new MainScreen(islandTrader);
+		    	screen.show();
 			}
 		});
 		btnNewButton.setBounds(268, 417, 155, 50);

@@ -54,8 +54,8 @@ public class MainScreen extends Screen {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				//IslandTrader islandTrader = getIslandTrader()
-				islandTrader.onRunningGameStatus();
+				Screen screen = new GameStatus(islandTrader);
+		    	screen.show();				
 			}
 		});
 		btnNewButton.setForeground(Color.BLACK);
@@ -68,7 +68,8 @@ public class MainScreen extends Screen {
 		btnViewPastPurchases.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				islandTrader.onRunningPastPurchases();
+				Screen screen = new PastPurchases(islandTrader);
+		    	screen.show();
 			}
 		});
 		btnViewPastPurchases.setBounds(56, 268, 237, 74);
@@ -78,7 +79,8 @@ public class MainScreen extends Screen {
 		btnVisitIslandStore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				islandTrader.onRunningIslandStore();
+				Screen screen = new IslandStore(islandTrader);
+		    	screen.show();
 			}
 		});
 		btnVisitIslandStore.setBounds(56, 354, 237, 74);
@@ -88,7 +90,8 @@ public class MainScreen extends Screen {
 		btnViewShipStatus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				islandTrader.onRunningShipStatus();
+				Screen screen = new ShipStatusScreen(islandTrader);
+		    	screen.show();
 			}
 		});
 		btnViewShipStatus.setBounds(325, 182, 234, 74);
@@ -98,7 +101,8 @@ public class MainScreen extends Screen {
 		btnViewIslandProperties.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				islandTrader.onRunningIslandProperties();
+				Screen screen = new IslandProperties(islandTrader);
+		    	screen.show();
 			}
 		});
 		btnViewIslandProperties.setBounds(325, 268, 237, 74);
@@ -108,7 +112,8 @@ public class MainScreen extends Screen {
 		btnSailToAnother.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				islandTrader.onRunningSetSailingIsland();
+				Screen screen = new SetSailingIsland(islandTrader);
+		    	screen.show();
 			}
 		});
 		btnSailToAnother.setBounds(325, 354, 234, 74);
@@ -118,7 +123,8 @@ public class MainScreen extends Screen {
 		btnChangeSetupInformation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				islandTrader.onRunningSetupScreen();
+				Screen screen = new SetupScreen(islandTrader);
+		    	screen.show();
 			}
 		});
 		btnChangeSetupInformation.setBounds(20, 489, 164, 59);

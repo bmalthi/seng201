@@ -17,6 +17,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import main.IslandTrader;
+import main.Player;
 import main.Ship;
 import java.awt.Font;
 
@@ -32,9 +33,9 @@ import java.awt.event.ActionEvent;
 
 public class SetupScreen extends Screen {
 
-	private JFrame frmWelcomeToIsland;
-	
+	private JFrame frmWelcomeToIsland;	
 	private JTextField txtbetweenCharacters;
+	private JSlider slider;
 		
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
@@ -62,11 +63,23 @@ public class SetupScreen extends Screen {
 		frmWelcomeToIsland.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWelcomeToIsland.getContentPane().setLayout(null);
 		
+		//SHould only be able to click this if valid things are selected
 		JButton btnNewButton = new JButton("Let's Play");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Set the player
+				getManager().setPlayer(new Player(txtbetweenCharacters.getText()));
+				
+				//Set the gamelength
+				getManager().setGameLength(slider.getValue());
+				
+				//Set the ship
+				// TODO KVIE TO GET WHICHEVER SHIP WAS SELECTED
+				getManager().selectShip(0);
+				
+				//Start the game
 				quit();
-				getIslandTrader().onSetupFinished();
+				getManager().onSetupFinished();
 			}
 		});
 		btnNewButton.setBackground(new Color(25, 25, 112));
@@ -166,7 +179,7 @@ public class SetupScreen extends Screen {
 		lblNewLabel_1.setBounds(35, 116, 172, 38);
 		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1);
 		
-		JSlider slider = new JSlider();
+		slider = new JSlider();
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
 				JSlider slider = (JSlider) evt.getSource();
@@ -196,7 +209,7 @@ public class SetupScreen extends Screen {
 		lblNewLabel_1_2_2.setBounds(35, 287, 235, 31);
 		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1_2_2);
 		
-		List<Ship> ships = getIslandTrader().getWorld().getShips();
+		List<Ship> ships = getManager().getWorld().getShips();
 		JRadioButton rdbtnNewRadioButton = new JRadioButton(ships.get(0).getName());
 		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(0)));
 		
