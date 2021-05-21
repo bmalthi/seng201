@@ -66,7 +66,7 @@ public class IslandTrader {
 		ui.start();
 	}
 	/**
-	 * This method will be called when the Main Screen finished
+	 * This method will be called when the player clicked the "View Money & Days Remaining" button
 	 */
 	public void onRunningGameStatus() {
 		ui.startGameStatus();
@@ -80,35 +80,35 @@ public class IslandTrader {
 	}
 	
 	/**
-	 * This method will be called when the player clicked the "View Ship Status" button
+	 * This method will be called when the player clicked the "View Past Purchases & Sales" button
 	 */
 	public void onRunningPastPurchases() {
 		ui.startPastPurchases();
 	}
 	
 	/**
-	 * 
+	 * This method will be called when the player clicked the "View Island Properties" button
 	 */
 	public void onRunningIslandProperties() {
 		ui.startIslandProperties();
 	}
 	
 	/**
-	 * This method will be called when the player clicked the "View Ship Status" button
+	 * This method will be called when the player clicked the "Visit Island Store" button
 	 */
 	public void onRunningIslandStore() {
 		ui.startIslandStore();
 	}
 	
 	/**
-	 * This method will be called when the player clicked the "View Ship Status" button
+	 * This method will be called when the player clicked the "Sail To Another Island" button
 	 */
 	public void onRunningSetSailingIsland() {
 		ui.startSetSailingIsland();
 	}
 	
 	/**
-	 * 
+	 * This method will be called when the player clicked the "Change Information" button
 	 */
 	public void onRunningSetupScreen() {
 		ui.startSetupScreen();

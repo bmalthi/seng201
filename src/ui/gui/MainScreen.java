@@ -27,10 +27,6 @@ public class MainScreen extends Screen {
 		
 	}
 	
-	
-	//private rocket get selected rocket
-	
-	
 	/**
 	 * Initialize the contents of the frame.
 	 */

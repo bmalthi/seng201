@@ -1,6 +1,5 @@
 package ui.gui;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 

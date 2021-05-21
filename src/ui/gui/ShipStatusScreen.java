@@ -1,7 +1,5 @@
 package ui.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Color;
