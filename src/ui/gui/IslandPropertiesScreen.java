@@ -49,7 +49,7 @@ public class IslandPropertiesScreen {
 		frame.getContentPane().setLayout(null);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("How's the sailing going? Hope it is going all well and \nyou haven't seen any pirates yet!\n");
-		lblNewLabel_1_1.setBounds(20, 41, 466, 63);
+		lblNewLabel_1_1.setBounds(20, 27, 466, 63);
 		lblNewLabel_1_1.setLineWrap(true);
 		lblNewLabel_1_1.setForeground(new Color(0, 0, 0));
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
@@ -57,7 +57,7 @@ public class IslandPropertiesScreen {
 		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel = new JLabel("Which Island do you want to know about?\n");
-		lblNewLabel.setBounds(20, 99, 454, 38);
+		lblNewLabel.setBounds(20, 90, 454, 38);
 		lblNewLabel.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		frame.getContentPane().add(lblNewLabel);
 		

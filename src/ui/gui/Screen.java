@@ -54,6 +54,13 @@ public abstract class Screen {
 	protected IslandTrader getIslandTrader() {
 		return islandTrader;
 	}
+	/**
+	 * Gets the JFrame of this screen
+	 * @return frame for this screen
+	 */
+	protected JFrame getFrame() {
+ 		return frame;
+ 	}
 	
 	/**
 	 * Shows this screen

@@ -1,7 +1,5 @@
 package ui.gui;
 
-
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -17,43 +15,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class MainScreen extends Screen {
-
-	private JFrame frame;
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					MainScreen window = new MainScreen();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
 	/**
 	 * Create this screen
 	 * @param islandTrader - the trader this screen interacts with
 	 */
+	//private JFrame frame;
 	public MainScreen(IslandTrader islandTrader)  {
 		super("Island Trader", islandTrader);
 		initialize();
 		
 	}
 	
-	
-	//private rocket get selected rocket
-	
-	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	public void initialize() {
-		frame = new JFrame();
+		//JFrame frame = new JFrame();
+		JFrame frame = getFrame();
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
 		frame.getContentPane().setLayout(null);
 		
@@ -92,6 +70,11 @@ public class MainScreen extends Screen {
 		frame.getContentPane().add(btnViewShipStatus);
 		
 		JButton btnViewIslandProperties = new JButton("VIEW ISLAND PROPERTIES");
+		btnViewIslandProperties.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getIslandTrader().onSetupFinished();
+			}
+		});
 		btnViewIslandProperties.setBounds(325, 268, 237, 74);
 		frame.getContentPane().add(btnViewIslandProperties);
 		
@@ -129,6 +112,5 @@ public class MainScreen extends Screen {
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
 	
 }
