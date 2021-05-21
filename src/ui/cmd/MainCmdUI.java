@@ -587,6 +587,14 @@ public class MainCmdUI implements IslandTraderUI {
 					
 	}	           
 
+    /**
+     * Confirms user wants to quit the game
+     * @return true, this is dummy method for cmdline
+     */
+	public boolean confirmQuit() {
+		return true;
+	}
+
 	@Override
 	public void quit() {
 		mainMenu.setFinish();	

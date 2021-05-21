@@ -38,6 +38,7 @@ public class Main {
             // all swing code should run on this thread unless explicitly stated as being thread safe.
             SwingUtilities.invokeLater(() -> islandTrader.start());
             islandTrader.start();
+        }
 	}
 
 }

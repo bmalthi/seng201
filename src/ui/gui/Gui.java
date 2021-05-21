@@ -1,7 +1,6 @@
 package ui.gui;
 
 import main.FailureState;
-import main.Island;
 import main.IslandTrader;
 import main.PricedItem;
 import main.Route;
