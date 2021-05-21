@@ -586,7 +586,7 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		// Get the ship choice
 		//shipChoiceInput.getUserOption(scanner);
-		getPlayer().setShip(getManager().getWorld().getShips().get(2));		
+		getPlayer().setShip(this.islandTrader.getWorld().getShips().get(0));		
 		System.out.println("Great choice, your ship is: " +getShip() +"\n");
 		
 		//Start the main menu
