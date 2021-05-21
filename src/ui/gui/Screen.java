@@ -35,7 +35,7 @@ public abstract class Screen {
 	 * Gets the {@link IslandTrader} that this screen supports
 	 * @return the IslandTrader for this screen
 	 */
-	protected IslandTrader getIslandTrader() {
+	protected IslandTrader getManager() {
 		return islandTrader;
 	}
 	/**
