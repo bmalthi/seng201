@@ -74,6 +74,7 @@ public class SetupScreen extends Screen {
 		JButton btnNewButton = new JButton("Let's Play");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				quit();
 				getIslandTrader().onSetupFinished();
 			}
 		});
@@ -232,7 +233,7 @@ public class SetupScreen extends Screen {
 		rdbtnNewRadioButton_1_1_1.setBounds(563, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1_1_1);
 		
-		buttonGroup.clearSelection();
+		//buttonGroup.clearSelection();
 		
 		JLabel show_image = new JLabel("");
 		show_image.setHorizontalAlignment(SwingConstants.LEFT);
