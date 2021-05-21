@@ -37,12 +37,11 @@ public class World {
 	 * Stores within islands will have random selection of objects to buy or sell
 	 * 
 	 */
-	public World() {
+	public World(Random random) {
 		this.islands = new ArrayList<Island>();
 		this.routes = new ArrayList<Route>();
 		this.ships = new ArrayList<Ship>();		
-		this.random = new Random();
-		this.random.setSeed(0);
+		this.random = random;
 		setUpWorld();
 		this.setCurrentIsland(getIslands().get(0));
 	}
@@ -59,7 +58,7 @@ public class World {
 		PricedItem pricedItem;
 		String[] rawCargoItems = {"Burger", "Fries", "Coke", "IceCream", "Chairs", "Dog", "Bananas", "Beer", "Water"};
 		String[] rawWeaponItems = {"Rifle", "Cannon", "Shield"};		
-		String[] rawUpgradeItems = {"Engine Upgrade", "Extra Cargo Bay10", "Extra Cargo Bay5"};	
+		String[] rawUpgradeItems = UpgradeItem.upgrades();
 		
 		/*
 		 * Home Island #1
@@ -166,7 +165,6 @@ public class World {
 		// WEAPONS
 		for (int i = 0; i < 3; i++) {
 			pricedItem = createRandomPricedItem(store5, rawWeaponItems, ItemType.WEAPON, 10, PriceType.FORSALE, island5);
-			store5.addToSell(pricedItem);
 			pricedItem = createRandomPricedItem(store5, rawWeaponItems, ItemType.WEAPON, 12, PriceType.FORBUY, island5);
 			store5.addToBuy(pricedItem);			
 		}	
@@ -182,7 +180,9 @@ public class World {
 		 */		
 		Route route1 = new Route(10, island1, island2, this);
 		// TODO PUT BACK LATER route1.addEvent(new PiratesEncounter(40));
-		route1.addEvent(new UnfortunateWeather(100));
+		route1.addEvent(new PiratesEncounter(100));		
+		route1.addEvent(new RescueSailors(100));		
+		route1.addEvent(new UnfortunateWeather(100));		
 		routes.add(route1);
 		
 		Route route2 = new Route(10, island1, island5, this);
@@ -258,18 +258,18 @@ public class World {
 	 *  @param itemType, the ItemType (eg Cargo / Update) that is being created
 	 *  @param maxPrice, the max price of the item, will be a random int under this value
 	 *  @param priceType, the type of priced Item being made eg FORSALE or FORBUY
-	 *  @param island, the Island that the item is being sold / bought on 
+	 *  @param island, the Island that the item is being sold / bought on
+	 *  @return PricedItem, a newly created random PricedItem for a store   
 	 */		
 	private PricedItem createRandomPricedItem(Store store, String[] itemNames, ItemType itemType, int maxPrice, PriceType priceType, Island island) {
 		Item item;
 		if (itemType == ItemType.UPGRADE) {
-			//Upgrades take up zero space
-			item = createRandomItem(itemNames, itemType, 0);
+			item = createRandomUpgradeItem(itemNames);
 		} else {
 			item = createRandomItem(itemNames, itemType, 2);
 		}	
 						
-		int price = random.nextInt(maxPrice) + 1;				
+		int price = random.nextInt(maxPrice *2) + 1; //*2 is dirty balance hack for now				
 		PricedItem pricedItem = new PricedItem(item, price, priceType, island);	
 		return pricedItem;
 	}	
@@ -280,6 +280,7 @@ public class World {
 	 *  @param itemNames, a string List of names to randomly choose from
 	 *  @param itemType, the ItemType (eg Cargo / Update) that is being created
 	 *  @param maxsize, how big the item is in terms of cargo space
+	 *  @return Item, a newly created random Item for a store
 	 */		
 	private Item createRandomItem(String[] itemNames, ItemType itemType, int maxSize) {
 		String newName = itemNames[random.nextInt(itemNames.length)];
@@ -289,6 +290,15 @@ public class World {
 		Item newItem = new Item(newName, "Dumb Description", newSize, itemType);
 		return newItem;
 	}
+	
+	/**
+	 * Method to create a new random UpgradeItem
+	 * 
+	 *  @param itemNames, a string List of names to randomly choose from
+	 */		
+	private UpgradeItem createRandomUpgradeItem(String[] itemNames) {
+		return new UpgradeItem(itemNames[random.nextInt(itemNames.length)]);
+	}	
 	
 	/**
 	 * @return the ships the user can choose from
@@ -314,6 +324,8 @@ public class World {
 	
 	/**
 	 * Gets list of routes that exist in the game, limited to routes that touch island1 & island2
+	 * @param island1, the first island the route must go between
+	 * @param island2, the second island the route must go between	 * 
 	 * @return the routes that start and finish at certain island
 	 */	
 	public List<Route> getRoutes(Island island1, Island island2) {
@@ -327,7 +339,8 @@ public class World {
 	}
 	
 	/**
-	 * Gets list of routes that exist in the game, limited to routes that touch island 
+	 * Gets list of routes that exist in the game, limited to routes that touch island
+	 * @param island, the island we want routes from / to 
 	 * @return the routes that start OR finish at a certain island
 	 */		
 	public List<Route> getRoutes(Island island) {

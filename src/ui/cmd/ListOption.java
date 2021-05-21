@@ -48,8 +48,6 @@ public abstract class ListOption extends Option {
     		for(int i = 1; i < options.size(); i++) {
     			System.out.println("(" + getDisplayIndex(i) + ") " + options.get(i));
     		}
-    	} else {
-    		System.out.println("NOTHING TO SEE HERE");
     	}
 		System.out.println("(" + getDisplayIndex(0) + ") " + options.get(0));
     }          

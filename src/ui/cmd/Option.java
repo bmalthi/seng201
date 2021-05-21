@@ -92,7 +92,7 @@ public class Option {
 	}
 	
 	protected void oneFooter() {
-    	System.out.println("");		
+    	System.out.println("\n");		
 	}	
 	
     /**
@@ -108,13 +108,13 @@ public class Option {
 	 * Method to handle next steps once valid input has been received
 	 */  	
 	public void handleOption(String option) {	
-		this.setFinish();
+		this.setMenuFinish();
 	}	
 	
     /**
 	 * Sets the finish property. Option will be excited after this is set
 	 */  	
-	public void setFinish() {
+	public void setMenuFinish() {
 		finish = true;
 	}	
 

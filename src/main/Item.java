@@ -89,7 +89,9 @@ public class Item {
     		case REPAIR:
     			return name +", " +type.name();
     		case WAGES:
-    			return name +", " +type.name();    			
+    			return name +", " +type.name(); 
+    		case RESCUE:
+    			return name +", " +type.name();     			
 	        default:
 	        	return name +", " +type.name();
         }
