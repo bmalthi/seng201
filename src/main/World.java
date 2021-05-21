@@ -37,12 +37,11 @@ public class World {
 	 * Stores within islands will have random selection of objects to buy or sell
 	 * 
 	 */
-	public World() {
+	public World(Random random) {
 		this.islands = new ArrayList<Island>();
 		this.routes = new ArrayList<Route>();
 		this.ships = new ArrayList<Ship>();		
-		this.random = new Random();
-		this.random.setSeed(0);
+		this.random = random;
 		setUpWorld();
 		this.setCurrentIsland(getIslands().get(0));
 	}
@@ -182,6 +181,7 @@ public class World {
 		 */		
 		Route route1 = new Route(10, island1, island2, this);
 		// TODO PUT BACK LATER route1.addEvent(new PiratesEncounter(40));
+		route1.addEvent(new RescueSailors(100));		
 		route1.addEvent(new UnfortunateWeather(100));
 		routes.add(route1);
 		

@@ -70,15 +70,17 @@ public class PricedItem {
 	public String toString() {
         switch (this.priceType) {
     		case FORSALE:	
-    			return item.toString() +", is for sale for $" +price;
+    			return item +", is for sale for $" +price;
     		case FORBUY:
-    			return item.toString() +", we will buy for $" +price;
+    			return item +", we will buy for $" +price;
     		case PURCHASED:
-    			return item.toString() +", was purchased for $" +price +" at " +getIsland().getName();
+    			return item +", was purchased for $" +price +" at " +getIsland();
     		case SOLD:
-    			return item.toString() +", was sold for $" +price +" at " +getIsland().getName();
+    			return item +", was sold for $" +price +" at " +getIsland();
+    		case REWARD:
+    			return item.getName() +" Reward of $" +price +", was given onroute to " +getIsland();    			
 	        default:
-	            return item.toString() +", is $" +price;
+	            return item +", is $" +price;
         }
 	}
 
