@@ -1,7 +1,6 @@
 package main;
 
 import java.util.Random;
-
 import ui.IslandTraderUI;
 
 /**
@@ -44,7 +43,7 @@ public class IslandTrader {
 		this.random = new Random();
 		this.random.setSeed(1);
 	}
-	
+
 	/**
 	 * Starts this IslandTrader. 
 	 * This method calls {@link IslandTraderUI#setup(IslandTrader)} to initiate setup of the user interface.

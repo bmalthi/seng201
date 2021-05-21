@@ -18,45 +18,52 @@ import javax.swing.event.DocumentListener;
 
 import main.IslandTrader;
 import main.Ship;
-
 import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Image;
 
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.util.List;
-import javax.swing.UIManager;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class SetupScreen {
+public class SetupScreen extends Screen {
 
 	private JFrame frmWelcomeToIsland;
+	
 	private JTextField txtbetweenCharacters;
+		
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
 	public static final String NAME_REGEX = "^[a-z A-Z]{3,15}$";
 	
-    // The rocket manager that this screen interacts with
-    private IslandTrader islandTrader;	
-    
+ 
 	/**
-	 * Create the application.
+	 * Create the Setup Screen
+	 * 
+	 * @param islandTrader the island trader to configure
 	 */
-	public SetupScreen(IslandTrader islandTrader) {
-		this.islandTrader = islandTrader;
+	protected SetupScreen(IslandTrader islandTrader) {
+		super("Island Trader Setup", islandTrader);
 		initialize();
 	}
+	
+//	/**
+//	 * Completes the setup of our {@link IslandTrader}
+//	 */
+//	
+//	private void setupComplete() {
+//		final TraderModel model = (TraderModel) table.getmodel();
+//		getIslandTrader().onSetupFinished(txtbetweenCharacters.getText(), model.
+//	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public void initialize() {
 		frmWelcomeToIsland = new JFrame();
 		frmWelcomeToIsland.getContentPane().setBackground(new Color(70, 130, 180));
 		frmWelcomeToIsland.setTitle("Welcome to Island Trader V0.5");
@@ -65,6 +72,11 @@ public class SetupScreen {
 		frmWelcomeToIsland.getContentPane().setLayout(null);
 		
 		JButton btnNewButton = new JButton("Let's Play");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getIslandTrader().onSetupFinished();
+			}
+		});
 		btnNewButton.setBackground(new Color(25, 25, 112));
 		btnNewButton.setEnabled(false);
 		btnNewButton.setForeground(new Color(255, 255, 255));
@@ -159,7 +171,7 @@ public class SetupScreen {
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblNewLabel_1.setBackground(new Color(70, 130, 180));
-		lblNewLabel_1.setBounds(35, 116, 639, 38);
+		lblNewLabel_1.setBounds(35, 116, 172, 38);
 		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1);
 		
 		JSlider slider = new JSlider();
@@ -192,8 +204,10 @@ public class SetupScreen {
 		lblNewLabel_1_2_2.setBounds(35, 287, 235, 31);
 		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1_2_2);
 		
-		List<Ship> ships = islandTrader.getWorld().getShips();
+		List<Ship> ships = getIslandTrader().getWorld().getShips();
 		JRadioButton rdbtnNewRadioButton = new JRadioButton(ships.get(0).getName());
+		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(0)));
+		
 		rdbtnNewRadioButton.setForeground(new Color(0, 0, 0));
 		buttonGroup.add(rdbtnNewRadioButton);
 		rdbtnNewRadioButton.setSelected(true);
@@ -201,19 +215,24 @@ public class SetupScreen {
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton(ships.get(1).getName());
+		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(1)));
 		buttonGroup.add(rdbtnNewRadioButton_1);
 		rdbtnNewRadioButton_1.setBounds(221, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1);
 		
 		JRadioButton rdbtnNewRadioButton_1_1 = new JRadioButton(ships.get(2).getName());
+		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(2)));
 		buttonGroup.add(rdbtnNewRadioButton_1_1);
 		rdbtnNewRadioButton_1_1.setBounds(385, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1_1);
 		
 		JRadioButton rdbtnNewRadioButton_1_1_1 = new JRadioButton(ships.get(3).getName());
+		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(3)));
 		buttonGroup.add(rdbtnNewRadioButton_1_1_1);
 		rdbtnNewRadioButton_1_1_1.setBounds(563, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1_1_1);
+		
+		buttonGroup.clearSelection();
 		
 		JLabel show_image = new JLabel("");
 		show_image.setHorizontalAlignment(SwingConstants.LEFT);
@@ -242,18 +261,12 @@ public class SetupScreen {
 		pirate.setIcon(new ImageIcon(SetupScreen.class.getResource("/pirate1.png")));
 		pirate.setBounds(647, 6, 147, 221);
 		frmWelcomeToIsland.getContentPane().add(pirate);
-
+		
 	}
 	
     protected void show() {
     	frmWelcomeToIsland.setVisible(true);
     }	
     
-    public void closeWindow() {
-    	frmWelcomeToIsland.dispose();
-    }
     
-    public void finishedWindow() {
-    	islandTrader.closeSetupScreen(this);
-    }
-}
+   }

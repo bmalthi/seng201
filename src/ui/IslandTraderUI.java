@@ -55,5 +55,11 @@ public interface IslandTraderUI {
      * @param repairCost, the cost that will be needed to repair the damage
      */
     void encounterWeather(int damage, int repairCost, boolean gameOver);
+
+    /**
+     * Confirms user wants to quit the game
+     * @return
+     */
+	boolean confirmQuit();
   
 }

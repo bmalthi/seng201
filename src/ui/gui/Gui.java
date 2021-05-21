@@ -1,8 +1,5 @@
 package ui.gui;
 
-import java.awt.EventQueue;
-
-import main.Island;
 import main.IslandTrader;
 import main.PricedItem;
 import main.Route;
@@ -13,48 +10,39 @@ import ui.IslandTraderUI;
  */
 public class Gui implements IslandTraderUI {
 
-    // The rocket manager this gui interacts with
+    // The game instance that this gui interacts with
 	private IslandTrader islandTrader;
 
     // The currently active screen in this gui
-    //private Screen screen;
+    private Screen theScreen;
 
     @Override
     public void setup(IslandTrader islandTrader) {
         this.islandTrader = islandTrader;
-        
-    	EventQueue.invokeLater(new Runnable() {
-    		public void run() {
-    			try {
-    				SetupScreen window = new SetupScreen(islandTrader);
-    				window.show();
-    			} catch (Exception e) {
-    				e.printStackTrace();
-    			}
-    		}
-    	});
+        theScreen = new SetupScreen(islandTrader);
+        theScreen.show();
     }
 
     @Override
     public void showError(String error) {
-        //screen.showError(error);
+        theScreen.showError(error);
     }
 
     @Override
     public void start() {
-        //screen.quit();
-        //screen = new MainScreen(rocketManager);
-        //screen.show();
+        theScreen.quit();
+        theScreen = new MainScreen(islandTrader);
+        theScreen.show();
     }
 
-    //@Override
-    //public boolean confirmQuit() {
-    //    //return screen.confirmQuit();
-    //}
+	@Override
+    public boolean confirmQuit() {
+    	return theScreen.confirmQuit();
+    }
 
     @Override
     public void quit() {
-        //screen.quit();
+        theScreen.quit();
     }
     
 	/**
@@ -67,15 +55,6 @@ public class Gui implements IslandTraderUI {
 	}  
 	
     /**
-     * Reports to the user the progress of sailing a route
-     *
-     * @param route, the route the user sailed / is sailing
-     */
-    public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {
-    	//TODO
-    }
-	
-    /**
      * Reports details to the user of encounter with bad weather while sailing
      *
      * @param transaction The transaction to display
@@ -84,6 +63,12 @@ public class Gui implements IslandTraderUI {
 	@Override	
     public void encounterWeather(int damage, int repairCost, boolean gameOver) {
 		//TODO
+	}
+
+	@Override
+	public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

@@ -31,8 +31,8 @@ public class Main {
             // TODO bmalthus Don't really know what this does
             // Ensure the Island is started on the Swing event dispatch thread (EDT). To be thread safe,
             // all swing code should run on this thread unless explicitly stated as being thread safe.
-            //SwingUtilities.invokeLater(() -> islandTrader.start());
-            islandTrader.start();
+            SwingUtilities.invokeLater(() -> islandTrader.start());
+           // islandTrader.start();
             
         } else {
             ui = new MainCmdUI();
