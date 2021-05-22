@@ -1,5 +1,6 @@
 package main;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents a ship that the player uses on their quest 
@@ -254,7 +255,8 @@ public class Ship {
 		ArrayList<Item> stolenCargo = new ArrayList<Item>();
 		for (StorageList list : storage) {
 			if (list.getType() == ItemType.UPGRADE) {
-				for (Item item: list.getItems()) {
+				List<Item> cargo = list.getItems();
+				for (Item item: cargo) {
 					stolenCargo.add(item);
 					list.removeItem(item);
 				}

@@ -121,6 +121,11 @@ public class MainCmdUI implements IslandTraderUI {
 		@Override
 		public void eachHeader() {
 			System.out.println("You are at " + ui.getCurrentIsland() +"\nWhat do you want to do next?\n");
+			
+			if (getManager().isGameOver() == FailureState.GAMEOVER_SOFT) {
+				System.out.println("*** You have no time / money to sail anywhere but you can trade ***");
+			}
+			
 		}	
 
 		@Override
