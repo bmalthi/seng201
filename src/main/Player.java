@@ -139,7 +139,8 @@ public class Player {
 		int value = 0;
         try {
     		for (PricedItem sale : sales) {
-    			for (PricedItem purchase : purchases) {
+    			for (int i = purchases.size()-1; i >= 0; i--) {
+    				PricedItem purchase = purchases.get(i);
 	    			if (purchase.getItem().equals(sale.getItem())) {
 	    				System.out.println("Matchroo");
 		    			profit = sale.getPrice() - purchase.getPrice();
@@ -147,8 +148,9 @@ public class Player {
 	    			}
     			}
     		}
-    		for (PricedItem steal : stolen) {    	
-    			for (PricedItem purchase : purchases) {
+    		for (PricedItem steal : stolen) {  
+    			for (int j = purchases.size()-1; j >= 0; j--) {
+    				PricedItem purchase = purchases.get(j);
 	    			if (purchase.getItem().equals(steal.getItem())) {
 		    			profit = 0 - purchase.getPrice();
 		    			purchases.remove(purchase);
