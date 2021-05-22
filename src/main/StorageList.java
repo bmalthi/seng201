@@ -36,7 +36,7 @@ public class StorageList {
 		this.name = name;
 		this.capacity = capacity;
 		this.type = type;
-		this.items = new ArrayList<Item>();		
+		this.items = new ArrayList<Item>();	
 	}
 
 	/**

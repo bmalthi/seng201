@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Random;
 import ui.IslandTraderUI;
 
@@ -31,6 +32,9 @@ public class IslandTrader {
 	// Random object to use for game options like do we encounter pirates
 	private Random random;	
 	
+	// Keep tracking of islands visited for scoring purposes
+	private ArrayList<Island> visitedIslands;
+	
 	/**
 	 * Creates a IslandManager with the given user interface. Then initializes the world objects
 	 * such as Stores, Islands and the Player.
@@ -41,6 +45,8 @@ public class IslandTrader {
 		this.ui = ui;
 		this.random = new Random();		
 		this.world = new World(random);
+		this.visitedIslands = new ArrayList<Island>();
+		this.visitedIslands.add(this.world.getCurrentIsland());
 	}
 
 	/**
@@ -157,16 +163,22 @@ public class IslandTrader {
 	 * 
 	 * @return a score integer, can be negative or positive 
 	 */	
-	public int gameScore() {
-		// Score is how much profit the player made
-		int score = player.getProfit();
+	public int gameScore() {		
+		int score = 0; 
 		
-		//lost points if you didn't finish the game
-		if (time < gameLength) {
-			score = score - 20;
+		// Get extra points for profit. 10$ per profit
+		score = score + player.getProfit()[0] * 10;
+		
+		// Get points for value in storage still
+		score = score + player.getProfit()[1];
+		
+		//lost points if you didn't finish the game, or get close
+		if (time < (gameLength-5)) {
+			score = score - 30;
 		}
 		
-		//bonus points if you went to all islands		
+		//bonus points if you went to all islands
+		score = score + visitedIslands.size()*20;
 		
 		return score;
 	}	
@@ -239,7 +251,7 @@ public class IslandTrader {
 		Store store = getWorld().getCurrentIsland().getStore();
 		PricedItem sale = store.getToBuyList().get(option);
 		//Validate the user can do this
-		FailureState validationResult = validatePurchase(sale);
+		FailureState validationResult = validateSale(sale);
 		if (validationResult == FailureState.SUCCESS) {
 			store.buyItem(sale);
 			PricedItem transaction = player.sellItem(sale);
@@ -337,7 +349,11 @@ public class IslandTrader {
 			getPlayer().addTransaction(wageRecord);
 			
 			//Move player to the new island
-			getWorld().setCurrentIsland(route.otherIsland(getWorld().getCurrentIsland()));
+			Island newIsland = route.otherIsland(getWorld().getCurrentIsland());
+			if(visitedIslands.contains(newIsland) == false) {
+				visitedIslands.add(newIsland);
+			}
+			getWorld().setCurrentIsland(newIsland);
 			
 			// Assume the time passed, even if we meet pirates etc,
 			// you sail the route and you effectively get all the bad effects at the end

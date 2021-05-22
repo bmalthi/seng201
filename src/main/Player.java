@@ -111,8 +111,58 @@ public class Player {
 	 * 
 	 * @return The current profit of the player 
 	 */		
-	public int getProfit() {
-		return getBalance()-STARTING_BALANCE;
+	public int[] getProfit() {
+		//This is a bit hacky to calc value of goods since I'm only storing items in cargo not their value
+		ArrayList<PricedItem> purchases = new ArrayList<PricedItem>();
+		ArrayList<PricedItem> sales = new ArrayList<PricedItem>();
+		ArrayList<PricedItem> stolen = new ArrayList<PricedItem>();		
+				
+		for (PricedItem item : getTransactions()) {
+			if (item.getItem().getType() == ItemType.CARGO) {
+		        switch (item.getType()) {
+		    		case PURCHASED:
+		    			purchases.add(item);
+		    			break;
+		    		case SOLD:
+		    			sales.add(item);
+	    				break;
+		    		case STOLEN:
+		    			stolen.add(item);
+		    			break;     			
+			        default:
+			        	break;
+		        }				
+			}
+		}
+		
+		int profit = 0;
+		int value = 0;
+        try {
+    		for (PricedItem sale : sales) {
+    			for (PricedItem purchase : purchases) {
+	    			if (purchase.getItem().equals(sale.getItem())) {
+	    				System.out.println("Matchroo");
+		    			profit = sale.getPrice() - purchase.getPrice();
+		    			purchases.remove(purchase);
+	    			}
+    			}
+    		}
+    		for (PricedItem steal : stolen) {    	
+    			for (PricedItem purchase : purchases) {
+	    			if (purchase.getItem().equals(steal.getItem())) {
+		    			profit = 0 - purchase.getPrice();
+		    			purchases.remove(purchase);
+	    			}
+    			}
+    		}
+    		for (PricedItem item : purchases) {      			
+    			value = value + item.getPrice();
+    		}    		
+        } catch (Exception e) {
+        	System.out.println("OPPS:\n" +e.getMessage());
+        } 		
+        		
+		return (new int[]{profit, value});
 	}		
 
 	/**

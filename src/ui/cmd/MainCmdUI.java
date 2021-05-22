@@ -649,11 +649,14 @@ public class MainCmdUI implements IslandTraderUI {
 	}
 	
 	private void gameStatus() {
+		int[] profitvalue = getPlayer().getProfit();
 		System.out.println("****************************************");
 		System.out.println("Game Status\n");
-		System.out.println("Hi " + getPlayer());
+		System.out.println("Hi " + getPlayer()+"\n");
 		System.out.println("You currently have " +getPlayer().getBalance() +" dollars.");
-		System.out.println("You are on day " +getManager().getTime() +" of " +getManager().getGameLength() +". " +(getManager().getGameLength()-getManager().getTime()) +" days left.\n");	
+		System.out.println("You made " +profitvalue[0] +" dollars profit and have "+profitvalue[1] +" dollars of cargo\n");
+		System.out.println("You are on day " +getManager().getTime() +" of " +getManager().getGameLength() +". " +(getManager().getGameLength()-getManager().getTime()) +" days left.");
+		System.out.println("Your score is:" +getManager().gameScore()+"\n");				
 	}
 	
 	/**
@@ -820,7 +823,7 @@ public class MainCmdUI implements IslandTraderUI {
     		if (goodsSatisfy) {
     			System.out.println("The pirates are happy with your cargo. You live another day\n");
     		} else {
-    			System.out.println("Unfortunately that wasn't enough for them");
+    			System.out.println("Unfortunately that wasn't enough for them\n");
     			System.out.println("The pirates take everything and you are forced to walk the plank");
     			System.out.println("GAME OVER, Hope you can swim\n");
     		}
