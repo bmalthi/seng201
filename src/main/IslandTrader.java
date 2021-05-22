@@ -276,17 +276,46 @@ public class IslandTrader {
 	}
 	
 	/**
-	 * This method returns a boolean indicating if the user can sail a route
+	 * This method returns a FailureState enum indicating if the user can sail ANY route
+	 * given their money and remaining gametime. 
+	 * //Potential error in that user could buy an upgrade maybe to speed up ship
+	 * 
+	 * @return FailureState, Enum representing outcome of the validation
+	 */		
+	private FailureState validateRoutes() {		
+		FailureState lastFailure = FailureState.NOTIME;
+		for (Route route : getWorld().getRoutesFromCurrent()) {
+			lastFailure = validateRoute(route);
+			if (lastFailure == FailureState.SUCCESS || lastFailure == FailureState.MUSTREPAIR)
+				return FailureState.SUCCESS;
+			
+		}
+		return lastFailure;		
+		
+	}
+	/**
+	 * Method determines if it is game over, ie the user does not have time/money to sail any route
+	 * and the value of the items in their cargo is not enough to save them
+	 * @return boolean indicating whether the game should end
+	 */
+	public boolean isGameOver() {
+		return false;
+	}
+	
+	/**
+	 * This method returns a FailureState enum indicating if the user can sail a route
 	 * given their money and remaining gametime
 	 * 
 	 * @param route, the route the user wishes to sale on
 	 * @return FailureState, Enum representing outcome of the validation
 	 */	
 	public FailureState validateRoute(Route route) {
-		if (player.getShip().getRepairCost() > 0)
-			return FailureState.MUSTREPAIR;		
 		if (player.hasMoney(route) == false)
 			return FailureState.NOMONEY;
+		else if (player.getShip().getRepairCost() > player.getBalance())
+			return FailureState.NOMONEY;		
+		else if (player.getShip().getRepairCost() > 0)
+			return FailureState.MUSTREPAIR;		
 		else if (hasTime(route) == false)
 			return FailureState.NOTIME;
 		else
@@ -294,7 +323,7 @@ public class IslandTrader {
 	}
 	
 	/**
-	 * This method returns a boolean indicating if the user has
+	 * This method returns a enum indicating if the user has
 	 * enough money to repair their ship
 	 * 
 	 * @param ship, the ship to repair
