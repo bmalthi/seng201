@@ -60,7 +60,7 @@ public class PiratesEncounter implements RandomEvent {
 			}
 			
 			// do the goods satisfy the pirates, 50/50 chance
-			goodsSatisfy = (game.getRandomInt(2) > 0);
+			goodsSatisfy = (game.getRandomInt(10) > 0);
 			if (goodsSatisfy == false)
 				game.getPlayer().setBalance(0);
 		}

@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Random;
 import ui.IslandTraderUI;
 
@@ -31,6 +32,9 @@ public class IslandTrader {
 	// Random object to use for game options like do we encounter pirates
 	private Random random;	
 	
+	// Keep tracking of islands visited for scoring purposes
+	private ArrayList<Island> visitedIslands;
+	
 	/**
 	 * Creates a IslandManager with the given user interface. Then initializes the world objects
 	 * such as Stores, Islands and the Player.
@@ -41,6 +45,8 @@ public class IslandTrader {
 		this.ui = ui;
 		this.random = new Random();		
 		this.world = new World(random);
+		this.visitedIslands = new ArrayList<Island>();
+		this.visitedIslands.add(this.world.getCurrentIsland());
 	}
 
 	/**
@@ -65,12 +71,18 @@ public class IslandTrader {
 	 * user really wants to quit.
 	 */
 	public void onFinish() {
-		if (ui.confirmQuit()) {
-			// If we had any clean up to do before quitting we should do it here before telling
-			// the ui to quit.
-			ui.quit();
-		}
+		if (ui.confirmQuit())
+			setGameOver();
 	}	
+	
+	/**
+	 * This method is called when the game is over, eg if the player loses to pirates
+	 */	
+	public void setGameOver() {
+		// If we had any clean up to do before quitting we should do it here before telling
+		// the ui to quit.
+		ui.quit();		
+	}
 	
 	/**
 	 * @return the world
@@ -152,21 +164,29 @@ public class IslandTrader {
 	}	
 
 	/**
-	 * Gets the game score illustrating how well the player has done. Points are awarded
-	 * for profit. Points are deducted if you could not keep playing before the time was up
+	 * Gets the game score illustrating how well the player has done. 
+	 * Points are awarded for profit and visiting lots of all islands 
+	 * Points are deducted for not finishing the game
+	 * Points are also linked to your remaining balance
 	 * 
 	 * @return a score integer, can be negative or positive 
 	 */	
-	public int gameScore() {
-		// Score is how much profit the player made
-		int score = player.getProfit();
+	public int gameScore() {		
+		int score = player.getBalance();
 		
-		//lost points if you didn't finish the game
-		if (time < gameLength) {
-			score = score - 20;
+		// Get extra points for profit. 10$ per profit
+		score = score + player.getProfitValue()[0] * 10;
+		
+		// Get points for value in storage still
+		score = score + player.getProfitValue()[1];
+		
+		//lost points if you didn't finish the game, or get close
+		if (time < (gameLength-5)) {
+			score = score - 30;
 		}
 		
-		//bonus points if you went to all islands		
+		//bonus points if you went to all islands
+		score = score + visitedIslands.size()*10;
 		
 		return score;
 	}	
@@ -239,7 +259,7 @@ public class IslandTrader {
 		Store store = getWorld().getCurrentIsland().getStore();
 		PricedItem sale = store.getToBuyList().get(option);
 		//Validate the user can do this
-		FailureState validationResult = validatePurchase(sale);
+		FailureState validationResult = validateSale(sale);
 		if (validationResult == FailureState.SUCCESS) {
 			store.buyItem(sale);
 			PricedItem transaction = player.sellItem(sale);
@@ -264,25 +284,70 @@ public class IslandTrader {
 	}
 	
 	/**
-	 * This method returns a boolean indicating if the user can sail a route
-	 * given their money and remaining gametime
+	 * Method to determine if the user can trade at all, do they have any money
+	 * or anything to sell (CARGO)
+	 * 
+	 * @return boolean indicating if the user can trade
+	 */		
+	private boolean canTrade() {		
+		return (
+					//Player has money and store is selling
+					(
+						getPlayer().getBalance() > 0
+						&& getWorld().getCurrentIsland().getStore().getToSellList().size() > 0
+					) ||
+					//Player has cargo & store is buying 
+					(
+						getPlayer().getShip().hasCargo()
+						&& getWorld().getCurrentIsland().getStore().getToBuyList().size() > 0
+					)
+				);
+	}
+	
+	/**
+	 * Method determines if it is game over, ie the user does not have time/money to sail any route
+	 * and the value of the items in their cargo is not enough to save them
+	 * @return FailureState indicating whether the game should end
+	 */
+	public FailureState isGameOver() {
+		for (Route route : getWorld().getRoutesFromCurrent()) {
+			FailureState lastFailure = validateRoute(route, true);
+			if (lastFailure == FailureState.SUCCESS || lastFailure == FailureState.MUSTREPAIR) {
+				return FailureState.SUCCESS;
+			}			
+		}
+		if (canTrade()) {
+			// The user can't sail anywhere, even if they trade but they can buy and sell some stuff for fun
+			return FailureState.GAMEOVER_SOFT;
+		} else {
+			// The user doesn't have money and anything to sell, its hard game over
+			// Also true if pirates make you walk the plank
+			return FailureState.GAMEOVER_HARD;
+		}
+	}
+	
+	/**
+	 * This method returns a FailureState enum indicating if the user can sail a route
+	 * given their money and remaining gametime. User may fail multiple criteria but only
+	 * one is returned in order of NOTIME, NOMONEY, MUSTREPAIR
 	 * 
 	 * @param route, the route the user wishes to sale on
+	 * @param includeCargo, boolean to indicate if we should include cargo value in hasMoney calculation
 	 * @return FailureState, Enum representing outcome of the validation
 	 */	
-	public FailureState validateRoute(Route route) {
-		if (player.getShip().getRepairCost() > 0)
+	public FailureState validateRoute(Route route, boolean includeCargo) {
+		if (hasTime(route) == false)
+			return FailureState.NOTIME;		
+		else if (player.hasMoney(route, includeCargo) == false)
+			return FailureState.NOMONEY;		
+		else if (player.getShip().getRepairCost() > 0)
 			return FailureState.MUSTREPAIR;		
-		if (player.hasMoney(route) == false)
-			return FailureState.NOMONEY;
-		else if (hasTime(route) == false)
-			return FailureState.NOTIME;
 		else
 			return FailureState.SUCCESS;
 	}
 	
 	/**
-	 * This method returns a boolean indicating if the user has
+	 * This method returns a enum indicating if the user has
 	 * enough money to repair their ship
 	 * 
 	 * @param ship, the ship to repair
@@ -304,7 +369,7 @@ public class IslandTrader {
 	 */		
 	public FailureState validate(Object obj) {
 		if (obj instanceof Route) {
-			return validateRoute((Route)obj);
+			return validateRoute((Route)obj, false);
 		} else if (obj instanceof PricedItem) {
 			if (((PricedItem)obj).getType() == PriceType.FORBUY) {
 				return validateSale((PricedItem)obj);
@@ -328,7 +393,7 @@ public class IslandTrader {
 		Route route = getWorld().getRoutes(getWorld().getCurrentIsland()).get(option);
 		
 		// Validate the route (money to sail, time in game)
-		FailureState validationResult = validateRoute(route);
+		FailureState validationResult = validateRoute(route, false);
 		if (validationResult == FailureState.SUCCESS) {			
 			//Get the wages for the route, they are paid upfront
 			int wages = getPlayer().deductRouteWages(route);
@@ -337,7 +402,11 @@ public class IslandTrader {
 			getPlayer().addTransaction(wageRecord);
 			
 			//Move player to the new island
-			getWorld().setCurrentIsland(route.otherIsland(getWorld().getCurrentIsland()));
+			Island newIsland = route.otherIsland(getWorld().getCurrentIsland());
+			if(visitedIslands.contains(newIsland) == false) {
+				visitedIslands.add(newIsland);
+			}
+			getWorld().setCurrentIsland(newIsland);
 			
 			// Assume the time passed, even if we meet pirates etc,
 			// you sail the route and you effectively get all the bad effects at the end

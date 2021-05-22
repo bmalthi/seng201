@@ -121,6 +121,10 @@ public class MainCmdUI implements IslandTraderUI {
 		@Override
 		public void eachHeader() {
 			System.out.println("You are at " + ui.getCurrentIsland() +"\nWhat do you want to do next?\n");
+			if (getManager().isGameOver() == FailureState.GAMEOVER_SOFT) {
+				System.out.println("*** You have no time / money to sail anywhere but you can trade ***");
+			}
+			
 		}	
 
 		@Override
@@ -610,7 +614,7 @@ public class MainCmdUI implements IslandTraderUI {
 		System.out.println("****************************************\n");
 		System.out.println(getPlayer());
 		System.out.println("You played for " + getManager().getTime() +" days, out of " + getManager().getGameLength());
-		System.out.println("You made " +getPlayer().getProfit() +" dollars\n");
+		System.out.println("You made " +getPlayer().getProfitValue()[0] +" dollars\n");
 		System.out.println("Your score is:" +getManager().gameScore());
 		System.out.println("\nThanks for playing");		
 	}
@@ -649,11 +653,14 @@ public class MainCmdUI implements IslandTraderUI {
 	}
 	
 	private void gameStatus() {
+		int[] profitvalue = getPlayer().getProfitValue();
 		System.out.println("****************************************");
 		System.out.println("Game Status\n");
-		System.out.println("Hi " + getPlayer());
+		System.out.println("Hi " + getPlayer()+"\n");
 		System.out.println("You currently have " +getPlayer().getBalance() +" dollars.");
-		System.out.println("You are on day " +getManager().getTime() +" of " +getManager().getGameLength() +". " +(getManager().getGameLength()-getManager().getTime()) +" days left.\n");	
+		System.out.println("You made " +profitvalue[0] +" dollars profit and have "+profitvalue[1] +" dollars of cargo\n");
+		System.out.println("You are on day " +getManager().getTime() +" of " +getManager().getGameLength() +". " +(getManager().getGameLength()-getManager().getTime()) +" days left.");
+		System.out.println("Your score is:" +getManager().gameScore()+"\n");				
 	}
 	
 	/**
@@ -724,20 +731,34 @@ public class MainCmdUI implements IslandTraderUI {
      * @param sailingTime, days it took to sail the route
      */
 	@Override	
-	public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {		
+	public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {
+		// GameStatus
+		FailureState gameStatus = FailureState.SUCCESS;
+		
 		// Start the Journey
 		System.out.println("*** Starting our journey ***");
 		
 		// Show the user the wages we paid
 		this.processTransaction(wageRecord);
 		
-		// Call the game code
+		// Call the game random event code
 		for (RandomEvent event : route.getEvents()) {
-			getManager().triggerRandomSailingEvent(event);				
+			getManager().triggerRandomSailingEvent(event);
+			gameStatus = getManager().isGameOver();
+			if(gameStatus == FailureState.GAMEOVER_HARD)
+				break;
 		}
 		
-		// Assume we made the next island (for now)
-		System.out.println("Congrats on your journey, you made it");
+		if (gameStatus == FailureState.GAMEOVER_HARD) {
+			getManager().setGameOver();
+		} else if (gameStatus == FailureState.GAMEOVER_SOFT) {
+			System.out.println("You made it, but you have no money or time left to go anywhere");
+			System.out.println("You can trade if you want, else quit the game\n");
+		} else {
+			// Assume we made the next island (for now)
+			System.out.println("Congrats on your journey, you made it\n");			
+		}
+
 	}
 	
     /**
@@ -820,9 +841,9 @@ public class MainCmdUI implements IslandTraderUI {
     		if (goodsSatisfy) {
     			System.out.println("The pirates are happy with your cargo. You live another day\n");
     		} else {
-    			System.out.println("Unfortunately that wasn't enough for them");
+    			System.out.println("Unfortunately that wasn't enough for them\n");
     			System.out.println("The pirates take everything and you are forced to walk the plank");
-    			System.out.println("GAME OVER, Hope you can swim\n");
+    			System.out.println("Hope you can swim\n");
     		}
     		
     	}

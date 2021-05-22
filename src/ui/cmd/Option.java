@@ -62,8 +62,9 @@ public class Option {
             	handleOption(input);
             } catch (InvalidInputException e) {
             	System.out.println("Please try again: "+e.getMessage());     	
-            } catch (Exception e) {
+            } catch (Exception e) {            	
             	System.out.println("OPPS:\n" +e.getMessage());
+            	e.printStackTrace();
             }    		    		
 
         }	

@@ -217,7 +217,7 @@ public class Ship {
 	 * @return int the number of sailing days
 	 */		
 	public int sailingDays(Route route) {
-		return (int) (route.getDistance() / getSailSpeed());
+		return  (int) Math.ceil( (double) route.getDistance() / (double) getSailSpeed());
 	}
 	
 	/**
@@ -252,12 +252,12 @@ public class Ship {
 	 */
 	public ArrayList<Item> removeCargo() {
 		ArrayList<Item> stolenCargo = new ArrayList<Item>();
-		for (StorageList list : storage) {
-			if (list.getType() == ItemType.UPGRADE) {
-				for (Item item: list.getItems()) {
+		for (StorageList storageBay : storage) {			
+			if (storageBay.getType() == ItemType.CARGO) {								
+				for (Item item: storageBay.getItems()) {
 					stolenCargo.add(item);
-					list.removeItem(item);
 				}
+				storageBay.setEmpty();
 			}
 		}
 		return stolenCargo;
@@ -270,6 +270,18 @@ public class Ship {
 	public boolean hasWeapons() {
 		for (StorageList list : storage) {
 			if (list.getType() == ItemType.WEAPON && list.getSpaceUsed() > 0)
+				return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Method to check if the ship has any cargo
+	 * @return boolean indicating if the ship has cargo or not
+	 */
+	public boolean hasCargo() {
+		for (StorageList list : storage) {
+			if (list.getType() == ItemType.CARGO && list.getSpaceUsed() > 0)
 				return true;
 		}
 		return false;
