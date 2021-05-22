@@ -121,7 +121,6 @@ public class MainCmdUI implements IslandTraderUI {
 		@Override
 		public void eachHeader() {
 			System.out.println("You are at " + ui.getCurrentIsland() +"\nWhat do you want to do next?\n");
-			
 			if (getManager().isGameOver() == FailureState.GAMEOVER_SOFT) {
 				System.out.println("*** You have no time / money to sail anywhere but you can trade ***");
 			}
@@ -742,7 +741,7 @@ public class MainCmdUI implements IslandTraderUI {
 		// Show the user the wages we paid
 		this.processTransaction(wageRecord);
 		
-		// Call the game code
+		// Call the game random event code
 		for (RandomEvent event : route.getEvents()) {
 			getManager().triggerRandomSailingEvent(event);
 			gameStatus = getManager().isGameOver();

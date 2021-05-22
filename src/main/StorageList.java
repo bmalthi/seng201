@@ -163,6 +163,13 @@ public class StorageList {
 	}
 	
 	/**
+	 * Empties the storagebay
+	 */
+	public void setEmpty() {
+		items = new ArrayList<Item>();
+	}
+	
+	/**
 	 * Returns a string representation of the ship
 	 */	
 	@Override

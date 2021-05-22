@@ -290,7 +290,18 @@ public class IslandTrader {
 	 * @return boolean indicating if the user can trade
 	 */		
 	private boolean canTrade() {		
-		return (getPlayer().getBalance() == 0 && getPlayer().getShip().hasCargo());
+		return (
+					//Player has money and store is selling
+					(
+						getPlayer().getBalance() > 0
+						&& getWorld().getCurrentIsland().getStore().getToSellList().size() > 0
+					) ||
+					//Player has cargo & store is buying 
+					(
+						getPlayer().getShip().hasCargo()
+						&& getWorld().getCurrentIsland().getStore().getToBuyList().size() > 0
+					)
+				);
 	}
 	
 	/**
@@ -318,19 +329,19 @@ public class IslandTrader {
 	/**
 	 * This method returns a FailureState enum indicating if the user can sail a route
 	 * given their money and remaining gametime. User may fail multiple criteria but only
-	 * one is returned in order of NOMONEY, MUSTREPAIR, NOTIME
+	 * one is returned in order of NOTIME, NOMONEY, MUSTREPAIR
 	 * 
 	 * @param route, the route the user wishes to sale on
 	 * @param includeCargo, boolean to indicate if we should include cargo value in hasMoney calculation
 	 * @return FailureState, Enum representing outcome of the validation
 	 */	
 	public FailureState validateRoute(Route route, boolean includeCargo) {
-		if (player.hasMoney(route, includeCargo) == false)
+		if (hasTime(route) == false)
+			return FailureState.NOTIME;		
+		else if (player.hasMoney(route, includeCargo) == false)
 			return FailureState.NOMONEY;		
 		else if (player.getShip().getRepairCost() > 0)
 			return FailureState.MUSTREPAIR;		
-		else if (hasTime(route) == false)
-			return FailureState.NOTIME;
 		else
 			return FailureState.SUCCESS;
 	}
