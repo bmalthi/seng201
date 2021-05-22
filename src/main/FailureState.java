@@ -13,7 +13,9 @@ public enum FailureState {
     NOSPACE("You don't have enough space for that Item"),
     NOITEM("You don't have that to sell"),
 	MUSTREPAIR("You need to repair your ship damage before you sail"),
-	UNKNOWN("OPPSIE OPPS OPPS");
+	UNKNOWN("OPPSIE OPPS OPPS"),
+	GAMEOVER_SOFT("You don't have enough money or time to sail anywhere"),
+	GAMEOVER_HARD("GAMEOVER. Time to sleep with the fishes");
 
     public final String name;
 

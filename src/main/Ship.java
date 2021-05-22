@@ -273,6 +273,18 @@ public class Ship {
 				return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Method to check if the ship has any cargo
+	 * @return boolean indicating if the ship has cargo or not
+	 */
+	public boolean hasCargo() {
+		for (StorageList list : storage) {
+			if (list.getType() == ItemType.CARGO && list.getSpaceUsed() > 0)
+				return true;
+		}
+		return false;
 	}	
 	
 }

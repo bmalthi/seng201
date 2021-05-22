@@ -610,7 +610,7 @@ public class MainCmdUI implements IslandTraderUI {
 		System.out.println("****************************************\n");
 		System.out.println(getPlayer());
 		System.out.println("You played for " + getManager().getTime() +" days, out of " + getManager().getGameLength());
-		System.out.println("You made " +getPlayer().getProfit() +" dollars\n");
+		System.out.println("You made " +getPlayer().getProfitValue()[0] +" dollars\n");
 		System.out.println("Your score is:" +getManager().gameScore());
 		System.out.println("\nThanks for playing");		
 	}
@@ -649,7 +649,7 @@ public class MainCmdUI implements IslandTraderUI {
 	}
 	
 	private void gameStatus() {
-		int[] profitvalue = getPlayer().getProfit();
+		int[] profitvalue = getPlayer().getProfitValue();
 		System.out.println("****************************************");
 		System.out.println("Game Status\n");
 		System.out.println("Hi " + getPlayer()+"\n");
@@ -727,7 +727,10 @@ public class MainCmdUI implements IslandTraderUI {
      * @param sailingTime, days it took to sail the route
      */
 	@Override	
-	public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {		
+	public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {
+		// GameStatus
+		FailureState gameStatus = FailureState.SUCCESS;
+		
 		// Start the Journey
 		System.out.println("*** Starting our journey ***");
 		
@@ -736,11 +739,22 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		// Call the game code
 		for (RandomEvent event : route.getEvents()) {
-			getManager().triggerRandomSailingEvent(event);				
+			getManager().triggerRandomSailingEvent(event);
+			gameStatus = getManager().isGameOver();
+			if(gameStatus == FailureState.GAMEOVER_HARD)
+				break;
 		}
 		
-		// Assume we made the next island (for now)
-		System.out.println("Congrats on your journey, you made it");
+		if (gameStatus == FailureState.GAMEOVER_HARD) {
+			getManager().setGameOver();
+		} else if (gameStatus == FailureState.GAMEOVER_SOFT) {
+			System.out.println("You made it, but you have no money or time left to go anywhere");
+			System.out.println("You can trade if you want, else quit the game\n");
+		} else {
+			// Assume we made the next island (for now)
+			System.out.println("Congrats on your journey, you made it\n");			
+		}
+
 	}
 	
     /**
@@ -825,7 +839,7 @@ public class MainCmdUI implements IslandTraderUI {
     		} else {
     			System.out.println("Unfortunately that wasn't enough for them\n");
     			System.out.println("The pirates take everything and you are forced to walk the plank");
-    			System.out.println("GAME OVER, Hope you can swim\n");
+    			System.out.println("Hope you can swim\n");
     		}
     		
     	}

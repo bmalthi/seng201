@@ -111,7 +111,7 @@ public class Player {
 	 * 
 	 * @return The current profit of the player 
 	 */		
-	public int[] getProfit() {
+	public int[] getProfitValue() {
 		//This is a bit hacky to calc value of goods since I'm only storing items in cargo not their value
 		ArrayList<PricedItem> purchases = new ArrayList<PricedItem>();
 		ArrayList<PricedItem> sales = new ArrayList<PricedItem>();
@@ -206,13 +206,20 @@ public class Player {
 	
 	/**
 	 * Checks if the user has enough money to sail a route,
-	 * given their ship and the length of the route 
+	 * given their ship and the length of the route, and repairs needed
 	 * 
 	 * @param route, the route the user wishes to sail
+	 * @param includeCargo, boolean to indicate if we should include cargo value in hasMoney calculation	 * 
 	 * @return boolean indicating true / false if they have enough money
 	 */			
-	public boolean hasMoney(Route route) {
-		return (getBalance() >= ship.costOfRoute(route));
+	public boolean hasMoney(Route route, boolean includeCargo) {
+		int fundsNeeded = getShip().costOfRoute(route) + getShip().getRepairCost();		
+		int fundsHave = getBalance();
+		// This is a bit of a hack, its possible the local store won't buy these items
+		// or the price the local store will pay is more / less
+		if (includeCargo)
+			fundsHave = fundsHave + getProfitValue()[1];
+		return (fundsHave >= fundsNeeded);
 	}
 	
 	/**
@@ -222,7 +229,7 @@ public class Player {
 	 * @return int, how much wages were deducted
 	 */			
 	public int deductRouteWages(Route route) {
-		int wages = this.getShip().costOfRoute(route);
+		int wages = getShip().costOfRoute(route);
 		setBalance(getBalance() - wages);
 		return wages;
 	}
