@@ -159,13 +159,14 @@ public class World {
 		for (int i = 0; i < 10; i++) {
 			pricedItem = createRandomPricedItem(store5, rawCargoItems, ItemType.CARGO, 5, PriceType.FORSALE, island5);
 			store5.addToSell(pricedItem);
-			pricedItem = createRandomPricedItem(store5, rawCargoItems, ItemType.CARGO, 7, PriceType.FORBUY, island5);
+			pricedItem = createRandomPricedItem(store5, rawCargoItems, ItemType.CARGO, 9, PriceType.FORBUY, island5);
 			store5.addToBuy(pricedItem);			
 		}
 		// WEAPONS
 		for (int i = 0; i < 3; i++) {
 			pricedItem = createRandomPricedItem(store5, rawWeaponItems, ItemType.WEAPON, 10, PriceType.FORSALE, island5);
-			pricedItem = createRandomPricedItem(store5, rawWeaponItems, ItemType.WEAPON, 12, PriceType.FORBUY, island5);
+			store5.addToSell(pricedItem);
+			pricedItem = createRandomPricedItem(store5, rawWeaponItems, ItemType.WEAPON, 15, PriceType.FORBUY, island5);
 			store5.addToBuy(pricedItem);			
 		}	
 		// UPGRADES
@@ -178,71 +179,83 @@ public class World {
 		 * Routes - create routes from an island to another 
 		 * with some events that may occur (depend on the probability) 
 		 */		
-		Route route1 = new Route(10, island1, island2, this);
-		// TODO PUT BACK LATER route1.addEvent(new PiratesEncounter(40));
-		route1.addEvent(new PiratesEncounter(100));		
-		route1.addEvent(new RescueSailors(100));		
-		route1.addEvent(new UnfortunateWeather(100));		
-		routes.add(route1);
+		Route route12 = new Route(5, island1, island2, this);
+		route12.addEvent(new RescueSailors(20));
+		route12.addEvent(new UnfortunateWeather(70));
+		routes.add(route12);		
 		
-		Route route2 = new Route(10, island1, island5, this);
-		route2.addEvent(new PiratesEncounter(20));
-		routes.add(route2);
+		Route route13 = new Route(10, island1, island3, this);
+		route13.addEvent(new RescueSailors(80));
+		routes.add(route13);
 		
-		Route route3 = new Route(3, island1, island3, this);
-		route3.addEvent(new UnfortunateWeather(90));
-		routes.add(route3);
+		Route route14 = new Route(10, island1, island4, this);
+		route14.addEvent(new UnfortunateWeather(60));
+		routes.add(route14);
 		
-		Route route4 = new Route(20, island2, island3, this);
-		route4.addEvent(new RescueSailors(80));
-		routes.add(route4);
+		Route route15 = new Route(15, island1, island5, this);
+		route15.addEvent(new RescueSailors(30));
+		route15.addEvent(new PiratesEncounter(40));	
+		routes.add(route15);
 		
-		Route route5 = new Route(10, island3, island4, this);
-		route5.addEvent(new UnfortunateWeather(50));
-		routes.add(route5);
+		Route route15B = new Route(30, island1, island5, this);
+		route15B.addEvent(new RescueSailors(30));
+		route15B.addEvent(new PiratesEncounter(80));	
+		routes.add(route15B);		
 		
-		Route route6 = new Route(10, island3, island5, this);
-		routes.add(route6);
-		route6.addEvent(new UnfortunateWeather(50));
+		Route route23= new Route(10, island2, island3, this);
+		route23.addEvent(new UnfortunateWeather(80));
+		routes.add(route23);
 		
-		Route route7 = new Route(2, island4, island1, this);
-		route7.addEvent(new PiratesEncounter(70));
-		route7.addEvent(new UnfortunateWeather(70));
-		routes.add(route7);
+		Route route24 = new Route(10, island2, island4, this);
+		route24.addEvent(new UnfortunateWeather(100));
+		routes.add(route24);
 		
-		Route route8 = new Route(10, island4, island2, this);
-		route8.addEvent(new RescueSailors(50));
-		routes.add(route8);
+		Route route25 = new Route(10, island2, island5, this);
+		route25.addEvent(new UnfortunateWeather(20));
+		route25.addEvent(new RescueSailors(30));
+		route25.addEvent(new PiratesEncounter(60));
+		routes.add(route25);
 		
-		Route route9 = new Route(10, island4, island5, this);
-		route9.addEvent(new PiratesEncounter(50));
-		route9.addEvent(new RescueSailors(20));
-		routes.add(route9);
+		Route route25B = new Route(40, island2, island5, this);
+		route25B.addEvent(new UnfortunateWeather(40));
+		route25B.addEvent(new RescueSailors(80));
+		routes.add(route25B);		
 		
-		Route route10 = new Route(10, island5, island2, this);
-		route10.addEvent(new UnfortunateWeather(50));
-		routes.add(route10);
+		Route route34 = new Route(5, island3, island4, this);
+		route34.addEvent(new UnfortunateWeather(20));
+		routes.add(route34);
+		
+		Route route35 = new Route(10, island3, island5, this);
+		route35.addEvent(new UnfortunateWeather(90));
+		route35.addEvent(new RescueSailors(10));
+		route35.addEvent(new PiratesEncounter(50));
+		routes.add(route35);
+		
+		Route route45 = new Route(20, island4, island5, this);
+		route45.addEvent(new UnfortunateWeather(90));
+		route45.addEvent(new PiratesEncounter(30));
+		routes.add(route45);				
 		
 		/*
 		 * Ship
 		 */		
-		Ship ship1 = new Ship("Speedy Soul", 3, 3, 10);
+		Ship ship1 = new Ship("Speedy Soul", 4, 3, 10);
 		ship1.getStorageBays().add(new StorageList("Cargo Hold 1", 10, ItemType.CARGO));
 		ship1.getStorageBays().add(new StorageList("Upgradable", 1, ItemType.UPGRADE));	
 		ships.add(ship1);
 		
-		Ship ship2 = new Ship("Sudden Storm", 6, 2, 20);
+		Ship ship2 = new Ship("Sudden Storm", 8, 2, 20);
 		ship2.getStorageBays().add(new StorageList("Cargo Hold 1", 30, ItemType.CARGO));
 		ship2.getStorageBays().add(new StorageList("Upgradable", 1, ItemType.UPGRADE));		
 		ships.add(ship2);
 		
-		Ship ship3 = new Ship("Steel Skull", 4, 1, 40);
+		Ship ship3 = new Ship("Steel Skull", 6, 1, 20);
 		ship3.getStorageBays().add(new StorageList("Cargo Hold 1", 20, ItemType.CARGO));	
 		ship3.getStorageBays().add(new StorageList("Cannon Bay 1", 2, ItemType.WEAPON));
 		ship3.getStorageBays().add(new StorageList("Upgradable", 1, ItemType.UPGRADE));		
 		ships.add(ship3);
 		
-		Ship ship4 = new Ship("Savage Sloop", 4, 2, 20);
+		Ship ship4 = new Ship("Savage Sloop", 8, 2, 40);
 		ship4.getStorageBays().add(new StorageList("Cargo Hold 1", 20, ItemType.CARGO));	
 		ship4.getStorageBays().add(new StorageList("Cannon Bay 1", 2, ItemType.WEAPON));
 		ship4.getStorageBays().add(new StorageList("Missle Bay 1", 2, ItemType.WEAPON));
