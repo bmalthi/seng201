@@ -217,7 +217,7 @@ public class Ship {
 	 * @return int the number of sailing days
 	 */		
 	public int sailingDays(Route route) {
-		return  (int) Math.ceil(route.getDistance() / getSailSpeed());
+		return  (int) Math.ceil( (double) route.getDistance() / (double) getSailSpeed());
 	}
 	
 	/**
