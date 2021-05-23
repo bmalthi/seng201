@@ -389,5 +389,13 @@ public class World {
 	public void setCurrentIsland(Island currentIsland) {
 		this.currentIsland = currentIsland;
 	}		
+	
+	/**
+	 * Method to help me test
+	 * @param Route, the route to add at position 0
+	 */
+	public void addRouteIndZero(Route route) {
+		this.routes.add(0, route);
+	}
 
 }

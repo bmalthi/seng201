@@ -679,7 +679,6 @@ public class MainCmdUI implements IslandTraderUI {
 		this.islandDetailMenu = new IslandDetailMenu(this);
 		this.routeMenu = new RouteMenu(this);
 		this.repairShipInput = new RepairShipInput(this);
-		
 		// Start the game
 		game.onSetupFinished();		
 	}
@@ -757,15 +756,23 @@ public class MainCmdUI implements IslandTraderUI {
 	 * Helper method to simplify code. Get the IslandManager
 	 * @return IslandTrader, the game manager
 	 */
-	private IslandTrader getManager() {
+	public IslandTrader getManager() {
 		return this.islandTrader;
 	}
+	
+	/**
+	 * Helper method to allow easier testing. 
+	 * @param islandTrader, the game manager to set
+	 */
+	public void setManager(IslandTrader islandTrader) {
+		this.islandTrader = islandTrader;
+	}	
 	
 	/**
 	 * Helper method to simplify code. Get the player from the game
 	 * @return Player, the player object
 	 */
-	private Player getPlayer() {
+	public Player getPlayer() {
 		return getManager().getPlayer();
 	}	
 	
