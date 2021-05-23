@@ -21,43 +21,37 @@ import main.StorageList;
  */
 class StorageListTest {
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
+	@Test
+	void namingTest() {
+		StorageList test1 = new StorageList("Test1", 10, ItemType.CARGO);
+		StorageList test2 = new StorageList("Test2", 5, ItemType.WEAPON);
+		
+		//Test Naming
+		assertTrue(test1.toString().equals("CARGO:Test1. Capacity is 10, 0 used"));
+		assertTrue(test2.toString().equals("WEAPON:Test2. Capacity is 5, 0 used"));		
 	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
+	
+	@Test
+	void getItemsTest() {
+		StorageList test1 = new StorageList("Test1", 10, ItemType.CARGO);
+		Item testCargo = new Item("Test1", "", 5, ItemType.CARGO);
+		test1.addItem(testCargo);
+		
+		//Test Naming
+		assertTrue(test1.getItems().get(0) == testCargo);		
+	}	
+	
 	@Test
 	void addRemoveItemTest() {
 		StorageList test1 = new StorageList("Test1", 10, ItemType.CARGO);
+		StorageList test2 = new StorageList("Test2", 5, ItemType.WEAPON);
 		
 		// New StorageList should have capacity of 10
 		assertTrue(test1.remainingSpace() == 10);
 		
 		Item testCargo = new Item("Test1", "", 5, ItemType.CARGO);
 		Item testWeapon = new Item("Test1", "", 5, ItemType.WEAPON);
+		Item notAdded = new Item("Test2", "", 5, ItemType.CARGO);
 		
 		// We should be able to add a Cargo Item of size 5
 		assertTrue(test1.addItem(testCargo));
@@ -83,6 +77,13 @@ class StorageListTest {
 		//The storage list should have original space of 10 left
 		assertTrue(test1.remainingSpace() == 10);		
 				
+		//We should not be able to remove the notAdded Item, since its not in the storageList
+		assertFalse(test1.removeItem(notAdded));	
+		
+		// Test list removal
+		assertTrue(test2.addItem(testWeapon));
+		test2.setEmpty();
+		assertTrue(test2.getSpaceUsed()==0);
 		
 
 	}

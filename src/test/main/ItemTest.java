@@ -20,34 +20,6 @@ import main.ItemType;
  */
 class ItemTest {
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterEach
-	void tearDown() throws Exception {
-	}
-
 	@Test
 	void equalsTest() {
 		Item test1 = new Item("Horse", "Description I don't use - test item 1", 10, ItemType.CARGO);
@@ -79,7 +51,17 @@ class ItemTest {
 		assertNotEquals(test1.toString(), test2.toString());
 		
 		// Description is not part of the tostring output
-		assertEquals(test1.toString(), test3.toString());		
+		assertEquals(test1.toString(), test3.toString());
+		
+		Item tests1 = new Item("Upgrade", "", 10, ItemType.UPGRADE);
+		Item tests2 = new Item("Repair", "", 10, ItemType.REPAIR);
+		Item tests3 = new Item("Wages", "", 10, ItemType.WAGES);
+		Item tests4 = new Item("Rescue", "", 10, ItemType.RESCUE);
+		
+		assertTrue(tests1.toString().equals("Upgrade, UPGRADE"));
+		assertTrue(tests2.toString().equals("Repair, REPAIR"));
+		assertTrue(tests3.toString().equals("Wages, WAGES"));
+		assertTrue(tests4.toString().equals("Rescue, RESCUE"));
 	}	
 
 }
