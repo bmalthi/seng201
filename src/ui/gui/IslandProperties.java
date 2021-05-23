@@ -30,7 +30,7 @@ public class IslandProperties extends Screen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = getFrame();
+		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(240, 230, 140));
 		frame.getContentPane().setLayout(null);
 		
@@ -72,29 +72,37 @@ public class IslandProperties extends Screen {
 		island5.setIcon(new ImageIcon(IslandProperties.class.getResource("/island5.png")));
 		frame.getContentPane().add(island5);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Home Island");
-		rdbtnNewRadioButton.setBounds(6, 297, 141, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton);
+		JRadioButton rdbtnHomeIsland = new JRadioButton("Home Island");
+		rdbtnHomeIsland.addActionListener((e) -> getManager().getWorld().getIslands().get(0));
+		rdbtnHomeIsland.setBounds(6, 297, 141, 23);
+		frame.getContentPane().add(rdbtnHomeIsland);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Everything Island");
-		rdbtnNewRadioButton_1.setBounds(158, 297, 141, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_1);
+		JRadioButton rdbtnEverythingIsland = new JRadioButton("Everything Island");
+		rdbtnEverythingIsland.addActionListener((e) -> getManager().getWorld().getIslands().get(1));
+		rdbtnEverythingIsland.setBounds(158, 297, 141, 23);
+		frame.getContentPane().add(rdbtnEverythingIsland);
 		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Mechanical Island");
-		rdbtnNewRadioButton_2.setBounds(316, 297, 158, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_2);
+		JRadioButton rdbtnMechanicalIsland = new JRadioButton("Mechanical Island");
+		rdbtnMechanicalIsland.addActionListener((e) -> getManager().getWorld().getIslands().get(2));
+		rdbtnMechanicalIsland.setBounds(316, 297, 158, 23);
+		frame.getContentPane().add(rdbtnMechanicalIsland);
 		
-		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Hoarder Island");
-		rdbtnNewRadioButton_3.setBounds(477, 297, 141, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_3);
+		JRadioButton rdbtnHoarderIsland = new JRadioButton("Hoarder Island");
+		rdbtnHoarderIsland.addActionListener((e) -> getManager().getWorld().getIslands().get(3));
+		rdbtnHoarderIsland.setBounds(477, 297, 141, 23);
+		frame.getContentPane().add(rdbtnHoarderIsland);
 		
-		JRadioButton rdbtnNewRadioButton_4 = new JRadioButton("Danger Island");
-		rdbtnNewRadioButton_4.setBounds(623, 297, 141, 23);
-		frame.getContentPane().add(rdbtnNewRadioButton_4);
+		JRadioButton rdbtnDangerIsland = new JRadioButton("Danger Island");
+		rdbtnDangerIsland.addActionListener((e) -> getManager().getWorld().getIslands().get(4));
+		rdbtnDangerIsland.setBounds(623, 297, 141, 23);
+		frame.getContentPane().add(rdbtnDangerIsland);
 		
 		JButton btnViewRoutes = new JButton("View Routes to this Island");
 		btnViewRoutes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				quit();
+				Screen screen = new ViewIslandRoutes(islandTrader);
+		    	screen.show();
 			}
 		});
 		btnViewRoutes.setBounds(104, 451, 178, 73);
@@ -103,7 +111,11 @@ public class IslandProperties extends Screen {
 		JButton btnSeeWhatSells = new JButton("See what this island sells");
 		btnSeeWhatSells.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				quit();
+				Screen screen = new IslandStore(islandTrader);
+		    	screen.show();
 			}
+			
 		});
 		btnSeeWhatSells.setBounds(104, 366, 178, 73);
 		frame.getContentPane().add(btnSeeWhatSells);
@@ -111,6 +123,9 @@ public class IslandProperties extends Screen {
 		JButton btnSeeWhatBuys = new JButton("See what this island buys\n");
 		btnSeeWhatBuys.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				quit();
+				Screen screen = new IslandStore(islandTrader);
+		    	screen.show();
 			}
 		});
 		btnSeeWhatBuys.setBounds(436, 366, 178, 73);

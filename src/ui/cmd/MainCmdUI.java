@@ -413,7 +413,7 @@ public class MainCmdUI implements IslandTraderUI {
 			int intOption = Integer.parseInt(option);			
 			if (intOption == -1) {
 				setMenuFinish();
-			} else { //THIS IS UGLY check this has to work, ie no passthrough of bad ints
+			} else { 
 				ui.getManager().buyStoreItem(intOption-1);
 			}	
 		}
@@ -433,7 +433,7 @@ public class MainCmdUI implements IslandTraderUI {
 			System.out.println(option);
 		}
 		if (options.size() == 0)
-			System.out.println("We are not selling anyting today");
+			System.out.println("We are not selling anything today");
 		System.out.println("\n");
 	}		 
 	
@@ -477,7 +477,7 @@ public class MainCmdUI implements IslandTraderUI {
 			int intOption = Integer.parseInt(option);			
 			if (intOption == -1) {
 				setMenuFinish();
-			} else { //check this has to work, ie no passthrough of bad ints
+			} else {
 				ui.getManager().sellStoreItem(intOption-1);
 			}	
 		}
@@ -496,7 +496,7 @@ public class MainCmdUI implements IslandTraderUI {
 			System.out.println(option);
 		}
 		if (store.getToBuyList().size() == 0)
-			System.out.println("We are not buying anyting today");		
+			System.out.println("We are not buying anything today");		
 		System.out.println("\n");
 				
 	}		
