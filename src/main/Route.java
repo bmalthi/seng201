@@ -29,7 +29,7 @@ public class Route {
 	 * @param distance - the length of the route
 	 * @param island1 - one of the islands attached to the route
 	 * @param island2 - one of the islands attached to the route
-	 * @param world - the world the island is attached to
+	 * @param the world the island is attached to
 	 */
 	public Route(int distance, Island island1, Island island2, World world) {
 		this.distance = distance;
