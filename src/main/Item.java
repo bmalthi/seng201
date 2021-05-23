@@ -1,6 +1,3 @@
-/**
- * 
- */
 package main;
 
 /**
@@ -75,7 +72,6 @@ public class Item {
 
 	/**
 	 * @return a string representation of the Item
-	 * TODO does not include description, just name
 	 */
 	@Override
 	public String toString() {

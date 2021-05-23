@@ -1,6 +1,3 @@
-/**
- * 
- */
 package ui.cmd;
 
 import java.util.Scanner;
