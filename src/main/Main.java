@@ -1,6 +1,3 @@
-/**
- * 
- */
 package main;
 
 import javax.swing.SwingUtilities;
@@ -36,7 +33,6 @@ public class Main {
             ui = new Gui();
             IslandTrader islandTrader = new IslandTrader(ui);
             
-            // TODO bmalthus Don't really know what this does
             // Ensure the Island is started on the Swing event dispatch thread (EDT). To be thread safe,
             // all swing code should run on this thread unless explicitly stated as being thread safe.
             SwingUtilities.invokeLater(() -> islandTrader.start());
