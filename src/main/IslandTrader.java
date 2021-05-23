@@ -119,8 +119,9 @@ public class IslandTrader {
 	}
 	
 	/**
-	 * Gets a random int using the games single random
+	 * Gets a random int
 	 * 
+	 * @param maxInt, determines the biggest random int that could be generate
 	 * @return the length of the game
 	 */
 	public int getRandomInt(int maxInt) {
@@ -192,7 +193,8 @@ public class IslandTrader {
 	}	
 	
 	/**
-	 *  Sets the ship the player has chosen. Option
+	 *  Sets the ship the player has chosen.
+	 *  @param option, is the int corresponding to the user ship choice
 	 */
 	public void selectShip(int option) {
 		//Option should be already validated by the calling code
@@ -386,7 +388,6 @@ public class IslandTrader {
 	/**
 	 * Sails the route
 	 * @param option, the route index chosen by the user in the route list from the current island
-	 * @return the route object sailed
 	 */
 	public void sailRoute(int option) {
 		// Get the route the user choose

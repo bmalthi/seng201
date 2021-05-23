@@ -99,7 +99,7 @@ public class StorageList {
 	
 	/**
 	 * Gets the current space used in the storagelist
-	 * @returns the current space used
+	 * @return int the current space used in this storagelist
 	 */
 	public int getSpaceUsed() {
 		int space = 0;
@@ -111,15 +111,17 @@ public class StorageList {
 	
 	/**
 	 * Gets the remaining space in the storage list
-	 * @returns the remaining space
+	 * @return the remaining space
 	 */	
 	public int remainingSpace() {
 		return this.capacity - getSpaceUsed();
 	}
 	
 	/**
-	 * Checks to see if we can add item to this storage list, given space and item type 
-	 * @returns boolean indicating if this is possible to add
+	 * Checks to see if we can add item to this storage list, given space and item type
+	 * 
+	 * @param item, the item we want to test if its possible to add to the list
+	 * @return boolean indicating if this is possible to add
 	 */	
 	public boolean validateAdd(Item item) {
 		if (remainingSpace() < item.getSize())

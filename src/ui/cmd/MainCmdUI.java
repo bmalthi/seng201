@@ -23,53 +23,67 @@ public class MainCmdUI implements IslandTraderUI {
     // The islandtrader this ui interacts with
     private IslandTrader islandTrader;
 
+	/**
+	 * SubCMDUI to get a validated Play Name Choice
+	 */    
 	private class PlayerNameInput extends Option {	
 		
-		public PlayerNameInput(MainCmdUI ui) {
+		private PlayerNameInput(MainCmdUI ui) {
 			super(ui, Player.NAME_REGEX);			
 		}
 		
+		/**
+		 * Method to print a header every loop of menu
+		 */			
 		@Override
-		public void oneHeader() {
+		protected void eachHeader() {
 			System.out.println("Please choose a trader name:\n(between 3-15 characters)");
 		}		
 		
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
 		@Override
-		//TODO DO these have to be public?
-		public void handleOption(String option) {
+		protected void handleOption(String option) {
 			ui.getManager().setPlayer(new Player(option));			
-			this.setMenuFinish();
+			setMenuFinish();
 		}
 	
 	}
 	
 	/**
-	 * This class gets the game length based on player's choice
-	 *
-	 */
+	 * SubCMDUI to get a validated Game Length input from the user
+	 */  
 	private class GameLengthInput extends Option {	
 		
 		public GameLengthInput(MainCmdUI ui) {
 			super(ui, IslandTrader.GAME_LENGTH_REGEX);
 		}
 		
+		/**
+		 * Method to print a header every loop of menu
+		 */			
 		@Override
-		public void oneHeader() {
+		protected void eachHeader() {
 			System.out.println("How many days do you want to play for?\n(between 20-50 days)");
 		}				
 		
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
 		@Override
-		public void handleOption(String option) {
+		protected void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
 			ui.getManager().setGameLength(intOption);
-			this.setMenuFinish();
+			setMenuFinish();
 		}		
 	}
 	
 	/**
-	 * This class gets the ship that the player choose
-	 * 	
-	 */
+	 * SubCMDUI to get a validated Ship choice from the user, 4 predefined ships are offered
+	 */ 
 	private class ShipChoiceInput extends Option {
 		
 		public ShipChoiceInput(MainCmdUI ui) {
@@ -77,11 +91,18 @@ public class MainCmdUI implements IslandTraderUI {
 		
 		}
 		
+		/**
+		 * Method to print a header every loop of menu
+		 */			
 		@Override
-		public void oneHeader() {
+		protected void eachHeader() {
 			System.out.println("Which Ship do you want to choose? ");
 		}
 		
+	    /**
+		 * Print the list of indexed options to choose from to the user
+		 */			
+		@Override
 		protected void printOptions() {
 			List<Ship> ships = ui.getManager().getWorld().getShips();
 			
@@ -90,15 +111,23 @@ public class MainCmdUI implements IslandTraderUI {
 			}
 		}
 		
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
 		@Override
-		public void handleOption(String option) {
+		protected void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
 			ui.getManager().selectShip(intOption-1);
-			this.setMenuFinish();
+			setMenuFinish();
 		}
 	}
 	
-	// Class (glorified enum) for the main store menu
+	/**
+	 * Class for Main Menu, presents the user options
+	 * Loops until valid input is received
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */ 
 	private class MainMenu extends ListOption {		
 				
 		public MainMenu(MainCmdUI ui) {
@@ -118,8 +147,11 @@ public class MainCmdUI implements IslandTraderUI {
 	    	this.options.add(0, exitOption);
 		}
 		
+		/**
+		 * Method to print a header every loop of menu
+		 */			
 		@Override
-		public void eachHeader() {
+		protected void eachHeader() {
 			System.out.println("You are at " + ui.getCurrentIsland() +"\nWhat do you want to do next?\n");
 			if (getManager().isGameOver() == FailureState.GAMEOVER_SOFT) {
 				System.out.println("*** You have no time / money to sail anywhere but you can trade ***");
@@ -127,8 +159,12 @@ public class MainCmdUI implements IslandTraderUI {
 			
 		}	
 
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
 		@Override
-	    public void handleOption(String option) {
+	    protected void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
 	        switch (intOption) {
 	        	case -1: //"Quit"
@@ -159,7 +195,11 @@ public class MainCmdUI implements IslandTraderUI {
 
 	} 		
 	
-	// Class (glorified enum) for the main store menu
+	/**
+	 * Class for Store Menu, presents the user options they can do at the store
+	 * Loops until valid input is received
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */
 	private class StoreMenu extends ListOption {		
 		
 		public StoreMenu(MainCmdUI ui) {
@@ -177,22 +217,32 @@ public class MainCmdUI implements IslandTraderUI {
 	    	this.options.add(0, exitOption);
 		}
 
+		/**
+		 * Method to print a header every loop of menu
+		 */			
 		@Override
-		public void eachHeader() {
+		protected void eachHeader() {
 			System.out.println("Welcome to "+ ui.getCurrentIsland().getStore() +" on " + ui.getCurrentIsland() +". How can we help?\n");
 		}	
 		
+		/**
+		 * Method to print a footer when finishing with menu
+		 */			
 		@Override
 		public void oneFooter() {
 			System.out.println("Thanks for shopping at "+ ui.getCurrentIsland().getStore() +".\n");
 		}	
 		
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
 		@Override
-		public void handleOption(String option) {
+		protected void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
 	        switch (intOption) {
 		        case -1: //Exit the store menu
-					this.setMenuFinish();
+					setMenuFinish();
 		            break;        
 		        case 1: //User buys an item
 		        	ui.buyMenu.getUserOption(ui.scanner);
@@ -214,7 +264,11 @@ public class MainCmdUI implements IslandTraderUI {
 
 	}
 	
-	// Class (glorified enum) for the main store menu
+	/**
+	 * Class for Island Menu, presents the user option to choose island to view properties of
+	 * Loops until valid input is received
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */
 	private class IslandMenu extends ListOption {		
 		
 		public IslandMenu(MainCmdUI ui) {
@@ -224,16 +278,23 @@ public class MainCmdUI implements IslandTraderUI {
 	    	this.options.add(0, exitOption);
 		}
 
+		/**
+		 * Method to print a header every loop of menu
+		 */			
 		@Override
-		public void eachHeader() {
+		protected void eachHeader() {
 			System.out.println("Which Island do you want to know more about?");
 		}			
 		
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
 		@Override
-		public void handleOption(String option) {
+		protected void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
 			if (intOption == -1) {
-				this.setMenuFinish();
+				setMenuFinish();
 			} else {
 				ui.islandDetailMenu.setIsland(ui.getManager().getWorld().getIslands().get(intOption-1));
 				ui.islandDetailMenu.getUserOption(ui.scanner);
@@ -242,9 +303,14 @@ public class MainCmdUI implements IslandTraderUI {
 
 	}
 
-	// Class (glorified enum) for the main store menu
+	/**
+	 * Class for Island Detail Menu, lets the user see details about an island
+	 * Loops until valid input is received
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */
 	private class IslandDetailMenu extends ListOption {		
 		
+		// The island this menu is currently based on
 		private Island island;
 		
 		public IslandDetailMenu(MainCmdUI ui) {
@@ -261,17 +327,24 @@ public class MainCmdUI implements IslandTraderUI {
 	    	this.options.add(0, exitOption);
 		}
 
+		/**
+		 * Method to print a header every loop of menu
+		 */			
 		@Override
-		public void eachHeader() {
+		protected void eachHeader() {
 			System.out.println("What do you want to know about " +island+"?");
 		}			
 		
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
 		@Override
-		public void handleOption(String option) {
+		protected void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
 	        switch (intOption) {
 		        case -1: //"QUIT"
-					this.setMenuFinish();
+					setMenuFinish();
 		            break;        
 		        case 1: //"Routes"
 		        	showRouteList(island);
@@ -288,49 +361,55 @@ public class MainCmdUI implements IslandTraderUI {
 
 		}
 		
+	    /**
+		 * Menu takes an island as an input so the user can see what this island has
+		 * @param island, the island to view properties about
+		 */  		
 		public void setIsland(Island island) {
 			this.island = island;
 		}
 
-	}	
+	}			
 	
-	private void showRouteList(Island island) {		
-		
-		System.out.println("Here are the routes available from your current island " +getCurrentIsland() + " to " + island);
-		
-		ArrayList<String> options = routeStringList(getManager().getWorld().getRoutes(getCurrentIsland(), island), true, false);
-		for (String option: options) {
-			System.out.println(option);
-		}	
-		System.out.println("(* recommended for you)\n");		
-		System.out.println("\n");
-	}		
-	
-	// Menu option for things the player can buy / store will sell
+	/**
+	 * Class for Store Buy Menu - lets the user buy an item at the curren store
+	 * Loops until valid input is received
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */
 	private class BuyMenu extends ListOption {		
 		
 		public BuyMenu(MainCmdUI ui) {
 			super(ui); 		  		    	
 		}
 		
+		/**
+		 * Method to print a header every loop of menu
+		 */			
 		@Override
-		public void eachHeader() {
+		protected void eachHeader() {
 			System.out.println("What do you want to buy?\n (* recommended for you)\n");
 		}	
 		
+	    /**
+		 * Print the list of indexed options to choose from to the user
+		 */			
 		@Override
-		public void printOptions() {
+		protected void printOptions() {
 	    	this.options = stringList(ui.getCurrentIsland().getStore().getToSellList(), true, false); 
 	    	String exitOption = "(back to store front)";
 	    	this.options.add(0, exitOption);
 			super.printOptions();
 		}
 
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
 		@Override
-		public void handleOption(String option) {
+		protected void handleOption(String option) {
 			int intOption = Integer.parseInt(option);			
 			if (intOption == -1) {
-				this.setMenuFinish();
+				setMenuFinish();
 			} else { //THIS IS UGLY check this has to work, ie no passthrough of bad ints
 				ui.getManager().buyStoreItem(intOption-1);
 			}	
@@ -338,6 +417,11 @@ public class MainCmdUI implements IslandTraderUI {
 
 	}		
 
+	/**
+	 * Method to show items for sale at a store 
+	 * 
+	 * @param store, the store to view items at
+	 */	
 	private void showBuyList(Store store) {				
 		System.out.println(store +" sells the following items?\n (* recommended for you)\n");
 		
@@ -351,33 +435,45 @@ public class MainCmdUI implements IslandTraderUI {
 	}		 
 	
 	
-	//private ArrayList<String> stringList(List<?> list)
-	
-	// Menu option for things the player can sell / store will buy	
+	/**
+	 * Class for Store Sell Menu - lets the user sell an item to a store
+	 * Loops until valid input is received
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */	
 	private class SellMenu extends ListOption {
 		
 		public SellMenu(MainCmdUI ui) {
 			super(ui);     	
 		}
 
+		/**
+		 * Method to print a header every loop of menu
+		 */			
 		@Override
-		public void eachHeader() {
+		protected void eachHeader() {
 			System.out.println("What do you want to sell?\n (* recommended for you)\n");
 		}		
 		
+	    /**
+		 * Print the list of indexed options to choose from to the user
+		 */			
 		@Override
-		public void printOptions() {
+		protected void printOptions() {
 	    	this.options = stringList(ui.getCurrentIsland().getStore().getToBuyList(), true, false);
 	    	String exitOption = "(back to store front)";
 	    	this.options.add(0, exitOption);
 			super.printOptions();
 		}		
 
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
 		@Override
-		public void handleOption(String option) {
+		protected void handleOption(String option) {
 			int intOption = Integer.parseInt(option);			
 			if (intOption == -1) {
-				this.setMenuFinish();
+				setMenuFinish();
 			} else { //check this has to work, ie no passthrough of bad ints
 				ui.getManager().sellStoreItem(intOption-1);
 			}	
@@ -385,6 +481,11 @@ public class MainCmdUI implements IslandTraderUI {
 
 	}	
 	
+	/**
+	 * Method to show items for sale at a store 
+	 * 
+	 * @param store, the store to view items at 
+	 */		
 	private void showSellList(Store store) {			
 		System.out.println(store +" buys the following items?\n (* recommended for you)\n");
 		ArrayList<String> options = stringList(store.getToBuyList(), true, false);
@@ -395,16 +496,24 @@ public class MainCmdUI implements IslandTraderUI {
 			System.out.println("We are not buying anyting today");		
 		System.out.println("\n");
 				
-	}	
+	}		
 	
+	/**
+	 * Class for Route sailing menu - lets the user choose a sailing to a new island
+	 * Loops until valid input is received
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */		
 	private class RouteMenu extends ListOption {		
 		
 		public RouteMenu(MainCmdUI ui) {
 			super(ui); 		  		    	
 		}
 		
+		/**
+		 * Method to print a header every loop of menu
+		 */			
 		@Override
-		public void eachHeader() {
+		protected void eachHeader() {
 			System.out.println("Where do you want to go?\n (* possible for you)\n");
 			if (ui.getShip().getRepairCost() > 0) {
 				System.out.println(" *** You can't sail anywhere until you repair your ship ***");
@@ -412,37 +521,68 @@ public class MainCmdUI implements IslandTraderUI {
 			}
 		}				
 		
+	    /**
+		 * Print the list of indexed options to choose from to the user
+		 */			
 		@Override
-		public void printOptions() {
+		protected void printOptions() {
 			this.options = routeStringList(ui.getManager().getWorld().getRoutesFromCurrent(), true, false);
 			String exitOption = "(back to main menu)";
 			this.options.add(0, exitOption);
 			super.printOptions();
 		}
 
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
 		@Override
-		public void handleOption(String option) {
+		protected void handleOption(String option) {
 			int intOption = Integer.parseInt(option);			
 			if (intOption == -1) {
-				this.setMenuFinish();
+				setMenuFinish();
 			} else {
 				//ui.sailRoute(intOption-1);				
-				this.setMenuFinish();
+				setMenuFinish();
 				ui.getManager().sailRoute(intOption-1);				
 			}	
 		}
 
+	}	
+	
+	/**
+	 * Method to show routes to an island from current island 
+	 * 
+	 * @param store, the store to view items at 
+	 */		
+	private void showRouteList(Island island) {		
+		
+		System.out.println("Here are the routes available from your current island " +getCurrentIsland() + " to " + island);
+		
+		ArrayList<String> options = routeStringList(getManager().getWorld().getRoutes(getCurrentIsland(), island), true, false);
+		for (String option: options) {
+			System.out.println(option);
+		}	
+		System.out.println("(* recommended for you)\n");		
+		System.out.println("\n");
 	}		
 	
-	// Class (glorified enum) for the main store menu
+	/**
+	 * Class for Repair the ship, lets user repair ship or not
+	 * Loops until valid input is received (ie 1 for yes to repair)
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */	
 	private class RepairShipInput extends ListOption {		
 		
 		public RepairShipInput(MainCmdUI ui) {
 			super(ui);
 		}
 		
+		/**
+		 * Method to print a header every loop of menu
+		 */			
 		@Override
-		public void eachHeader() {
+		protected void eachHeader() {
 	    	int damage = ui.getShip().getDamageAmount();
 	    	int repairCost = ui.getShip().getDamageAmount();
 	    	if (damage > 0) {
@@ -454,8 +594,11 @@ public class MainCmdUI implements IslandTraderUI {
 	    	}	
 		}			
 		
+	    /**
+		 * Print the list of indexed options to choose from to the user
+		 */			
 		@Override
-		public void printOptions() {
+		protected void printOptions() {
 	    	this.options = new ArrayList<String>();
 	    	int repairCost = ui.getShip().getDamageAmount();
 	    	if (repairCost > 0 && ui.getManager().validateRepair(ui.getShip()) == FailureState.SUCCESS)
@@ -465,27 +608,28 @@ public class MainCmdUI implements IslandTraderUI {
 			super.printOptions();
 		}			
 		
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
 		@Override
-		public void handleOption(String option) {
+		protected void handleOption(String option) {
 			int intOption = Integer.parseInt(option);
 			if (intOption == -1) {
-				this.setMenuFinish();
+				setMenuFinish();
 			} else {
 				ui.getManager().repairShip();
 				System.out.println("Ship is repaired\n");
-				this.setMenuFinish();
+				setMenuFinish();
 			}
 		}
 
 	}	
     
-	@SuppressWarnings("unused")
+	// Instances of the various sub menus defined above
 	private PlayerNameInput playerNameInput;
-	@SuppressWarnings("unused")
 	private GameLengthInput gameLengthInput;
-	@SuppressWarnings("unused")
 	private ShipChoiceInput shipChoiceInput;
-
 	private MainMenu mainMenu;
 	private StoreMenu storeMenu;	
 	private BuyMenu buyMenu;
@@ -495,9 +639,108 @@ public class MainCmdUI implements IslandTraderUI {
 	private RouteMenu routeMenu;
 	private RepairShipInput repairShipInput;
 	
+	/**
+	 * Create a new CMD UI
+	 * This is created by the game Manager (IslandTrader) which then calls the UI setup method
+	 */
 	public MainCmdUI() {
 		scanner = new Scanner(System.in);
+	}	
+
+    /**
+     * Initializes this UI and sets up the given IslandTrader, with the ships, islands, stores to be managed
+     * Once setup is complete this UI must call {@link IslandTrader#onSetupFinished}.
+     *
+     * @param game, the {@link IslandTrader} game instance that this UI interacts with
+     */	
+	@Override
+	public void setup(IslandTrader game) {
+		// Set up game item
+		this.islandTrader = game;
+		
+		// Set up player name input
+		this.playerNameInput = new PlayerNameInput(this);
+		
+		// Set up game length input
+		this.gameLengthInput = new GameLengthInput(this);
+		
+		// Set up ship choice input
+		this.shipChoiceInput = new ShipChoiceInput(this);
+
+		//Set up command menus
+		this.mainMenu = new MainMenu(this);		
+		this.storeMenu = new StoreMenu(this);		
+		this.buyMenu = new BuyMenu(this);		
+		this.sellMenu = new SellMenu(this);	
+		this.islandMenu = new IslandMenu(this);
+		this.islandDetailMenu = new IslandDetailMenu(this);
+		this.routeMenu = new RouteMenu(this);
+		this.repairShipInput = new RepairShipInput(this);
+		
+		// Start the game
+		game.onSetupFinished();		
 	}
+
+    /**
+     * Method used to start the game, where the user selects a ship, playername and game length
+     * before triggering the main menu
+     */		
+	@Override
+	public void start() {
+		// Print Intro
+		System.out.println("****************************************");
+		System.out.println("Welcome to Island Trader V1.0");
+		System.out.println("****************************************\n");		
+		
+		// Get the player name from the player 
+		playerNameInput.getUserOption(scanner);
+		System.out.println("Great name, " +getPlayer() +"\n");
+		
+		// Get the game length from the player
+		gameLengthInput.getUserOption(scanner);
+		System.out.println("Game will run for " +getManager().getGameLength() +" days\n");	
+		
+		// Get the ship choice
+		shipChoiceInput.getUserOption(scanner);		
+		System.out.println("Great choice, your ship is: " +getShip() +"\n");
+		
+		//Start the main menu
+		mainMenu.getUserOption(this.scanner);						
+	}	           
+
+    /**
+     * Confirms user wants to quit the game
+     * @return true, this is dummy method for cmdline
+     */
+	@Override
+	public boolean confirmQuit() {
+		return true;
+	}
+
+    /**
+     * Quits the game, showing the user their score and status
+     */	
+	@Override
+	public void quit() {
+		mainMenu.setMenuFinish();	
+		System.out.println("****************************************");
+		System.out.println("GAME OVER");
+		System.out.println("****************************************\n");
+		System.out.println(getPlayer());
+		System.out.println("You played for " + getManager().getTime() +" days, out of " + getManager().getGameLength());
+		System.out.println("You made " +getPlayer().getProfitValue()[0] +" dollars\n");
+		System.out.println("Your score is:" +getManager().gameScore());
+		System.out.println("\nThanks for playing");		
+	}
+
+    /**
+     * Show the user an error message if what they were attempting to do failed
+     */	
+	@Override
+	public void showError(String error) {
+		System.out.println("!!!! " + error + " !!!!");
+		
+	}	
 	
 	/**
 	 * Helper method to simplify code. Get the current island from the world class
@@ -530,104 +773,10 @@ public class MainCmdUI implements IslandTraderUI {
 	private Ship getShip() {
 		return getPlayer().getShip();
 	}		
-
-    /**
-     * Initialises this UI and sets up the given IslandTrader, with the ships, islands, stores to be managed
-     * Once setup is complete this UI must call {@link IslandTrader#onSetupFinished(String, List)}.
-     *
-     * @param game, the islandTrader game instance that this UI interacts with
-     */	
-	@Override
-	public void setup(IslandTrader game) {
-		// Set up game item
-		this.islandTrader = game;
-		
-		// Set up player name input
-		this.playerNameInput = new PlayerNameInput(this);
-		
-		// Set up game length input
-		this.gameLengthInput = new GameLengthInput(this);
-		
-		// Set up ship choice input
-		this.shipChoiceInput = new ShipChoiceInput(this);
-
-		//Set up command menus
-		this.mainMenu = new MainMenu(this);		
-		this.storeMenu = new StoreMenu(this);		
-		this.buyMenu = new BuyMenu(this);		
-		this.sellMenu = new SellMenu(this);	
-		this.islandMenu = new IslandMenu(this);
-		this.islandDetailMenu = new IslandDetailMenu(this);
-		this.routeMenu = new RouteMenu(this);
-		this.repairShipInput = new RepairShipInput(this);
-		
-		// Start the game
-		game.onSetupFinished();
-		
-	}
-
-    /**
-     * Method used to start the game, where the user selects a ship, playername and game length
-     * before triggering the main menu
-     * TODO bmalthus, remove the default name/ship/length
-     */		
-	@Override
-	public void start() {
-		// Print Intro
-		System.out.println("****************************************");
-		System.out.println("Welcome to Island Trader V0.9");
-		System.out.println("****************************************\n");		
-		
-		// Get the player name from the player 
-		getManager().setPlayer(new Player("Ben"));
-		//playerNameInput.getUserOption(scanner);
-		System.out.println("Great name, " +getPlayer() +"\n");
-		
-		// Get the game length from the player
-		getManager().setGameLength(20);
-		//gameLengthInput.getUserOption(scanner);
-		System.out.println("Game will run for " +getManager().getGameLength() +" days\n");	
-		
-		// Get the ship choice
-		//shipChoiceInput.getUserOption(scanner);
-		getPlayer().setShip(this.islandTrader.getWorld().getShips().get(0));		
-		System.out.println("Great choice, your ship is: " +getShip() +"\n");
-		
-		//Start the main menu
-		mainMenu.getUserOption(this.scanner);	
-					
-	}	           
-
-    /**
-     * Confirms user wants to quit the game
-     * @return true, this is dummy method for cmdline
-     */
-	public boolean confirmQuit() {
-		return true;
-	}
-
-	@Override
-	public void quit() {
-		mainMenu.setMenuFinish();	
-		System.out.println("****************************************");
-		System.out.println("GAME OVER");
-		System.out.println("****************************************\n");
-		System.out.println(getPlayer());
-		System.out.println("You played for " + getManager().getTime() +" days, out of " + getManager().getGameLength());
-		System.out.println("You made " +getPlayer().getProfitValue()[0] +" dollars\n");
-		System.out.println("Your score is:" +getManager().gameScore());
-		System.out.println("\nThanks for playing");		
-	}
-
-    /**
-     * Show the user an error message if what they were attempting to do failed
-     */	
-	@Override
-	public void showError(String error) {
-		System.out.println("!!!! " + error + " !!!!");
-		
-	}	
 	
+    /**
+     * Show the user list of their purchases / transactions
+     */	
 	private void purchasesList() {
 		System.out.println("****************************************");
 		System.out.println("Here are all your purchases & sales.\n");
@@ -652,6 +801,9 @@ public class MainCmdUI implements IslandTraderUI {
 		System.out.println(getShip().description());
 	}
 	
+    /**
+     * Show the user the game status, their money, the time left, their score and profit
+     */	
 	private void gameStatus() {
 		int[] profitvalue = getPlayer().getProfitValue();
 		System.out.println("****************************************");
@@ -668,7 +820,8 @@ public class MainCmdUI implements IslandTraderUI {
 	 * Can add a 1 based counter and also can validate if this user can purchase / action the item
 	 * @param list, the list of objects to convert into a string list (using toString method)
 	 * @param validate, boolean do we want to validate the item and indicate to the user validation
-	 * @param numbered, boolean should the output items have a 1 based index in front of them 
+	 * @param numbered, boolean should the output items have a 1 based index in front of them
+	 * @return ArrayList<String> of the list input
 	 */	
 	private ArrayList<String> stringList(List<?> list, boolean validate, boolean numbered) {
 		int counter = 1;
@@ -700,6 +853,7 @@ public class MainCmdUI implements IslandTraderUI {
 	 * @param list, the list of objects to convert into a string list (using toString method)
 	 * @param validate, boolean do we want to validate the item and indicate to the user validation
 	 * @param numbered, boolean should the output items have a 1 based index in front of them 
+	 * @return ArrayList<String> of the route list input 
 	 */	
 	private ArrayList<String> routeStringList(List<?> list, boolean validate, boolean numbered) {		
 		ArrayList<String> routes = stringList(list, validate, numbered);
@@ -716,7 +870,7 @@ public class MainCmdUI implements IslandTraderUI {
 	
 	/**
 	 * Show the user the details of the transaction, if successful
-	 * @param PricedItem the transaction
+	 * @param transaction, the transaction we are showing the user
 	 */	
 	@Override
 	public void processTransaction(PricedItem transaction) {
@@ -798,10 +952,9 @@ public class MainCmdUI implements IslandTraderUI {
      * Reports details to the user of encounter with pirates
      * 
      * @param diceThrow, the random number that the user got to determine success when fighting the pirates
-     * @param boardship, the boolean result of the dicethrow if pirates boardded the ship
+     * @param boardShip, the boolean result of the dicethrow if pirates boardded the ship
      * @param transactions, the record of items the pirates stole from the player
-     * @param goodsSatisfy, boolean indicating if the goods were enough for the pirate, you lose game if false
-     * @throws InterruptedException 
+     * @param goodsSatisfy, boolean indicating if the goods were enough for the pirate, you lose game if false 
      */
     public void encounterPirates(int diceThrow, boolean boardShip, ArrayList<PricedItem> transactions, boolean goodsSatisfy) {
     	System.out.println("*** !!! You encountered Pirates !!! ***");

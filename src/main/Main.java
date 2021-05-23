@@ -16,7 +16,10 @@ import ui.cmd.MainCmdUI;
 public class Main {
 
 	/**
-	 * @param args
+	 * Main method to run the game, chooses between gui (default) and cmd ui if
+	 * cmd is passed as arg
+	 * 
+	 * @param args is the args to pass to the app
 	 */
 	public static void main(String[] args) {
 

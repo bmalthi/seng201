@@ -36,6 +36,7 @@ public class World {
 	 * Creates a new world object. Currently with fixed islands and routes. 
 	 * Stores within islands will have random selection of objects to buy or sell
 	 * 
+	 * @param random, the random object we use for creating random world objects
 	 */
 	public World(Random random) {
 		this.islands = new ArrayList<Island>();
@@ -336,9 +337,9 @@ public class World {
 	}
 	
 	/**
-	 * Gets list of routes that exist in the game, limited to routes that touch island1 & island2
+	 * Gets list of routes that exist in the game, limited to routes that touch island1 and island2
 	 * @param island1, the first island the route must go between
-	 * @param island2, the second island the route must go between	 * 
+	 * @param island2, the second island the route must go between 
 	 * @return the routes that start and finish at certain island
 	 */	
 	public List<Route> getRoutes(Island island1, Island island2) {
