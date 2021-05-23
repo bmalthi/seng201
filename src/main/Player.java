@@ -24,7 +24,7 @@ public class Player {
 	private Ship ship;
 	
 	// The players starting balance of money
-	private final int STARTING_BALANCE = 200;
+	private final int STARTING_BALANCE = 100;
 	
 	// Regex limiting the players name, has to be 3-15 letters or space
 	public static final String NAME_REGEX = "^[a-z A-Z]{3,15}$";

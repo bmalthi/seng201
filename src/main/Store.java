@@ -79,36 +79,7 @@ public class Store {
 	 */		
 	private void removeFromBuy(PricedItem item) {
 		toBuy.remove(item);		
-	}		
-	
-	/**
-	 * Takes a List of items to buy and sell and returns
-	 * a list of names of the Priceditems in the lists
-	 * 
-	 * @param list, the list of items the store is buying or selling
-	 * @return a string, list of the names of the Priceditems in the list
-	 */
-	private String listItems(List<PricedItem> list) {
-		String listings = "";
-		for (int i = 0; i < list.size(); i++) {
-			listings = listings + list.get(i).toString() + "\n";
-		}
-		return listings;
-	}	
-	
-	/**
-	 * @return a string listing of the items for sale / buy
-	 */
-	public String getToBuyNames() {
-		return listItems(getToBuyList());
-	}		
-	
-	/**
-	 * @return a string listing of the items for sale / buy
-	 */
-	public String getToSellNames() {
-		return listItems(getToSellList());
-	}		
+	}			
 	
 	/**
 	 * Method called when the store is selling an item
