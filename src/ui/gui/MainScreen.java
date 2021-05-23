@@ -31,7 +31,7 @@ public class MainScreen extends Screen {
 	 * Initialize the contents of the frame.
 	 */
 	public void initialize() {
-		JFrame frame = getFrame();
+		JFrame frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
 		frame.getContentPane().setLayout(null);
 		
@@ -86,11 +86,11 @@ public class MainScreen extends Screen {
 		btnVisitIslandStore.setBounds(56, 354, 237, 74);
 		frame.getContentPane().add(btnVisitIslandStore);
 		
-		JButton btnViewShipStatus = new JButton("VIEW SHIP STATUS");
+		JButton btnViewShipStatus = new JButton("VIEW SHIP PROPERTIES");
 		btnViewShipStatus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				Screen screen = new ShipStatusScreen(islandTrader);
+				Screen screen = new ShipProperties(islandTrader);
 		    	screen.show();
 			}
 		});
@@ -119,17 +119,6 @@ public class MainScreen extends Screen {
 		btnSailToAnother.setBounds(325, 354, 234, 74);
 		frame.getContentPane().add(btnSailToAnother);
 		
-		JButton btnChangeSetupInformation = new JButton("CHANGE INFORMATION");
-		btnChangeSetupInformation.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				quit();
-				Screen screen = new SetupScreen(islandTrader);
-		    	screen.show();
-			}
-		});
-		btnChangeSetupInformation.setBounds(20, 489, 164, 59);
-		frame.getContentPane().add(btnChangeSetupInformation);
-		
 		JButton btnNewButton_1 = new JButton("QUIT GAME");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -146,7 +135,7 @@ public class MainScreen extends Screen {
 				} 
 			}
 		});
-		btnNewButton_1.setBounds(219, 489, 143, 59);
+		btnNewButton_1.setBounds(20, 477, 143, 59);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		JLabel lblNewLabel = new JLabel("");
