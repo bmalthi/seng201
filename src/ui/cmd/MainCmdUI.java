@@ -15,6 +15,9 @@ import main.Ship;
 import main.Store;
 import ui.IslandTraderUI;
 
+/**
+ * CMD Line UI for IslandTrader, implements the IslandTraderUI Interface
+ */
 public class MainCmdUI implements IslandTraderUI {
 
     // The scanner used to read input from the console
