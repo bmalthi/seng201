@@ -23,6 +23,8 @@ public abstract class ListOption extends Option {
     /**
 	 * Initialize the ListOption, with ui default regex.
 	 * Default regex is range from 1-99. Does not support input from user outside of this. User input is also
+	 * 
+	 * @param ui, the ui object this ListOption os part of
 	 */
 	public ListOption(MainCmdUI ui) {
 		super(ui, "-?[1-9][0-9]?$"); //Menu can only have 99 items		
@@ -42,15 +44,16 @@ public abstract class ListOption extends Option {
     
     /**
 	 * Print the list of indexed options to choose from to the user
-	 */		    
-    public void printOptions() { 
+	 */	  
+    @Override
+    protected void printOptions() { 
     	if (options.size() > 1) {
     		for(int i = 1; i < options.size(); i++) {
     			System.out.println("(" + getDisplayIndex(i) + ") " + options.get(i));
     		}
     	}
 		System.out.println("(" + getDisplayIndex(0) + ") " + options.get(0));
-    }          
+    }  
 	
     @Override
     /**
@@ -61,7 +64,7 @@ public abstract class ListOption extends Option {
     	super.validateInput(input);
 		int intInput = Integer.parseInt(input);
 		if (intInput < -1 || intInput == 0 || intInput >= options.size()) {
-			throw new InvalidInputException("Input `" + input + "` is invalid. Regex: " +INPUT_REGEX);
+			throw new InvalidInputException("Input `" + input + "` is invalid. Value must be -1 or <= " +options.size());
 		}
 	}
 

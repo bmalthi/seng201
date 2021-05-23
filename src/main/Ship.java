@@ -79,7 +79,6 @@ public class Ship {
 	
 	/**
 	 * @param damageAmount, the new amount of damage for the ship
-	 * @return the current damage level of the ship
 	 */		
 	public void setDamageAmount(int damageAmount) {
 		this.damageAmount = damageAmount;

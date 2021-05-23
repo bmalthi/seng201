@@ -24,6 +24,8 @@ public interface RandomEvent {
 
 	/**
 	 * Method to describe riskyness of the event 
+	 * 
+	 * @return String, a friendly name for how likely the event is to happen
 	 */	
 	public String riskDescription();
 }

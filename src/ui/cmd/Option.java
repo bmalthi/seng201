@@ -13,7 +13,6 @@ import java.util.Scanner;
  * the input to a (typically overidden) handleOption method 
  * 
  * Typically this will be subclassed as a specific input menu with default values passed
- * TODO bmalthus: Should I remake this abstract
  */
 public class Option {    
 	
@@ -29,7 +28,7 @@ public class Option {
     /**
 	 * Exception throw when we do not receive valid input
 	 */    
-    @SuppressWarnings("serial") //TODO WTF IS THIS
+    @SuppressWarnings("serial") // Unsure why eclipse wants this
 	protected class InvalidInputException extends IllegalArgumentException {    	
 
 		InvalidInputException(String message) {
@@ -39,7 +38,10 @@ public class Option {
 
     /**
 	 * Initialize the Option, with ui and valid regex
-	 */    
+	 * 
+	 * @param ui, the ui object this Option is linked to
+	 * @param INPUT_REGEX, string indicating regex succesful input to this Option must match
+	 */        
     public Option(MainCmdUI ui, String INPUT_REGEX) {
     	this.INPUT_REGEX = INPUT_REGEX;
     	this.ui = ui;
@@ -47,18 +49,24 @@ public class Option {
     
     /**
 	 * Method to collect user input, looping until valid input is received
+	 * 
+	 * @param scanner, cmd line input scanner object
 	 */      
 	protected void getUserOption(Scanner scanner) {
+		//Print the overall header
 		oneHeader();
 		
         while (!finish) {        	
-	
+        	
+        	//Print the pre loop header
         	eachHeader();
+        	//Print the options to the user - could be blank
             printOptions();            
     		
+            // try to get valid input
             try {
             	String input = scanner.nextLine();
-            	validateInput(input);
+            	validateInput(input); //throws exception if input is not valid
             	handleOption(input);
             } catch (InvalidInputException e) {
             	System.out.println("Please try again: "+e.getMessage());     	
@@ -68,36 +76,45 @@ public class Option {
             }    		    		
 
         }	
+        //Print the final footer, normally just a newline
         oneFooter();
         
-        //Reset
         // Reset the Option to initial state, because it is often reused in game
         finish = false;        
 	}
 	
     /**
-	 * Dummy method (typically overridden, especially when presenting list of options to the user)
-	 * This method will print a list of options to choose from to the user, more detail if the options
-	 * presented cannot be assigned in the header / need to be refreshed throughout the game.
-	 */    	
+	 * Print the list of indexed options to choose from to the user
+	 * Dummy method in Option, will be overridden later
+	 */	   	
 	protected void printOptions() {
 		//Default is blank
 	}
 	
+	/**
+	 * Method to print a header once  when starting this menu item
+	 */
 	protected void oneHeader() {
     	System.out.println("****************************************");		
 	}
 	
+	/**
+	 * Method to print a header every loop of menu
+	 */	
 	protected void eachHeader() {
     	System.out.println("");		
 	}
 	
+	/**
+	 * Method to print a footer when finishing with menu
+	 */	
 	protected void oneFooter() {
     	System.out.println("\n");		
 	}	
 	
     /**
 	 * Validate that the user input matches the INPUT_REGEX, throw exception if not
+	 * @param input, the string to validate
 	 */  	
 	protected void validateInput(String input) {
     	if(input.matches(INPUT_REGEX) == false) {
@@ -107,8 +124,9 @@ public class Option {
 	
     /**
 	 * Method to handle next steps once valid input has been received
+	 * @param option, the regex validated string that the user entered
 	 */  	
-	public void handleOption(String option) {	
+	protected void handleOption(String option) {	
 		this.setMenuFinish();
 	}	
 	

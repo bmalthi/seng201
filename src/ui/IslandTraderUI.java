@@ -13,9 +13,9 @@ import main.Route;
 public interface IslandTraderUI {
     /**
      * Initialises this UI and sets up the given IslandTrader, with the ships, islands, stores to be managed
-     * Once setup is complete this UI must call {@link IslandTrader#onSetupFinished(String, List)}.
+     * Once setup is complete this UI must call {@link IslandTrader#onSetupFinished}.
      *
-     * @param game, the islandTrader game instance that this UI interacts with
+     * @param islandTrader, the islandTrader game instance that this UI interacts with
      */
     public void setup(IslandTrader islandTrader);
 
@@ -26,9 +26,9 @@ public interface IslandTraderUI {
 
     /**
      * Confirms user wants to quit the game
-     * @return
+     * @return boolean indicating user intention to quit
      */
-	boolean confirmQuit();
+	public boolean confirmQuit();
 	
     /**
      * Quits the application.
@@ -65,7 +65,7 @@ public interface IslandTraderUI {
      * @param repairCost, the extra repair cost from the weather
      * @param repairValidation, indicates if the user can afford repair
      */
-    public void encounterWeather(int damage, int repairCost, FailureState repairvalidation);
+    public void encounterWeather(int damage, int repairCost, FailureState repairValidation);
 
     /**
      * Reports details to the user of encounter with sailors who are rescued
@@ -79,7 +79,7 @@ public interface IslandTraderUI {
      * Reports details to the user of encounter with pirates
      * 
      * @param diceThrow, the random number that the user got to determine success when fighting the pirates
-     * @param boardship, the boolean result of the dicethrow if pirates boardded the ship
+     * @param boardShip, the boolean result of the dicethrow if pirates boardded the ship
      * @param transactions, the record of items the pirates stole from the player
      * @param goodsSatisfy, boolean indicating if the goods were enough for the pirate, you lose game if false
      */

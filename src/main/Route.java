@@ -26,8 +26,10 @@ public class Route {
 
 	/**
 	 * Creates a new route
+	 * @param distance - the length of the route
 	 * @param island1 - one of the islands attached to the route
 	 * @param island2 - one of the islands attached to the route
+	 * @param the world the island is attached to
 	 */
 	public Route(int distance, Island island1, Island island2, World world) {
 		this.distance = distance;
@@ -39,6 +41,7 @@ public class Route {
 	
 	/**
 	 * Adds a random event to the route
+	 * 
 	 * @param randomEvent a randomEvent a user could encounter on the route
 	 */	
 	public void addEvent(RandomEvent randomEvent) {
@@ -48,6 +51,7 @@ public class Route {
 	/**
 	 * Get the length of the route. Note this is not sailing time, sailing time is determined by
 	 * route distance and the ship's sailing speed
+	 * 
 	 * @return the route distance
 	 */
 	public int getDistance() {
@@ -76,10 +80,10 @@ public class Route {
 	}	
 	
 	/**
-	 * Get a description of the route, given a startIsland
-	 * @param startIsland, the island to be represented first in the description
+	 * Get a description of the route
+	 * @return String description of the route
 	 */		
-	public String description() {
+	private String description() {
 		String output = "";	
 		if (getIsland1() == this.world.getCurrentIsland())
 			output = output + getIsland1() + " to " + getIsland2();	
@@ -100,7 +104,11 @@ public class Route {
 	}
 	
 	/**
-	 * @return the other island attached to a route given one island
+	 * This method gets the otherIsland linked to a route is we know one, 
+	 * helps us to treat the routes as undirected
+	 * 
+	 * @param island, the island we know
+	 * @return the other island attached to a route given one island that we don't know
 	 */
 	public Island otherIsland(Island island) {
 		if (getIsland1() == island)

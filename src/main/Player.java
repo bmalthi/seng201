@@ -142,7 +142,6 @@ public class Player {
     			for (int i = purchases.size()-1; i >= 0; i--) {
     				PricedItem purchase = purchases.get(i);
 	    			if (purchase.getItem().equals(sale.getItem())) {
-	    				System.out.println("Matchroo");
 		    			profit = sale.getPrice() - purchase.getPrice();
 		    			purchases.remove(purchase);
 	    			}

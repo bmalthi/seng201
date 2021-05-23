@@ -1,7 +1,5 @@
 package ui.gui;
 
-//import java.awt.EventQueue;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -16,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /**
- * View money & days remaining 
+ * View money and days remaining 
  * @author kvie
  * 
  */
