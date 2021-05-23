@@ -93,14 +93,7 @@ public class IslandStore extends Screen {
 		JButton btnNewButton_2_1 = new JButton("Repair your ship");
 		btnNewButton_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int repairCost = getManager().getPlayer().getShip().getRepairCost();
-				getManager().getPlayer().setBalance(getManager().getPlayer().getBalance() - repairCost);
-				getManager().getPlayer().getShip().setDamageAmount(0);
-				
-				//record transaction
-				String name = getManager().getWorld().getCurrentIsland();
-				PricedItem repairRecord = new PricedItem(new Item(name, "No description", 0, ItemType.REPAIR), repairCost, PriceType.PURCHASED, getManager().getWorld().getCurrentIsland());
-				getManager().getPlayer().addTransaction(repairRecord);
+				getManager().repairShip();
 			}
 		});
 		btnNewButton_2_1.setBounds(116, 399, 215, 73);
