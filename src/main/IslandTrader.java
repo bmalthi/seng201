@@ -175,8 +175,8 @@ public class IslandTrader {
 	public int gameScore() {		
 		int score = player.getBalance();
 		
-		// Get extra points for profit. 10$ per profit
-		score = score + player.getProfitValue()[0] * 10;
+		// Get extra points for profit. 5$ per profit
+		score = score + player.getProfitValue()[0] * 5;
 		
 		// Get points for value in storage still
 		score = score + player.getProfitValue()[1];
@@ -428,7 +428,7 @@ public class IslandTrader {
 	 * @param event, the event to potentially trigger randomly
 	 */	
 	public void triggerRandomSailingEvent(RandomEvent event) {
-		int probabilityOutcome = getRandomInt(101);
+		int probabilityOutcome = getRandomInt(100)+1; //Minvalue of 1
 		if (probabilityOutcome < event.getProbability()) {
 			event.eventTriggered(this);
 		}

@@ -5,12 +5,6 @@ package test.main;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import main.FailureState;
@@ -32,38 +26,9 @@ import ui.IslandTraderUI;
 import ui.cmd.MainCmdUI;
 
 /**
- * @author bmalthi
- *
+ * Class to test main game class does what is expected
  */
 class IslandTraderTest {
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeEach
-	void setUp() throws Exception {	
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterEach
-	void tearDown() throws Exception {
-	}
 
 	@Test
 	void setupTest() {
@@ -288,6 +253,91 @@ class IslandTraderTest {
         int endDamage = islandTrader.getPlayer().getShip().getDamageAmount();
         assertTrue(endDamage < midDamage);
         assertTrue(endDamage == startDamage);        
+	}	
+	
+	@Test
+	void scoreTest() {
+		//Setup
+		MainCmdUI ui = new MainCmdUI();
+        IslandTrader islandTrader = new IslandTrader(ui);
+        ui.setManager(islandTrader);
+        islandTrader.setPlayer(new Player("TestDummy"));
+        islandTrader.selectShip(0);
+        islandTrader.setGameLength(20);	
+        
+        // Score should increase with visited islands and profit
+        int startScore = islandTrader.gameScore();
+        Island endIsland = new Island("ben", new Store("ben"));
+        Route testRoute = new Route(10, islandTrader.getWorld().getCurrentIsland(), endIsland, islandTrader.getWorld());
+        islandTrader.getWorld().addRouteIndZero(testRoute);
+        
+        // Firstly buy and sell and item, sell for more money
+        Item test = new Item("Tester", "", 2, ItemType.CARGO);
+        PricedItem purchase = new PricedItem(test, 10, PriceType.PURCHASED, islandTrader.getWorld().getCurrentIsland());
+        PricedItem sale = new PricedItem(test, 20, PriceType.SOLD, islandTrader.getWorld().getCurrentIsland());       
+        islandTrader.getPlayer().addTransaction(purchase);
+        islandTrader.getPlayer().addTransaction(sale);        
+        int endScore = islandTrader.gameScore();
+        assertTrue((endScore - startScore) == 50); //5* per profit
+        
+        // Sailing to another island should increase score because #islands visited increases
+        // Set player $ balance to 100 before each scoreing to remove crew cost effects
+        islandTrader.getPlayer().setBalance(100);
+        startScore = islandTrader.gameScore();
+        islandTrader.sailRoute(0);
+        islandTrader.getPlayer().setBalance(100);
+        endScore = islandTrader.gameScore();
+        assertTrue((endScore - startScore) == 10);        
+	}
+	
+	@Test
+	void validateTest() {
+		//Setup
+		MainCmdUI ui = new MainCmdUI();
+        IslandTrader islandTrader = new IslandTrader(ui);
+        ui.setManager(islandTrader);
+        islandTrader.setPlayer(new Player("TestDummy"));
+        islandTrader.selectShip(0);
+        islandTrader.setGameLength(20);	
+        
+        // Objects to test with       
+        Island endIsland = new Island("ben", new Store("ben"));
+        Route testRoute = new Route(10, islandTrader.getWorld().getCurrentIsland(), endIsland, islandTrader.getWorld());
+        Item test = new Item("Tester", "", 2, ItemType.CARGO);
+        PricedItem purchased = new PricedItem(test, 50, PriceType.PURCHASED, islandTrader.getWorld().getCurrentIsland());
+        PricedItem purchase = new PricedItem(test, 50, PriceType.FORSALE, islandTrader.getWorld().getCurrentIsland());
+        PricedItem sale = new PricedItem(test, 50, PriceType.FORBUY, islandTrader.getWorld().getCurrentIsland());               
+       
+        //Validate money to purchase item
+        islandTrader.getPlayer().setBalance(0);
+        assertTrue(islandTrader.validatePurchase(purchase) == FailureState.NOMONEY);
+        assertTrue(islandTrader.validate(purchase) == islandTrader.validatePurchase(purchase));        
+        
+        islandTrader.getPlayer().setBalance(100);
+        assertTrue(islandTrader.validatePurchase(purchase) == FailureState.SUCCESS);
+        assertTrue(islandTrader.validate(purchase) == islandTrader.validatePurchase(purchase));
+        
+        //Validate can't sell item, we don't have
+        assertTrue(islandTrader.validateSale(sale) == FailureState.NOITEM);
+        assertTrue(islandTrader.validate(sale) == islandTrader.validateSale(sale));        
+        
+        //Validate player can't sail route with no money
+        islandTrader.getPlayer().setBalance(0);
+        assertTrue(islandTrader.validateRoute(testRoute, false) == FailureState.NOMONEY);
+        assertTrue(islandTrader.validate(testRoute) == islandTrader.validateRoute(testRoute, false));
+        
+        //Validate player can sail route with no money, if we think they can probably sell their goods for enough money
+        islandTrader.getPlayer().getShip().addItem(test);
+        islandTrader.getPlayer().addTransaction(purchased);
+        islandTrader.getPlayer().setBalance(0);
+        assertTrue(islandTrader.validateRoute(testRoute, false) == FailureState.NOMONEY);
+        assertTrue(islandTrader.validateRoute(testRoute, true) == FailureState.SUCCESS); //Cargo should pay for route
+        assertTrue(islandTrader.validate(testRoute) == islandTrader.validateRoute(testRoute, false));
+        assertFalse(islandTrader.validate(testRoute) == islandTrader.validateRoute(testRoute, true));
+        
+        //Validate we can sell item, we now have
+        assertTrue(islandTrader.validateSale(sale) == FailureState.SUCCESS);
+        assertTrue(islandTrader.validate(sale) == islandTrader.validateSale(sale));        
 	}	
 
 }
