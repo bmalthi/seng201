@@ -16,8 +16,7 @@ import main.ItemType;
 import main.StorageList;
 
 /**
- * @author bmalthi
- *
+ * Class to test STorageUnit usage
  */
 class StorageListTest {
 
