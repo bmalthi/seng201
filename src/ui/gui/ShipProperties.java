@@ -57,26 +57,13 @@ public class ShipProperties extends Screen {
 		btnNewButton.setBounds(37, 423, 137, 40);
 		frame.getContentPane().add(btnNewButton);
 		
-		JLabel lblProfit = new JLabel(getManager().getPlayer().getShip().description());
+		JTextArea lblProfit = new JTextArea(getManager().getPlayer().getShip().description());
+		lblProfit.setLineWrap(true);
 		lblProfit.setForeground(new Color(0, 0, 128));
-		lblProfit.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		lblProfit.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblProfit.setBackground(new Color(70, 130, 180));
-		lblProfit.setBounds(32, 166, 732, 50);
+		lblProfit.setBounds(32, 166, 732, 130);
 		frame.getContentPane().add(lblProfit);
-		
-		JLabel lblProfit_1 = new JLabel(getManager().getPlayer().getShip().description());
-		lblProfit_1.setForeground(new Color(0, 0, 128));
-		lblProfit_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		lblProfit_1.setBackground(new Color(70, 130, 180));
-		lblProfit_1.setBounds(-705, 228, 1484, 69);
-		frame.getContentPane().add(lblProfit_1);
-		
-		JLabel lblProfit_2 = new JLabel(getManager().getPlayer().getShip().description());
-		lblProfit_2.setForeground(new Color(0, 0, 128));
-		lblProfit_2.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		lblProfit_2.setBackground(new Color(70, 130, 180));
-		lblProfit_2.setBounds(-1415, 309, 2179, 69);
-		frame.getContentPane().add(lblProfit_2);
 	
 		
 		frame.setBounds(100, 100, 785, 582);
