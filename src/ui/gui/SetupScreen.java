@@ -36,7 +36,7 @@ public class SetupScreen extends Screen {
 	private JTextField txtbetweenCharacters;
 	private JSlider slider;
 		
-	private final ButtonGroup buttonGroup = new ButtonGroup();
+	//private final ButtonGroup buttonGroup  = new ButtonGroup();
 	
 	public static final String NAME_REGEX = "^[a-z A-Z]{3,15}$";
 	
@@ -48,6 +48,7 @@ public class SetupScreen extends Screen {
 	 */
 	protected SetupScreen(IslandTrader islandTrader) {
 		super("Island Trader Setup", islandTrader);
+	
 	}
 
 	/**
@@ -55,11 +56,12 @@ public class SetupScreen extends Screen {
 	 */
 	@Override
 	protected void initialise(final JFrame container) {
+		ButtonGroup buttonGroup  = new ButtonGroup();
 		container.getContentPane().setBackground(new Color(70, 130, 180));
-		container.setTitle("Welcome to Island Trader V0.5");
+		//container.setTitle("Welcome to Island Trader V0.5");
 		container.setBounds(100, 100, 785, 582);
-		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		container.getContentPane().setLayout(null);
+		//container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//container.getContentPane().setLayout(null);
 		
 		//SHould only be able to click this if valid things are selected
 		JButton btnNewButton = new JButton("Let's Play");
