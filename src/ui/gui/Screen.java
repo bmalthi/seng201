@@ -47,7 +47,7 @@ public abstract class Screen {
         initialise(frame);
 
         // Size our frame
-        frame.pack();
+        //frame.pack();
 
         // We set the location of our frame relative to null. This causes the frame to be placed
         // in the centre of the screen.

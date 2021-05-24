@@ -60,6 +60,7 @@ public class SetupScreen extends Screen {
 		container.getContentPane().setBackground(new Color(70, 130, 180));
 		//container.setTitle("Welcome to Island Trader V0.5");
 		container.setBounds(100, 100, 785, 582);
+		
 		//container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//container.getContentPane().setLayout(null);
 		
