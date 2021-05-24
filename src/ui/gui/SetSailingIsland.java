@@ -50,13 +50,13 @@ public class SetSailingIsland extends Screen {
 		frame.getContentPane().setForeground(new Color(135, 206, 250));
 		frame.getContentPane().setLayout(null);
 		
-		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Are you ready to explore the next island?\n\n");
-		lblNewLabel_1_1.setLineWrap(true);
-		lblNewLabel_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
-		lblNewLabel_1_1.setBackground(new Color(65, 105, 225));
-		lblNewLabel_1_1.setBounds(28, 37, 503, 47);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		JTextArea lblHelloTrader = new JTextArea("Hello trader! Are you ready to explore the next island?\n\n");
+		lblHelloTrader.setLineWrap(true);
+		lblHelloTrader.setForeground(Color.WHITE);
+		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
+		lblHelloTrader.setBackground(new Color(65, 105, 225));
+		lblHelloTrader.setBounds(28, 37, 503, 47);
+		frame.getContentPane().add(lblHelloTrader);
 		
 		
 		JTextArea lblNewLabel_1_1_1 = new JTextArea("Where do you want to go?");
