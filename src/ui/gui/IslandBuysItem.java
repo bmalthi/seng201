@@ -16,8 +16,7 @@ import java.awt.event.ActionEvent;
 
 public class IslandBuysItem extends Screen {
 	
-	private ArrayList<PricedItem> buyItems = new ArrayList<PricedItem>();	
-
+	private ArrayList<PricedItem> buyItems;	
 	
 	/**
 	* Create the application.
@@ -32,6 +31,7 @@ public class IslandBuysItem extends Screen {
 	 */
 	@Override
 	protected void initialise(final JFrame container) {
+		buyItems = new ArrayList<PricedItem>();
 		container.getContentPane().setBackground(new Color(47, 79, 79));
 		container.setBounds(100, 100, 785, 582);
 		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,7 +46,7 @@ public class IslandBuysItem extends Screen {
 		container.getContentPane().add(lblNewLabel_1_1);
 		
 		// Create a ListModel to store the items in the JList
-		DefaultListModel<PricedItem> buyListModel = new DefaultListModel<>();
+		DefaultListModel<PricedItem> buyListModel = new DefaultListModel<PricedItem>();
 		
 		// Add the existing items to the List Model
 		buyListModel.addAll(buyItems);
