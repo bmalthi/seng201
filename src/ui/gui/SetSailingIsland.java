@@ -21,7 +21,7 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 
 /**
- * This class represents the screen after the user clicked the "Sailing To Another Island" button in Main Menu
+ * This class represents the screen after the user clicked the "Sail To Another Island" button in Main Menu
  * @author kvie
  *
  */
@@ -59,13 +59,13 @@ public class SetSailingIsland extends Screen {
 		frame.getContentPane().add(lblHelloTrader);
 		
 		
-		JTextArea lblNewLabel_1_1_1 = new JTextArea("Where do you want to go?");
-		lblNewLabel_1_1_1.setLineWrap(true);
-		lblNewLabel_1_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
-		lblNewLabel_1_1_1.setBackground(new Color(65, 105, 225));
-		lblNewLabel_1_1_1.setBounds(28, 112, 249, 47);
-		frame.getContentPane().add(lblNewLabel_1_1_1);
+		JTextArea lblWhereToGo = new JTextArea("Where do you want to go?");
+		lblWhereToGo.setLineWrap(true);
+		lblWhereToGo.setForeground(Color.WHITE);
+		lblWhereToGo.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
+		lblWhereToGo.setBackground(new Color(65, 105, 225));
+		lblWhereToGo.setBounds(28, 112, 249, 47);
+		frame.getContentPane().add(lblWhereToGo);
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
