@@ -26,6 +26,7 @@ public class MainScreen extends Screen {
 		initialize();
 		
 	}
+
 	
 	/**
 	 * Initialize the contents of the frame.

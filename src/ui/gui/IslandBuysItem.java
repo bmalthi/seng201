@@ -34,6 +34,7 @@ public class IslandBuysItem extends Screen {
 	private ArrayList<PricedItem> buyItems = new ArrayList<PricedItem>();
 	private JFrame frame;
 
+	
 	/**
 	* Create the application.
 	*/

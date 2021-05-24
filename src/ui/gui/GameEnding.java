@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 public class GameEnding extends Screen {
 
 	private JFrame frame;
+	
 	/**
 	 * Create the application.
 	 */

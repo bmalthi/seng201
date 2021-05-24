@@ -27,7 +27,7 @@ public class IslandStore extends Screen {
 		super("Island Store", islandTrader);
 		initialize();
 	}
-	
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -104,8 +104,6 @@ public class IslandStore extends Screen {
 				}
 			}
 		});
-
-
 		
 		btnNewButton_2_1.setBounds(116, 375, 215, 73);
 		frame.getContentPane().add(btnNewButton_2_1);
@@ -120,8 +118,7 @@ public class IslandStore extends Screen {
 		});
 		btnNewButton_2_1_1.setBounds(116, 466, 215, 73);
 		frame.getContentPane().add(btnNewButton_2_1_1);
-		
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+}
 }

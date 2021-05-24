@@ -233,7 +233,7 @@ public class Ship {
 	 * Gets any upgrades
 	 * @return the upgrades
 	 */
-	private ArrayList<Item> getUpgrades() {
+	public ArrayList<Item> getUpgrades() {
 		ArrayList<Item> upgrades = new ArrayList<Item>();
 		for (StorageList list : storage) {
 			if (list.getType() == ItemType.UPGRADE) {

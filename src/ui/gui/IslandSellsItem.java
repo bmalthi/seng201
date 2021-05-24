@@ -62,6 +62,7 @@ public class IslandSellsItem extends Screen {
 		// Add the existing items to the List Model
 		sellListModel.addAll(sellItems);
 		
+		
 		// Create the JList
 		JList<PricedItem> sellItemList = new JList<PricedItem>(sellListModel);
 		sellItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
