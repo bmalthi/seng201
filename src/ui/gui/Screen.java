@@ -1,6 +1,5 @@
 package ui.gui;
 
-import java.awt.Container;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -60,7 +59,7 @@ public abstract class Screen {
      *
      * @param container The container to add content to
      */
-    protected abstract void initialise(Container container);    
+    protected abstract void initialise(JFrame container);    
 	
 	/**
 	 * Gets the {@link IslandTrader} that this screen supports
