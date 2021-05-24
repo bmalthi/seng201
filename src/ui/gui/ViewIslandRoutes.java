@@ -1,28 +1,23 @@
 package ui.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import main.Island;
 import main.IslandTrader;
-import main.PricedItem;
 import main.Route;
 
 import java.awt.Color;
+import java.awt.Container;
+
 import javax.swing.JTextArea;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JLabel;
 import javax.swing.JList;
 
 public class ViewIslandRoutes extends Screen {
@@ -35,16 +30,15 @@ public class ViewIslandRoutes extends Screen {
 	public ViewIslandRoutes(IslandTrader islandTrader) {
 		
 		super("View Routes To The Current Island", islandTrader);
-		initialize();
 		
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	@Override
+	protected void initialise(final JFrame container) {
 		List<Route> routes = getManager().getWorld().getRoutesFromCurrent();
-		frame = getFrame();
 		frame.getContentPane().setBackground(new Color(47, 79, 79));
 		frame.getContentPane().setLayout(null);
 		

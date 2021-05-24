@@ -1,6 +1,5 @@
 package ui.gui;
 
-
 import javax.swing.JFrame;
 import javax.swing.JList;
 
@@ -21,26 +20,23 @@ import java.awt.event.ActionEvent;
 
 public class SetSailingIsland extends Screen {
 
-	private JFrame frame;
-
 	/**
 	 * Create the application.
 	 */
 	public SetSailingIsland(IslandTrader islandTrader) {
 		super("Sailing To Another Island", islandTrader);
-		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the container.
 	 */
-	private void initialize() {
+	@Override
+	protected void initialise(final JFrame container) {
 		List<Route> routes = getManager().getWorld().getRoutesFromCurrent();
-		frame = getFrame();
-		frame.getContentPane().setBackground(new Color(135, 206, 250));
-		frame.setBackground(new Color(135, 206, 250));
-		frame.getContentPane().setForeground(new Color(135, 206, 250));
-		frame.getContentPane().setLayout(null);
+		container.getContentPane().setBackground(new Color(135, 206, 250));
+		container.setBackground(new Color(135, 206, 250));
+		container.getContentPane().setForeground(new Color(135, 206, 250));
+		container.getContentPane().setLayout(null);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Are you ready to explore the next island?\n\n");
 		lblNewLabel_1_1.setLineWrap(true);
@@ -48,7 +44,7 @@ public class SetSailingIsland extends Screen {
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblNewLabel_1_1.setBackground(new Color(65, 105, 225));
 		lblNewLabel_1_1.setBounds(28, 37, 503, 47);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		container.getContentPane().add(lblNewLabel_1_1);
 		
 		
 		JTextArea lblNewLabel_1_1_1 = new JTextArea("Where do you want to go?");
@@ -57,9 +53,9 @@ public class SetSailingIsland extends Screen {
 		lblNewLabel_1_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblNewLabel_1_1_1.setBackground(new Color(65, 105, 225));
 		lblNewLabel_1_1_1.setBounds(28, 112, 249, 47);
-		frame.getContentPane().add(lblNewLabel_1_1_1);
-		frame.setBounds(100, 100, 785, 582);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		container.getContentPane().add(lblNewLabel_1_1_1);
+		container.setBounds(100, 100, 785, 582);
+		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<Route> routeListModel = new DefaultListModel<>();
@@ -75,7 +71,7 @@ public class SetSailingIsland extends Screen {
 		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		routeList.setBounds(27, 219, 732, 184);
-		frame.getContentPane().add(routeList);
+		container.getContentPane().add(routeList);
 		
 		JButton btnNewButton = new JButton("Let's set sailing!");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -84,7 +80,7 @@ public class SetSailingIsland extends Screen {
 			}
 		});
 		btnNewButton.setBounds(297, 436, 169, 59);
-		frame.getContentPane().add(btnNewButton);
+		container.getContentPane().add(btnNewButton);
 				
 	}
 
