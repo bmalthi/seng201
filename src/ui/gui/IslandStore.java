@@ -1,21 +1,16 @@
 package ui.gui;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JTextArea;
 
+import main.FailureState;
 import main.IslandTrader;
-import main.Item;
-import main.ItemType;
-import main.PriceType;
-import main.PricedItem;
 
 import java.awt.Font;
 
 import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -37,7 +32,7 @@ public class IslandStore extends Screen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = getFrame();
 		frame.getContentPane().setBackground(new Color(184, 134, 11));
 		frame.getContentPane().setLayout(null);
 		
@@ -56,11 +51,6 @@ public class IslandStore extends Screen {
 		lblNewLabel_1_1.setBounds(19, 62, 752, 85);
 		frame.getContentPane().add(lblNewLabel_1_1);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("New check box");
-		
-		chckbxNewCheckBox.setBounds(519, 216, 128, 23);
-		frame.getContentPane().add(chckbxNewCheckBox);
-		
 		JLabel burgerstore = new JLabel("");
 		burgerstore.setIcon(new ImageIcon(IslandStore.class.getResource("/burgerstore1.png")));
 		burgerstore.setBounds(362, 329, 429, 237);
@@ -72,10 +62,24 @@ public class IslandStore extends Screen {
 		frame.getContentPane().add(eatingburger);
 		
 		JButton btnNewButton = new JButton("See what we have for sale");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				quit();
+				Screen screen = new IslandSellsItem(islandTrader);
+				screen.show();
+			}
+		});
 		btnNewButton.setBounds(37, 193, 189, 73);
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnSeeWhatWe = new JButton("See what we are buying");
+		btnSeeWhatWe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				quit();
+				Screen screen = new IslandBuysItem(islandTrader);
+				screen.show();
+			}
+		});
 		btnSeeWhatWe.setBounds(248, 193, 189, 73);
 		frame.getContentPane().add(btnSeeWhatWe);
 		
@@ -87,24 +91,35 @@ public class IslandStore extends Screen {
 				screen.show();
 			}
 		});
-		btnViewPastPurchases.setBounds(116, 296, 215, 73);
+		btnViewPastPurchases.setBounds(116, 278, 215, 85);
 		frame.getContentPane().add(btnViewPastPurchases);
 		
 		JButton btnNewButton_2_1 = new JButton("Repair your ship");
 		btnNewButton_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int repairCost = getManager().getPlayer().getShip().getRepairCost();
-				getManager().getPlayer().setBalance(getManager().getPlayer().getBalance() - repairCost);
-				getManager().getPlayer().getShip().setDamageAmount(0);
-				
-				//record transaction
-				String name = getManager().getWorld().getCurrentIsland();
-				PricedItem repairRecord = new PricedItem(new Item(name, "No description", 0, ItemType.REPAIR), repairCost, PriceType.PURCHASED, getManager().getWorld().getCurrentIsland());
-				getManager().getPlayer().addTransaction(repairRecord);
+				if (getManager().validateRepair(null) == FailureState.SUCCESS) {
+					getManager().repairShip();
+				} else {
+					System.out.println("You don't have enough money to repair your ship");
+				}
 			}
 		});
-		btnNewButton_2_1.setBounds(116, 399, 215, 73);
+
+
+		
+		btnNewButton_2_1.setBounds(116, 375, 215, 73);
 		frame.getContentPane().add(btnNewButton_2_1);
+		
+		JButton btnNewButton_2_1_1 = new JButton("Back to main menu");
+		btnNewButton_2_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				quit();
+				Screen screen = new MainScreen(islandTrader);
+				screen.show();
+			}
+		});
+		btnNewButton_2_1_1.setBounds(116, 466, 215, 73);
+		frame.getContentPane().add(btnNewButton_2_1_1);
 		
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

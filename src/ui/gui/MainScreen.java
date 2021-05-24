@@ -31,7 +31,7 @@ public class MainScreen extends Screen {
 	 * Initialize the contents of the frame.
 	 */
 	public void initialize() {
-		JFrame frame = new JFrame();
+		JFrame frame = getFrame();
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
 		frame.getContentPane().setLayout(null);
 		
@@ -124,9 +124,10 @@ public class MainScreen extends Screen {
 			public void actionPerformed(ActionEvent e) {
 				int choice = JOptionPane.showConfirmDialog(frame, "Are you sure you want to quit?",  "Quit Game", JOptionPane.YES_NO_OPTION);
 				if (choice == JOptionPane.YES_OPTION) {
-					frame.dispose();
-					//System.out.println("Sad to see you leave!");
-					// quit the game
+					quit();
+					Screen screen = new GameEnding(islandTrader);
+					screen.show();
+					
 				} else if (choice == JOptionPane.NO_OPTION) {
 					frame.setVisible(true);
 					//System.out.println("Let's continue the game");

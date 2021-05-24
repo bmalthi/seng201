@@ -70,10 +70,11 @@ public class SetupScreen extends Screen {
 				//Set the player
 				getManager().setPlayer(new Player(txtbetweenCharacters.getText()));
 				
-				//Set the gamelength
+				//Set the game length
 				getManager().setGameLength(slider.getValue());
 				
 				//Set the ship
+				getManager().getPlayer().getShip();
 				// TODO KVIE TO GET WHICHEVER SHIP WAS SELECTED
 				getManager().selectShip(0);
 				

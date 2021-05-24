@@ -30,12 +30,12 @@ public class IslandProperties extends Screen {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = getFrame();
 		frame.getContentPane().setBackground(new Color(240, 230, 140));
 		frame.getContentPane().setLayout(null);
 		
-		JTextArea lblNewLabel_1_1 = new JTextArea("How's the sailing going? Hope it is going all well and \nyou haven't seen any pirates yet!\n");
-		lblNewLabel_1_1.setBounds(20, 27, 466, 63);
+		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! How's the sailing going? Hope it is going all well \nand you haven't seen any pirates yet!\n");
+		lblNewLabel_1_1.setBounds(20, 27, 653, 63);
 		lblNewLabel_1_1.setLineWrap(true);
 		lblNewLabel_1_1.setForeground(new Color(0, 0, 0));
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
@@ -112,7 +112,7 @@ public class IslandProperties extends Screen {
 		btnSeeWhatSells.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				Screen screen = new IslandStore(islandTrader);
+				Screen screen = new IslandSellsItem(islandTrader);
 		    	screen.show();
 			}
 			
@@ -124,7 +124,7 @@ public class IslandProperties extends Screen {
 		btnSeeWhatBuys.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				Screen screen = new IslandStore(islandTrader);
+				Screen screen = new IslandBuysItem(islandTrader);
 		    	screen.show();
 			}
 		});
