@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>IslandTraderTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 23, 2021 12:36:36 PM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">test.main</a> &gt; <span class="el_source">IslandTraderTest.java</span></div><h1>IslandTraderTest.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package test.main;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+import main.FailureState;
+import main.Island;
+import main.IslandTrader;
+import main.Item;
+import main.ItemType;
+import main.PiratesEncounter;
+import main.Player;
+import main.PriceType;
+import main.PricedItem;
+import main.RandomEvent;
+import main.RescueSailors;
+import main.Route;
+import main.StorageList;
+import main.Store;
+import main.UnfortunateWeather;
+import ui.IslandTraderUI;
+import ui.cmd.MainCmdUI;
+
+/**
+ * Class to test main game class does what is expected
+ */
+<span class="fc" id="L31">class IslandTraderTest {</span>
+
+	@Test
+	void setupTest() {
+		//Setup
+<span class="fc" id="L36">		MainCmdUI ui = new MainCmdUI();</span>
+<span class="fc" id="L37">        IslandTrader islandTrader = new IslandTrader(ui);</span>
+<span class="fc" id="L38">        ui.setManager(islandTrader);</span>
+<span class="fc" id="L39">        islandTrader.setPlayer(new Player(&quot;TestDummy&quot;));</span>
+<span class="fc" id="L40">        islandTrader.selectShip(0);</span>
+<span class="fc" id="L41">        islandTrader.setGameLength(20);	</span>
+        
+        // Test buying an item
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        assertTrue(islandTrader.getPlayer().getBalance() == 100);</span>
+<span class="pc bpc" id="L45" title="1 of 2 branches missed.">        assertTrue(islandTrader.getPlayer().getShip() == islandTrader.getWorld().getShips().get(0)); </span>
+<span class="fc" id="L46">	}</span>
+	@Test
+	void purchaseTest() {
+		//Setup
+<span class="fc" id="L50">		MainCmdUI ui = new MainCmdUI();</span>
+<span class="fc" id="L51">        IslandTrader islandTrader = new IslandTrader(ui);</span>
+<span class="fc" id="L52">        ui.setManager(islandTrader);</span>
+<span class="fc" id="L53">        islandTrader.setPlayer(new Player(&quot;TestDummy&quot;));</span>
+<span class="fc" id="L54">        islandTrader.selectShip(0);</span>
+<span class="fc" id="L55">        islandTrader.setGameLength(20);	</span>
+        
+        // Test buying an item
+<span class="fc" id="L58">        Item firstInList = islandTrader.getWorld().getCurrentIsland().getStore().getToSellList().get(0).getItem();</span>
+<span class="fc" id="L59">        islandTrader.buyStoreItem(0);</span>
+<span class="fc" id="L60">        assertTrue(islandTrader.getPlayer().getShip().hasItem(firstInList));</span>
+<span class="fc" id="L61">	}</span>
+	
+	@Test
+	void saleTest() {
+		//Setup
+<span class="fc" id="L66">		MainCmdUI ui = new MainCmdUI();</span>
+<span class="fc" id="L67">        IslandTrader islandTrader = new IslandTrader(ui);</span>
+<span class="fc" id="L68">        ui.setManager(islandTrader);</span>
+<span class="fc" id="L69">        islandTrader.setPlayer(new Player(&quot;TestDummy&quot;));</span>
+<span class="fc" id="L70">        islandTrader.selectShip(0);</span>
+<span class="fc" id="L71">        islandTrader.setGameLength(20);	</span>
+        
+        // Test buying an item
+<span class="fc" id="L74">        Item firstInList = islandTrader.getWorld().getCurrentIsland().getStore().getToBuyList().get(0).getItem();</span>
+<span class="fc" id="L75">        islandTrader.getPlayer().getShip().getStorageBays().add(new StorageList(&quot;Test&quot;, 10, firstInList.getType()));</span>
+<span class="fc" id="L76">        islandTrader.getPlayer().getShip().addItem(firstInList);</span>
+<span class="fc" id="L77">        assertTrue(islandTrader.getPlayer().getShip().hasItem(firstInList));</span>
+<span class="fc" id="L78">        islandTrader.sellStoreItem(0);</span>
+<span class="fc" id="L79">        assertFalse(islandTrader.getPlayer().getShip().hasItem(firstInList));</span>
+<span class="fc" id="L80">	}	</span>
+	
+	@Test
+	void gameOverTest() {
+		//Setup
+<span class="fc" id="L85">		MainCmdUI ui = new MainCmdUI();</span>
+<span class="fc" id="L86">        IslandTrader islandTrader = new IslandTrader(ui);</span>
+<span class="fc" id="L87">        ui.setManager(islandTrader);</span>
+<span class="fc" id="L88">        islandTrader.setPlayer(new Player(&quot;TestDummy&quot;));</span>
+<span class="fc" id="L89">        islandTrader.selectShip(0);</span>
+<span class="fc" id="L90">        islandTrader.setGameLength(20);	</span>
+        
+        // Test is game is over
+<span class="fc" id="L93">        PricedItem firstInList = islandTrader.getWorld().getCurrentIsland().getStore().getToSellList().get(0);</span>
+<span class="fc" id="L94">        islandTrader.buyStoreItem(0);</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        assertTrue(islandTrader.isGameOver() == FailureState.SUCCESS);</span>
+        
+        //Remove all money and goods and retest
+<span class="fc" id="L98">        islandTrader.getPlayer().setBalance(0);</span>
+<span class="fc" id="L99">        Item stolen = islandTrader.getPlayer().getShip().removeCargo().get(0);</span>
+<span class="fc" id="L100">        islandTrader.getPlayer().addTransaction(new PricedItem(stolen, 0, PriceType.STOLEN, islandTrader.getWorld().getCurrentIsland())); </span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        assertTrue(islandTrader.isGameOver() == FailureState.GAMEOVER_HARD);</span>
+<span class="fc" id="L102">	}	</span>
+	
+	@Test
+	void sailTest() {
+		//Setup
+<span class="fc" id="L107">		MainCmdUI ui = new MainCmdUI();</span>
+<span class="fc" id="L108">        IslandTrader islandTrader = new IslandTrader(ui);</span>
+<span class="fc" id="L109">        ui.setManager(islandTrader);</span>
+<span class="fc" id="L110">        islandTrader.setPlayer(new Player(&quot;TestDummy&quot;));</span>
+<span class="fc" id="L111">        islandTrader.selectShip(0);</span>
+<span class="fc" id="L112">        islandTrader.setGameLength(20);	</span>
+        
+        // Create route and sail it, should end up at Ben Island
+<span class="fc" id="L115">        Island endIsland = new Island(&quot;ben&quot;, new Store(&quot;ben&quot;));</span>
+<span class="fc" id="L116">        Route testRoute = new Route(10, islandTrader.getWorld().getCurrentIsland(), endIsland, islandTrader.getWorld());</span>
+        
+<span class="fc" id="L118">        int startTime = islandTrader.getTime();</span>
+<span class="fc" id="L119">        int startBalance = islandTrader.getPlayer().getBalance();</span>
+        //No transactions yet
+<span class="pc bpc" id="L121" title="1 of 2 branches missed.">        assertTrue(islandTrader.getPlayer().getTransactions().size() == 0);        </span>
+<span class="fc" id="L122">        islandTrader.getWorld().addRouteIndZero(testRoute);</span>
+<span class="fc" id="L123">        islandTrader.sailRoute(0);</span>
+<span class="fc" id="L124">        int endTime = islandTrader.getTime();</span>
+<span class="fc" id="L125">        int endBalance = islandTrader.getPlayer().getBalance();</span>
+        
+        //Time should have passed
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">        assertTrue(endTime &gt; startTime);</span>
+        
+        // Crew wages shoudl be deducted with a transaction record        
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        assertTrue(endBalance &lt; startBalance);</span>
+<span class="pc bpc" id="L132" title="1 of 2 branches missed.">        assertTrue(islandTrader.getPlayer().getTransactions().size() == 1);</span>
+        
+        //we shoud have moved islands
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">        assertTrue(islandTrader.getWorld().getCurrentIsland() == endIsland);</span>
+<span class="fc" id="L136">	}	</span>
+	
+	@Test
+	void sailTestBadWeather() {
+		//Setup
+<span class="fc" id="L141">		MainCmdUI ui = new MainCmdUI();</span>
+<span class="fc" id="L142">        IslandTrader islandTrader = new IslandTrader(ui);</span>
+<span class="fc" id="L143">        ui.setManager(islandTrader);</span>
+<span class="fc" id="L144">        islandTrader.setPlayer(new Player(&quot;TestDummy&quot;));</span>
+<span class="fc" id="L145">        islandTrader.selectShip(0);</span>
+<span class="fc" id="L146">        islandTrader.setGameLength(20);	</span>
+        
+        // Create Bad Weather
+<span class="fc" id="L149">        RandomEvent weather = new UnfortunateWeather(100);</span>
+<span class="fc" id="L150">        int startDamage = islandTrader.getPlayer().getShip().getDamageAmount();</span>
+<span class="fc" id="L151">        islandTrader.triggerRandomSailingEvent(weather);</span>
+<span class="fc" id="L152">        int endDamage = islandTrader.getPlayer().getShip().getDamageAmount();</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">        assertTrue(endDamage &gt; startDamage);</span>
+        
+        // Create Bad Weather - zero prop of happening
+<span class="fc" id="L156">        weather = new UnfortunateWeather(0);</span>
+<span class="fc" id="L157">        startDamage = islandTrader.getPlayer().getShip().getDamageAmount();</span>
+<span class="fc" id="L158">        islandTrader.triggerRandomSailingEvent(weather);</span>
+<span class="fc" id="L159">        endDamage = islandTrader.getPlayer().getShip().getDamageAmount();</span>
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">        assertTrue(endDamage == startDamage);        </span>
+<span class="fc" id="L161">	}	</span>
+	
+	@Test
+	void sailTestSailors() {
+		//Setup
+<span class="fc" id="L166">		MainCmdUI ui = new MainCmdUI();</span>
+<span class="fc" id="L167">        IslandTrader islandTrader = new IslandTrader(ui);</span>
+<span class="fc" id="L168">        ui.setManager(islandTrader);</span>
+<span class="fc" id="L169">        islandTrader.setPlayer(new Player(&quot;TestDummy&quot;));</span>
+<span class="fc" id="L170">        islandTrader.selectShip(0);</span>
+<span class="fc" id="L171">        islandTrader.setGameLength(20);	</span>
+        
+        // Create Sailors
+<span class="fc" id="L174">        RandomEvent sailors = new RescueSailors(100);</span>
+<span class="fc" id="L175">        int startBalance = islandTrader.getPlayer().getBalance();</span>
+<span class="fc" id="L176">        islandTrader.triggerRandomSailingEvent(sailors);</span>
+<span class="fc" id="L177">        int endBalance = islandTrader.getPlayer().getBalance();</span>
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">        assertTrue(endBalance &gt; startBalance);</span>
+        
+        // Create Sailors - zero prop of happening
+<span class="fc" id="L181">        sailors = new UnfortunateWeather(0);</span>
+<span class="fc" id="L182">        startBalance = islandTrader.getPlayer().getBalance();</span>
+<span class="fc" id="L183">        islandTrader.triggerRandomSailingEvent(sailors);</span>
+<span class="fc" id="L184">        endBalance = islandTrader.getPlayer().getBalance();</span>
+<span class="pc bpc" id="L185" title="1 of 2 branches missed.">        assertTrue(endBalance == startBalance);      </span>
+<span class="fc" id="L186">	}</span>
+	
+	@Test
+	void sailTestPirates() {
+		//Setup
+<span class="fc" id="L191">		MainCmdUI ui = new MainCmdUI();</span>
+<span class="fc" id="L192">        IslandTrader islandTrader = new IslandTrader(ui);</span>
+<span class="fc" id="L193">        ui.setManager(islandTrader);</span>
+<span class="fc" id="L194">        islandTrader.setPlayer(new Player(&quot;TestDummy&quot;));</span>
+<span class="fc" id="L195">        islandTrader.selectShip(0);</span>
+<span class="fc" id="L196">        islandTrader.setGameLength(20);	</span>
+        
+        // Create Bad Weather
+        // Flakey test because #probability, but no fear, we will do it 5 times 1/3^4 is small ~1%
+        
+        //Start with 1 item &amp; lots of money
+<span class="fc" id="L202">        PricedItem firstInList = islandTrader.getWorld().getCurrentIsland().getStore().getToSellList().get(0);</span>
+<span class="fc" id="L203">        islandTrader.buyStoreItem(0);</span>
+<span class="fc" id="L204">        int startBalance = 1000; </span>
+<span class="fc" id="L205">        islandTrader.getPlayer().setBalance(startBalance);</span>
+<span class="fc" id="L206">        assertTrue(islandTrader.getPlayer().getShip().hasItem(firstInList.getItem()));</span>
+        
+         
+<span class="fc" id="L209">        RandomEvent pirates1 = new PiratesEncounter(100);</span>
+<span class="fc" id="L210">        islandTrader.triggerRandomSailingEvent(pirates1);</span>
+<span class="fc" id="L211">        RandomEvent pirates2 = new PiratesEncounter(100);</span>
+<span class="fc" id="L212">        islandTrader.triggerRandomSailingEvent(pirates2);</span>
+<span class="fc" id="L213">        RandomEvent pirates3 = new PiratesEncounter(100);</span>
+<span class="fc" id="L214">        islandTrader.triggerRandomSailingEvent(pirates3);</span>
+<span class="fc" id="L215">        RandomEvent pirates4 = new PiratesEncounter(100);</span>
+<span class="fc" id="L216">        islandTrader.triggerRandomSailingEvent(pirates4);</span>
+<span class="fc" id="L217">        RandomEvent pirates5 = new PiratesEncounter(100);</span>
+<span class="fc" id="L218">        islandTrader.triggerRandomSailingEvent(pirates5); </span>
+<span class="fc" id="L219">        RandomEvent pirates6 = new PiratesEncounter(100);</span>
+<span class="fc" id="L220">        islandTrader.triggerRandomSailingEvent(pirates6); </span>
+<span class="fc" id="L221">        RandomEvent pirates7 = new PiratesEncounter(100);</span>
+<span class="fc" id="L222">        islandTrader.triggerRandomSailingEvent(pirates7); </span>
+<span class="fc" id="L223">        RandomEvent pirates8 = new PiratesEncounter(100);</span>
+<span class="fc" id="L224">        islandTrader.triggerRandomSailingEvent(pirates8);         </span>
+<span class="fc" id="L225">        int endBalance = islandTrader.getPlayer().getBalance();</span>
+<span class="pc bpc" id="L226" title="1 of 2 branches missed.">        assertTrue(endBalance &lt; startBalance);</span>
+<span class="fc" id="L227">        assertFalse(islandTrader.getPlayer().getShip().hasItem(firstInList.getItem()));</span>
+        
+<span class="fc" id="L229">	}	</span>
+	
+	@Test
+	void repairShipTest() {
+		//Setup
+<span class="fc" id="L234">		MainCmdUI ui = new MainCmdUI();</span>
+<span class="fc" id="L235">        IslandTrader islandTrader = new IslandTrader(ui);</span>
+<span class="fc" id="L236">        ui.setManager(islandTrader);</span>
+<span class="fc" id="L237">        islandTrader.setPlayer(new Player(&quot;TestDummy&quot;));</span>
+<span class="fc" id="L238">        islandTrader.selectShip(0);</span>
+<span class="fc" id="L239">        islandTrader.setGameLength(20);	</span>
+        
+        // Create Bad Weather
+<span class="fc" id="L242">        RandomEvent weather = new UnfortunateWeather(100);</span>
+<span class="fc" id="L243">        int startDamage = islandTrader.getPlayer().getShip().getDamageAmount();</span>
+<span class="fc" id="L244">        int startBalance = islandTrader.getPlayer().getBalance();</span>
+<span class="fc" id="L245">        islandTrader.triggerRandomSailingEvent(weather);</span>
+<span class="fc" id="L246">        int midDamage = islandTrader.getPlayer().getShip().getDamageAmount();</span>
+<span class="pc bpc" id="L247" title="1 of 2 branches missed.">        assertTrue(midDamage &gt; startDamage);</span>
+        
+        //repair
+<span class="fc" id="L250">        islandTrader.repairShip();</span>
+<span class="fc" id="L251">        int endBalance = islandTrader.getPlayer().getBalance();</span>
+<span class="pc bpc" id="L252" title="1 of 2 branches missed.">        assertTrue(endBalance &lt; startBalance);</span>
+<span class="fc" id="L253">        int endDamage = islandTrader.getPlayer().getShip().getDamageAmount();</span>
+<span class="pc bpc" id="L254" title="1 of 2 branches missed.">        assertTrue(endDamage &lt; midDamage);</span>
+<span class="pc bpc" id="L255" title="1 of 2 branches missed.">        assertTrue(endDamage == startDamage);        </span>
+<span class="fc" id="L256">	}	</span>
+	
+	@Test
+	void scoreTest() {
+		//Setup
+<span class="fc" id="L261">		MainCmdUI ui = new MainCmdUI();</span>
+<span class="fc" id="L262">        IslandTrader islandTrader = new IslandTrader(ui);</span>
+<span class="fc" id="L263">        ui.setManager(islandTrader);</span>
+<span class="fc" id="L264">        islandTrader.setPlayer(new Player(&quot;TestDummy&quot;));</span>
+<span class="fc" id="L265">        islandTrader.selectShip(0);</span>
+<span class="fc" id="L266">        islandTrader.setGameLength(20);	</span>
+        
+        // Score should increase with visited islands and profit
+<span class="fc" id="L269">        int startScore = islandTrader.gameScore();</span>
+<span class="fc" id="L270">        Island endIsland = new Island(&quot;ben&quot;, new Store(&quot;ben&quot;));</span>
+<span class="fc" id="L271">        Route testRoute = new Route(10, islandTrader.getWorld().getCurrentIsland(), endIsland, islandTrader.getWorld());</span>
+<span class="fc" id="L272">        islandTrader.getWorld().addRouteIndZero(testRoute);</span>
+        
+        // Firstly buy and sell and item, sell for more money
+<span class="fc" id="L275">        Item test = new Item(&quot;Tester&quot;, &quot;&quot;, 2, ItemType.CARGO);</span>
+<span class="fc" id="L276">        PricedItem purchase = new PricedItem(test, 10, PriceType.PURCHASED, islandTrader.getWorld().getCurrentIsland());</span>
+<span class="fc" id="L277">        PricedItem sale = new PricedItem(test, 20, PriceType.SOLD, islandTrader.getWorld().getCurrentIsland());       </span>
+<span class="fc" id="L278">        islandTrader.getPlayer().addTransaction(purchase);</span>
+<span class="fc" id="L279">        islandTrader.getPlayer().addTransaction(sale);        </span>
+<span class="fc" id="L280">        int endScore = islandTrader.gameScore();</span>
+<span class="pc bpc" id="L281" title="1 of 2 branches missed.">        assertTrue((endScore - startScore) == 50); //5* per profit</span>
+        
+        // Sailing to another island should increase score because #islands visited increases
+        // Set player $ balance to 100 before each scoreing to remove crew cost effects
+<span class="fc" id="L285">        islandTrader.getPlayer().setBalance(100);</span>
+<span class="fc" id="L286">        startScore = islandTrader.gameScore();</span>
+<span class="fc" id="L287">        islandTrader.sailRoute(0);</span>
+<span class="fc" id="L288">        islandTrader.getPlayer().setBalance(100);</span>
+<span class="fc" id="L289">        endScore = islandTrader.gameScore();</span>
+<span class="pc bpc" id="L290" title="1 of 2 branches missed.">        assertTrue((endScore - startScore) == 10);        </span>
+<span class="fc" id="L291">	}</span>
+	
+	@Test
+	void validateTest() {
+		//Setup
+<span class="fc" id="L296">		MainCmdUI ui = new MainCmdUI();</span>
+<span class="fc" id="L297">        IslandTrader islandTrader = new IslandTrader(ui);</span>
+<span class="fc" id="L298">        ui.setManager(islandTrader);</span>
+<span class="fc" id="L299">        islandTrader.setPlayer(new Player(&quot;TestDummy&quot;));</span>
+<span class="fc" id="L300">        islandTrader.selectShip(0);</span>
+<span class="fc" id="L301">        islandTrader.setGameLength(20);	</span>
+        
+        // Objects to test with       
+<span class="fc" id="L304">        Island endIsland = new Island(&quot;ben&quot;, new Store(&quot;ben&quot;));</span>
+<span class="fc" id="L305">        Route testRoute = new Route(10, islandTrader.getWorld().getCurrentIsland(), endIsland, islandTrader.getWorld());</span>
+<span class="fc" id="L306">        Item test = new Item(&quot;Tester&quot;, &quot;&quot;, 2, ItemType.CARGO);</span>
+<span class="fc" id="L307">        PricedItem purchased = new PricedItem(test, 50, PriceType.PURCHASED, islandTrader.getWorld().getCurrentIsland());</span>
+<span class="fc" id="L308">        PricedItem purchase = new PricedItem(test, 50, PriceType.FORSALE, islandTrader.getWorld().getCurrentIsland());</span>
+<span class="fc" id="L309">        PricedItem sale = new PricedItem(test, 50, PriceType.FORBUY, islandTrader.getWorld().getCurrentIsland());               </span>
+       
+        //Validate money to purchase item
+<span class="fc" id="L312">        islandTrader.getPlayer().setBalance(0);</span>
+<span class="pc bpc" id="L313" title="1 of 2 branches missed.">        assertTrue(islandTrader.validatePurchase(purchase) == FailureState.NOMONEY);</span>
+<span class="pc bpc" id="L314" title="1 of 2 branches missed.">        assertTrue(islandTrader.validate(purchase) == islandTrader.validatePurchase(purchase));        </span>
+        
+<span class="fc" id="L316">        islandTrader.getPlayer().setBalance(100);</span>
+<span class="pc bpc" id="L317" title="1 of 2 branches missed.">        assertTrue(islandTrader.validatePurchase(purchase) == FailureState.SUCCESS);</span>
+<span class="pc bpc" id="L318" title="1 of 2 branches missed.">        assertTrue(islandTrader.validate(purchase) == islandTrader.validatePurchase(purchase));</span>
+        
+        //Validate can't sell item, we don't have
+<span class="pc bpc" id="L321" title="1 of 2 branches missed.">        assertTrue(islandTrader.validateSale(sale) == FailureState.NOITEM);</span>
+<span class="pc bpc" id="L322" title="1 of 2 branches missed.">        assertTrue(islandTrader.validate(sale) == islandTrader.validateSale(sale));        </span>
+        
+        //Validate player can't sail route with no money
+<span class="fc" id="L325">        islandTrader.getPlayer().setBalance(0);</span>
+<span class="pc bpc" id="L326" title="1 of 2 branches missed.">        assertTrue(islandTrader.validateRoute(testRoute, false) == FailureState.NOMONEY);</span>
+<span class="pc bpc" id="L327" title="1 of 2 branches missed.">        assertTrue(islandTrader.validate(testRoute) == islandTrader.validateRoute(testRoute, false));</span>
+        
+        //Validate player can sail route with no money, if we think they can probably sell their goods for enough money
+<span class="fc" id="L330">        islandTrader.getPlayer().getShip().addItem(test);</span>
+<span class="fc" id="L331">        islandTrader.getPlayer().addTransaction(purchased);</span>
+<span class="fc" id="L332">        islandTrader.getPlayer().setBalance(0);</span>
+<span class="pc bpc" id="L333" title="1 of 2 branches missed.">        assertTrue(islandTrader.validateRoute(testRoute, false) == FailureState.NOMONEY);</span>
+<span class="pc bpc" id="L334" title="1 of 2 branches missed.">        assertTrue(islandTrader.validateRoute(testRoute, true) == FailureState.SUCCESS); //Cargo should pay for route</span>
+<span class="pc bpc" id="L335" title="1 of 2 branches missed.">        assertTrue(islandTrader.validate(testRoute) == islandTrader.validateRoute(testRoute, false));</span>
+<span class="pc bpc" id="L336" title="1 of 2 branches missed.">        assertFalse(islandTrader.validate(testRoute) == islandTrader.validateRoute(testRoute, true));</span>
+        
+        //Validate we can sell item, we now have
+<span class="pc bpc" id="L339" title="1 of 2 branches missed.">        assertTrue(islandTrader.validateSale(sale) == FailureState.SUCCESS);</span>
+<span class="pc bpc" id="L340" title="1 of 2 branches missed.">        assertTrue(islandTrader.validate(sale) == islandTrader.validateSale(sale));        </span>
+<span class="fc" id="L341">	}	</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 23, 2021 12:36:36 PM)</div></body></html>

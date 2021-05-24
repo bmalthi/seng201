@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Gui.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 23, 2021 12:36:36 PM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">ui.gui</a> &gt; <span class="el_source">Gui.java</span></div><h1>Gui.java</h1><pre class="source lang-java linenums">package ui.gui;
+
+import java.util.ArrayList;
+
+import main.FailureState;
+import main.IslandTrader;
+import main.PricedItem;
+import main.Route;
+import ui.IslandTraderUI;
+
+/**
+ * A graphical user interface for a {@link IslandTrader}.
+ */
+<span class="nc" id="L14">public class Gui implements IslandTraderUI {</span>
+
+    // The game instance that this gui interacts with
+	private IslandTrader islandTrader;
+
+    // The currently active screen in this gui
+    private Screen theScreen;
+
+    /**
+     * Initialises this UI and sets up the given IslandTrader, with the ships, islands, stores to be managed
+     * Once setup is complete this UI must call {@link IslandTrader#onSetupFinished}.
+     *
+     * @param islandTrader, the islandTrader game instance that this UI interacts with
+     */    
+    @Override
+    public void setup(IslandTrader islandTrader) {
+<span class="nc" id="L30">        this.islandTrader = islandTrader;</span>
+<span class="nc" id="L31">        theScreen = new SetupScreen(islandTrader);</span>
+<span class="nc" id="L32">        theScreen.show();</span>
+<span class="nc" id="L33">    }</span>
+
+    /**
+     * Reports the given error to the user.
+     *
+     * @param error The error to display
+     */    
+    @Override
+    public void showError(String error) {
+<span class="nc" id="L42">        theScreen.showError(error);</span>
+<span class="nc" id="L43">    }</span>
+
+    /**
+     * Starts this UI
+     */    
+    @Override
+    public void start() {
+<span class="nc" id="L50">        theScreen.quit();</span>
+<span class="nc" id="L51">        theScreen = new MainScreen(islandTrader);</span>
+<span class="nc" id="L52">        theScreen.show();</span>
+<span class="nc" id="L53">    }</span>
+
+    /**
+     * Confirms user wants to quit the game
+     * @return boolean indicating user intention
+     */    
+	@Override
+    public boolean confirmQuit() {
+<span class="nc" id="L61">    	return theScreen.confirmQuit();</span>
+    }
+
+    /**
+     * Quits the application.
+     */	
+    @Override
+    public void quit() {
+<span class="nc" id="L69">        theScreen.quit();</span>
+<span class="nc" id="L70">    }	</span>
+	
+	/**
+	 * Show the user the details of the transaction, if successful
+	 * @param transaction,  the transaction we are showing details to the user about
+	 */	
+	@Override
+	public void processTransaction(PricedItem transaction) {
+		//TODO
+<span class="nc" id="L79">	}  </span>
+	
+    /**
+     * Show the user what happened on their sailing
+     *
+     * @param route, the route being sailed
+     * @param wageRecord, the transaction record for our wage payment
+     * @param sailingTime, days it took to sail the route
+     */	
+	@Override
+	public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {
+		// TODO Auto-generated method stub
+		
+<span class="nc" id="L92">	}</span>
+	
+    /**
+     * Show the user how bad weather impacted them on their sailing. If you hit bad weather it
+     * damages your ship by 20% of its total endurance. This needs to be paid before another sailing
+     *
+     * @param damage, how much damage the weather caused
+     * @param repairCost, the extra repair cost from the weather
+     * @param repairValidation, indicates if the user can afford repair
+     */
+	@Override	
+    public void encounterWeather(int damage, int repairCost, FailureState repairValidation) {
+		//TODO
+<span class="nc" id="L105">	}</span>
+	
+    /**
+     * Reports details to the user of encounter with sailors who are rescued
+     *
+     * @param numRescuedSailors, the random number of sailors rescued, depends on ship size
+     * @param rewardRecord, each sailor gives a random reward, this is the total
+     */
+    public void rescueSailors(int numRescuedSailors, PricedItem rewardRecord) {
+    	//TODO
+<span class="nc" id="L115">    }</span>
+    
+    /**
+     * Reports details to the user of encounter with pirates
+     * 
+     * @param diceThrow, the random number that the user got to determine success when fighting the pirates
+     * @param boardShip, the boolean result of the dicethrow if pirates boardded the ship
+     * @param transactions, the record of items the pirates stole from the player
+     * @param goodsSatisfy, boolean indicating if the goods were enough for the pirate, you lose game if false
+     */
+    public void encounterPirates(int diceThrow, boolean boardShip, ArrayList&lt;PricedItem&gt; transactions, boolean goodsSatisfy) {
+    	//TODO
+<span class="nc" id="L127">    }</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 23, 2021 12:36:36 PM)</div></body></html>

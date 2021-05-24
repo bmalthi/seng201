@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>World.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 23, 2021 12:36:36 PM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main</a> &gt; <span class="el_source">World.java</span></div><h1>World.java</h1><pre class="source lang-java linenums">package main;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+/**
+ * This class represents the physical world in our game, the islands, the routes and methods to 
+ * survey the world. It contains private methods to initialize the world with fixed 
+ * islands / routes but random Items to buy at the islands stores
+ * 
+ * Also creates 4 ships for the user to choose from when the game starts
+ */
+public class World {
+	
+	// ArrayList of Islands
+	private ArrayList&lt;Island&gt; islands; 	
+
+	// ArrayList of Routes between Islands	
+	private ArrayList&lt;Route&gt; routes;
+
+	//ArrayList of ships that contain 4 ships
+	private ArrayList&lt;Ship&gt; ships; 
+	
+	// Random object to use for creating random items for the stores
+	private Random random;
+	
+	// Current island the user is on
+	private Island currentIsland;
+
+	/**
+	 * Creates a new world object. Currently with fixed islands and routes. 
+	 * Stores within islands will have random selection of objects to buy or sell
+	 * 
+	 * @param random, the random object we use for creating random world objects
+	 */
+<span class="fc" id="L38">	public World(Random random) {</span>
+<span class="fc" id="L39">		this.islands = new ArrayList&lt;Island&gt;();</span>
+<span class="fc" id="L40">		this.routes = new ArrayList&lt;Route&gt;();</span>
+<span class="fc" id="L41">		this.ships = new ArrayList&lt;Ship&gt;();		</span>
+<span class="fc" id="L42">		this.random = random;</span>
+<span class="fc" id="L43">		setUpWorld();</span>
+<span class="fc" id="L44">		this.setCurrentIsland(getIslands().get(0));</span>
+<span class="fc" id="L45">	}</span>
+	
+	/**
+	 * Method to create the world 
+	 * Creates 5 islands
+	 * Creates a store on each island
+	 * Adds items to the store according to some store criteria (hard coded)
+	 * Adds routes between each island pair (undirected), including random events that might be encountered
+	 */	
+	private void setUpWorld() {		
+		
+		PricedItem pricedItem;
+<span class="fc" id="L57">		String[] rawCargoItems = {&quot;Burger&quot;, &quot;Fries&quot;, &quot;Coke&quot;, &quot;IceCream&quot;, &quot;Chairs&quot;, &quot;Dog&quot;, &quot;Bananas&quot;, &quot;Beer&quot;, &quot;Water&quot;};</span>
+<span class="fc" id="L58">		String[] rawWeaponItems = {&quot;Rifle&quot;, &quot;Cannon&quot;, &quot;Shield&quot;};		</span>
+<span class="fc" id="L59">		String[] rawUpgradeItems = UpgradeItem.upgrades();</span>
+		
+		/*
+		 * Home Island #1
+		 * Friendly relaxed place, has food and drink and grocery type items
+		 * no weapons / upgrades 
+		 */
+<span class="fc" id="L66">		Store store1 = new Store(&quot;Bob's Burgers&quot;);</span>
+<span class="fc" id="L67">		Island island1 = new Island(&quot;Home Island&quot;, store1);</span>
+<span class="fc" id="L68">		islands.add(island1);</span>
+		//Add items to the store	
+		// CARGO
+<span class="fc bfc" id="L71" title="All 2 branches covered.">		for (int i = 0; i &lt; 10; i++) {</span>
+<span class="fc" id="L72">			pricedItem = createRandomPricedItem(store1, rawCargoItems, ItemType.CARGO, 8, PriceType.FORSALE, island1);</span>
+<span class="fc" id="L73">			store1.addToSell(pricedItem);</span>
+<span class="fc" id="L74">			pricedItem = createRandomPricedItem(store1, rawCargoItems, ItemType.CARGO, 6, PriceType.FORBUY, island1);</span>
+<span class="fc" id="L75">			store1.addToBuy(pricedItem);</span>
+		}		
+		
+		/*
+		 * All Sell No Buy #2
+		 * Island has everything for sale, but doesn't buy anything 
+		 */
+<span class="fc" id="L82">		Store store2 = new Store(&quot;All Sell All Day&quot;);</span>
+<span class="fc" id="L83">		Island island2 = new Island(&quot;Everything Island&quot;, store2);</span>
+<span class="fc" id="L84">		islands.add(island2);		</span>
+		//Add items to the store
+		// CARGO
+<span class="fc bfc" id="L87" title="All 2 branches covered.">		for (int i = 0; i &lt; 10; i++) {</span>
+<span class="fc" id="L88">			pricedItem = createRandomPricedItem(store2, rawCargoItems, ItemType.CARGO, 8, PriceType.FORSALE, island2);</span>
+<span class="fc" id="L89">			store2.addToSell(pricedItem);</span>
+		}
+		// WEAPONS
+<span class="fc bfc" id="L92" title="All 2 branches covered.">		for (int i = 0; i &lt; 3; i++) {</span>
+<span class="fc" id="L93">			pricedItem = createRandomPricedItem(store2, rawWeaponItems, ItemType.WEAPON, 15, PriceType.FORSALE, island2);</span>
+<span class="fc" id="L94">			store2.addToSell(pricedItem);</span>
+		}	
+		// UPGRADES
+<span class="fc bfc" id="L97" title="All 2 branches covered.">		for (int i = 0; i &lt; 3; i++) {</span>
+<span class="fc" id="L98">			pricedItem = createRandomPricedItem(store2, rawUpgradeItems, ItemType.UPGRADE, 15, PriceType.FORSALE, island2);</span>
+<span class="fc" id="L99">			store2.addToSell(pricedItem);</span>
+		}			
+		
+		/*
+		 * Mechanical Island #3
+		 * No Grocery (well water)
+		 * Lots of Upgrades and Weapons 
+		 */
+<span class="fc" id="L107">		Store store3 = new Store(&quot;Guns City&quot;);</span>
+<span class="fc" id="L108">		Island island3 = new Island(&quot;Mechanical Island&quot;, store3);</span>
+<span class="fc" id="L109">		islands.add(island3);		</span>
+		//Add items to the store
+		// WATER
+<span class="fc" id="L112">		pricedItem = createRandomPricedItem(store3, new String[] {&quot;WATER&quot;}, ItemType.CARGO, 5, PriceType.FORSALE, island3);</span>
+<span class="fc" id="L113">		store3.addToSell(pricedItem);</span>
+		// WEAPONS
+<span class="fc bfc" id="L115" title="All 2 branches covered.">		for (int i = 0; i &lt; 3; i++) {</span>
+<span class="fc" id="L116">			pricedItem = createRandomPricedItem(store3, rawWeaponItems, ItemType.WEAPON, 10, PriceType.FORSALE, island3);</span>
+<span class="fc" id="L117">			store3.addToSell(pricedItem);</span>
+<span class="fc" id="L118">			pricedItem = createRandomPricedItem(store3, rawWeaponItems, ItemType.WEAPON, 15, PriceType.FORBUY, island3);</span>
+<span class="fc" id="L119">			store3.addToBuy(pricedItem);			</span>
+		}	
+		// UPGRADES
+<span class="fc bfc" id="L122" title="All 2 branches covered.">		for (int i = 0; i &lt; 4; i++) {</span>
+<span class="fc" id="L123">			pricedItem = createRandomPricedItem(store3, rawUpgradeItems, ItemType.UPGRADE, 12, PriceType.FORSALE, island3);</span>
+<span class="fc" id="L124">			store3.addToSell(pricedItem);</span>
+		}		
+		
+		/*
+		 * Hoarder Island #4
+		 * All Buy no Sell
+		 * Island buys almost everything but does not sell anything 
+		 */
+<span class="fc" id="L132">		Store store4 = new Store(&quot;Hotel California&quot;);</span>
+<span class="fc" id="L133">		Island island4 = new Island(&quot;Hoarder Island&quot;, store4);</span>
+<span class="fc" id="L134">		islands.add(island4);		</span>
+		//Add items to the store
+		// CARGO
+<span class="fc bfc" id="L137" title="All 2 branches covered.">		for (int i = 0; i &lt; 10; i++) {</span>
+<span class="fc" id="L138">			pricedItem = createRandomPricedItem(store4, rawCargoItems, ItemType.CARGO, 8, PriceType.FORBUY, island4);</span>
+<span class="fc" id="L139">			store4.addToBuy(pricedItem);</span>
+		}
+		// WEAPONS
+<span class="fc bfc" id="L142" title="All 2 branches covered.">		for (int i = 0; i &lt; 3; i++) {</span>
+<span class="fc" id="L143">			pricedItem = createRandomPricedItem(store4, rawWeaponItems, ItemType.WEAPON, 15, PriceType.FORBUY, island4);</span>
+<span class="fc" id="L144">			store4.addToBuy(pricedItem);</span>
+		}	
+		
+		/*
+		 * Danger Island #5
+		 * All routes to this island should be dangerous but
+		 * Prices to sell are cheap, prices to buy are high
+		 */	
+<span class="fc" id="L152">		Store store5 = new Store(&quot;You Made It Emporium&quot;);</span>
+<span class="fc" id="L153">		Island island5 = new Island(&quot;Danger Island&quot;, store5);</span>
+<span class="fc" id="L154">		islands.add(island5);		</span>
+		//Add items to the store
+		// CARGO
+<span class="fc bfc" id="L157" title="All 2 branches covered.">		for (int i = 0; i &lt; 10; i++) {</span>
+<span class="fc" id="L158">			pricedItem = createRandomPricedItem(store5, rawCargoItems, ItemType.CARGO, 5, PriceType.FORSALE, island5);</span>
+<span class="fc" id="L159">			store5.addToSell(pricedItem);</span>
+<span class="fc" id="L160">			pricedItem = createRandomPricedItem(store5, rawCargoItems, ItemType.CARGO, 9, PriceType.FORBUY, island5);</span>
+<span class="fc" id="L161">			store5.addToBuy(pricedItem);			</span>
+		}
+		// WEAPONS
+<span class="fc bfc" id="L164" title="All 2 branches covered.">		for (int i = 0; i &lt; 3; i++) {</span>
+<span class="fc" id="L165">			pricedItem = createRandomPricedItem(store5, rawWeaponItems, ItemType.WEAPON, 10, PriceType.FORSALE, island5);</span>
+<span class="fc" id="L166">			store5.addToSell(pricedItem);</span>
+<span class="fc" id="L167">			pricedItem = createRandomPricedItem(store5, rawWeaponItems, ItemType.WEAPON, 15, PriceType.FORBUY, island5);</span>
+<span class="fc" id="L168">			store5.addToBuy(pricedItem);			</span>
+		}	
+		// UPGRADES
+<span class="fc bfc" id="L171" title="All 2 branches covered.">		for (int i = 0; i &lt; 3; i++) {</span>
+<span class="fc" id="L172">			pricedItem = createRandomPricedItem(store5, rawUpgradeItems, ItemType.UPGRADE, 10, PriceType.FORSALE, island5);</span>
+<span class="fc" id="L173">			store5.addToSell(pricedItem);</span>
+		}	
+		
+		/*
+		 * Routes - create routes from an island to another 
+		 * with some events that may occur (depend on the probability) 
+		 */		
+<span class="fc" id="L180">		Route route12 = new Route(5, island1, island2, this);</span>
+<span class="fc" id="L181">		route12.addEvent(new RescueSailors(20));</span>
+<span class="fc" id="L182">		route12.addEvent(new UnfortunateWeather(70));</span>
+<span class="fc" id="L183">		routes.add(route12);		</span>
+		
+<span class="fc" id="L185">		Route route13 = new Route(10, island1, island3, this);</span>
+<span class="fc" id="L186">		route13.addEvent(new RescueSailors(80));</span>
+<span class="fc" id="L187">		routes.add(route13);</span>
+		
+<span class="fc" id="L189">		Route route14 = new Route(10, island1, island4, this);</span>
+<span class="fc" id="L190">		route14.addEvent(new UnfortunateWeather(60));</span>
+<span class="fc" id="L191">		routes.add(route14);</span>
+		
+<span class="fc" id="L193">		Route route15 = new Route(15, island1, island5, this);</span>
+<span class="fc" id="L194">		route15.addEvent(new RescueSailors(30));</span>
+<span class="fc" id="L195">		route15.addEvent(new PiratesEncounter(40));	</span>
+<span class="fc" id="L196">		routes.add(route15);</span>
+		
+<span class="fc" id="L198">		Route route15B = new Route(30, island1, island5, this);</span>
+<span class="fc" id="L199">		route15B.addEvent(new RescueSailors(30));</span>
+<span class="fc" id="L200">		route15B.addEvent(new PiratesEncounter(80));	</span>
+<span class="fc" id="L201">		routes.add(route15B);		</span>
+		
+<span class="fc" id="L203">		Route route23= new Route(10, island2, island3, this);</span>
+<span class="fc" id="L204">		route23.addEvent(new UnfortunateWeather(80));</span>
+<span class="fc" id="L205">		routes.add(route23);</span>
+		
+<span class="fc" id="L207">		Route route24 = new Route(10, island2, island4, this);</span>
+<span class="fc" id="L208">		route24.addEvent(new UnfortunateWeather(100));</span>
+<span class="fc" id="L209">		routes.add(route24);</span>
+		
+<span class="fc" id="L211">		Route route25 = new Route(10, island2, island5, this);</span>
+<span class="fc" id="L212">		route25.addEvent(new UnfortunateWeather(20));</span>
+<span class="fc" id="L213">		route25.addEvent(new RescueSailors(30));</span>
+<span class="fc" id="L214">		route25.addEvent(new PiratesEncounter(60));</span>
+<span class="fc" id="L215">		routes.add(route25);</span>
+		
+<span class="fc" id="L217">		Route route25B = new Route(40, island2, island5, this);</span>
+<span class="fc" id="L218">		route25B.addEvent(new UnfortunateWeather(40));</span>
+<span class="fc" id="L219">		route25B.addEvent(new RescueSailors(80));</span>
+<span class="fc" id="L220">		routes.add(route25B);		</span>
+		
+<span class="fc" id="L222">		Route route34 = new Route(5, island3, island4, this);</span>
+<span class="fc" id="L223">		route34.addEvent(new UnfortunateWeather(20));</span>
+<span class="fc" id="L224">		routes.add(route34);</span>
+		
+<span class="fc" id="L226">		Route route35 = new Route(10, island3, island5, this);</span>
+<span class="fc" id="L227">		route35.addEvent(new UnfortunateWeather(90));</span>
+<span class="fc" id="L228">		route35.addEvent(new RescueSailors(10));</span>
+<span class="fc" id="L229">		route35.addEvent(new PiratesEncounter(50));</span>
+<span class="fc" id="L230">		routes.add(route35);</span>
+		
+<span class="fc" id="L232">		Route route45 = new Route(20, island4, island5, this);</span>
+<span class="fc" id="L233">		route45.addEvent(new UnfortunateWeather(90));</span>
+<span class="fc" id="L234">		route45.addEvent(new PiratesEncounter(30));</span>
+<span class="fc" id="L235">		routes.add(route45);				</span>
+		
+		/*
+		 * Ship
+		 */		
+<span class="fc" id="L240">		Ship ship1 = new Ship(&quot;Speedy Soul&quot;, 4, 3, 10);</span>
+<span class="fc" id="L241">		ship1.getStorageBays().add(new StorageList(&quot;Cargo Hold 1&quot;, 10, ItemType.CARGO));</span>
+<span class="fc" id="L242">		ship1.getStorageBays().add(new StorageList(&quot;Upgradable&quot;, 1, ItemType.UPGRADE));	</span>
+<span class="fc" id="L243">		ships.add(ship1);</span>
+		
+<span class="fc" id="L245">		Ship ship2 = new Ship(&quot;Sudden Storm&quot;, 8, 2, 20);</span>
+<span class="fc" id="L246">		ship2.getStorageBays().add(new StorageList(&quot;Cargo Hold 1&quot;, 30, ItemType.CARGO));</span>
+<span class="fc" id="L247">		ship2.getStorageBays().add(new StorageList(&quot;Upgradable&quot;, 1, ItemType.UPGRADE));		</span>
+<span class="fc" id="L248">		ships.add(ship2);</span>
+		
+<span class="fc" id="L250">		Ship ship3 = new Ship(&quot;Steel Skull&quot;, 6, 1, 20);</span>
+<span class="fc" id="L251">		ship3.getStorageBays().add(new StorageList(&quot;Cargo Hold 1&quot;, 20, ItemType.CARGO));	</span>
+<span class="fc" id="L252">		ship3.getStorageBays().add(new StorageList(&quot;Cannon Bay 1&quot;, 2, ItemType.WEAPON));</span>
+<span class="fc" id="L253">		ship3.getStorageBays().add(new StorageList(&quot;Upgradable&quot;, 1, ItemType.UPGRADE));		</span>
+<span class="fc" id="L254">		ships.add(ship3);</span>
+		
+<span class="fc" id="L256">		Ship ship4 = new Ship(&quot;Savage Sloop&quot;, 8, 2, 40);</span>
+<span class="fc" id="L257">		ship4.getStorageBays().add(new StorageList(&quot;Cargo Hold 1&quot;, 20, ItemType.CARGO));	</span>
+<span class="fc" id="L258">		ship4.getStorageBays().add(new StorageList(&quot;Cannon Bay 1&quot;, 2, ItemType.WEAPON));</span>
+<span class="fc" id="L259">		ship4.getStorageBays().add(new StorageList(&quot;Missle Bay 1&quot;, 2, ItemType.WEAPON));</span>
+<span class="fc" id="L260">		ships.add(ship4);		</span>
+		
+<span class="fc" id="L262">	}</span>
+	
+	/**
+	 * Method to create a new random priced item
+	 * 
+	 *  @param store, the Store the Item will be on
+	 *  @param itemNames, a string List of names to randomly choose from
+	 *  @param itemType, the ItemType (eg Cargo / Update) that is being created
+	 *  @param maxPrice, the max price of the item, will be a random int under this value
+	 *  @param priceType, the type of priced Item being made eg FORSALE or FORBUY
+	 *  @param island, the Island that the item is being sold / bought on
+	 *  @return PricedItem, a newly created random PricedItem for a store   
+	 */		
+	private PricedItem createRandomPricedItem(Store store, String[] itemNames, ItemType itemType, int maxPrice, PriceType priceType, Island island) {
+		Item item;
+<span class="fc bfc" id="L277" title="All 2 branches covered.">		if (itemType == ItemType.UPGRADE) {</span>
+<span class="fc" id="L278">			item = createRandomUpgradeItem(itemNames);</span>
+<span class="fc" id="L279">		} else {</span>
+<span class="fc" id="L280">			item = createRandomItem(itemNames, itemType, 2);</span>
+		}	
+						
+<span class="fc" id="L283">		int price = random.nextInt(maxPrice *2) + 1; //*2 is dirty balance hack for now				</span>
+<span class="fc" id="L284">		PricedItem pricedItem = new PricedItem(item, price, priceType, island);	</span>
+<span class="fc" id="L285">		return pricedItem;</span>
+	}	
+	
+	/**
+	 * Method to create a new random
+	 * 
+	 *  @param itemNames, a string List of names to randomly choose from
+	 *  @param itemType, the ItemType (eg Cargo / Update) that is being created
+	 *  @param maxsize, how big the item is in terms of cargo space
+	 *  @return Item, a newly created random Item for a store
+	 */		
+	private Item createRandomItem(String[] itemNames, ItemType itemType, int maxSize) {
+<span class="fc" id="L297">		String newName = itemNames[random.nextInt(itemNames.length)];</span>
+<span class="fc" id="L298">		int newSize = 0;</span>
+<span class="pc bpc" id="L299" title="1 of 2 branches missed.">		if (maxSize != 0)</span>
+<span class="fc" id="L300">			newSize = random.nextInt(maxSize) + 1;</span>
+<span class="fc" id="L301">		Item newItem = new Item(newName, &quot;Dumb Description&quot;, newSize, itemType);</span>
+<span class="fc" id="L302">		return newItem;</span>
+	}
+	
+	/**
+	 * Method to create a new random UpgradeItem
+	 * 
+	 *  @param itemNames, a string List of names to randomly choose from
+	 */		
+	private UpgradeItem createRandomUpgradeItem(String[] itemNames) {
+<span class="fc" id="L311">		return new UpgradeItem(itemNames[random.nextInt(itemNames.length)]);</span>
+	}	
+	
+	/**
+	 * @return the ships the user can choose from
+	 */	
+	public List&lt;Ship&gt; getShips() {
+<span class="fc" id="L318">		return Collections.unmodifiableList(ships);</span>
+	}
+	
+	/**
+	 * @return the islands in the game
+	 */
+	public List&lt;Island&gt; getIslands() {
+<span class="fc" id="L325">		return Collections.unmodifiableList(islands);</span>
+	}
+
+	/**
+	 * Gets list of routes that exist in the game
+	 * @return all the routes in the game
+	 */
+	public List&lt;Route&gt; getRoutes() {
+<span class="nc" id="L333">		return Collections.unmodifiableList(routes);</span>
+	}
+	
+	/**
+	 * Gets list of routes that exist in the game, limited to routes that touch island1 and island2
+	 * @param island1, the first island the route must go between
+	 * @param island2, the second island the route must go between 
+	 * @return the routes that start and finish at certain island
+	 */	
+	public List&lt;Route&gt; getRoutes(Island island1, Island island2) {
+<span class="nc" id="L343">		ArrayList&lt;Route&gt; validRoutes = new ArrayList&lt;Route&gt;();</span>
+<span class="nc bnc" id="L344" title="All 2 branches missed.">		for (Route route : routes) {</span>
+<span class="nc bnc" id="L345" title="All 4 branches missed.">			if ((route.getIsland1() == island1 &amp;&amp; route.getIsland2() == island2)</span>
+<span class="nc bnc" id="L346" title="All 4 branches missed.">				|| (route.getIsland1() == island2 &amp;&amp; route.getIsland2() == island1))</span>
+<span class="nc" id="L347">				validRoutes.add(route);</span>
+		}
+<span class="nc" id="L349">		return Collections.unmodifiableList(validRoutes);</span>
+	}
+	
+	/**
+	 * Gets list of routes that exist in the game, limited to routes that touch island
+	 * @param island, the island we want routes from / to 
+	 * @return the routes that start OR finish at a certain island
+	 */		
+	public List&lt;Route&gt; getRoutes(Island island) {
+<span class="fc" id="L358">		ArrayList&lt;Route&gt; validRoutes = new ArrayList&lt;Route&gt;();</span>
+<span class="fc bfc" id="L359" title="All 2 branches covered.">		for (Route route : routes) {</span>
+<span class="pc bpc" id="L360" title="1 of 4 branches missed.">			if (route.getIsland1() == island || route.getIsland2() == island)</span>
+<span class="fc" id="L361">				validRoutes.add(route);</span>
+		}
+<span class="fc" id="L363">		return Collections.unmodifiableList(validRoutes);</span>
+	}
+	
+	/**
+	 * Gets list of routes from the current island 
+	 * @return the routes
+	 */		
+	public List&lt;Route&gt; getRoutesFromCurrent() {
+<span class="fc" id="L371">		ArrayList&lt;Route&gt; validRoutes = new ArrayList&lt;Route&gt;();</span>
+<span class="fc bfc" id="L372" title="All 2 branches covered.">		for (Route route : routes) {</span>
+<span class="pc bpc" id="L373" title="1 of 4 branches missed.">			if (route.getIsland1() == getCurrentIsland() || route.getIsland2() == getCurrentIsland())</span>
+<span class="fc" id="L374">				validRoutes.add(route);</span>
+		}
+<span class="fc" id="L376">		return Collections.unmodifiableList(validRoutes);</span>
+	}	
+
+	/**
+	 * @return the currentIsland
+	 */
+	public Island getCurrentIsland() {
+<span class="fc" id="L383">		return currentIsland;</span>
+	}
+
+	/**
+	 * @param currentIsland the currentIsland to set
+	 */
+	public void setCurrentIsland(Island currentIsland) {
+<span class="fc" id="L390">		this.currentIsland = currentIsland;</span>
+<span class="fc" id="L391">	}		</span>
+	
+	/**
+	 * Method to help me test
+	 * @param Route, the route to add at position 0
+	 */
+	public void addRouteIndZero(Route route) {
+<span class="fc" id="L398">		this.routes.add(0, route);</span>
+<span class="fc" id="L399">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 23, 2021 12:36:36 PM)</div></body></html>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>IslandProperties.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 23, 2021 12:36:36 PM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">ui.gui</a> &gt; <span class="el_source">IslandProperties.java</span></div><h1>IslandProperties.java</h1><pre class="source lang-java linenums">package ui.gui;
+
+import javax.swing.JFrame;
+import java.awt.Color;
+import javax.swing.JTextArea;
+
+import main.IslandTrader;
+
+import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class IslandProperties extends Screen {
+
+	private JFrame frame;
+
+	/**
+	 * Create the application.
+	 */
+	public IslandProperties(IslandTrader islandTrader) {
+<span class="nc" id="L25">		super(&quot;Island Properties&quot;, islandTrader);</span>
+<span class="nc" id="L26">		initialize();</span>
+<span class="nc" id="L27">	}</span>
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+<span class="nc" id="L33">		frame = new JFrame();</span>
+<span class="nc" id="L34">		frame.getContentPane().setBackground(new Color(240, 230, 140));</span>
+<span class="nc" id="L35">		frame.getContentPane().setLayout(null);</span>
+		
+<span class="nc" id="L37">		JTextArea lblNewLabel_1_1 = new JTextArea(&quot;How's the sailing going? Hope it is going all well and \nyou haven't seen any pirates yet!\n&quot;);</span>
+<span class="nc" id="L38">		lblNewLabel_1_1.setBounds(20, 27, 466, 63);</span>
+<span class="nc" id="L39">		lblNewLabel_1_1.setLineWrap(true);</span>
+<span class="nc" id="L40">		lblNewLabel_1_1.setForeground(new Color(0, 0, 0));</span>
+<span class="nc" id="L41">		lblNewLabel_1_1.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 20));</span>
+<span class="nc" id="L42">		lblNewLabel_1_1.setBackground(new Color(240, 230, 140));</span>
+<span class="nc" id="L43">		frame.getContentPane().add(lblNewLabel_1_1);</span>
+		
+<span class="nc" id="L45">		JLabel lblNewLabel = new JLabel(&quot;Which Island do you want to know about?\n&quot;);</span>
+<span class="nc" id="L46">		lblNewLabel.setBounds(20, 90, 454, 38);</span>
+<span class="nc" id="L47">		lblNewLabel.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 20));</span>
+<span class="nc" id="L48">		frame.getContentPane().add(lblNewLabel);</span>
+		
+<span class="nc" id="L50">		JLabel island1 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L51">		island1.setBounds(30, 155, 117, 144);</span>
+<span class="nc" id="L52">		island1.setIcon(new ImageIcon(IslandProperties.class.getResource(&quot;/island01.png&quot;)));</span>
+<span class="nc" id="L53">		frame.getContentPane().add(island1);</span>
+		
+<span class="nc" id="L55">		JLabel island2 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L56">		island2.setBounds(158, 169, 166, 124);</span>
+<span class="nc" id="L57">		island2.setIcon(new ImageIcon(IslandProperties.class.getResource(&quot;/island2-.png&quot;)));</span>
+<span class="nc" id="L58">		frame.getContentPane().add(island2);</span>
+		
+<span class="nc" id="L60">		JLabel island3 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L61">		island3.setBounds(331, 165, 143, 128);</span>
+<span class="nc" id="L62">		island3.setIcon(new ImageIcon(IslandProperties.class.getResource(&quot;/island3.png&quot;)));</span>
+<span class="nc" id="L63">		frame.getContentPane().add(island3);</span>
+		
+<span class="nc" id="L65">		JLabel island4 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L66">		island4.setBounds(463, 185, 151, 108);</span>
+<span class="nc" id="L67">		island4.setIcon(new ImageIcon(IslandProperties.class.getResource(&quot;/island04.gif&quot;)));</span>
+<span class="nc" id="L68">		frame.getContentPane().add(island4);</span>
+		
+<span class="nc" id="L70">		JLabel island5 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L71">		island5.setBounds(623, 154, 143, 145);</span>
+<span class="nc" id="L72">		island5.setIcon(new ImageIcon(IslandProperties.class.getResource(&quot;/island5.png&quot;)));</span>
+<span class="nc" id="L73">		frame.getContentPane().add(island5);</span>
+		
+<span class="nc" id="L75">		JRadioButton rdbtnHomeIsland = new JRadioButton(&quot;Home Island&quot;);</span>
+<span class="nc" id="L76">		rdbtnHomeIsland.addActionListener((e) -&gt; getManager().getWorld().getIslands().get(0));</span>
+<span class="nc" id="L77">		rdbtnHomeIsland.setBounds(6, 297, 141, 23);</span>
+<span class="nc" id="L78">		frame.getContentPane().add(rdbtnHomeIsland);</span>
+		
+<span class="nc" id="L80">		JRadioButton rdbtnEverythingIsland = new JRadioButton(&quot;Everything Island&quot;);</span>
+<span class="nc" id="L81">		rdbtnEverythingIsland.addActionListener((e) -&gt; getManager().getWorld().getIslands().get(1));</span>
+<span class="nc" id="L82">		rdbtnEverythingIsland.setBounds(158, 297, 141, 23);</span>
+<span class="nc" id="L83">		frame.getContentPane().add(rdbtnEverythingIsland);</span>
+		
+<span class="nc" id="L85">		JRadioButton rdbtnMechanicalIsland = new JRadioButton(&quot;Mechanical Island&quot;);</span>
+<span class="nc" id="L86">		rdbtnMechanicalIsland.addActionListener((e) -&gt; getManager().getWorld().getIslands().get(2));</span>
+<span class="nc" id="L87">		rdbtnMechanicalIsland.setBounds(316, 297, 158, 23);</span>
+<span class="nc" id="L88">		frame.getContentPane().add(rdbtnMechanicalIsland);</span>
+		
+<span class="nc" id="L90">		JRadioButton rdbtnHoarderIsland = new JRadioButton(&quot;Hoarder Island&quot;);</span>
+<span class="nc" id="L91">		rdbtnHoarderIsland.addActionListener((e) -&gt; getManager().getWorld().getIslands().get(3));</span>
+<span class="nc" id="L92">		rdbtnHoarderIsland.setBounds(477, 297, 141, 23);</span>
+<span class="nc" id="L93">		frame.getContentPane().add(rdbtnHoarderIsland);</span>
+		
+<span class="nc" id="L95">		JRadioButton rdbtnDangerIsland = new JRadioButton(&quot;Danger Island&quot;);</span>
+<span class="nc" id="L96">		rdbtnDangerIsland.addActionListener((e) -&gt; getManager().getWorld().getIslands().get(4));</span>
+<span class="nc" id="L97">		rdbtnDangerIsland.setBounds(623, 297, 141, 23);</span>
+<span class="nc" id="L98">		frame.getContentPane().add(rdbtnDangerIsland);</span>
+		
+<span class="nc" id="L100">		JButton btnViewRoutes = new JButton(&quot;View Routes to this Island&quot;);</span>
+<span class="nc" id="L101">		btnViewRoutes.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L103">				quit();</span>
+<span class="nc" id="L104">				Screen screen = new ViewIslandRoutes(islandTrader);</span>
+<span class="nc" id="L105">		    	screen.show();</span>
+<span class="nc" id="L106">			}</span>
+		});
+<span class="nc" id="L108">		btnViewRoutes.setBounds(104, 451, 178, 73);</span>
+<span class="nc" id="L109">		frame.getContentPane().add(btnViewRoutes);</span>
+		
+<span class="nc" id="L111">		JButton btnSeeWhatSells = new JButton(&quot;See what this island sells&quot;);</span>
+<span class="nc" id="L112">		btnSeeWhatSells.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L114">				quit();</span>
+<span class="nc" id="L115">				Screen screen = new IslandStore(islandTrader);</span>
+<span class="nc" id="L116">		    	screen.show();</span>
+<span class="nc" id="L117">			}</span>
+			
+		});
+<span class="nc" id="L120">		btnSeeWhatSells.setBounds(104, 366, 178, 73);</span>
+<span class="nc" id="L121">		frame.getContentPane().add(btnSeeWhatSells);</span>
+		
+<span class="nc" id="L123">		JButton btnSeeWhatBuys = new JButton(&quot;See what this island buys\n&quot;);</span>
+<span class="nc" id="L124">		btnSeeWhatBuys.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L126">				quit();</span>
+<span class="nc" id="L127">				Screen screen = new IslandStore(islandTrader);</span>
+<span class="nc" id="L128">		    	screen.show();</span>
+<span class="nc" id="L129">			}</span>
+		});
+<span class="nc" id="L131">		btnSeeWhatBuys.setBounds(436, 366, 178, 73);</span>
+<span class="nc" id="L132">		frame.getContentPane().add(btnSeeWhatBuys);</span>
+		
+<span class="nc" id="L134">		JButton btnMainMenu = new JButton(&quot;Back to main menu&quot;);</span>
+<span class="nc" id="L135">		btnMainMenu.setBounds(436, 451, 178, 73);</span>
+<span class="nc" id="L136">		btnMainMenu.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L138">				quit();</span>
+<span class="nc" id="L139">				Screen screen = new MainScreen(islandTrader);</span>
+<span class="nc" id="L140">		    	screen.show();</span>
+<span class="nc" id="L141">			}</span>
+		});
+<span class="nc" id="L143">		frame.getContentPane().add(btnMainMenu);</span>
+		
+<span class="nc" id="L145">		JLabel captain = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L146">		captain.setIcon(new ImageIcon(IslandProperties.class.getResource(&quot;/captain.png&quot;)));</span>
+<span class="nc" id="L147">		captain.setBounds(294, 366, 127, 169);</span>
+<span class="nc" id="L148">		frame.getContentPane().add(captain);</span>
+		
+<span class="nc" id="L150">		JLabel lblWhatDoYou = new JLabel(&quot;What do you want to know about this island?&quot;);</span>
+<span class="nc" id="L151">		lblWhatDoYou.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 20));</span>
+<span class="nc" id="L152">		lblWhatDoYou.setBounds(20, 316, 454, 38);</span>
+<span class="nc" id="L153">		frame.getContentPane().add(lblWhatDoYou);</span>
+<span class="nc" id="L154">		frame.setBounds(100, 100, 785, 582);</span>
+<span class="nc" id="L155">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="nc" id="L156">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 23, 2021 12:36:36 PM)</div></body></html>

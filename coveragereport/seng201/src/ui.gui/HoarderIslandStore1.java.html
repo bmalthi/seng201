@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>HoarderIslandStore1.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 23, 2021 12:36:36 PM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">ui.gui</a> &gt; <span class="el_source">HoarderIslandStore1.java</span></div><h1>HoarderIslandStore1.java</h1><pre class="source lang-java linenums">package ui.gui;
+
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+
+public class HoarderIslandStore1 {
+
+	private JFrame frame;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+<span class="nc" id="L21">		EventQueue.invokeLater(new Runnable() {</span>
+			public void run() {
+				try {
+<span class="nc" id="L24">					HoarderIslandStore1 window = new HoarderIslandStore1();</span>
+<span class="nc" id="L25">					window.frame.setVisible(true);</span>
+<span class="nc" id="L26">				} catch (Exception e) {</span>
+<span class="nc" id="L27">					e.printStackTrace();</span>
+				}
+<span class="nc" id="L29">			}</span>
+		});
+<span class="nc" id="L31">	}</span>
+
+	/**
+	 * Create the application.
+	 */
+<span class="nc" id="L36">	public HoarderIslandStore1() {</span>
+<span class="nc" id="L37">		initialize();</span>
+<span class="nc" id="L38">	}</span>
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+<span class="nc" id="L44">		frame = new JFrame();</span>
+<span class="nc" id="L45">		frame.getContentPane().setBackground(new Color(184, 134, 11));</span>
+<span class="nc" id="L46">		frame.getContentPane().setLayout(null);</span>
+		
+<span class="nc" id="L48">		JTextArea txtrHey = new JTextArea(&quot;Welcome to the Island's store -&quot;);</span>
+<span class="nc" id="L49">		txtrHey.setForeground(Color.WHITE);</span>
+<span class="nc" id="L50">		txtrHey.setFont(new Font(&quot;Holiday Sun&quot;, Font.PLAIN, 24));</span>
+<span class="nc" id="L51">		txtrHey.setBackground(new Color(184, 134, 11));</span>
+<span class="nc" id="L52">		txtrHey.setBounds(24, 20, 285, 34);</span>
+<span class="nc" id="L53">		frame.getContentPane().add(txtrHey);</span>
+		
+<span class="nc" id="L55">		JTextArea lblNewLabel_1_1 = new JTextArea(&quot;Hello trader! How's your adventure going so far? \n\nThis is the Island's store, where you can buy awesome items and sell your cool items. \n\n\n\n&quot;);</span>
+<span class="nc" id="L56">		lblNewLabel_1_1.setLineWrap(true);</span>
+<span class="nc" id="L57">		lblNewLabel_1_1.setForeground(Color.WHITE);</span>
+<span class="nc" id="L58">		lblNewLabel_1_1.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 17));</span>
+<span class="nc" id="L59">		lblNewLabel_1_1.setBackground(new Color(128, 0, 0));</span>
+<span class="nc" id="L60">		lblNewLabel_1_1.setBounds(24, 56, 752, 85);</span>
+<span class="nc" id="L61">		frame.getContentPane().add(lblNewLabel_1_1);</span>
+	
+<span class="nc" id="L63">		JLabel hotelcaliforniaStore = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L64">		hotelcaliforniaStore.setIcon(new ImageIcon(HoarderIslandStore1.class.getResource(&quot;/1HoarderStore.png&quot;)));</span>
+<span class="nc" id="L65">		hotelcaliforniaStore.setBounds(379, 314, 406, 240);</span>
+<span class="nc" id="L66">		frame.getContentPane().add(hotelcaliforniaStore);</span>
+		
+<span class="nc" id="L68">		JButton btnNewButton = new JButton(&quot;Back to main menu&quot;);</span>
+<span class="nc" id="L69">		btnNewButton.setBounds(566, 327, 140, 40);</span>
+<span class="nc" id="L70">		frame.add(btnNewButton);</span>
+		
+<span class="nc" id="L72">		frame.setBounds(100, 100, 785, 582);</span>
+<span class="nc" id="L73">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+		
+<span class="nc" id="L75">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 23, 2021 12:36:36 PM)</div></body></html>

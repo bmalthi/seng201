@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>IslandTrader.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 23, 2021 12:36:36 PM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main</a> &gt; <span class="el_source">IslandTrader.java</span></div><h1>IslandTrader.java</h1><pre class="source lang-java linenums">package main;
+
+import java.util.ArrayList;
+import java.util.Random;
+import ui.IslandTraderUI;
+
+/**
+ * Manages the IslandTrader game, allowing the {@link Player} to travel to {@link Island}s and trade
+ * goods in {@link Store}s
+ */
+public class IslandTrader {
+
+    // The user interface to be used by this manager
+	private final IslandTraderUI ui;
+
+	// The player playing the game
+	private Player player;
+	
+	// The world. An object to hold the Islands and Routes 
+	private World world;
+	
+	// The length of the game, set from user input on initialization
+	private int gameLength;
+	
+	// The current position of the game in time
+<span class="fc" id="L26">	private int time = 1;</span>
+	
+	// The game can be between 20 and 50 days, this regex matches valid input for this period
+	public static final String GAME_LENGTH_REGEX = &quot;^[2-4][0-9]|50$&quot;;	
+	public static final String SHIP_REGEX = &quot;[1-4]&quot;;
+	
+	// Random object to use for game options like do we encounter pirates
+	private Random random;	
+	
+	// Keep tracking of islands visited for scoring purposes
+	private ArrayList&lt;Island&gt; visitedIslands;
+	
+	/**
+	 * Creates a IslandManager with the given user interface. Then initializes the world objects
+	 * such as Stores, Islands and the Player.
+	 * 
+	 * @param ui The user interface that this manager should use
+	 */
+<span class="fc" id="L44">	public IslandTrader(IslandTraderUI ui) {</span>
+<span class="fc" id="L45">		this.ui = ui;</span>
+<span class="fc" id="L46">		this.random = new Random();		</span>
+<span class="fc" id="L47">		this.world = new World(random);</span>
+<span class="fc" id="L48">		this.visitedIslands = new ArrayList&lt;Island&gt;();</span>
+<span class="fc" id="L49">		this.visitedIslands.add(this.world.getCurrentIsland());</span>
+<span class="fc" id="L50">	}</span>
+
+	/**
+	 * Starts this IslandTrader. 
+	 * This method calls {@link IslandTraderUI#setup(IslandTrader)} to initiate setup of the user interface.
+	 */
+	public void start() {
+<span class="nc" id="L57">		ui.setup(this);</span>
+<span class="nc" id="L58">	}	</span>
+
+	/**
+	 * This method should be called by the user interface when {@link IslandTraderUI#setup(IslandTrader)}
+	 * has been completed. This method calls {@link IslandTraderUI#start()} to tell the user interface to start.	 
+	 */
+	public void onSetupFinished() {
+<span class="nc" id="L65">		ui.start();</span>
+<span class="nc" id="L66">	}</span>
+	
+	/**
+	 * This method should be called by the {@link IslandTraderUI} when the user has requested
+	 * to quit the application. This method calls {@link IslandTraderUI#quit()} after first confirming the
+	 * user really wants to quit.
+	 */
+	public void onFinish() {
+<span class="nc bnc" id="L74" title="All 2 branches missed.">		if (ui.confirmQuit())</span>
+<span class="nc" id="L75">			setGameOver();</span>
+<span class="nc" id="L76">	}	</span>
+	
+	/**
+	 * This method is called when the game is over, eg if the player loses to pirates
+	 */	
+	public void setGameOver() {
+		// If we had any clean up to do before quitting we should do it here before telling
+		// the ui to quit.
+<span class="nc" id="L84">		ui.quit();		</span>
+<span class="nc" id="L85">	}</span>
+	
+	/**
+	 * @return the world
+	 */
+	public World getWorld() {
+<span class="fc" id="L91">		return world;</span>
+	}
+
+	/**
+	 * Gets the player of the game
+	 * 
+	 * @return the player of the game
+	 */
+	public Player getPlayer() {
+<span class="fc" id="L100">		return player;</span>
+	}
+
+	/**
+	 * Set the player of the game
+	 * 
+	 * @param player the player to set
+	 */
+	public void setPlayer(Player player) {
+<span class="fc" id="L109">		this.player = player;</span>
+<span class="fc" id="L110">	}</span>
+
+	/**
+	 * Gets the length of the game
+	 * 
+	 * @return the length of the game
+	 */
+	public int getGameLength() {
+<span class="nc" id="L118">		return gameLength;</span>
+	}
+	
+	/**
+	 * Gets a random int
+	 * 
+	 * @param maxInt, determines the biggest random int that could be generate
+	 * @return the length of the game
+	 */
+	public int getRandomInt(int maxInt) {
+<span class="fc" id="L128">		return random.nextInt(maxInt);</span>
+	}	
+
+	/**
+	 * Sets the length of the game
+	 * 
+	 * @param gameLength, the length of the game to set
+	 */
+	public void setGameLength(int gameLength) {
+<span class="fc" id="L137">		this.gameLength = gameLength;</span>
+<span class="fc" id="L138">	}</span>
+	
+	/**
+	 * Get the current time in the game
+	 * 
+	 * @return the time of the game
+	 */
+	public int getTime() {
+<span class="fc" id="L146">		return time;</span>
+	}
+
+	/**
+	 * Sets the current time in the game
+	 * 
+	 * @param time the time to set
+	 */
+	public void setTime(int time) {
+<span class="fc" id="L155">		this.time = time;</span>
+<span class="fc" id="L156">	}</span>
+	
+	/**
+	 * Gets the ui attached to the game
+	 *
+	 * @return the ui
+	 */
+	public IslandTraderUI getUI() {
+<span class="fc" id="L164">		return this.ui;</span>
+	}	
+
+	/**
+	 * Gets the game score illustrating how well the player has done. 
+	 * Points are awarded for profit and visiting lots of all islands 
+	 * Points are deducted for not finishing the game
+	 * Points are also linked to your remaining balance
+	 * 
+	 * @return a score integer, can be negative or positive 
+	 */	
+	public int gameScore() {		
+<span class="fc" id="L176">		int score = player.getBalance();</span>
+		
+		// Get extra points for profit. 5$ per profit
+<span class="fc" id="L179">		score = score + player.getProfitValue()[0] * 5;</span>
+		
+		// Get points for value in storage still
+<span class="fc" id="L182">		score = score + player.getProfitValue()[1];</span>
+		
+		//lost points if you didn't finish the game, or get close
+<span class="pc bpc" id="L185" title="1 of 2 branches missed.">		if (time &lt; (gameLength-5)) {</span>
+<span class="fc" id="L186">			score = score - 30;</span>
+		}
+		
+		//bonus points if you went to all islands
+<span class="fc" id="L190">		score = score + visitedIslands.size()*10;</span>
+		
+<span class="fc" id="L192">		return score;</span>
+	}	
+	
+	/**
+	 *  Sets the ship the player has chosen.
+	 *  @param option, is the int corresponding to the user ship choice
+	 */
+	public void selectShip(int option) {
+		//Option should be already validated by the calling code
+<span class="fc" id="L201">		getPlayer().setShip(getWorld().getShips().get(option));		</span>
+<span class="fc" id="L202">	}</span>
+	
+	/**
+	 * This method validates if the player can purchase an item given their money,
+	 * given the storage on this ship
+	 * 
+	 * @param purchase, the priced item that player is attempting to purchase
+	 * @return FailureState, Enum representing outcome of the validation
+	 */	
+	public FailureState validatePurchase(PricedItem purchase) {
+<span class="fc bfc" id="L212" title="All 2 branches covered.">		if (player.hasMoney(purchase) == false)</span>
+<span class="fc" id="L213">			return FailureState.NOMONEY;</span>
+<span class="pc bpc" id="L214" title="1 of 2 branches missed.">		else if (player.getShip().hasSpace(purchase.getItem()) == false)</span>
+<span class="nc" id="L215">			return FailureState.NOSPACE;</span>
+		else
+<span class="fc" id="L217">			return FailureState.SUCCESS;</span>
+	}	
+	
+	/**
+	 * This method transacts a purchase of an item in a store. Returns the purchased item if successful
+	 * 
+	 * @param option The 0 based index of the item in the store's {@link Store#getToSellList()} list
+	 */		
+	public void buyStoreItem(int option) {
+		//Get the chosen item
+<span class="fc" id="L227">		Store store = getWorld().getCurrentIsland().getStore();</span>
+<span class="fc" id="L228">		PricedItem purchase = store.getToSellList().get(option);</span>
+		//Validate the user can do this
+<span class="fc" id="L230">		FailureState validationResult = validatePurchase(purchase);</span>
+<span class="pc bpc" id="L231" title="1 of 2 branches missed.">		if (validationResult == FailureState.SUCCESS) {</span>
+<span class="fc" id="L232">			store.sellItem(purchase);</span>
+<span class="fc" id="L233">			PricedItem transaction = player.buyItem(purchase);</span>
+<span class="fc" id="L234">			ui.processTransaction(transaction);</span>
+<span class="fc" id="L235">		} else {</span>
+<span class="nc" id="L236">			ui.showError(&quot;The purchase failed: &quot; + validationResult.name);</span>
+		}
+<span class="fc" id="L238">	}</span>
+	
+	/**
+	 * This method validates if the player can sell an item to a store given them
+	 * having the item
+	 * 
+	 * @param sale, the priced item that player is attempting to sale
+	 * @return FailureState, Enum representing outcome of the validation
+	 */	
+	public FailureState validateSale(PricedItem sale) {
+<span class="fc bfc" id="L248" title="All 2 branches covered.">		if (player.getShip().hasItem(sale.getItem()) == false)</span>
+<span class="fc" id="L249">			return FailureState.NOITEM;</span>
+		else
+<span class="fc" id="L251">			return FailureState.SUCCESS;</span>
+	}		
+	
+	/**
+	 * This method transacts a sale of an item to a store. Returns the sold item if successful
+	 * 
+	 * @param option The 0 based index of the item in the store's {@link Store#getToBuyList()} list
+	 */	
+	public void sellStoreItem(int option) {
+		//Get the chosen item
+<span class="fc" id="L261">		Store store = getWorld().getCurrentIsland().getStore();</span>
+<span class="fc" id="L262">		PricedItem sale = store.getToBuyList().get(option);</span>
+		//Validate the user can do this
+<span class="fc" id="L264">		FailureState validationResult = validateSale(sale);</span>
+<span class="pc bpc" id="L265" title="1 of 2 branches missed.">		if (validationResult == FailureState.SUCCESS) {</span>
+<span class="fc" id="L266">			store.buyItem(sale);</span>
+<span class="fc" id="L267">			PricedItem transaction = player.sellItem(sale);</span>
+<span class="fc" id="L268">			ui.processTransaction(transaction);</span>
+<span class="fc" id="L269">		} else {</span>
+<span class="nc" id="L270">			ui.showError(&quot;The sale failed: &quot; + validationResult.name);</span>
+		}
+<span class="fc" id="L272">	}	</span>
+	
+	/**
+	 * This method returns a boolean indicating if the user has enough game time left to sail a route
+	 * 
+	 * @param route, the route the user wishes to sale on
+	 * @return boolean indicating if they have enough time
+	 */		
+	private boolean hasTime(Route route) {
+<span class="pc bpc" id="L281" title="1 of 2 branches missed.">		if (gameLength-time &gt;= player.getShip().sailingDays(route)) {</span>
+<span class="fc" id="L282">			return true;</span>
+		} else {
+<span class="nc" id="L284">			return false;</span>
+		}
+	}
+	
+	/**
+	 * Method to determine if the user can trade at all, do they have any money
+	 * or anything to sell (CARGO)
+	 * 
+	 * @return boolean indicating if the user can trade
+	 */		
+	private boolean canTrade() {		
+<span class="pc bnc" id="L295" title="All 2 branches missed.">		return (</span>
+					//Player has money and store is selling
+					(
+<span class="pc bpc" id="L298" title="1 of 2 branches missed.">						getPlayer().getBalance() &gt; 0</span>
+<span class="nc bnc" id="L299" title="All 2 branches missed.">						&amp;&amp; getWorld().getCurrentIsland().getStore().getToSellList().size() &gt; 0</span>
+					) ||
+					//Player has cargo &amp; store is buying 
+					(
+<span class="pc bpc" id="L303" title="1 of 2 branches missed.">						getPlayer().getShip().hasCargo()</span>
+<span class="nc" id="L304">						&amp;&amp; getWorld().getCurrentIsland().getStore().getToBuyList().size() &gt; 0</span>
+					)
+				);
+	}
+	
+	/**
+	 * Method determines if it is game over, ie the user does not have time/money to sail any route
+	 * and the value of the items in their cargo is not enough to save them
+	 * @return FailureState indicating whether the game should end
+	 */
+	public FailureState isGameOver() {
+<span class="fc bfc" id="L315" title="All 2 branches covered.">		for (Route route : getWorld().getRoutesFromCurrent()) {</span>
+<span class="fc" id="L316">			FailureState lastFailure = validateRoute(route, true);</span>
+<span class="pc bpc" id="L317" title="1 of 4 branches missed.">			if (lastFailure == FailureState.SUCCESS || lastFailure == FailureState.MUSTREPAIR) {</span>
+<span class="fc" id="L318">				return FailureState.SUCCESS;</span>
+			}			
+		}
+<span class="pc bpc" id="L321" title="1 of 2 branches missed.">		if (canTrade()) {</span>
+			// The user can't sail anywhere, even if they trade but they can buy and sell some stuff for fun
+<span class="nc" id="L323">			return FailureState.GAMEOVER_SOFT;</span>
+		} else {
+			// The user doesn't have money and anything to sell, its hard game over
+			// Also true if pirates make you walk the plank
+<span class="fc" id="L327">			return FailureState.GAMEOVER_HARD;</span>
+		}
+	}
+	
+	/**
+	 * This method returns a FailureState enum indicating if the user can sail a route
+	 * given their money and remaining gametime. User may fail multiple criteria but only
+	 * one is returned in order of NOTIME, NOMONEY, MUSTREPAIR
+	 * 
+	 * @param route, the route the user wishes to sale on
+	 * @param includeCargo, boolean to indicate if we should include cargo value in hasMoney calculation
+	 * @return FailureState, Enum representing outcome of the validation
+	 */	
+	public FailureState validateRoute(Route route, boolean includeCargo) {
+<span class="pc bpc" id="L341" title="1 of 2 branches missed.">		if (hasTime(route) == false)</span>
+<span class="nc" id="L342">			return FailureState.NOTIME;		</span>
+<span class="fc bfc" id="L343" title="All 2 branches covered.">		else if (player.hasMoney(route, includeCargo) == false)</span>
+<span class="fc" id="L344">			return FailureState.NOMONEY;		</span>
+<span class="pc bpc" id="L345" title="1 of 2 branches missed.">		else if (player.getShip().getRepairCost() &gt; 0)</span>
+<span class="nc" id="L346">			return FailureState.MUSTREPAIR;		</span>
+		else
+<span class="fc" id="L348">			return FailureState.SUCCESS;</span>
+	}
+	
+	/**
+	 * This method returns a enum indicating if the user has
+	 * enough money to repair their ship
+	 * 
+	 * @param ship, the ship to repair
+	 * @return FailureState, Enum representing outcome of the validation
+	 */	
+	public FailureState validateRepair(Ship ship) {
+<span class="pc bpc" id="L359" title="1 of 2 branches missed.">		if (player.getShip().getRepairCost() &gt; this.getPlayer().getBalance())</span>
+<span class="nc" id="L360">			return FailureState.NOMONEY;</span>
+		else
+<span class="fc" id="L362">			return FailureState.SUCCESS;</span>
+	}	
+	
+	/**
+	 * This method validates if the user can buy / sell / travel an Item or route. Helper method
+	 * to enable the ui to highlight better options for the user 
+	 * 
+	 * @param obj, the object being validated as a option for the user
+	 * @return FailureState, Enum representing outcome of the validation
+	 */		
+	public FailureState validate(Object obj) {
+<span class="fc bfc" id="L373" title="All 2 branches covered.">		if (obj instanceof Route) {</span>
+<span class="fc" id="L374">			return validateRoute((Route)obj, false);</span>
+<span class="pc bpc" id="L375" title="1 of 2 branches missed.">		} else if (obj instanceof PricedItem) {</span>
+<span class="fc bfc" id="L376" title="All 2 branches covered.">			if (((PricedItem)obj).getType() == PriceType.FORBUY) {</span>
+<span class="fc" id="L377">				return validateSale((PricedItem)obj);</span>
+			} else {
+<span class="fc" id="L379">				return validatePurchase((PricedItem)obj);</span>
+			}
+<span class="nc bnc" id="L381" title="All 2 branches missed.">		} else if (obj instanceof Ship) {</span>
+<span class="nc" id="L382">			return validateRepair((Ship) obj);</span>
+		} else {
+<span class="nc" id="L384">			return FailureState.UNKNOWN;</span>
+		}
+	}	
+	
+	/**
+	 * Sails the route
+	 * @param option, the route index chosen by the user in the route list from the current island
+	 */
+	public void sailRoute(int option) {
+		// Get the route the user choose
+<span class="fc" id="L394">		Route route = getWorld().getRoutes(getWorld().getCurrentIsland()).get(option);</span>
+		
+		// Validate the route (money to sail, time in game)
+<span class="fc" id="L397">		FailureState validationResult = validateRoute(route, false);</span>
+<span class="pc bpc" id="L398" title="1 of 2 branches missed.">		if (validationResult == FailureState.SUCCESS) {			</span>
+			//Get the wages for the route, they are paid upfront
+<span class="fc" id="L400">			int wages = getPlayer().deductRouteWages(route);</span>
+<span class="fc" id="L401">			String name = &quot;Crew to &quot; +route.otherIsland(getWorld().getCurrentIsland());</span>
+<span class="fc" id="L402">			PricedItem wageRecord = new PricedItem(new Item(name, &quot;No Description&quot;, 0, ItemType.WAGES), wages, PriceType.PURCHASED, getWorld().getCurrentIsland());</span>
+<span class="fc" id="L403">			getPlayer().addTransaction(wageRecord);</span>
+			
+			//Move player to the new island
+<span class="fc" id="L406">			Island newIsland = route.otherIsland(getWorld().getCurrentIsland());</span>
+<span class="pc bpc" id="L407" title="1 of 2 branches missed.">			if(visitedIslands.contains(newIsland) == false) {</span>
+<span class="fc" id="L408">				visitedIslands.add(newIsland);</span>
+			}
+<span class="fc" id="L410">			getWorld().setCurrentIsland(newIsland);</span>
+			
+			// Assume the time passed, even if we meet pirates etc,
+			// you sail the route and you effectively get all the bad effects at the end
+<span class="fc" id="L414">			int sailingTime = getPlayer().getShip().sailingDays(route);</span>
+<span class="fc" id="L415">			setTime(getTime() + sailingTime);</span>
+			
+			// Tell the user about it
+<span class="fc" id="L418">			ui.sailRoute(route, wageRecord, sailingTime);</span>
+<span class="fc" id="L419">		} else {</span>
+<span class="nc" id="L420">			ui.showError(&quot;Sailing Failed: &quot; + validationResult.name);</span>
+		}
+<span class="fc" id="L422">	}</span>
+	
+	/**
+	 * Triggers the random event attached to the route if it is randomly called. 
+	 * A random number between 1-100 is created, if the event probability is lower 
+	 * than this then trigger the event
+	 * @param event, the event to potentially trigger randomly
+	 */	
+	public void triggerRandomSailingEvent(RandomEvent event) {
+<span class="fc" id="L431">		int probabilityOutcome = getRandomInt(100)+1; //Minvalue of 1</span>
+<span class="fc bfc" id="L432" title="All 2 branches covered.">		if (probabilityOutcome &lt; event.getProbability()) {</span>
+<span class="fc" id="L433">			event.eventTriggered(this);</span>
+		}
+<span class="fc" id="L435">	}</span>
+	
+	/**
+	 * Method called to repair this ship. Deducts money from the player and creates a transaction record
+	 */		
+	public void repairShip() {
+		//Repair the ship &amp; deduct funds
+<span class="fc" id="L442">		int repairCost = getPlayer().getShip().getRepairCost();</span>
+<span class="fc" id="L443">		getPlayer().setBalance(getPlayer().getBalance()-repairCost);</span>
+<span class="fc" id="L444">		getPlayer().getShip().setDamageAmount(0);</span>
+		
+		//Create a transaction record for the repair
+<span class="fc" id="L447">		String name = &quot;Repair ship &quot; + getWorld().getCurrentIsland();</span>
+<span class="fc" id="L448">		PricedItem repairRecord = new PricedItem(new Item(name, &quot;No Description&quot;, 0, ItemType.REPAIR), repairCost, PriceType.PURCHASED, getWorld().getCurrentIsland());</span>
+<span class="fc" id="L449">		this.getPlayer().addTransaction(repairRecord);		</span>
+<span class="fc" id="L450">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 23, 2021 12:36:36 PM)</div></body></html>

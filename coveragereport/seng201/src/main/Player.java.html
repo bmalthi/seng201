@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Player.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 23, 2021 12:36:36 PM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main</a> &gt; <span class="el_source">Player.java</span></div><h1>Player.java</h1><pre class="source lang-java linenums">package main;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Represents the Player in the game. A player has money and transactions, 
+ * a player has a ship
+ *
+ */
+public class Player {
+
+	//The Name of the player
+	private String name;
+	
+	//The current balance of the the player	
+	private int balance;
+	
+	//The transaction list of the player, everything they have bought / sold / upgraded
+	private ArrayList&lt;PricedItem&gt; transactions;
+
+	//The Ship the player is using for the game 
+	private Ship ship;
+	
+	// The players starting balance of money
+<span class="fc" id="L27">	private final int STARTING_BALANCE = 100;</span>
+	
+	// Regex limiting the players name, has to be 3-15 letters or space
+	public static final String NAME_REGEX = &quot;^[a-z A-Z]{3,15}$&quot;;
+
+	/**
+	 * Create a player
+	 * 
+	 * @param name the name of the player
+	 */
+<span class="fc" id="L37">	public Player(String name) {</span>
+<span class="fc" id="L38">		this.name = name;</span>
+<span class="fc" id="L39">		this.balance = STARTING_BALANCE;</span>
+<span class="fc" id="L40">		this.transactions = new ArrayList&lt;PricedItem&gt;();</span>
+<span class="fc" id="L41">	}</span>
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+<span class="nc" id="L47">		return name;</span>
+	}
+
+	/**
+	 * @return the balance
+	 */
+	public int getBalance() {
+<span class="fc" id="L54">		return balance;</span>
+	}
+
+	/**
+	 * @param balance the balance to set
+	 */
+	public void setBalance(int balance) {
+<span class="fc" id="L61">		this.balance = balance;</span>
+<span class="fc" id="L62">	}</span>
+
+	/**
+	 * Gets the transactions the player has made 
+	 * @return the transactions
+	 */
+	public List&lt;PricedItem&gt; getTransactions() {
+<span class="fc" id="L69">		return Collections.unmodifiableList(transactions);</span>
+	}		
+	
+	/**
+	 * Adds a transaction to the list of the transactions the player has made
+	 * 
+	 * @param transaction, the PricedItem representing a new transaction
+	 */
+	public void addTransaction(PricedItem transaction) {
+<span class="fc" id="L78">		transactions.add(transaction);</span>
+<span class="fc" id="L79">	}			</span>
+
+	/**
+	 * @return the ship
+	 */
+	public Ship getShip() {
+<span class="fc" id="L85">		return ship;</span>
+	}
+
+	/**
+	 * @param ship, the ship the player has chosen
+	 */
+	public void setShip(Ship ship) {
+<span class="fc" id="L92">		this.ship = ship;</span>
+<span class="fc" id="L93">	}			</span>
+	
+	/**
+	 * Checks if the player has enough money to make a particular purchase
+	 * 
+	 * @param purchase, the PricedItem the player is wanting to purchase
+	 * @return boolean indicating if the player has enough money for the purchase
+	 */	
+	public boolean hasMoney(PricedItem purchase) {
+<span class="fc bfc" id="L102" title="All 2 branches covered.">		return (getBalance() &gt;= purchase.getPrice());</span>
+	}
+	
+	/**
+	 * Gets the profit the user has made, change balance - starting balance
+	 * How much extra cash the player has compared to when they started
+	 * 
+	 * @return The current profit of the player 
+	 */		
+	public int[] getProfitValue() {
+		//This is a bit hacky to calc value of goods since I'm only storing items in cargo not their value
+<span class="fc" id="L113">		ArrayList&lt;PricedItem&gt; purchases = new ArrayList&lt;PricedItem&gt;();</span>
+<span class="fc" id="L114">		ArrayList&lt;PricedItem&gt; sales = new ArrayList&lt;PricedItem&gt;();</span>
+<span class="fc" id="L115">		ArrayList&lt;PricedItem&gt; stolen = new ArrayList&lt;PricedItem&gt;();		</span>
+				
+<span class="fc bfc" id="L117" title="All 2 branches covered.">		for (PricedItem item : getTransactions()) {</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">			if (item.getItem().getType() == ItemType.CARGO) {</span>
+<span class="pc bpc" id="L119" title="1 of 4 branches missed.">		        switch (item.getType()) {</span>
+		    		case PURCHASED:
+<span class="fc" id="L121">		    			purchases.add(item);</span>
+<span class="fc" id="L122">		    			break;</span>
+		    		case SOLD:
+<span class="fc" id="L124">		    			sales.add(item);</span>
+<span class="fc" id="L125">	    				break;</span>
+		    		case STOLEN:
+<span class="fc" id="L127">		    			stolen.add(item);</span>
+<span class="fc" id="L128">		    			break;     			</span>
+			        default:
+			        	break;
+		        }				
+			}
+		}
+		
+<span class="fc" id="L135">		int profit = 0;</span>
+<span class="fc" id="L136">		int value = 0;</span>
+        try {
+<span class="fc bfc" id="L138" title="All 2 branches covered.">    		for (PricedItem sale : sales) {</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">    			for (int i = purchases.size()-1; i &gt;= 0; i--) {</span>
+<span class="fc" id="L140">    				PricedItem purchase = purchases.get(i);</span>
+<span class="pc bpc" id="L141" title="1 of 2 branches missed.">	    			if (purchase.getItem().equals(sale.getItem())) {</span>
+<span class="fc" id="L142">		    			profit = sale.getPrice() - purchase.getPrice();</span>
+<span class="fc" id="L143">		    			purchases.remove(purchase);</span>
+	    			}
+    			}
+    		}
+<span class="fc bfc" id="L147" title="All 2 branches covered.">    		for (PricedItem steal : stolen) {  </span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">    			for (int j = purchases.size()-1; j &gt;= 0; j--) {</span>
+<span class="fc" id="L149">    				PricedItem purchase = purchases.get(j);</span>
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">	    			if (purchase.getItem().equals(steal.getItem())) {</span>
+<span class="fc" id="L151">		    			profit = 0 - purchase.getPrice();</span>
+<span class="fc" id="L152">		    			purchases.remove(purchase);</span>
+	    			}
+    			}
+    		}
+<span class="fc bfc" id="L156" title="All 2 branches covered.">    		for (PricedItem item : purchases) {      			</span>
+<span class="fc" id="L157">    			value = value + item.getPrice();</span>
+    		}    		
+<span class="pc" id="L159">        } catch (Exception e) {</span>
+<span class="nc" id="L160">        	System.out.println(&quot;OPPS:\n&quot; +e.getMessage());</span>
+        } 		
+        		
+<span class="fc" id="L163">		return (new int[]{profit, value});</span>
+	}		
+
+	/**
+	 * Method to action the purchase of an item by the player.
+	 * It adds the item to the users cargo, it deducts money from the user
+	 * and it adds it to the users list of transactions 
+	 * 
+	 * @param purchase, the PricedItem the player is purchasing
+	 * @return transaction, the record of the transaction from player pov	 * 
+	 */		
+	public PricedItem buyItem(PricedItem purchase) {
+<span class="fc" id="L175">		PricedItem transaction = new PricedItem(purchase.getItem(), purchase.getPrice(), PriceType.PURCHASED, purchase.getIsland());</span>
+<span class="fc" id="L176">		addTransaction(transaction);</span>
+<span class="fc" id="L177">		setBalance(getBalance() - purchase.getPrice());</span>
+<span class="fc" id="L178">		getShip().addItem(purchase.getItem());</span>
+		
+		// if the item is an upgrade item, then upgrade the ship
+<span class="fc" id="L181">		Item item = purchase.getItem();</span>
+<span class="pc bpc" id="L182" title="1 of 2 branches missed.">		if (item.getType() ==  ItemType.UPGRADE) {</span>
+<span class="nc" id="L183">			((UpgradeItem)item).upgradeShip(getShip());</span>
+		}
+		
+<span class="fc" id="L186">		return transaction;</span>
+	}	
+	
+	/**
+	 * Method to action the sale of an item by the player to a store
+	 * It removes the item to the users cargo, it adds money to the user
+	 * and it adds it to the users list of transactions 
+	 * 
+	 * @param sale, the PricedItem the player just sold
+	 * @return transaction, the record of the transaction from player pov
+	 */		
+	public PricedItem sellItem(PricedItem sale) {
+<span class="fc" id="L198">		PricedItem transaction = new PricedItem(sale.getItem(), sale.getPrice(), PriceType.SOLD, sale.getIsland());</span>
+<span class="fc" id="L199">		addTransaction(transaction);</span>
+<span class="fc" id="L200">		setBalance(getBalance() + sale.getPrice());</span>
+<span class="fc" id="L201">		getShip().removeItem(sale.getItem());	</span>
+<span class="fc" id="L202">		return transaction;		</span>
+	}
+	
+	/**
+	 * Checks if the user has enough money to sail a route,
+	 * given their ship and the length of the route, and repairs needed
+	 * 
+	 * @param route, the route the user wishes to sail
+	 * @param includeCargo, boolean to indicate if we should include cargo value in hasMoney calculation	 * 
+	 * @return boolean indicating true / false if they have enough money
+	 */			
+	public boolean hasMoney(Route route, boolean includeCargo) {
+<span class="fc" id="L214">		int fundsNeeded = getShip().costOfRoute(route) + getShip().getRepairCost();		</span>
+<span class="fc" id="L215">		int fundsHave = getBalance();</span>
+		// This is a bit of a hack, its possible the local store won't buy these items
+		// or the price the local store will pay is more / less
+<span class="fc bfc" id="L218" title="All 2 branches covered.">		if (includeCargo)</span>
+<span class="fc" id="L219">			fundsHave = fundsHave + getProfitValue()[1];</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">		return (fundsHave &gt;= fundsNeeded);</span>
+	}
+	
+	/**
+	 * Updates the players balance money to pay for the sailing
+	 * 
+	 * @param route, the route the user wishes to sail
+	 * @return int, how much wages were deducted
+	 */			
+	public int deductRouteWages(Route route) {
+<span class="fc" id="L230">		int wages = getShip().costOfRoute(route);</span>
+<span class="fc" id="L231">		setBalance(getBalance() - wages);</span>
+<span class="fc" id="L232">		return wages;</span>
+	}
+	
+	/**
+	 * @return a string representation of the player, the name
+	 */	
+	@Override
+	public String toString() {		
+<span class="nc" id="L240">		return getName();</span>
+	}	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 23, 2021 12:36:36 PM)</div></body></html>

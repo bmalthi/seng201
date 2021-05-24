@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>UpgradeItemTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 23, 2021 12:36:36 PM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">test.main</a> &gt; <span class="el_source">UpgradeItemTest.java</span></div><h1>UpgradeItemTest.java</h1><pre class="source lang-java linenums">package test.main;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+import main.Item;
+import main.ItemType;
+import main.Ship;
+import main.UpgradeItem;
+
+
+
+/**
+ * Class to test ship upgrade functionality
+ */
+<span class="fc" id="L16">class UpgradeItemTest {</span>
+
+	@Test
+	void upgradeEngineTest() {
+<span class="fc" id="L20">		Ship testShip = new Ship(&quot;Ben Ship&quot;, 5, 10, 100);</span>
+<span class="fc" id="L21">		UpgradeItem upgradeItem = new UpgradeItem(&quot;ENGINE&quot;);</span>
+<span class="fc" id="L22">		int startSpeed = testShip.getSailSpeed();</span>
+<span class="fc" id="L23">		upgradeItem.upgradeShip(testShip);</span>
+<span class="fc" id="L24">		int endSpeed = testShip.getSailSpeed();</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">		assertTrue(endSpeed &gt; startSpeed);</span>
+<span class="fc" id="L26">	}</span>
+	
+	@Test
+	void upgradeCargoTest() {
+<span class="fc" id="L30">		Ship testShip = new Ship(&quot;Ben Ship&quot;, 5, 10, 100);</span>
+<span class="fc" id="L31">		UpgradeItem upgradeItem = new UpgradeItem(&quot;CARGO10&quot;);</span>
+<span class="fc" id="L32">		Item testCargo = new Item(&quot;Tester&quot;, &quot;&quot;, 10, ItemType.CARGO);</span>
+<span class="fc" id="L33">		assertFalse(testShip.hasSpace(testCargo));</span>
+<span class="fc" id="L34">		upgradeItem.upgradeShip(testShip);</span>
+<span class="fc" id="L35">		assertTrue(testShip.hasSpace(testCargo));</span>
+<span class="fc" id="L36">	}	</span>
+	
+	@Test
+	void upgradeWeaponStorageTest() {
+<span class="fc" id="L40">		Ship testShip = new Ship(&quot;Ben Ship&quot;, 5, 10, 100);</span>
+<span class="fc" id="L41">		UpgradeItem upgradeItem = new UpgradeItem(&quot;WEAPONBAY&quot;);</span>
+<span class="fc" id="L42">		Item testWeapon = new Item(&quot;Tester&quot;, &quot;&quot;, 2, ItemType.WEAPON);</span>
+<span class="fc" id="L43">		assertFalse(testShip.hasSpace(testWeapon));</span>
+<span class="fc" id="L44">		upgradeItem.upgradeShip(testShip);</span>
+<span class="fc" id="L45">		assertTrue(testShip.hasSpace(testWeapon));</span>
+<span class="fc" id="L46">	}		</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 23, 2021 12:36:36 PM)</div></body></html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>UpgradeItem.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 23, 2021 12:36:36 PM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main</a> &gt; <span class="el_source">UpgradeItem.java</span></div><h1>UpgradeItem.java</h1><pre class="source lang-java linenums">package main;
+
+/**
+ * This class implements an Item that a player can buy to upgrade their ship
+ */
+public class UpgradeItem extends Item {
+	
+<span class="fc" id="L8">	private enum ShipUpgradeType {</span>
+<span class="fc" id="L9">	    ENGINE(&quot;Doubles your speed&quot;),</span>
+<span class="fc" id="L10">	    CARGO10(&quot;Adds Cargo bay of capacity 10 to your ship&quot;),</span>
+<span class="fc" id="L11">	    CARGO20(&quot;Adds Cargo bay of capacity 20 to your ship&quot;),</span>
+<span class="fc" id="L12">	    WEAPONBAY(&quot;Adds a Weapons bay to your ship&quot;);</span>
+
+	    public final String name;
+
+<span class="fc" id="L16">	    ShipUpgradeType(String name) {</span>
+<span class="fc" id="L17">	        this.name = name;</span>
+<span class="fc" id="L18">	    }</span>
+	}	
+	
+	// the enum this upgrade is linked to
+	private ShipUpgradeType shipUpgradeType;
+	
+	/**
+	 * @param shipUpgradeTypeString, the String value of the enum representing this upgrade
+	 */
+	public UpgradeItem(String shipUpgradeTypeString) {		
+<span class="fc" id="L28">		super(ShipUpgradeType.valueOf(shipUpgradeTypeString).name, &quot;&quot;, 0, ItemType.UPGRADE);</span>
+<span class="fc" id="L29">		this.shipUpgradeType = ShipUpgradeType.valueOf(shipUpgradeTypeString);</span>
+<span class="fc" id="L30">	}</span>
+	
+	public void upgradeShip(Ship ship) {
+<span class="pc bpc" id="L33" title="2 of 5 branches missed.">        switch (this.shipUpgradeType) {</span>
+    		case ENGINE:
+<span class="fc" id="L35">    			ship.upgradeSailSpeed();</span>
+<span class="fc" id="L36">    			break;</span>
+    		case CARGO10:
+<span class="fc" id="L38">    			ship.getStorageBays().add(0, new StorageList(&quot;Extra Cargo&quot;, 10, ItemType.CARGO));</span>
+<span class="fc" id="L39">    			break;</span>
+    		case CARGO20:
+<span class="nc" id="L41">    			ship.getStorageBays().add(0, new StorageList(&quot;Extra Cargo&quot;, 20, ItemType.CARGO));</span>
+<span class="nc" id="L42">    			break;</span>
+    		case WEAPONBAY:
+<span class="fc" id="L44">    			ship.getStorageBays().add(0, new StorageList(&quot;Weapon Bay&quot;, 2, ItemType.WEAPON));</span>
+<span class="fc" id="L45">    			break;     			</span>
+	        default:
+	        	break;	        	
+        }	
+<span class="fc" id="L49">	}	</span>
+	
+	public static String[] upgrades() {
+<span class="fc" id="L52">		int numEnumValues = ShipUpgradeType.values().length;</span>
+<span class="fc" id="L53">		String[] upgrades = new String[numEnumValues];</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">		for (int i = 0; i &lt; numEnumValues; i++) {</span>
+<span class="fc" id="L55">			upgrades[i] = ShipUpgradeType.values()[i].toString();</span>
+		}
+<span class="fc" id="L57">		return upgrades;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 23, 2021 12:36:36 PM)</div></body></html>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Item.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 23, 2021 12:36:36 PM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main</a> &gt; <span class="el_source">Item.java</span></div><h1>Item.java</h1><pre class="source lang-java linenums">package main;
+
+/**
+ * This class implements an Item that a player can buy and sell at stores
+ * and have in their cargo bay/s
+ */
+public class Item {
+	
+	// The name of the item
+	private String name;
+	
+	// A description of the item
+	private String description;
+	
+	// The size of the item	
+	private int size;
+	
+	// The type of the item, eg Cargo or a Weapon
+	private ItemType type;
+	
+	/**
+	 * Create a new item
+	 * @param name, The item name
+	 * @param description, the description of the item
+	 * @param size, The size of item, how much ship space it takes up
+	 * @param type, the type of item eg Cargo of Weapon or Upgrade
+	 */	
+<span class="fc" id="L28">	public Item(String name, String description, int size, ItemType type) {</span>
+<span class="fc" id="L29">		this.name = name;</span>
+<span class="fc" id="L30">		this.description = description;</span>
+<span class="fc" id="L31">		this.size = size;</span>
+<span class="fc" id="L32">		this.type = type;</span>
+<span class="fc" id="L33">	}	</span>
+	
+	/**
+	 * Create a new item of type Cargo
+	 * @param name, The item name
+	 * @param description, the description of the item
+	 * @param size, The size of item, how much ship space it takes up	 * 
+	 */	
+	public Item(String name, String description, int size) {
+<span class="fc" id="L42">		this(name, description, size, ItemType.CARGO);</span>
+<span class="fc" id="L43">	}		</span>
+
+	/**
+	 * @return the name of the Item
+	 */
+	public String getName() {
+<span class="fc" id="L49">		return name;</span>
+	}
+
+	/**
+	 * @return the description of the Item
+	 */
+	public String getDescription() {
+<span class="nc" id="L56">		return description;</span>
+	}
+
+	/**
+	 * @return the size of Item, e.g. Cargo space it takes up
+	 */
+	public int getSize() {
+<span class="fc" id="L63">		return size;</span>
+	}		
+	
+	/**
+	 * @return enum ItemType which is the type of item
+	 */	
+	public ItemType getType() {
+<span class="fc" id="L70">		return type;</span>
+	}
+
+	/**
+	 * @return a string representation of the Item
+	 */
+	@Override
+	public String toString() {
+<span class="pc bpc" id="L78" title="1 of 7 branches missed.">        switch (this.type) {</span>
+    		case CARGO:	
+<span class="fc" id="L80">    			return name +&quot;, &quot; +type.name() +&quot;:&quot;+ size;</span>
+    		case WEAPON:
+<span class="fc" id="L82">    			return name +&quot;, &quot; +type.name() +&quot;:&quot;+ size;</span>
+    		case UPGRADE:
+<span class="fc" id="L84">    			return name +&quot;, &quot; +type.name();</span>
+    		case REPAIR:
+<span class="fc" id="L86">    			return name +&quot;, &quot; +type.name();</span>
+    		case WAGES:
+<span class="fc" id="L88">    			return name +&quot;, &quot; +type.name(); </span>
+    		case RESCUE:
+<span class="fc" id="L90">    			return name +&quot;, &quot; +type.name();     			</span>
+	        default:
+<span class="nc" id="L92">	        	return name +&quot;, &quot; +type.name();</span>
+        }
+	}		
+	
+	/**
+	 * Method to test of Item equality, ignores item description but items
+	 * must be the same name, type and size
+	 * @param item, the item being compared to this item
+	 * @return a boolean representing equality with another Item
+	 */	
+	@Override	
+	public boolean equals(Object item) {
+<span class="fc" id="L104">		return (	</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">			   (this.getName() == ((Item) item).getName())</span>
+<span class="fc bfc" id="L106" title="All 2 branches covered.">			&amp;&amp; (this.getType() == ((Item) item).getType())</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">			&amp;&amp; (this.getSize() == ((Item) item).getSize())</span>
+		);		
+	}
+
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 23, 2021 12:36:36 PM)</div></body></html>

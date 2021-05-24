@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>PastPurchases.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 23, 2021 12:36:36 PM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">ui.gui</a> &gt; <span class="el_source">PastPurchases.java</span></div><h1>PastPurchases.java</h1><pre class="source lang-java linenums">package ui.gui;
+
+
+import javax.swing.JFrame;
+
+import main.IslandTrader;
+import main.PricedItem;
+
+import java.awt.Color;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
+import java.awt.Font;
+import javax.swing.JLabel;
+
+public class PastPurchases extends Screen {
+
+	private JFrame frame;
+	/**
+	 * Create the application.
+	 */
+	public PastPurchases(IslandTrader islandTrader) {
+<span class="nc" id="L26">		super(&quot;View Past Purchases and Sales&quot;, islandTrader);</span>
+<span class="nc" id="L27">		initialize();</span>
+<span class="nc" id="L28">	}</span>
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+<span class="nc" id="L34">		frame = getFrame();</span>
+<span class="nc" id="L35">		frame.getContentPane().setBackground(new Color(85, 107, 47));</span>
+<span class="nc" id="L36">		frame.getContentPane().setLayout(null);</span>
+		
+<span class="nc" id="L38">		JButton btnNewButton = new JButton(&quot;Back to main menu&quot;);</span>
+<span class="nc" id="L39">		btnNewButton.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L41">				quit();</span>
+<span class="nc" id="L42">				Screen screen = new MainScreen(islandTrader);</span>
+<span class="nc" id="L43">		    	screen.show();</span>
+<span class="nc" id="L44">			}</span>
+		});
+<span class="nc" id="L46">		btnNewButton.setBounds(36, 484, 145, 44);</span>
+<span class="nc" id="L47">		frame.getContentPane().add(btnNewButton);</span>
+		
+<span class="nc" id="L49">		JTextArea txtrHeyTraderHow = new JTextArea(&quot;Hey trader! How are your jouney going?\n&quot;);</span>
+<span class="nc" id="L50">		txtrHeyTraderHow.setForeground(Color.WHITE);</span>
+<span class="nc" id="L51">		txtrHeyTraderHow.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 22));</span>
+<span class="nc" id="L52">		txtrHeyTraderHow.setBackground(new Color(47, 79, 79));</span>
+<span class="nc" id="L53">		txtrHeyTraderHow.setBounds(33, 33, 462, 44);</span>
+<span class="nc" id="L54">		frame.getContentPane().add(txtrHeyTraderHow);</span>
+		
+<span class="nc" id="L56">		JTextArea txtrHeyTraderHow_1_1 = new JTextArea(&quot;Here are all your purchases and sales:\n&quot;);</span>
+<span class="nc" id="L57">		txtrHeyTraderHow_1_1.setForeground(Color.WHITE);</span>
+<span class="nc" id="L58">		txtrHeyTraderHow_1_1.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 22));</span>
+<span class="nc" id="L59">		txtrHeyTraderHow_1_1.setBackground(new Color(47, 79, 79));</span>
+<span class="nc" id="L60">		txtrHeyTraderHow_1_1.setBounds(33, 89, 462, 44);</span>
+<span class="nc" id="L61">		frame.getContentPane().add(txtrHeyTraderHow_1_1);</span>
+		
+//		JTextArea txtrHeyTraderHow_1_1_2 = new JTextArea(&quot;Here are all your purchases and sales:\n&quot;);
+//		txtrHeyTraderHow_1_1_2.setForeground(Color.WHITE);
+//		txtrHeyTraderHow_1_1_2.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 22));
+//		txtrHeyTraderHow_1_1_2.setBackground(new Color(47, 79, 79));
+//		txtrHeyTraderHow_1_1_2.setBounds(97, 274, 462, 44);
+//		frame.getContentPane().add(txtrHeyTraderHow_1_1_2);
+		/*
+		List&lt;PricedItem&gt; options = getManager().getPlayer().getTransactions();
+		for (String option: options) {
+			JTextArea txtrHeyTraderHow_1_1_2 = new JTextArea(option);
+			txtrHeyTraderHow_1_1_2.setForeground(Color.WHITE);
+			txtrHeyTraderHow_1_1_2.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 22));
+			txtrHeyTraderHow_1_1_2.setBackground(new Color(47, 79, 79));
+			txtrHeyTraderHow_1_1_2.setBounds(97, 274, 462, 44);
+			frame.getContentPane().add(txtrHeyTraderHow_1_1_2);
+		}
+		if (options.size() == 0) {
+			JTextArea txtrHeyTraderHow_1_1_2 = new JTextArea(&quot;You have no transactions yet&quot;);
+			txtrHeyTraderHow_1_1_2.setForeground(Color.WHITE);
+			txtrHeyTraderHow_1_1_2.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 22));
+			txtrHeyTraderHow_1_1_2.setBackground(new Color(47, 79, 79));
+			txtrHeyTraderHow_1_1_2.setBounds(97, 274, 462, 44);
+			frame.getContentPane().add(txtrHeyTraderHow_1_1_2);
+		}
+		
+		frame.setBounds(100, 100, 785, 582);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		*/
+<span class="nc" id="L91">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 23, 2021 12:36:36 PM)</div></body></html>

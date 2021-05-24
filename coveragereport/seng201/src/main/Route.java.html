@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Route.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 23, 2021 12:36:36 PM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main</a> &gt; <span class="el_source">Route.java</span></div><h1>Route.java</h1><pre class="source lang-java linenums">package main;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/** 
+ * This class represents a route from an island to another. It is undirected
+ */ 
+public class Route {	
+	
+	// The length of the route
+	private int distance;
+	
+	// one of the islands attached to the route
+	private Island island1;
+	
+	// The other island attached to the route
+	private Island island2;
+	
+	// List of random events that might happen while sailing the route
+	private ArrayList&lt;RandomEvent&gt; events;
+	
+	// The world the route is part of
+	private World world;
+
+	/**
+	 * Creates a new route
+	 * @param distance - the length of the route
+	 * @param island1 - one of the islands attached to the route
+	 * @param island2 - one of the islands attached to the route
+	 * @param the world the island is attached to
+	 */
+<span class="fc" id="L34">	public Route(int distance, Island island1, Island island2, World world) {</span>
+<span class="fc" id="L35">		this.distance = distance;</span>
+<span class="fc" id="L36">		this.island1 = island1;</span>
+<span class="fc" id="L37">		this.island2 = island2;</span>
+<span class="fc" id="L38">		this.events = new ArrayList&lt;RandomEvent&gt;();</span>
+<span class="fc" id="L39">		this.world = world;</span>
+<span class="fc" id="L40">	}</span>
+	
+	/**
+	 * Adds a random event to the route
+	 * 
+	 * @param randomEvent a randomEvent a user could encounter on the route
+	 */	
+	public void addEvent(RandomEvent randomEvent) {
+<span class="fc" id="L48">		events.add(randomEvent);</span>
+<span class="fc" id="L49">	}</span>
+
+	/**
+	 * Get the length of the route. Note this is not sailing time, sailing time is determined by
+	 * route distance and the ship's sailing speed
+	 * 
+	 * @return the route distance
+	 */
+	public int getDistance() {
+<span class="fc" id="L58">		return distance;</span>
+	}
+	
+	/**
+	 * @return island1, one of the islands attached to the route
+	 */
+	public Island getIsland1() {
+<span class="fc" id="L65">		return island1;</span>
+	}
+	
+	/**
+	 * @return island2, one of the islands attached to the route
+	 */
+	public Island getIsland2() {	
+<span class="fc" id="L72">		return island2;</span>
+	}
+	
+	/**
+	 * @return the List of Events that might happen as you sail this route 
+	 */
+	public List&lt;RandomEvent&gt; getEvents() {
+<span class="fc" id="L79">		return Collections.unmodifiableList(events);</span>
+	}	
+	
+	/**
+	 * Get a description of the route
+	 * @return String description of the route
+	 */		
+	private String description() {
+<span class="nc" id="L87">		String output = &quot;&quot;;	</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">		if (getIsland1() == this.world.getCurrentIsland())</span>
+<span class="nc" id="L89">			output = output + getIsland1() + &quot; to &quot; + getIsland2();	</span>
+		else
+<span class="nc" id="L91">			output = output + getIsland2() + &quot; to &quot; + getIsland1();</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">		for (RandomEvent event : events) {</span>
+<span class="nc" id="L93">			output = output + &quot;\n  &quot; +event.riskDescription();</span>
+		}
+<span class="nc" id="L95">		return output;</span>
+	}
+	
+	/**
+	 * @return string description of the route, including its safety 
+	 */	
+	@Override
+	public String toString() {
+<span class="nc" id="L103">		return description();</span>
+	}
+	
+	/**
+	 * This method gets the otherIsland linked to a route is we know one, 
+	 * helps us to treat the routes as undirected
+	 * 
+	 * @param island, the island we know
+	 * @return the other island attached to a route given one island that we don't know
+	 */
+	public Island otherIsland(Island island) {
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">		if (getIsland1() == island)</span>
+<span class="fc" id="L115">			return getIsland2();</span>
+		else
+<span class="nc" id="L117">			return getIsland1();</span>
+	}
+		
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 23, 2021 12:36:36 PM)</div></body></html>

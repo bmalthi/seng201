@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>SetupScreen.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 23, 2021 12:36:36 PM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">ui.gui</a> &gt; <span class="el_source">SetupScreen.java</span></div><h1>SetupScreen.java</h1><pre class="source lang-java linenums">package ui.gui;
+
+//import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import java.awt.Color;
+import java.awt.SystemColor;
+import javax.swing.JSlider;
+import javax.swing.border.CompoundBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import main.IslandTrader;
+import main.Player;
+import main.Ship;
+import java.awt.Font;
+
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.util.List;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class SetupScreen extends Screen {
+
+	private JFrame frmWelcomeToIsland;	
+	private JTextField txtbetweenCharacters;
+	private JSlider slider;
+		
+<span class="nc" id="L40">	private final ButtonGroup buttonGroup = new ButtonGroup();</span>
+	
+	public static final String NAME_REGEX = &quot;^[a-z A-Z]{3,15}$&quot;;
+	
+ 
+	/**
+	 * Create the Setup Screen
+	 * 
+	 * @param islandTrader the island trader to configure
+	 */
+	protected SetupScreen(IslandTrader islandTrader) {
+<span class="nc" id="L51">		super(&quot;Island Trader Setup&quot;, islandTrader);</span>
+<span class="nc" id="L52">		initialize();</span>
+<span class="nc" id="L53">	}</span>
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	public void initialize() {
+<span class="nc" id="L59">		frmWelcomeToIsland = new JFrame();</span>
+<span class="nc" id="L60">		frmWelcomeToIsland.getContentPane().setBackground(new Color(70, 130, 180));</span>
+<span class="nc" id="L61">		frmWelcomeToIsland.setTitle(&quot;Welcome to Island Trader V0.5&quot;);</span>
+<span class="nc" id="L62">		frmWelcomeToIsland.setBounds(100, 100, 785, 582);</span>
+<span class="nc" id="L63">		frmWelcomeToIsland.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="nc" id="L64">		frmWelcomeToIsland.getContentPane().setLayout(null);</span>
+		
+		//SHould only be able to click this if valid things are selected
+<span class="nc" id="L67">		JButton btnNewButton = new JButton(&quot;Let's Play&quot;);</span>
+<span class="nc" id="L68">		btnNewButton.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+				//Set the player
+<span class="nc" id="L71">				getManager().setPlayer(new Player(txtbetweenCharacters.getText()));</span>
+				
+				//Set the gamelength
+<span class="nc" id="L74">				getManager().setGameLength(slider.getValue());</span>
+				
+				//Set the ship
+				// TODO KVIE TO GET WHICHEVER SHIP WAS SELECTED
+<span class="nc" id="L78">				getManager().selectShip(0);</span>
+				
+				//Start the game
+<span class="nc" id="L81">				quit();</span>
+<span class="nc" id="L82">				getManager().onSetupFinished();</span>
+<span class="nc" id="L83">			}</span>
+		});
+<span class="nc" id="L85">		btnNewButton.setBackground(new Color(25, 25, 112));</span>
+<span class="nc" id="L86">		btnNewButton.setEnabled(false);</span>
+<span class="nc" id="L87">		btnNewButton.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L88">		btnNewButton.setFont(new Font(&quot;Lucida Grande&quot;, Font.PLAIN, 15));</span>
+<span class="nc" id="L89">		btnNewButton.setBounds(653, 506, 126, 42);</span>
+<span class="nc" id="L90">		btnNewButton.setOpaque(true);</span>
+<span class="nc" id="L91">		frmWelcomeToIsland.getContentPane().add(btnNewButton);		</span>
+		
+<span class="nc" id="L93">		JLabel lblNewLabel_2_2_1 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L94">		lblNewLabel_2_2_1.setForeground(new Color(255, 0, 0));</span>
+<span class="nc" id="L95">		lblNewLabel_2_2_1.setBounds(249, 192, 392, 16);</span>
+<span class="nc" id="L96">		frmWelcomeToIsland.getContentPane().add(lblNewLabel_2_2_1);</span>
+		
+<span class="nc" id="L98">		JTextArea lblNewLabel_1_2 = new JTextArea(&quot;1) Choose a Trader Name&quot;);</span>
+<span class="nc" id="L99">		lblNewLabel_1_2.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L100">		lblNewLabel_1_2.setFont(new Font(&quot;SignPainter&quot;, Font.PLAIN, 22));</span>
+<span class="nc" id="L101">		lblNewLabel_1_2.setBackground(new Color(25, 25, 112));</span>
+<span class="nc" id="L102">		lblNewLabel_1_2.setBounds(40, 157, 202, 30);</span>
+<span class="nc" id="L103">		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1_2);</span>
+		
+<span class="nc" id="L105">		JLabel lblNewLabel_2_2 = new JLabel(&quot;50 Days&quot;);</span>
+<span class="nc" id="L106">		lblNewLabel_2_2.setBackground(new Color(0, 0, 139));</span>
+<span class="nc" id="L107">		lblNewLabel_2_2.setForeground(new Color(0, 0, 139));</span>
+<span class="nc" id="L108">		lblNewLabel_2_2.setBounds(109, 255, 61, 16);</span>
+<span class="nc" id="L109">		frmWelcomeToIsland.getContentPane().add(lblNewLabel_2_2);</span>
+		
+<span class="nc" id="L111">		JTextArea lblNewLabel_1_2_1 = new JTextArea(&quot;2) Decide on game length&quot;);</span>
+<span class="nc" id="L112">		lblNewLabel_1_2_1.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L113">		lblNewLabel_1_2_1.setFont(new Font(&quot;SignPainter&quot;, Font.PLAIN, 22));</span>
+<span class="nc" id="L114">		lblNewLabel_1_2_1.setBackground(new Color(25, 25, 112));</span>
+<span class="nc" id="L115">		lblNewLabel_1_2_1.setBounds(35, 218, 200, 31);</span>
+<span class="nc" id="L116">		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1_2_1);</span>
+		
+<span class="nc" id="L118">		JTextArea lblNewLabel = new JTextArea(&quot;Welcome to Island Trader&quot;);</span>
+<span class="nc" id="L119">		lblNewLabel.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L120">		lblNewLabel.setFont(new Font(&quot;Holiday Sun&quot;, Font.PLAIN, 24));</span>
+<span class="nc" id="L121">		lblNewLabel.setBackground(new Color(70, 130, 180));</span>
+<span class="nc" id="L122">		lblNewLabel.setBounds(35, 21, 639, 31);</span>
+<span class="nc" id="L123">		frmWelcomeToIsland.getContentPane().add(lblNewLabel);</span>
+		
+<span class="nc" id="L125">		JTextArea lblNewLabel_1_1 = new JTextArea(&quot;The aim of the game is to travel between islands, trading goods for profit. You will encounter tricky traders, and trecherous stormy routes with pirates on your quest.&quot;);</span>
+<span class="nc" id="L126">		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L127">		lblNewLabel_1_1.setFont(new Font(&quot;Devanagari MT&quot;, Font.PLAIN, 17));</span>
+<span class="nc" id="L128">		lblNewLabel_1_1.setLineWrap(true);</span>
+<span class="nc" id="L129">		lblNewLabel_1_1.setBackground(new Color(0, 0, 102));</span>
+<span class="nc" id="L130">		lblNewLabel_1_1.setBounds(35, 58, 608, 52);</span>
+<span class="nc" id="L131">		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1_1);</span>
+		
+<span class="nc" id="L133">		txtbetweenCharacters = new JTextField();</span>
+<span class="nc" id="L134">		txtbetweenCharacters.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L135">		txtbetweenCharacters.getDocument().addDocumentListener(new DocumentListener() {</span>
+<span class="nc" id="L136">		    @Override public void changedUpdate(DocumentEvent e) { updateNameField(); }</span>
+<span class="nc" id="L137">		    @Override public void insertUpdate(DocumentEvent e) { updateNameField(); }</span>
+<span class="nc" id="L138">		    @Override public void removeUpdate(DocumentEvent e) { updateNameField(); }</span>
+		    private void updateNameField() {
+<span class="nc bnc" id="L140" title="All 2 branches missed.">		    	if (txtbetweenCharacters.hasFocus() == true) {</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">		    		if (txtbetweenCharacters.getText().matches(NAME_REGEX)) {</span>
+<span class="nc" id="L142">		    			lblNewLabel_2_2_1.setText(&quot;Great Name, &quot; + txtbetweenCharacters.getText());</span>
+<span class="nc" id="L143">		    			lblNewLabel_2_2_1.setForeground(new Color(0, 102, 0));		    			</span>
+<span class="nc" id="L144">		    			btnNewButton.setEnabled(true);</span>
+<span class="nc" id="L145">		    			btnNewButton.setBackground(new Color(0, 102, 0));</span>
+<span class="nc" id="L146">		    			btnNewButton.setForeground(new Color(0, 102, 0));</span>
+<span class="nc" id="L147">		    		} else {</span>
+<span class="nc" id="L148">		    			lblNewLabel_2_2_1.setText(&quot;Name should be between 3-15 characters&quot;);</span>
+<span class="nc" id="L149">		    			lblNewLabel_2_2_1.setForeground(Color.RED);		    			</span>
+<span class="nc" id="L150">		    			btnNewButton.setEnabled(false);</span>
+<span class="nc" id="L151">		    			btnNewButton.setBackground(Color.RED);</span>
+<span class="nc" id="L152">		    			btnNewButton.setForeground(Color.RED);</span>
+		    		}
+		    	}
+<span class="nc" id="L155">		    }//</span>
+		});
+		
+<span class="nc" id="L158">		txtbetweenCharacters.addFocusListener(new FocusAdapter() {</span>
+			@Override
+			public void focusGained(FocusEvent e) {
+				//lblNewLabel_2_2_1.setText(txtbetweenCharacters.getText());
+<span class="nc bnc" id="L162" title="All 2 branches missed.">				if (&quot;(between 3-15 characters)&quot;.equals(txtbetweenCharacters.getText())) {</span>
+<span class="nc" id="L163">					txtbetweenCharacters.setText(&quot;&quot;);</span>
+<span class="nc" id="L164">					lblNewLabel_2_2_1.setText(&quot;(between 3-15 characters)&quot;);</span>
+				}
+<span class="nc" id="L166">			}</span>
+		});
+		
+<span class="nc" id="L169">		txtbetweenCharacters.setForeground(SystemColor.inactiveCaption);</span>
+<span class="nc" id="L170">		txtbetweenCharacters.setText(&quot;(between 3-15 characters)&quot;);</span>
+<span class="nc" id="L171">		txtbetweenCharacters.setBounds(249, 157, 392, 34);</span>
+<span class="nc" id="L172">		frmWelcomeToIsland.getContentPane().add(txtbetweenCharacters);</span>
+<span class="nc" id="L173">		txtbetweenCharacters.setColumns(10);</span>
+		
+<span class="nc" id="L175">		JTextArea lblNewLabel_1 = new JTextArea(&quot;Let's get started!!!&quot;);</span>
+<span class="nc" id="L176">		lblNewLabel_1.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L177">		lblNewLabel_1.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 20));</span>
+<span class="nc" id="L178">		lblNewLabel_1.setBackground(new Color(70, 130, 180));</span>
+<span class="nc" id="L179">		lblNewLabel_1.setBounds(35, 116, 172, 38);</span>
+<span class="nc" id="L180">		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1);</span>
+		
+<span class="nc" id="L182">		slider = new JSlider();</span>
+<span class="nc" id="L183">		slider.addChangeListener(new ChangeListener() {</span>
+			public void stateChanged(ChangeEvent evt) {
+<span class="nc" id="L185">				JSlider slider = (JSlider) evt.getSource();</span>
+<span class="nc" id="L186">				lblNewLabel_2_2.setText(String.valueOf(slider.getValue()));				</span>
+<span class="nc" id="L187">			}</span>
+		});
+<span class="nc" id="L189">		slider.setBorder(new CompoundBorder());</span>
+<span class="nc" id="L190">		slider.setMinimum(20);</span>
+<span class="nc" id="L191">		slider.setMaximum(50);</span>
+<span class="nc" id="L192">		slider.setBounds(246, 221, 392, 29);</span>
+<span class="nc" id="L193">		frmWelcomeToIsland.getContentPane().add(slider);</span>
+		
+<span class="nc" id="L195">		JLabel lblNewLabel_2 = new JLabel(&quot;20 Days&quot;);</span>
+<span class="nc" id="L196">		lblNewLabel_2.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L197">		lblNewLabel_2.setBounds(245, 239, 61, 16);</span>
+<span class="nc" id="L198">		frmWelcomeToIsland.getContentPane().add(lblNewLabel_2);</span>
+		
+<span class="nc" id="L200">		JLabel lblNewLabel_2_1 = new JLabel(&quot;50 Days&quot;);</span>
+<span class="nc" id="L201">		lblNewLabel_2_1.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L202">		lblNewLabel_2_1.setBounds(601, 239, 61, 16);</span>
+<span class="nc" id="L203">		frmWelcomeToIsland.getContentPane().add(lblNewLabel_2_1);</span>
+		
+<span class="nc" id="L205">		JTextArea lblNewLabel_1_2_2 = new JTextArea(&quot;3) Choose a Ship for your Quest&quot;);</span>
+<span class="nc" id="L206">		lblNewLabel_1_2_2.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L207">		lblNewLabel_1_2_2.setFont(new Font(&quot;SignPainter&quot;, Font.PLAIN, 22));</span>
+<span class="nc" id="L208">		lblNewLabel_1_2_2.setBackground(new Color(25, 25, 112));</span>
+<span class="nc" id="L209">		lblNewLabel_1_2_2.setBounds(35, 287, 235, 31);</span>
+<span class="nc" id="L210">		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1_2_2);</span>
+		
+<span class="nc" id="L212">		List&lt;Ship&gt; ships = getManager().getWorld().getShips();</span>
+<span class="nc" id="L213">		JRadioButton rdbtnNewRadioButton = new JRadioButton(ships.get(0).getName());</span>
+		//rdbtnNewRadioButton.addActionListener((e) -&gt; islandTrader.setShip(ships.get(0)));
+		
+<span class="nc" id="L216">		rdbtnNewRadioButton.setForeground(new Color(0, 0, 0));</span>
+<span class="nc" id="L217">		buttonGroup.add(rdbtnNewRadioButton);</span>
+<span class="nc" id="L218">		rdbtnNewRadioButton.setSelected(true);</span>
+<span class="nc" id="L219">		rdbtnNewRadioButton.setBounds(40, 483, 141, 23);</span>
+<span class="nc" id="L220">		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton);</span>
+		
+<span class="nc" id="L222">		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton(ships.get(1).getName());</span>
+		//rdbtnNewRadioButton.addActionListener((e) -&gt; islandTrader.setShip(ships.get(1)));
+<span class="nc" id="L224">		buttonGroup.add(rdbtnNewRadioButton_1);</span>
+<span class="nc" id="L225">		rdbtnNewRadioButton_1.setBounds(221, 483, 141, 23);</span>
+<span class="nc" id="L226">		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1);</span>
+		
+<span class="nc" id="L228">		JRadioButton rdbtnNewRadioButton_1_1 = new JRadioButton(ships.get(2).getName());</span>
+		//rdbtnNewRadioButton.addActionListener((e) -&gt; islandTrader.setShip(ships.get(2)));
+<span class="nc" id="L230">		buttonGroup.add(rdbtnNewRadioButton_1_1);</span>
+<span class="nc" id="L231">		rdbtnNewRadioButton_1_1.setBounds(385, 483, 141, 23);</span>
+<span class="nc" id="L232">		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1_1);</span>
+		
+<span class="nc" id="L234">		JRadioButton rdbtnNewRadioButton_1_1_1 = new JRadioButton(ships.get(3).getName());</span>
+		//rdbtnNewRadioButton.addActionListener((e) -&gt; islandTrader.setShip(ships.get(3)));
+<span class="nc" id="L236">		buttonGroup.add(rdbtnNewRadioButton_1_1_1);</span>
+<span class="nc" id="L237">		rdbtnNewRadioButton_1_1_1.setBounds(563, 483, 141, 23);</span>
+<span class="nc" id="L238">		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1_1_1);</span>
+		
+		//buttonGroup.clearSelection();
+		
+<span class="nc" id="L242">		JLabel show_image = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L243">		show_image.setHorizontalAlignment(SwingConstants.LEFT);</span>
+<span class="nc" id="L244">		show_image.setIcon(new ImageIcon(SetupScreen.class.getResource(&quot;/0001.png&quot;)));</span>
+<span class="nc" id="L245">		show_image.setBounds(351, 324, 163, 159);</span>
+<span class="nc" id="L246">		frmWelcomeToIsland.getContentPane().add(show_image);</span>
+		
+<span class="nc" id="L248">		JLabel ship2 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L249">		ship2.setIcon(new ImageIcon(SetupScreen.class.getResource(&quot;/02.png&quot;)));</span>
+<span class="nc" id="L250">		ship2.setBounds(211, 324, 163, 159);</span>
+<span class="nc" id="L251">		frmWelcomeToIsland.getContentPane().add(ship2);</span>
+		
+<span class="nc" id="L253">		JLabel ship3 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L254">		ship3.setIcon(new ImageIcon(SetupScreen.class.getResource(&quot;/another3.png&quot;)));</span>
+<span class="nc" id="L255">		ship3.setBounds(40, 314, 147, 169);</span>
+<span class="nc" id="L256">		frmWelcomeToIsland.getContentPane().add(ship3);</span>
+		
+<span class="nc" id="L258">		JLabel ship4 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L259">		ship4.setIcon(new ImageIcon(SetupScreen.class.getResource(&quot;/14.png&quot;)));</span>
+<span class="nc" id="L260">		ship4.setBounds(538, 324, 192, 159);</span>
+<span class="nc" id="L261">		frmWelcomeToIsland.getContentPane().add(ship4);</span>
+		
+<span class="nc" id="L263">		JLabel pirate = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L264">		pirate.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L265">		pirate.setBackground(new Color(70, 130, 180));</span>
+<span class="nc" id="L266">		pirate.setIcon(new ImageIcon(SetupScreen.class.getResource(&quot;/pirate1.png&quot;)));</span>
+<span class="nc" id="L267">		pirate.setBounds(647, 6, 147, 221);</span>
+<span class="nc" id="L268">		frmWelcomeToIsland.getContentPane().add(pirate);</span>
+		
+<span class="nc" id="L270">	}</span>
+	
+    protected void show() {
+<span class="nc" id="L273">    	frmWelcomeToIsland.setVisible(true);</span>
+<span class="nc" id="L274">    }	</span>
+    
+    
+   }
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 23, 2021 12:36:36 PM)</div></body></html>
