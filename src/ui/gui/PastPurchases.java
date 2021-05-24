@@ -66,7 +66,7 @@ public class PastPurchases extends Screen {
 //		txtrHeyTraderHow_1_1_2.setBackground(new Color(47, 79, 79));
 //		txtrHeyTraderHow_1_1_2.setBounds(97, 274, 462, 44);
 //		frame.getContentPane().add(txtrHeyTraderHow_1_1_2);
-		
+		/*
 		List<PricedItem> options = getManager().getPlayer().getTransactions();
 		for (String option: options) {
 			JTextArea txtrHeyTraderHow_1_1_2 = new JTextArea(option);
@@ -87,5 +87,6 @@ public class PastPurchases extends Screen {
 		
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		*/
 	}
 }

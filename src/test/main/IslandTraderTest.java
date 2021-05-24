@@ -58,6 +58,7 @@ class IslandTraderTest {
         Item firstInList = islandTrader.getWorld().getCurrentIsland().getStore().getToSellList().get(0).getItem();
         islandTrader.buyStoreItem(0);
         assertTrue(islandTrader.getPlayer().getShip().hasItem(firstInList));
+        
 	}
 	
 	@Test
