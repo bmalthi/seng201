@@ -3,6 +3,7 @@ package ui.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 import main.IslandTrader;
 import main.Route;
@@ -19,6 +20,11 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
+/**
+ * This class represents the screen after the user clicked the "Sailing To Another Island" button in Main Menu
+ * @author kvie
+ *
+ */
 public class SetSailingIsland extends Screen {
 
 	private JFrame frame;
@@ -32,11 +38,13 @@ public class SetSailingIsland extends Screen {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame, include
+	 * Buttons to get the user choice of sailing to another island
+	 * Button to set sailing
 	 */
 	private void initialize() {
 		List<Route> routes = getManager().getWorld().getRoutesFromCurrent();
-		frame = getFrame();
+		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.setBackground(new Color(135, 206, 250));
 		frame.getContentPane().setForeground(new Color(135, 206, 250));
@@ -78,11 +86,23 @@ public class SetSailingIsland extends Screen {
 		frame.getContentPane().add(routeList);
 		
 		JButton btnNewButton = new JButton("Let's set sailing!");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				getManager().sailRoute(0);
-			}
-		});
+		btnNewButton.addActionListener((e) -> getManager().sailRoute(0);
+
+		//			public void actionPerformed(ActionEvent e) {
+//				int choice = JOptionPane.showMessageDialog(frame, "Bad weather during the journey!");
+//				if (choice == JOptionPane.YES_OPTION) {
+//					quit();
+//					Screen screen = new GameEnding(islandTrader);
+//					screen.show();
+//						
+//				} else if (choice == JOptionPane.NO_OPTION) {
+//					frame.setVisible(true);
+//						//System.out.println("Let's continue the game");
+//						//continue main Menu as usual
+//
+//					} 
+//				}
+		btnNewButton.addActionListener(e -> getManager().sailRoute(0));
 		btnNewButton.setBounds(297, 436, 169, 59);
 		frame.getContentPane().add(btnNewButton);
 				

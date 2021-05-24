@@ -15,7 +15,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import java.awt.Font;
 import javax.swing.JLabel;
-
+/**
+ * This class represents the screen after the user clicked the "Quit Game" button and (confirm that they really want to quit the game) in Main Menu
+ * @author kvie
+ *
+ */
 public class GameEnding extends Screen {
 
 	private JFrame frame;
@@ -29,7 +33,7 @@ public class GameEnding extends Screen {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame, which include: player's game status
 	 */
 	private void initialize() {
 		frame = getFrame();

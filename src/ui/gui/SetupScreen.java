@@ -53,7 +53,12 @@ public class SetupScreen extends Screen {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame, which includes:
+	 * Set label
+	 * Get the lists of the ship
+	 * Show images of the ship
+	 * Get the user choice of ship
+	 * Add button to move to Main Screen
 	 */
 	public void initialize() {
 		frmWelcomeToIsland = new JFrame();
@@ -75,7 +80,7 @@ public class SetupScreen extends Screen {
 				
 				//Set the ship
 				getManager().getPlayer().getShip();
-				// TODO KVIE TO GET WHICHEVER SHIP WAS SELECTED
+				//GET WHICHEVER SHIP WAS SELECTED
 				getManager().selectShip(0);
 				
 				//Start the game
@@ -180,6 +185,7 @@ public class SetupScreen extends Screen {
 		lblNewLabel_1.setBounds(35, 116, 172, 38);
 		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1);
 		
+		// Get the slider for user to choose between 20-50 days
 		slider = new JSlider();
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
@@ -210,6 +216,7 @@ public class SetupScreen extends Screen {
 		lblNewLabel_1_2_2.setBounds(35, 287, 235, 31);
 		frmWelcomeToIsland.getContentPane().add(lblNewLabel_1_2_2);
 		
+		// Get the list of ships
 		List<Ship> ships = getManager().getWorld().getShips();
 		JRadioButton rdbtnNewRadioButton = new JRadioButton(ships.get(0).getName());
 		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(0)));
@@ -238,13 +245,12 @@ public class SetupScreen extends Screen {
 		rdbtnNewRadioButton_1_1_1.setBounds(563, 483, 141, 23);
 		frmWelcomeToIsland.getContentPane().add(rdbtnNewRadioButton_1_1_1);
 		
-		//buttonGroup.clearSelection();
 		
-		JLabel show_image = new JLabel("");
-		show_image.setHorizontalAlignment(SwingConstants.LEFT);
-		show_image.setIcon(new ImageIcon(SetupScreen.class.getResource("/0001.png")));
-		show_image.setBounds(351, 324, 163, 159);
-		frmWelcomeToIsland.getContentPane().add(show_image);
+		JLabel ship1 = new JLabel("");
+		ship1.setHorizontalAlignment(SwingConstants.LEFT);
+		ship1.setIcon(new ImageIcon(SetupScreen.class.getResource("/0001.png")));
+		ship1.setBounds(351, 324, 163, 159);
+		frmWelcomeToIsland.getContentPane().add(ship1);
 		
 		JLabel ship2 = new JLabel("");
 		ship2.setIcon(new ImageIcon(SetupScreen.class.getResource("/02.png")));
@@ -270,6 +276,9 @@ public class SetupScreen extends Screen {
 		
 	}
 	
+	/*
+	 * Set the frame visible to the user
+	 */
     protected void show() {
     	frmWelcomeToIsland.setVisible(true);
     }	

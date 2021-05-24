@@ -19,7 +19,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-
+/**
+ * This class represents the screen after the user clicked the "See What We Sells" button in View Island Properties Screen or Visit Island Store Screen
+ * @author kvie
+ *
+ */
 public class IslandSellsItem extends Screen {
 
 	private JFrame frame;
@@ -35,7 +39,10 @@ public class IslandSellsItem extends Screen {
 	}
 	
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame, which include:
+	 * list of items for the user to view
+	 * a "Sell Item" button for the user to sell item they chose from the list.
+	 * a "Back To Main Menu" button to go back to main menu
 	 */
 	private void initialize() {
 		frame = getFrame();

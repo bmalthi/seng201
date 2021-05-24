@@ -14,13 +14,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /**
- * View money and days remaining 
+ * This class represents the screen after the user clicked the "View Game Status" button in Main Menu
  * @author kvie
- * 
+ *
  */
 public class GameStatus extends Screen {
 	
 	private JFrame frame;
+	
 	/**
 	 * Create the application.
 	 */
@@ -30,7 +31,9 @@ public class GameStatus extends Screen {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame, which include:
+	 * Some labels to let the user know their current balance, days remaining and game score
+	 * Button to back to main menu
 	 */
 	private void initialize() {
 		frame = getFrame();
@@ -50,15 +53,6 @@ public class GameStatus extends Screen {
 		lblBalanceRemaining.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
 		lblBalanceRemaining.setBounds(149, 149, 317, 37);
 		frame.getContentPane().add(lblBalanceRemaining);
-//		
-//		int daysRemaining = islandTrader.getGameLength() - islandTrader.getTime();
-//		JLabel lblNewLabel_2 = new JLabel("You are on day " + islandTrader.getTime() + " of " + islandTrader.getGameLength() + ". " + daysRemaining + " days left.");
-//		lblNewLabel_2.setBackground(new Color(70, 130, 180));
-//		lblNewLabel_2.setForeground(new Color(255, 255, 255));
-//		lblNewLabel_2.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-//		lblNewLabel_2.setBounds(212, 203, 351, 43);
-//		frame.getContentPane().add(lblNewLabel_2);
-		
 		
 		JLabel seacaptain = new JLabel("");
 		seacaptain.setIcon(new ImageIcon(GameStatus.class.getResource("/seacaptain.png")));
@@ -76,12 +70,12 @@ public class GameStatus extends Screen {
 		btnNewButton.setBounds(311, 395, 174, 68);
 		frame.getContentPane().add(btnNewButton);
 		
-		JTextArea txtrHereIsThe = new JTextArea("Here is the game status:");
-		txtrHereIsThe.setForeground(Color.WHITE);
-		txtrHereIsThe.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		txtrHereIsThe.setBackground(new Color(70, 130, 180));
-		txtrHereIsThe.setBounds(19, 85, 324, 37);
-		frame.getContentPane().add(txtrHereIsThe);
+		JTextArea txtGameStatus = new JTextArea("Here is the game status:");
+		txtGameStatus.setForeground(Color.WHITE);
+		txtGameStatus.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		txtGameStatus.setBackground(new Color(70, 130, 180));
+		txtGameStatus.setBounds(19, 85, 324, 37);
+		frame.getContentPane().add(txtGameStatus);
 		
 		int[] profitvalue = getManager().getPlayer().getProfitValue();
 		JLabel lblProfit = new JLabel("You made " + profitvalue[0] + " dollars profit and have " + profitvalue[1] + " dollars of cargo");
