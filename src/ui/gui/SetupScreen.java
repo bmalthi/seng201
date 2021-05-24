@@ -61,8 +61,8 @@ public class SetupScreen extends Screen {
 		//container.setTitle("Welcome to Island Trader V0.5");
 		container.setBounds(100, 100, 785, 582);
 		
-		//container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//container.getContentPane().setLayout(null);
+		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		container.getContentPane().setLayout(null);
 		
 		//SHould only be able to click this if valid things are selected
 		JButton btnNewButton = new JButton("Let's Play");
