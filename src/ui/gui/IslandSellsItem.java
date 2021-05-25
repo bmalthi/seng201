@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
@@ -78,6 +77,7 @@ public class IslandSellsItem extends Screen {
 		btnSellItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getManager().buyStoreItem(sellItemList.getSelectedIndex());
+				refreshList(sellListModel);
 			}
 		});
 		btnSellItem.setBounds(585, 237, 143, 67);
@@ -95,5 +95,13 @@ public class IslandSellsItem extends Screen {
 		});
 		btnBackToMain.setBounds(585, 335, 155, 67);
 		frame.getContentPane().add(btnBackToMain);
+	}
+	
+	/**
+	 * Refreshes the list of items after a successful sale
+	 */	
+	private void refreshList(DefaultListModel<PricedItem> sellListModel) {
+		sellListModel.removeAllElements();
+		sellListModel.addAll(islandTrader.getWorld().getCurrentIsland().getStore().getToSellList());
 	}
 }
