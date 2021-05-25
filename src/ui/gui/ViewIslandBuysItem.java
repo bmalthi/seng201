@@ -50,12 +50,12 @@ public class ViewIslandBuysItem extends Screen {
 	 * Initialize the contents of the frame.
 	 */
 	@Override
-	protected void initialise(final JFrame frame) {
+	protected void initialise(final JFrame container) {
 		Island viewIsland = islandTrader.getUI().getViewIsland();
-		frame.getContentPane().setBackground(new Color(47, 79, 79));
-		frame.setBounds(100, 100, 785, 582);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		container.getContentPane().setBackground(new Color(47, 79, 79));
+		container.setBounds(100, 100, 785, 582);
+		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		container.getContentPane().setLayout(null);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island buys:");
 		lblNewLabel_1_1.setLineWrap(true);
@@ -63,7 +63,7 @@ public class ViewIslandBuysItem extends Screen {
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
 		lblNewLabel_1_1.setBackground(new Color(47, 79, 79));
 		lblNewLabel_1_1.setBounds(38, 40, 653, 104);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		container.getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel label = new JLabel();
 		// Create a ListModel to store the items in the JList
@@ -72,7 +72,6 @@ public class ViewIslandBuysItem extends Screen {
 		// Add the existing items to the List Model
 		buyListModel.addAll(viewIsland.getStore().getToBuyList());	
 
-		
 		// Create the JList
 		JList<PricedItem> buyItemList = new JList<PricedItem>(buyListModel);
 		buyItemList.setBorder(UIManager.getBorder("ScrollPane.border"));
@@ -81,8 +80,8 @@ public class ViewIslandBuysItem extends Screen {
 		buyItemList.setBounds(42, 172, 498, 333);
 		//JScrollPane scrollPane = new JScrollPane(buyItemList);
 		//buyItemList.add(scrollPane, BorderLayout.CENTER);
-		buyItemList.setVisibleRowCount(7);
-		frame.getContentPane().add(buyItemList);
+		//buyItemList.setVisibleRowCount(7);
+		container.getContentPane().add(buyItemList);
 
 		buyItemList.getSelectedValue();
 
@@ -96,11 +95,11 @@ public class ViewIslandBuysItem extends Screen {
 			}
 		});
 		btnMainMenu.setBounds(577, 278, 187, 67);
-		frame.getContentPane().add(btnMainMenu);
+		container.getContentPane().add(btnMainMenu);
 		
-		JScrollPane scrollPane = new JScrollPane(buyItemList);
-		frame.getContentPane().add(scrollPane);
-		frame.getContentPane().add(label);
+//		JScrollPane scrollPane = new JScrollPane(buyItemList);
+//		frame.getContentPane().add(scrollPane);
+//		frame.getContentPane().add(label);
 		
 	}
 }
