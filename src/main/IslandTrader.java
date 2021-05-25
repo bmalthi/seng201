@@ -391,7 +391,7 @@ public class IslandTrader {
 	 */
 	public void sailRoute(int option) {
 		// Get the route the user choose
-		Route route = getWorld().getRoutes(getWorld().getCurrentIsland()).get(option);
+		Route route = getWorld().getRoutesFromCurrent().get(option);
 		
 		// Validate the route (money to sail, time in game)
 		FailureState validationResult = validateRoute(route, false);

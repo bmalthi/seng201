@@ -2,21 +2,15 @@ package ui.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
-
 import main.IslandTrader;
 import main.Route;
-
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
-
 import java.awt.Font;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
@@ -98,7 +92,8 @@ public class SetSailingIsland extends Screen {
 		JButton btnSailing = new JButton("Let's set sailing!");
 		btnSailing.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getManager().sailRoute(routeList.getSelectedValue());
+				int selectedOption = routeList.getSelectedIndex();
+				getManager().sailRoute(selectedOption);
 			}
 		});
 
