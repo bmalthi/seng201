@@ -40,7 +40,16 @@ public class SetupScreen extends Screen {
 	
 	public static final String NAME_REGEX = "^[a-z A-Z]{3,15}$";
 	
- 
+	/**
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
+ 	
 	/**
 	 * Create the Setup Screen
 	 * 
@@ -55,14 +64,14 @@ public class SetupScreen extends Screen {
 	 * Initialize the contents of the frame.
 	 */
 	@Override
-	protected void initialise(final JFrame container) {
+	protected void initialise(final JFrame frame) {
 		ButtonGroup buttonGroup  = new ButtonGroup();
-		container.getContentPane().setBackground(new Color(70, 130, 180));
-		//container.setTitle("Welcome to Island Trader V0.5");
-		container.setBounds(100, 100, 785, 582);
+		frame.getContentPane().setBackground(new Color(70, 130, 180));
+		//frame.setTitle("Welcome to Island Trader V0.5");
+		frame.setBounds(100, 100, 785, 582);
 		
-		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		container.getContentPane().setLayout(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
 		//SHould only be able to click this if valid things are selected
 		JButton btnNewButton = new JButton("Let's Play");
@@ -90,39 +99,39 @@ public class SetupScreen extends Screen {
 		btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		btnNewButton.setBounds(653, 506, 126, 42);
 		btnNewButton.setOpaque(true);
-		container.getContentPane().add(btnNewButton);		
+		frame.getContentPane().add(btnNewButton);		
 		
 		JLabel lblNewLabel_2_2_1 = new JLabel("");
 		lblNewLabel_2_2_1.setForeground(new Color(255, 0, 0));
 		lblNewLabel_2_2_1.setBounds(249, 192, 392, 16);
-		container.getContentPane().add(lblNewLabel_2_2_1);
+		frame.getContentPane().add(lblNewLabel_2_2_1);
 		
 		JTextArea lblNewLabel_1_2 = new JTextArea("1) Choose a Trader Name");
 		lblNewLabel_1_2.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1_2.setFont(new Font("SignPainter", Font.PLAIN, 22));
 		lblNewLabel_1_2.setBackground(new Color(25, 25, 112));
 		lblNewLabel_1_2.setBounds(40, 157, 202, 30);
-		container.getContentPane().add(lblNewLabel_1_2);
+		frame.getContentPane().add(lblNewLabel_1_2);
 		
 		JLabel lblNewLabel_2_2 = new JLabel("50 Days");
 		lblNewLabel_2_2.setBackground(new Color(0, 0, 139));
 		lblNewLabel_2_2.setForeground(new Color(0, 0, 139));
 		lblNewLabel_2_2.setBounds(109, 255, 61, 16);
-		container.getContentPane().add(lblNewLabel_2_2);
+		frame.getContentPane().add(lblNewLabel_2_2);
 		
 		JTextArea lblNewLabel_1_2_1 = new JTextArea("2) Decide on game length");
 		lblNewLabel_1_2_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1_2_1.setFont(new Font("SignPainter", Font.PLAIN, 22));
 		lblNewLabel_1_2_1.setBackground(new Color(25, 25, 112));
 		lblNewLabel_1_2_1.setBounds(35, 218, 200, 31);
-		container.getContentPane().add(lblNewLabel_1_2_1);
+		frame.getContentPane().add(lblNewLabel_1_2_1);
 		
 		JTextArea lblNewLabel = new JTextArea("Welcome to Island Trader");
 		lblNewLabel.setForeground(new Color(255, 255, 255));
 		lblNewLabel.setFont(new Font("Holiday Sun", Font.PLAIN, 24));
 		lblNewLabel.setBackground(new Color(70, 130, 180));
 		lblNewLabel.setBounds(35, 21, 639, 31);
-		container.getContentPane().add(lblNewLabel);
+		frame.getContentPane().add(lblNewLabel);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("The aim of the game is to travel between islands, trading goods for profit. You will encounter tricky traders, and trecherous stormy routes with pirates on your quest.");
 		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
@@ -130,7 +139,7 @@ public class SetupScreen extends Screen {
 		lblNewLabel_1_1.setLineWrap(true);
 		lblNewLabel_1_1.setBackground(new Color(0, 0, 102));
 		lblNewLabel_1_1.setBounds(35, 58, 608, 52);
-		container.getContentPane().add(lblNewLabel_1_1);
+		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		txtbetweenCharacters = new JTextField();
 		txtbetweenCharacters.setHorizontalAlignment(SwingConstants.CENTER);
@@ -171,7 +180,7 @@ public class SetupScreen extends Screen {
 		txtbetweenCharacters.setForeground(SystemColor.inactiveCaption);
 		txtbetweenCharacters.setText("(between 3-15 characters)");
 		txtbetweenCharacters.setBounds(249, 157, 392, 34);
-		container.getContentPane().add(txtbetweenCharacters);
+		frame.getContentPane().add(txtbetweenCharacters);
 		txtbetweenCharacters.setColumns(10);
 		
 		JTextArea lblNewLabel_1 = new JTextArea("Let's get started!!!");
@@ -179,7 +188,7 @@ public class SetupScreen extends Screen {
 		lblNewLabel_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblNewLabel_1.setBackground(new Color(70, 130, 180));
 		lblNewLabel_1.setBounds(35, 116, 172, 38);
-		container.getContentPane().add(lblNewLabel_1);
+		frame.getContentPane().add(lblNewLabel_1);
 		
 		slider = new JSlider();
 		slider.addChangeListener(new ChangeListener() {
@@ -192,24 +201,24 @@ public class SetupScreen extends Screen {
 		slider.setMinimum(20);
 		slider.setMaximum(50);
 		slider.setBounds(246, 221, 392, 29);
-		container.getContentPane().add(slider);
+		frame.getContentPane().add(slider);
 		
 		JLabel lblNewLabel_2 = new JLabel("20 Days");
 		lblNewLabel_2.setForeground(new Color(255, 255, 255));
 		lblNewLabel_2.setBounds(245, 239, 61, 16);
-		container.getContentPane().add(lblNewLabel_2);
+		frame.getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("50 Days");
 		lblNewLabel_2_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_2_1.setBounds(601, 239, 61, 16);
-		container.getContentPane().add(lblNewLabel_2_1);
+		frame.getContentPane().add(lblNewLabel_2_1);
 		
 		JTextArea lblNewLabel_1_2_2 = new JTextArea("3) Choose a Ship for your Quest");
 		lblNewLabel_1_2_2.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1_2_2.setFont(new Font("SignPainter", Font.PLAIN, 22));
 		lblNewLabel_1_2_2.setBackground(new Color(25, 25, 112));
 		lblNewLabel_1_2_2.setBounds(35, 287, 235, 31);
-		container.getContentPane().add(lblNewLabel_1_2_2);
+		frame.getContentPane().add(lblNewLabel_1_2_2);
 		
 		List<Ship> ships = getManager().getWorld().getShips();
 		JRadioButton rdbtnNewRadioButton = new JRadioButton(ships.get(0).getName());
@@ -219,25 +228,25 @@ public class SetupScreen extends Screen {
 		buttonGroup.add(rdbtnNewRadioButton);
 		rdbtnNewRadioButton.setSelected(true);
 		rdbtnNewRadioButton.setBounds(40, 483, 141, 23);
-		container.getContentPane().add(rdbtnNewRadioButton);
+		frame.getContentPane().add(rdbtnNewRadioButton);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton(ships.get(1).getName());
 		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(1)));
 		buttonGroup.add(rdbtnNewRadioButton_1);
 		rdbtnNewRadioButton_1.setBounds(221, 483, 141, 23);
-		container.getContentPane().add(rdbtnNewRadioButton_1);
+		frame.getContentPane().add(rdbtnNewRadioButton_1);
 		
 		JRadioButton rdbtnNewRadioButton_1_1 = new JRadioButton(ships.get(2).getName());
 		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(2)));
 		buttonGroup.add(rdbtnNewRadioButton_1_1);
 		rdbtnNewRadioButton_1_1.setBounds(385, 483, 141, 23);
-		container.getContentPane().add(rdbtnNewRadioButton_1_1);
+		frame.getContentPane().add(rdbtnNewRadioButton_1_1);
 		
 		JRadioButton rdbtnNewRadioButton_1_1_1 = new JRadioButton(ships.get(3).getName());
 		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(3)));
 		buttonGroup.add(rdbtnNewRadioButton_1_1_1);
 		rdbtnNewRadioButton_1_1_1.setBounds(563, 483, 141, 23);
-		container.getContentPane().add(rdbtnNewRadioButton_1_1_1);
+		frame.getContentPane().add(rdbtnNewRadioButton_1_1_1);
 		
 		//buttonGroup.clearSelection();
 		
@@ -245,29 +254,29 @@ public class SetupScreen extends Screen {
 		show_image.setHorizontalAlignment(SwingConstants.LEFT);
 		show_image.setIcon(new ImageIcon(SetupScreen.class.getResource("/0001.png")));
 		show_image.setBounds(351, 324, 163, 159);
-		container.getContentPane().add(show_image);
+		frame.getContentPane().add(show_image);
 		
 		JLabel ship2 = new JLabel("");
 		ship2.setIcon(new ImageIcon(SetupScreen.class.getResource("/02.png")));
 		ship2.setBounds(211, 324, 163, 159);
-		container.getContentPane().add(ship2);
+		frame.getContentPane().add(ship2);
 		
 		JLabel ship3 = new JLabel("");
 		ship3.setIcon(new ImageIcon(SetupScreen.class.getResource("/another3.png")));
 		ship3.setBounds(40, 314, 147, 169);
-		container.getContentPane().add(ship3);
+		frame.getContentPane().add(ship3);
 		
 		JLabel ship4 = new JLabel("");
 		ship4.setIcon(new ImageIcon(SetupScreen.class.getResource("/14.png")));
 		ship4.setBounds(538, 324, 192, 159);
-		container.getContentPane().add(ship4);
+		frame.getContentPane().add(ship4);
 		
 		JLabel pirate = new JLabel("");
 		pirate.setHorizontalAlignment(SwingConstants.CENTER);
 		pirate.setBackground(new Color(70, 130, 180));
 		pirate.setIcon(new ImageIcon(SetupScreen.class.getResource("/pirate1.png")));
 		pirate.setBounds(647, 6, 147, 221);
-		container.getContentPane().add(pirate);
+		frame.getContentPane().add(pirate);
 		
 	}
     

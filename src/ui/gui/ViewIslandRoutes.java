@@ -25,13 +25,23 @@ public class ViewIslandRoutes extends Screen {
 	}
 
 	/**
-	 * Initialize the contents of the container.
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
+ 	
+	/**
+	 * Initialize the contents of the frame.
 	 */
 	@Override
-	protected void initialise(final JFrame container) {
+	protected void initialise(final JFrame frame) {
 		List<Route> routes = getManager().getWorld().getRoutesFromCurrent();
-		container.getContentPane().setBackground(new Color(47, 79, 79));
-		container.getContentPane().setLayout(null);
+		frame.getContentPane().setBackground(new Color(47, 79, 79));
+		frame.getContentPane().setLayout(null);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are all routes avaiable to this island:");
 		lblNewLabel_1_1.setLineWrap(true);
@@ -39,7 +49,7 @@ public class ViewIslandRoutes extends Screen {
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblNewLabel_1_1.setBackground(new Color(47, 79, 79));
 		lblNewLabel_1_1.setBounds(41, 48, 653, 104);
-		container.getContentPane().add(lblNewLabel_1_1);
+		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		// SHOULD BE USING TEXT AREA _ ASK TUTOR
 		// Create a ListModel to store the items in the JList
@@ -57,7 +67,7 @@ public class ViewIslandRoutes extends Screen {
 		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		routeList.setBounds(27, 219, 732, 115);
-		container.getContentPane().add(routeList);
+		frame.getContentPane().add(routeList);
 		
 		JButton btnNewButton = new JButton("Back to main menu");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -68,16 +78,16 @@ public class ViewIslandRoutes extends Screen {
 			}
 		});
 		btnNewButton.setBounds(298, 428, 164, 75);
-		container.getContentPane().add(btnNewButton);
+		frame.getContentPane().add(btnNewButton);
 		
 //		JTextArea textArea = new JTextArea();
 //		textArea.setBounds(241, 371, 1, 16);
-//		container.getContentPane().add(textArea);
+//		frame.getContentPane().add(textArea);
 //		
 		
-		container.setBackground(new Color(47, 79, 79));
-		container.setBounds(100, 100, 785, 582);
-		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBackground(new Color(47, 79, 79));
+		frame.setBounds(100, 100, 785, 582);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
 

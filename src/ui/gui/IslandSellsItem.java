@@ -27,15 +27,15 @@ public class IslandSellsItem extends Screen {
 	}
 	
 	/**
-	 * Initialize the contents of the container.
+	 * Initialize the contents of the frame.
 	 */
 	@Override
-	protected void initialise(final JFrame container) {
+	protected void initialise(final JFrame frame) {
 		sellItems = new ArrayList<PricedItem>();
-		container.getContentPane().setBackground(new Color(47, 79, 79));
-		container.setBounds(100, 100, 785, 582);
-		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		container.getContentPane().setLayout(null);
+		frame.getContentPane().setBackground(new Color(47, 79, 79));
+		frame.setBounds(100, 100, 785, 582);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere is some items that this island buys:");
 		lblNewLabel_1_1.setLineWrap(true);
@@ -43,11 +43,11 @@ public class IslandSellsItem extends Screen {
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblNewLabel_1_1.setBackground(new Color(47, 79, 79));
 		lblNewLabel_1_1.setBounds(38, 40, 653, 104);
-		container.getContentPane().add(lblNewLabel_1_1);
+		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		JTextPane textPane = new JTextPane();
 		textPane.setBounds(314, 237, 1, 16);
-		container.getContentPane().add(textPane);
+		frame.getContentPane().add(textPane);
 		
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<PricedItem> sellListModel = new DefaultListModel<PricedItem>();
@@ -60,7 +60,7 @@ public class IslandSellsItem extends Screen {
 		JList<PricedItem> sellItemList = new JList<PricedItem>(sellListModel);
 		sellItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		sellItemList.setBounds(106, 172, 308, 284);
-		container.getContentPane().add(sellItemList);
+		frame.getContentPane().add(sellItemList);
 		
 		sellItemList.getSelectedValue();
 		
@@ -71,7 +71,7 @@ public class IslandSellsItem extends Screen {
 			}
 		});
 		btnSellItem.setBounds(471, 258, 143, 54);
-		container.getContentPane().add(btnSellItem);
+		frame.getContentPane().add(btnSellItem);
 		
 		JButton btnBackToMain = new JButton("Back to main menu");
 		btnBackToMain.addActionListener(new ActionListener() {
@@ -83,6 +83,6 @@ public class IslandSellsItem extends Screen {
 
 		});
 		btnBackToMain.setBounds(471, 336, 143, 54);
-		container.getContentPane().add(btnBackToMain);
+		frame.getContentPane().add(btnBackToMain);
 	}
 }

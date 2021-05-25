@@ -23,19 +23,29 @@ public class MainScreen extends Screen {
 	}
 	
 	/**
-	 * Initialize the contents of the container.
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
+	
+	/**
+	 * Initialize the contents of the frame.
 	 */
 	@Override
-	protected void initialise(final JFrame container) {
-		container.getContentPane().setBackground(new Color(70, 130, 180));
-		container.getContentPane().setLayout(null);
+	protected void initialise(final JFrame frame) {
+		frame.getContentPane().setBackground(new Color(70, 130, 180));
+		frame.getContentPane().setLayout(null);
 		
 		JTextArea txtrANewAdventure = new JTextArea("A new adventure begins");
 		txtrANewAdventure.setForeground(Color.WHITE);
 		txtrANewAdventure.setFont(new Font("Holiday Sun", Font.PLAIN, 24));
 		txtrANewAdventure.setBackground(new Color(70, 130, 180));
 		txtrANewAdventure.setBounds(20, 17, 242, 33);
-		container.getContentPane().add(txtrANewAdventure);
+		frame.getContentPane().add(txtrANewAdventure);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello new trader! Every day is a new adventure, and today it begins with you. \nAs a trader, you can buy items in the current island store and sell them in another island. \n\nYou are currently at the Home Island. What do you want to do now? ");
 		lblNewLabel_1_1.setLineWrap(true);
@@ -43,7 +53,7 @@ public class MainScreen extends Screen {
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 17));
 		lblNewLabel_1_1.setBackground(new Color(0, 0, 128));
 		lblNewLabel_1_1.setBounds(20, 48, 704, 111);
-		container.getContentPane().add(lblNewLabel_1_1);
+		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		JButton btnNewButton = new JButton("VIEW MONEY & DAYS REMAINING");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -57,7 +67,7 @@ public class MainScreen extends Screen {
 		btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		btnNewButton.setBackground(Color.WHITE);
 		btnNewButton.setBounds(56, 182, 237, 74);
-		container.getContentPane().add(btnNewButton);
+		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnViewPastPurchases = new JButton("VIEW PAST PURCHASES & SALES");
 		btnViewPastPurchases.addActionListener(new ActionListener() {
@@ -68,7 +78,7 @@ public class MainScreen extends Screen {
 			}
 		});
 		btnViewPastPurchases.setBounds(56, 268, 237, 74);
-		container.getContentPane().add(btnViewPastPurchases);
+		frame.getContentPane().add(btnViewPastPurchases);
 		
 		JButton btnVisitIslandStore = new JButton("VISIT ISLAND STORE");
 		btnVisitIslandStore.addActionListener(new ActionListener() {
@@ -79,7 +89,7 @@ public class MainScreen extends Screen {
 			}
 		});
 		btnVisitIslandStore.setBounds(56, 354, 237, 74);
-		container.getContentPane().add(btnVisitIslandStore);
+		frame.getContentPane().add(btnVisitIslandStore);
 		
 		JButton btnViewShipStatus = new JButton("VIEW SHIP PROPERTIES");
 		btnViewShipStatus.addActionListener(new ActionListener() {
@@ -90,7 +100,7 @@ public class MainScreen extends Screen {
 			}
 		});
 		btnViewShipStatus.setBounds(325, 182, 234, 74);
-		container.getContentPane().add(btnViewShipStatus);
+		frame.getContentPane().add(btnViewShipStatus);
 		
 		JButton btnViewIslandProperties = new JButton("VIEW ISLAND PROPERTIES");
 		btnViewIslandProperties.addActionListener(new ActionListener() {
@@ -101,7 +111,7 @@ public class MainScreen extends Screen {
 			}
 		});
 		btnViewIslandProperties.setBounds(325, 268, 237, 74);
-		container.getContentPane().add(btnViewIslandProperties);
+		frame.getContentPane().add(btnViewIslandProperties);
 		
 		JButton btnSailToAnother = new JButton("SAIL TO ANOTHER ISLAND");
 		btnSailToAnother.addActionListener(new ActionListener() {
@@ -112,19 +122,19 @@ public class MainScreen extends Screen {
 			}
 		});
 		btnSailToAnother.setBounds(325, 354, 234, 74);
-		container.getContentPane().add(btnSailToAnother);
+		frame.getContentPane().add(btnSailToAnother);
 		
 		JButton btnNewButton_1 = new JButton("QUIT GAME");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int choice = JOptionPane.showConfirmDialog(container, "Are you sure you want to quit?",  "Quit Game", JOptionPane.YES_NO_OPTION);
+				int choice = JOptionPane.showConfirmDialog(frame, "Are you sure you want to quit?",  "Quit Game", JOptionPane.YES_NO_OPTION);
 				if (choice == JOptionPane.YES_OPTION) {
 					quit();
 					Screen screen = new GameEnding(islandTrader);
 					screen.show();
 					
 				} else if (choice == JOptionPane.NO_OPTION) {
-					container.setVisible(true);
+					frame.setVisible(true);
 					//System.out.println("Let's continue the game");
 					//continue main Menu as usual
 
@@ -132,14 +142,14 @@ public class MainScreen extends Screen {
 			}
 		});
 		btnNewButton_1.setBounds(20, 477, 143, 59);
-		container.getContentPane().add(btnNewButton_1);
+		frame.getContentPane().add(btnNewButton_1);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(MainScreen.class.getResource("/HOMEISLAND.png")));
 		lblNewLabel.setBounds(0, 198, 785, 365);
-		container.getContentPane().add(lblNewLabel);
-		container.setBounds(100, 100, 785, 582);
-		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().add(lblNewLabel);
+		frame.setBounds(100, 100, 785, 582);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	

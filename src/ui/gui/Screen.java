@@ -1,13 +1,8 @@
 package ui.gui;
-
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-//import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 import main.IslandTrader;
 
 public abstract class Screen {
@@ -25,6 +20,16 @@ public abstract class Screen {
 		initialise(title);
 	}
 
+	/**
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
+ 	
     /**
      * Initialises this screen's UI.
      */
@@ -59,7 +64,7 @@ public abstract class Screen {
      *
      * @param container The container to add content to
      */
-    protected abstract void initialise(JFrame container);    
+    protected abstract void initialise(JFrame frame);    
 	
 	/**
 	 * Gets the {@link IslandTrader} that this screen supports

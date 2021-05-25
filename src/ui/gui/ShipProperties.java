@@ -21,17 +21,27 @@ public class ShipProperties extends Screen {
 	}
 
 	/**
-	 * Initialize the contents of the container.
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
+ 	
+	/**
+	 * Initialize the contents of the frame.
 	 */
 	@Override
-	protected void initialise(final JFrame container) {
-		container.getContentPane().setBackground(new Color(135, 206, 250));
-		container.getContentPane().setLayout(null);
+	protected void initialise(final JFrame frame) {
+		frame.getContentPane().setBackground(new Color(135, 206, 250));
+		frame.getContentPane().setLayout(null);
 		
 		JLabel shipImage = new JLabel("");
 		shipImage.setIcon(new ImageIcon(ShipProperties.class.getResource("/1pirateshipstatus.png")));
 		shipImage.setBounds(538, 320, 241, 234);
-		container.getContentPane().add(shipImage);
+		frame.getContentPane().add(shipImage);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! How's your adventure going so far? \nDid you find any cool items from the island's store?\n\nHere is your ship properties: \n");
 		lblNewLabel_1_1.setLineWrap(true);
@@ -39,7 +49,7 @@ public class ShipProperties extends Screen {
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
 		lblNewLabel_1_1.setBackground(new Color(70, 130, 180));
 		lblNewLabel_1_1.setBounds(32, 27, 577, 127);
-		container.getContentPane().add(lblNewLabel_1_1);
+		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		JButton btnNewButton = new JButton("Back to main menu");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -50,7 +60,7 @@ public class ShipProperties extends Screen {
 			}
 		});
 		btnNewButton.setBounds(37, 423, 137, 40);
-		container.getContentPane().add(btnNewButton);
+		frame.getContentPane().add(btnNewButton);
 		
 		JTextArea lblProfit = new JTextArea(getManager().getPlayer().getShip().description());
 		lblProfit.setLineWrap(true);
@@ -58,11 +68,11 @@ public class ShipProperties extends Screen {
 		lblProfit.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblProfit.setBackground(new Color(70, 130, 180));
 		lblProfit.setBounds(32, 166, 732, 130);
-		container.getContentPane().add(lblProfit);
+		frame.getContentPane().add(lblProfit);
 	
 		
-		container.setBounds(100, 100, 785, 582);
-		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 785, 582);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
 	}
