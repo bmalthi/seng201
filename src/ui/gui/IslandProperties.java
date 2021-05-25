@@ -13,7 +13,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+/**
+ * This class represents the screen after the user clicked the "View Island Properties" button in Main Menu
+ * @author kvie
+ *
+ */
 public class IslandProperties extends Screen {
 
 	/**

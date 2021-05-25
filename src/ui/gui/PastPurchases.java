@@ -14,7 +14,11 @@ import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import java.awt.Font;
 import javax.swing.JList;
-
+/**
+ * This class represents the screen after the user clicked the "View Past Purchases and Sales" button in Main Menu
+ * @author kvie
+ *
+ */
 public class PastPurchases extends Screen {
 	/**
 	 * Create the application.
@@ -32,9 +36,11 @@ public class PastPurchases extends Screen {
  	protected void initialiseForWindowBuilder() {
  		initialise(new JFrame());
  	}
-
-	/**
-	 * Initialize the contents of the frame.
+  
+  /**
+	 * Initialize the contents of the frame, which include:
+	 * a list of transactions (if exists) 
+	 * a "Back To Main Menu" button
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {

@@ -13,7 +13,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+/**
+ * This class represents the screen after the user clicked the "See What We Buys" button in View Island Properties Screen or Visit Island Store Screen
+ * @author kvie
+ *
+ */
 public class IslandBuysItem extends Screen {
 	
 	private ArrayList<PricedItem> buyItems;	
@@ -27,7 +31,7 @@ public class IslandBuysItem extends Screen {
 	}
 	
 	/**
-	 * This is only here because WindowBuilder needs a JFrame
+   * This is only here because WindowBuilder needs a JFrame
 	 * to be created within this file to allow us to edit the GUI
 	 * 
 	 * @wbp.parser.entryPoint
@@ -35,9 +39,12 @@ public class IslandBuysItem extends Screen {
 	protected void initialiseForWindowBuilder() {
 		initialise(new JFrame());
 	}
-		
-	/**
-	 * Initialize the contents of the frame.
+  
+  /**
+	 * Initialize the contents of the frame, which include:
+	 * list of items for the user to view
+	 * a "Buy Item" button for the user to sell item they chose from the list.
+	 * a "Back To Main Menu" button to go back to main menu
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {

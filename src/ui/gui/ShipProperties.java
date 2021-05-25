@@ -10,6 +10,13 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
+
+/**
+ * This class represents the screen after the user clicked the "View Ship Properties" button in Main Menu
+ * @author kvie
+ *
+ */
 
 public class ShipProperties extends Screen {
 

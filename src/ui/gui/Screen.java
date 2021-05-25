@@ -4,7 +4,11 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import main.IslandTrader;
-
+/**
+ * This class represents the main Screen that manages all the calls to other screens of the game
+ * @author kvie
+ *
+ */
 public abstract class Screen {
 
 	private JFrame frame;

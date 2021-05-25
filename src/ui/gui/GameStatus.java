@@ -14,12 +14,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /**
- * View money and days remaining 
+ * This class represents the screen after the user clicked the "View Game Status" button in Main Menu
  * @author kvie
- * 
+ *
  */
 public class GameStatus extends Screen {
-	
 	/**
 	 * Create the application.
 	 */
@@ -27,7 +26,6 @@ public class GameStatus extends Screen {
 		super("Game Status", islandTrader);
 	}
 
-	/**
 	 * This is only here because WindowBuilder needs a JFrame
 	 * to be created within this file to allow us to edit the GUI
 	 * 
@@ -38,7 +36,9 @@ public class GameStatus extends Screen {
 	}
 	
 	/**
-	 * Initialize the contents of the container.
+	 * Initialize the contents of the frame, which include:
+	 * Some labels to let the user know their current balance, days remaining and game score
+	 * Button to back to main menu
 	 */
 	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(173, 216, 230));
@@ -74,12 +74,12 @@ public class GameStatus extends Screen {
 		btnNewButton.setBounds(311, 395, 174, 68);
 		frame.getContentPane().add(btnNewButton);
 		
-		JTextArea txtrHereIsThe = new JTextArea("Here is the game status:");
-		txtrHereIsThe.setForeground(Color.WHITE);
-		txtrHereIsThe.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
-		txtrHereIsThe.setBackground(new Color(70, 130, 180));
-		txtrHereIsThe.setBounds(19, 85, 324, 37);
-		frame.getContentPane().add(txtrHereIsThe);
+		JTextArea txtGameStatus = new JTextArea("Here is the game status:");
+		txtGameStatus.setForeground(Color.WHITE);
+		txtGameStatus.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		txtGameStatus.setBackground(new Color(70, 130, 180));
+		txtGameStatus.setBounds(19, 85, 324, 37);
+		frame.getContentPane().add(txtGameStatus);
 		
 		int[] profitvalue = getManager().getPlayer().getProfitValue();
 		JLabel lblProfit = new JLabel("You made " + profitvalue[0] + " dollars profit and have " + profitvalue[1] + " dollars of cargo");

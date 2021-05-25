@@ -12,6 +12,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * This class represents the Main Menu of the game after the user clicked the "Let's Play" button in Setup Screen
+ * @author kvie
+ *
+ */
 public class MainScreen extends Screen {
 	/**
 	 * Create this screen
@@ -33,7 +38,10 @@ public class MainScreen extends Screen {
  	}
 	
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame, which include:
+	 * Set some labels 
+	 * Add buttons for the user to choose what they want to do
+	 * Get image of island
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
@@ -47,13 +55,13 @@ public class MainScreen extends Screen {
 		txtrANewAdventure.setBounds(20, 17, 242, 33);
 		frame.getContentPane().add(txtrANewAdventure);
 		
-		JTextArea lblNewLabel_1_1 = new JTextArea("Hello new trader! Every day is a new adventure, and today it begins with you. \nAs a trader, you can buy items in the current island store and sell them in another island. \n\nYou are currently at the Home Island. What do you want to do now? ");
-		lblNewLabel_1_1.setLineWrap(true);
-		lblNewLabel_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 17));
-		lblNewLabel_1_1.setBackground(new Color(0, 0, 128));
-		lblNewLabel_1_1.setBounds(20, 48, 704, 111);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		JTextArea lblHelloTrader = new JTextArea("Hello new trader! Every day is a new adventure, and today it begins with you. \nAs a trader, you can buy items in the current island store and sell them in another island. \n\nYou are currently at the Home Island. What do you want to do now? ");
+		lblHelloTrader.setLineWrap(true);
+		lblHelloTrader.setForeground(Color.WHITE);
+		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 17));
+		lblHelloTrader.setBackground(new Color(0, 0, 128));
+		lblHelloTrader.setBounds(20, 48, 704, 111);
+		frame.getContentPane().add(lblHelloTrader);
 		
 		JButton btnNewButton = new JButton("VIEW MONEY & DAYS REMAINING");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -124,8 +132,8 @@ public class MainScreen extends Screen {
 		btnSailToAnother.setBounds(325, 354, 234, 74);
 		frame.getContentPane().add(btnSailToAnother);
 		
-		JButton btnNewButton_1 = new JButton("QUIT GAME");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnQuitGame = new JButton("QUIT GAME");
+		btnQuitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int choice = JOptionPane.showConfirmDialog(frame, "Are you sure you want to quit?",  "Quit Game", JOptionPane.YES_NO_OPTION);
 				if (choice == JOptionPane.YES_OPTION) {
@@ -141,8 +149,8 @@ public class MainScreen extends Screen {
 				} 
 			}
 		});
-		btnNewButton_1.setBounds(20, 477, 143, 59);
-		frame.getContentPane().add(btnNewButton_1);
+		btnQuitGame.setBounds(20, 477, 143, 59);
+		frame.getContentPane().add(btnQuitGame);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(MainScreen.class.getResource("/HOMEISLAND.png")));

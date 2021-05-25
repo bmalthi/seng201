@@ -2,6 +2,7 @@ package ui.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 import main.IslandTrader;
 import main.Route;
@@ -18,6 +19,11 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
+/**
+ * This class represents the screen after the user clicked the "Sail To Another Island" button in Main Menu
+ * @author kvie
+ *
+ */
 public class SetSailingIsland extends Screen {
 
 	/**
@@ -38,7 +44,9 @@ public class SetSailingIsland extends Screen {
  	}
  	
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame, include
+	 * Buttons to get the user choice of sailing to another island
+	 * Button to set sailing
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
@@ -48,22 +56,22 @@ public class SetSailingIsland extends Screen {
 		frame.getContentPane().setForeground(new Color(135, 206, 250));
 		frame.getContentPane().setLayout(null);
 		
-		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Are you ready to explore the next island?\n\n");
-		lblNewLabel_1_1.setLineWrap(true);
-		lblNewLabel_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
-		lblNewLabel_1_1.setBackground(new Color(65, 105, 225));
-		lblNewLabel_1_1.setBounds(28, 37, 503, 47);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		JTextArea lblHelloTrader = new JTextArea("Hello trader! Are you ready to explore the next island?\n\n");
+		lblHelloTrader.setLineWrap(true);
+		lblHelloTrader.setForeground(Color.WHITE);
+		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
+		lblHelloTrader.setBackground(new Color(65, 105, 225));
+		lblHelloTrader.setBounds(28, 37, 503, 47);
+		frame.getContentPane().add(lblHelloTrader);
 		
 		
-		JTextArea lblNewLabel_1_1_1 = new JTextArea("Where do you want to go?");
-		lblNewLabel_1_1_1.setLineWrap(true);
-		lblNewLabel_1_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
-		lblNewLabel_1_1_1.setBackground(new Color(65, 105, 225));
-		lblNewLabel_1_1_1.setBounds(28, 112, 249, 47);
-		frame.getContentPane().add(lblNewLabel_1_1_1);
+		JTextArea lblWhereToGo = new JTextArea("Where do you want to go?");
+		lblWhereToGo.setLineWrap(true);
+		lblWhereToGo.setForeground(Color.WHITE);
+		lblWhereToGo.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
+		lblWhereToGo.setBackground(new Color(65, 105, 225));
+		lblWhereToGo.setBounds(28, 112, 249, 47);
+		frame.getContentPane().add(lblWhereToGo);
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -84,11 +92,23 @@ public class SetSailingIsland extends Screen {
 		frame.getContentPane().add(routeList);
 		
 		JButton btnNewButton = new JButton("Let's set sailing!");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				getManager().sailRoute(0);
-			}
-		});
+		btnNewButton.addActionListener((e) -> getManager().sailRoute(0);
+
+		//			public void actionPerformed(ActionEvent e) {
+//				int choice = JOptionPane.showMessageDialog(frame, "Bad weather during the journey!");
+//				if (choice == JOptionPane.YES_OPTION) {
+//					quit();
+//					Screen screen = new GameEnding(islandTrader);
+//					screen.show();
+//						
+//				} else if (choice == JOptionPane.NO_OPTION) {
+//					frame.setVisible(true);
+//						//System.out.println("Let's continue the game");
+//						//continue main Menu as usual
+//
+//					} 
+//				}
+		btnNewButton.addActionListener(e -> getManager().sailRoute(0));
 		btnNewButton.setBounds(297, 436, 169, 59);
 		frame.getContentPane().add(btnNewButton);
 				
