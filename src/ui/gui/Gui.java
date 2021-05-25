@@ -1,4 +1,4 @@
-package ui.gui;
+	package ui.gui;
 
 import java.util.ArrayList;
 
@@ -147,13 +147,31 @@ public class Gui implements IslandTraderUI {
     } 
     
     /**
-     * Sets the current island we are viewing as
+     * Gets the current island we are viewing as
      * 
      * @return the current viewIsland
      */
 	@Override	
     public Island getViewIsland() {
     	return this.viewIsland;
-    }     
+    } 
+	
+    /**
+     * Sets an Screen as the current screen 
+     * 
+     * @param screen, the current screen to set
+     */
+    public void setScreen(Screen screen) {
+    	this.theScreen = screen;
+    } 
+    
+    /**
+     * Gets the current screen the gui is on
+     * 
+     * @return the screen
+     */
+    public Screen getScreen() {
+    	return this.theScreen;
+    } 	
 	
 }

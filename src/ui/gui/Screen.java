@@ -38,6 +38,7 @@ public abstract class Screen {
      * Initialises this screen's UI.
      */
     protected void initialise(final String title) {
+    	((Gui)this.islandTrader.getUI()).setScreen(this);
         frame = new JFrame();
         frame.setTitle(title);
 
