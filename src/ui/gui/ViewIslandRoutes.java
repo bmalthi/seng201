@@ -61,16 +61,16 @@ public class ViewIslandRoutes extends Screen {
 		
 		
 		// Add the existing items to the List Model
-		routeListModel.addAll(getManager().getWorld().getRoutes(getManager().getWorld().getCurrentIsland(), island));
+		routeListModel.addAll(getManager().getWorld().getRoutesFromCurrent());
 		
 		// Create the JList
 		JList<Route> routeList = new JList<Route>(routeListModel);
 		routeList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		routeList.setForeground(new Color(255, 255, 255));
 		routeList.setBackground(new Color(85, 107, 47));
-		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		routeList.setBounds(27, 219, 732, 147);
+		routeList.setBounds(27, 219, 732, 118);
 		container.getContentPane().add(routeList);
 		
 		JButton btnNewButton = new JButton("Back to Island Properties");
