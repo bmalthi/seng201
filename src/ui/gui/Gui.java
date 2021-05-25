@@ -141,12 +141,15 @@ public class Gui implements IslandTraderUI {
      */
 	@Override	
     public void encounterWeather(int damage, int repairCost, FailureState repairValidation) {
-		//TODO		
 		JTextArea detail = ((SailingScreen)theScreen).getDetailTextArea();
-		// Kvie, send messages, aka update the SailingScreen detail text area
-		// eg
-		detail.setText(detail.getText() + "I am a donkey\n");
-		// Basically copy output that I have in maincmd for encounterweather
+		
+		detail.setText(detail.getText() +"*** You encountered bad weather ***");
+		try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
+			detail.setText(detail.getText() +"Unfortunately the weather caused " +damage +" damage.");
+			detail.setText(detail.getText() +"It will cost " +repairCost +" to repair\n");
+		if (repairValidation == FailureState.NOMONEY)
+			detail.setText(detail.getText() +"This is more money than you have you will have to trade before you can sail again\n");
+		
 	}
 	
     /**
@@ -157,7 +160,15 @@ public class Gui implements IslandTraderUI {
      */
 	@Override	
     public void rescueSailors(int numRescuedSailors, PricedItem rewardRecord) {
-    	//TODO
+		JTextArea detail = ((SailingScreen)theScreen).getDetailTextArea();
+		
+		detail.setText(detail.getText() +"*** You encountered sailors in distress ***");
+    	try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
+    	detail.setText(detail.getText() +"There are " +numRescuedSailors +" sailors, who are very greatful for their rescue");
+    	
+		// Show the user their reward 
+		detail.setText(rewardRecord.toString()+"\n");
+		
     }
     
     /**
@@ -170,7 +181,51 @@ public class Gui implements IslandTraderUI {
      */
 	@Override	
     public void encounterPirates(int diceThrow, boolean boardShip, ArrayList<PricedItem> transactions, boolean goodsSatisfy) {
-    	//TODO
+		JTextArea detail = ((SailingScreen)theScreen).getDetailTextArea();
+		
+		detail.setText(detail.getText() +"*** !!! You encountered Pirates !!! ***");
+		detail.setText(detail.getText() +"*** !!! They are trying to board your ship !!! ***\n");
+    	
+    	// Show dice game, result is predetermined
+		detail.setText(detail.getText() +"You must roll a die to stop them");
+    	if (this.islandTrader.getPlayer().getShip().hasWeapons())
+    		detail.setText(detail.getText() +"Because you have weapons you have to roll a 3 or above\n");    		
+    	else
+    		detail.setText(detail.getText() +"You have no weapons to fight them off, you must roll 5 or 6\n");    		
+    	
+    	// Pause for 2 seconds
+    	try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}    
+    	
+    	// Show result of dice game
+		if (diceThrow > 2 && this.islandTrader.getPlayer().getShip().hasWeapons())
+			detail.setText(detail.getText() +"You rolled a " +diceThrow +" you fend off the pirates.\n");
+		else if (diceThrow > 4)
+			detail.setText(detail.getText() +"You rolled a " +diceThrow +" you fend off the pirates.\n");		
+		else
+			detail.setText(detail.getText() +"You rolled a " +diceThrow +" the pirates board your ship.\n");    	
+    	
+		//Board the ship, if we lost the dice game
+    	if (boardShip) {    		
+    		//Steal the goods
+    		detail.setText(detail.getText() +"The pirates now steal all of your goods\n");
+    		for (PricedItem transaction : transactions) {    			
+    			//Show the user what was stolen
+    			this.processTransaction(transaction);
+    		}
+    		
+    		// Pause for 2 seconds
+    		try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
+    		
+    		// Does this satisfy them
+    		if (goodsSatisfy) {
+    			detail.setText(detail.getText() +"The pirates are happy with your cargo. You live another day\n");
+    		} else {
+    			detail.setText(detail.getText() +"Unfortunately that wasn't enough for them\n");
+    			detail.setText(detail.getText() +"The pirates take everything and you are forced to walk the plank");
+    			detail.setText(detail.getText() +"Hope you can swim\n");
+    		}
+    		
+    	}
     }
     
     /**
