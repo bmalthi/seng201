@@ -13,11 +13,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-/**
- * This class represents the screen after the user clicked the "See What We Buys" button in View Island Properties Screen or Visit Island Store Screen
- * @author kvie
- *
- */
+
 public class IslandBuysItem extends Screen {
 	
 	private ArrayList<PricedItem> buyItems;	
@@ -30,29 +26,26 @@ public class IslandBuysItem extends Screen {
 			
 	}
 	
+//	/**
+//	 * This is only here because WindowBuilder needs a JFrame
+//	 * to be created within this file to allow us to edit the GUI
+//	 * 
+//	 * @wbp.parser.entryPoint
+//	 */
+//	protected void initialiseForWindowBuilder() {
+//		initialise(new JFrame());
+//	}
+	
 	/**
-   * This is only here because WindowBuilder needs a JFrame
-	 * to be created within this file to allow us to edit the GUI
-	 * 
-	 * @wbp.parser.entryPoint
-	 */
-	protected void initialiseForWindowBuilder() {
-		initialise(new JFrame());
-	}
-  
-  /**
-	 * Initialize the contents of the frame, which include:
-	 * list of items for the user to view
-	 * a "Buy Item" button for the user to sell item they chose from the list.
-	 * a "Back To Main Menu" button to go back to main menu
+	 * Initialize the contents of the container.
 	 */
 	@Override
-	protected void initialise(final JFrame frame) {
+	protected void initialise(final JFrame container) {
 		buyItems = new ArrayList<PricedItem>();
-		frame.getContentPane().setBackground(new Color(47, 79, 79));
-		frame.setBounds(100, 100, 785, 582);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		container.getContentPane().setBackground(new Color(47, 79, 79));
+		container.setBounds(100, 100, 785, 582);
+		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		container.getContentPane().setLayout(null);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere is some items that this island buys:");
 		lblNewLabel_1_1.setLineWrap(true);
@@ -60,30 +53,27 @@ public class IslandBuysItem extends Screen {
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblNewLabel_1_1.setBackground(new Color(47, 79, 79));
 		lblNewLabel_1_1.setBounds(42, 38, 653, 104);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		container.getContentPane().add(lblNewLabel_1_1);
 		
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<PricedItem> buyListModel = new DefaultListModel<PricedItem>();
 		
 		// Add the existing items to the List Model
-		buyListModel.addAll(buyItems);
-		
+		buyListModel.addAll(getManager().getWorld().getCurrentIsland().getStore().getToBuyList());
 		// Create the JList
 		JList<PricedItem> buyItemList = new JList<PricedItem>(buyListModel);
 		buyItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		buyItemList.setBounds(106, 172, 278, 284);
-		frame.getContentPane().add(buyItemList);
-		
-		buyItemList.getSelectedValue();
-		
+		buyItemList.setBounds(42, 172, 498, 284);
+		container.getContentPane().add(buyItemList);
+				
 		JButton btnBuyItem = new JButton("Buy item");
 		btnBuyItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getManager().getPlayer().buyItem(null);
+				getManager().getPlayer().buyItem(buyItemList.getSelectedValue());
 			}
 		});
-		btnBuyItem.setBounds(471, 258, 143, 54);
-		frame.getContentPane().add(btnBuyItem);
+		btnBuyItem.setBounds(587, 240, 143, 71);
+		container.getContentPane().add(btnBuyItem);
 		
 		JButton btnMainMenu = new JButton("Back to main menu");
 		btnMainMenu.addActionListener(new ActionListener() {
@@ -93,8 +83,8 @@ public class IslandBuysItem extends Screen {
 				screen.show();
 			}
 		});
-		btnMainMenu.setBounds(471, 323, 143, 54);
-		frame.getContentPane().add(btnMainMenu);
+		btnMainMenu.setBounds(587, 344, 143, 71);
+		container.getContentPane().add(btnMainMenu);
 	}
 	
 	
