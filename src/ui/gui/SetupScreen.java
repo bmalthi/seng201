@@ -35,7 +35,8 @@ public class SetupScreen extends Screen {
 
 	private JTextField txtbetweenCharacters;
 	private JSlider slider;
-		
+	
+	private JRadioButton shipButton;
 	//private final ButtonGroup buttonGroup  = new ButtonGroup();
 	
 	public static final String NAME_REGEX = "^[a-z A-Z]{3,15}$";
@@ -49,6 +50,16 @@ public class SetupScreen extends Screen {
 	protected SetupScreen(IslandTrader islandTrader) {
 		super("Island Trader Setup", islandTrader);
 	
+	}
+	
+	/**
+	 * This is only here because WindowBuilder needs a JFrame
+	 * to be created within this file to allow us to edit the GUI
+	 * 
+	 * @wbp.parser.entryPoint
+	 */
+	protected void initialiseForWindowBuilder() {
+		initialise(new JFrame());
 	}
 
 	/**
@@ -65,8 +76,8 @@ public class SetupScreen extends Screen {
 		container.getContentPane().setLayout(null);
 		
 		//SHould only be able to click this if valid things are selected
-		JButton btnNewButton = new JButton("Let's Play");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnLetsPlay = new JButton("Let's Play");
+		btnLetsPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Set the player
 				getManager().setPlayer(new Player(txtbetweenCharacters.getText()));
@@ -84,13 +95,13 @@ public class SetupScreen extends Screen {
 				getManager().onSetupFinished();
 			}
 		});
-		btnNewButton.setBackground(new Color(25, 25, 112));
-		btnNewButton.setEnabled(false);
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		btnNewButton.setBounds(653, 506, 126, 42);
-		btnNewButton.setOpaque(true);
-		container.getContentPane().add(btnNewButton);		
+		btnLetsPlay.setBackground(new Color(25, 25, 112));
+		btnLetsPlay.setEnabled(false);
+		btnLetsPlay.setForeground(new Color(255, 255, 255));
+		btnLetsPlay.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		btnLetsPlay.setBounds(653, 506, 126, 42);
+		btnLetsPlay.setOpaque(true);
+		container.getContentPane().add(btnLetsPlay);		
 		
 		JLabel lblNewLabel_2_2_1 = new JLabel("");
 		lblNewLabel_2_2_1.setForeground(new Color(255, 0, 0));
@@ -143,15 +154,15 @@ public class SetupScreen extends Screen {
 		    		if (txtbetweenCharacters.getText().matches(NAME_REGEX)) {
 		    			lblNewLabel_2_2_1.setText("Great Name, " + txtbetweenCharacters.getText());
 		    			lblNewLabel_2_2_1.setForeground(new Color(0, 102, 0));		    			
-		    			btnNewButton.setEnabled(true);
-		    			btnNewButton.setBackground(new Color(0, 102, 0));
-		    			btnNewButton.setForeground(new Color(0, 102, 0));
+		    			btnLetsPlay.setEnabled(true);
+		    			btnLetsPlay.setBackground(new Color(0, 102, 0));
+		    			btnLetsPlay.setForeground(new Color(0, 102, 0));
 		    		} else {
 		    			lblNewLabel_2_2_1.setText("Name should be between 3-15 characters");
 		    			lblNewLabel_2_2_1.setForeground(Color.RED);		    			
-		    			btnNewButton.setEnabled(false);
-		    			btnNewButton.setBackground(Color.RED);
-		    			btnNewButton.setForeground(Color.RED);
+		    			btnLetsPlay.setEnabled(false);
+		    			btnLetsPlay.setBackground(Color.RED);
+		    			btnLetsPlay.setForeground(Color.RED);
 		    		}
 		    	}
 		    }//
@@ -194,15 +205,15 @@ public class SetupScreen extends Screen {
 		slider.setBounds(246, 221, 392, 29);
 		container.getContentPane().add(slider);
 		
-		JLabel lblNewLabel_2 = new JLabel("20 Days");
-		lblNewLabel_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_2.setBounds(245, 239, 61, 16);
-		container.getContentPane().add(lblNewLabel_2);
+		JLabel lbl20Days = new JLabel("20 Days");
+		lbl20Days.setForeground(new Color(255, 255, 255));
+		lbl20Days.setBounds(245, 239, 61, 16);
+		container.getContentPane().add(lbl20Days);
 		
-		JLabel lblNewLabel_2_1 = new JLabel("50 Days");
-		lblNewLabel_2_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_2_1.setBounds(601, 239, 61, 16);
-		container.getContentPane().add(lblNewLabel_2_1);
+		JLabel lbl50Days = new JLabel("50 Days");
+		lbl50Days.setForeground(new Color(255, 255, 255));
+		lbl50Days.setBounds(601, 239, 61, 16);
+		container.getContentPane().add(lbl50Days);
 		
 		JTextArea lblNewLabel_1_2_2 = new JTextArea("3) Choose a Ship for your Quest");
 		lblNewLabel_1_2_2.setForeground(new Color(255, 255, 255));
@@ -212,33 +223,37 @@ public class SetupScreen extends Screen {
 		container.getContentPane().add(lblNewLabel_1_2_2);
 		
 		List<Ship> ships = getManager().getWorld().getShips();
-		JRadioButton rdbtnNewRadioButton = new JRadioButton(ships.get(0).getName());
+		JRadioButton rdbtnShip1 = new JRadioButton(ships.get(0).getName());
 		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(0)));
 		
-		rdbtnNewRadioButton.setForeground(new Color(0, 0, 0));
-		buttonGroup.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.setSelected(true);
-		rdbtnNewRadioButton.setBounds(40, 483, 141, 23);
-		container.getContentPane().add(rdbtnNewRadioButton);
+		rdbtnShip1.setForeground(new Color(0, 0, 0));
+		buttonGroup.add(rdbtnShip1);
+		rdbtnShip1.setSelected(true);
+		rdbtnShip1.setBounds(40, 483, 141, 23);
+		container.getContentPane().add(rdbtnShip1);
+		shipButton.add(rdbtnShip1);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton(ships.get(1).getName());
+		JRadioButton rdbtnShip2 = new JRadioButton(ships.get(1).getName());
 		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(1)));
-		buttonGroup.add(rdbtnNewRadioButton_1);
-		rdbtnNewRadioButton_1.setBounds(221, 483, 141, 23);
-		container.getContentPane().add(rdbtnNewRadioButton_1);
-		
-		JRadioButton rdbtnNewRadioButton_1_1 = new JRadioButton(ships.get(2).getName());
+		buttonGroup.add(rdbtnShip2);
+		rdbtnShip2.setBounds(221, 483, 141, 23);
+		container.getContentPane().add(rdbtnShip2);
+		shipButton.add(rdbtnShip2);
+
+		JRadioButton rdbtnShip3 = new JRadioButton(ships.get(2).getName());
 		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(2)));
-		buttonGroup.add(rdbtnNewRadioButton_1_1);
-		rdbtnNewRadioButton_1_1.setBounds(385, 483, 141, 23);
-		container.getContentPane().add(rdbtnNewRadioButton_1_1);
+		buttonGroup.add(rdbtnShip3);
+		rdbtnShip3.setBounds(385, 483, 141, 23);
+		container.getContentPane().add(rdbtnShip3);
+		shipButton.add(rdbtnShip3);
 		
-		JRadioButton rdbtnNewRadioButton_1_1_1 = new JRadioButton(ships.get(3).getName());
+		JRadioButton rdbtnShip4 = new JRadioButton(ships.get(3).getName());
 		//rdbtnNewRadioButton.addActionListener((e) -> islandTrader.setShip(ships.get(3)));
-		buttonGroup.add(rdbtnNewRadioButton_1_1_1);
-		rdbtnNewRadioButton_1_1_1.setBounds(563, 483, 141, 23);
-		container.getContentPane().add(rdbtnNewRadioButton_1_1_1);
-		
+		buttonGroup.add(rdbtnShip4);
+		rdbtnShip4.setBounds(563, 483, 141, 23);
+		container.getContentPane().add(rdbtnShip4);
+		shipButton.add(rdbtnShip4);
+
 		//buttonGroup.clearSelection();
 		
 		JLabel show_image = new JLabel("");

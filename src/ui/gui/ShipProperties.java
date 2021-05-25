@@ -21,6 +21,16 @@ public class ShipProperties extends Screen {
 	}
 
 	/**
+	 * This is only here because WindowBuilder needs a JFrame
+	 * to be created within this file to allow us to edit the GUI
+	 * 
+	 * @wbp.parser.entryPoint
+	 */
+	protected void initialiseForWindowBuilder() {
+		initialise(new JFrame());
+	}
+	
+	/**
 	 * Initialize the contents of the container.
 	 */
 	@Override
@@ -30,7 +40,7 @@ public class ShipProperties extends Screen {
 		
 		JLabel shipImage = new JLabel("");
 		shipImage.setIcon(new ImageIcon(ShipProperties.class.getResource("/1pirateshipstatus.png")));
-		shipImage.setBounds(538, 320, 241, 234);
+		shipImage.setBounds(572, 359, 207, 189);
 		container.getContentPane().add(shipImage);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! How's your adventure going so far? \nDid you find any cool items from the island's store?\n\nHere is your ship properties: \n");
@@ -49,7 +59,7 @@ public class ShipProperties extends Screen {
 		    	screen.show();						
 			}
 		});
-		btnNewButton.setBounds(37, 423, 137, 40);
+		btnNewButton.setBounds(225, 431, 151, 61);
 		container.getContentPane().add(btnNewButton);
 		
 		JTextArea lblProfit = new JTextArea(getManager().getPlayer().getShip().description());
@@ -57,7 +67,7 @@ public class ShipProperties extends Screen {
 		lblProfit.setForeground(new Color(0, 0, 128));
 		lblProfit.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblProfit.setBackground(new Color(70, 130, 180));
-		lblProfit.setBounds(32, 166, 732, 130);
+		lblProfit.setBounds(32, 166, 732, 181);
 		container.getContentPane().add(lblProfit);
 	
 		
