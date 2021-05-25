@@ -144,9 +144,9 @@ public class Gui implements IslandTraderUI {
 		JTextArea detail = ((SailingScreen)theScreen).getDetailTextArea();
 		
 		detail.setText(detail.getText() +"*** You encountered bad weather ***");
-		try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
-			detail.setText(detail.getText() +"Unfortunately the weather caused " +damage +" damage.");
-			detail.setText(detail.getText() +"It will cost " +repairCost +" to repair\n");
+		//try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
+		detail.setText(detail.getText() +"Unfortunately the weather caused " +damage +" damage.");
+		detail.setText(detail.getText() +"It will cost " +repairCost +" to repair\n");
 		if (repairValidation == FailureState.NOMONEY)
 			detail.setText(detail.getText() +"This is more money than you have you will have to trade before you can sail again\n");
 		
@@ -163,7 +163,7 @@ public class Gui implements IslandTraderUI {
 		JTextArea detail = ((SailingScreen)theScreen).getDetailTextArea();
 		
 		detail.setText(detail.getText() +"*** You encountered sailors in distress ***");
-    	try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
+    	//try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
     	detail.setText(detail.getText() +"There are " +numRescuedSailors +" sailors, who are very greatful for their rescue");
     	
 		// Show the user their reward 
@@ -194,7 +194,7 @@ public class Gui implements IslandTraderUI {
     		detail.setText(detail.getText() +"You have no weapons to fight them off, you must roll 5 or 6\n");    		
     	
     	// Pause for 2 seconds
-    	try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}    
+    	//try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}    
     	
     	// Show result of dice game
 		if (diceThrow > 2 && this.islandTrader.getPlayer().getShip().hasWeapons())
@@ -210,11 +210,11 @@ public class Gui implements IslandTraderUI {
     		detail.setText(detail.getText() +"The pirates now steal all of your goods\n");
     		for (PricedItem transaction : transactions) {    			
     			//Show the user what was stolen
-    			this.processTransaction(transaction);
+    			detail.setText(detail.getText() + transaction.toString()+"\n");
     		}
     		
     		// Pause for 2 seconds
-    		try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
+    		//try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
     		
     		// Does this satisfy them
     		if (goodsSatisfy) {
