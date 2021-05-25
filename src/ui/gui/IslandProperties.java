@@ -115,21 +115,21 @@ public class IslandProperties extends Screen {
 		buttonGroup.add(rdbtnDangerIsland);
 		frame.getContentPane().add(rdbtnDangerIsland);
 		
-		if (rdbtnHomeIsland.isSelected()) {
-			getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(0));	
-		} else if (rdbtnEverythingIsland.isSelected()) {
-			getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(1));	
-		} else if (rdbtnMechanicalIsland.isSelected()) {
-			getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(2));	
-		} else if (rdbtnHoarderIsland.isSelected()) {
-			getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(3));	
-		} else if (rdbtnDangerIsland.isSelected()) {
-			getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(4));	
-		}
 		
 		JButton btnViewRoutes = new JButton("View Routes to this Island");
 		btnViewRoutes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (rdbtnHomeIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(0));	
+				} else if (rdbtnEverythingIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(1));	
+				} else if (rdbtnMechanicalIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(2));	
+				} else if (rdbtnHoarderIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(3));	
+				} else if (rdbtnDangerIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(4));	
+				}
 				quit();
 				Screen screen = new ViewIslandRoutes(islandTrader);
 		    	screen.show();
@@ -141,6 +141,17 @@ public class IslandProperties extends Screen {
 		JButton btnSeeWhatSells = new JButton("See what this island sells");
 		btnSeeWhatSells.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (rdbtnHomeIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(0));	
+				} else if (rdbtnEverythingIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(1));	
+				} else if (rdbtnMechanicalIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(2));	
+				} else if (rdbtnHoarderIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(3));	
+				} else if (rdbtnDangerIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(4));	
+				}
 				quit();
 				Screen screen = new ViewIslandSellsItem(islandTrader);
 		    	screen.show();
@@ -153,6 +164,17 @@ public class IslandProperties extends Screen {
 		JButton btnSeeWhatBuys = new JButton("See what this island buys\n");
 		btnSeeWhatBuys.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (rdbtnHomeIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(0));	
+				} else if (rdbtnEverythingIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(1));	
+				} else if (rdbtnMechanicalIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(2));	
+				} else if (rdbtnHoarderIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(3));	
+				} else if (rdbtnDangerIsland.isSelected()) {
+					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(4));	
+				}
 				quit();
 				Screen screen = new ViewIslandBuysItem(islandTrader);
 		    	screen.show();
