@@ -11,7 +11,7 @@ import main.IslandTrader;
  */
 public abstract class Screen {
 
-	private JFrame frame;
+	protected JFrame frame;
 	
 	// The game instance that this screen interacts with
 	protected final IslandTrader islandTrader;
@@ -37,7 +37,7 @@ public abstract class Screen {
     /**
      * Initialises this screen's UI.
      */
-    private void initialise(final String title) {
+    protected void initialise(final String title) {
         frame = new JFrame();
         frame.setTitle(title);
 

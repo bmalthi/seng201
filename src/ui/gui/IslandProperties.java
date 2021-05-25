@@ -120,15 +120,15 @@ public class IslandProperties extends Screen {
 		btnViewRoutes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (rdbtnHomeIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(0));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(0));	
 				} else if (rdbtnEverythingIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(1));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(1));	
 				} else if (rdbtnMechanicalIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(2));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(2));	
 				} else if (rdbtnHoarderIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(3));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(3));	
 				} else if (rdbtnDangerIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(4));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(4));	
 				}
 				quit();
 				Screen screen = new ViewIslandRoutes(islandTrader);
@@ -142,15 +142,15 @@ public class IslandProperties extends Screen {
 		btnSeeWhatSells.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (rdbtnHomeIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(0));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(0));	
 				} else if (rdbtnEverythingIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(1));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(1));	
 				} else if (rdbtnMechanicalIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(2));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(2));	
 				} else if (rdbtnHoarderIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(3));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(3));	
 				} else if (rdbtnDangerIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(4));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(4));	
 				}
 				quit();
 				Screen screen = new ViewIslandSellsItem(islandTrader);
@@ -165,15 +165,15 @@ public class IslandProperties extends Screen {
 		btnSeeWhatBuys.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (rdbtnHomeIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(0));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(0));	
 				} else if (rdbtnEverythingIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(1));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(1));	
 				} else if (rdbtnMechanicalIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(2));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(2));	
 				} else if (rdbtnHoarderIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(3));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(3));	
 				} else if (rdbtnDangerIsland.isSelected()) {
-					getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(4));	
+					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(4));	
 				}
 				quit();
 				Screen screen = new ViewIslandBuysItem(islandTrader);

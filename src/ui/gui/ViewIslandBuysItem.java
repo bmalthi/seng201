@@ -3,6 +3,7 @@ package ui.gui;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import main.Island;
 import main.IslandTrader;
 import main.PricedItem;
 
@@ -30,7 +31,7 @@ public class ViewIslandBuysItem extends Screen {
 	* Create the application.
 	*/
 	public ViewIslandBuysItem(IslandTrader islandTrader) {
-		super("View Island Buys Item", islandTrader);
+		super(islandTrader.getUI().getViewIsland().getName()+" buys the following items", islandTrader);
 			
 	}
 	
@@ -50,6 +51,7 @@ public class ViewIslandBuysItem extends Screen {
 	 */
 	@Override
 	protected void initialise(final JFrame container) {
+		Island viewIsland = islandTrader.getUI().getViewIsland();
 		container.getContentPane().setBackground(new Color(47, 79, 79));
 		container.setBounds(100, 100, 785, 582);
 		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,8 +69,8 @@ public class ViewIslandBuysItem extends Screen {
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<PricedItem> buyListModel = new DefaultListModel<PricedItem>();
 		
-		// Add the existing items to the List Model - HAVEN"T WORKING YET
-		buyListModel.addAll(getManager().getWorld().getCurrentIsland().getStore().getToBuyList());
+		// Add the existing items to the List Model
+		buyListModel.addAll(viewIsland.getStore().getToBuyList());	
 
 		
 		// Create the JList

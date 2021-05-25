@@ -2,21 +2,14 @@ package ui.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
+import main.Island;
 import main.IslandTrader;
 import main.PricedItem;
-import main.Ship;
-import main.Store;
-
 import java.awt.Color;
 import javax.swing.JTextArea;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -25,12 +18,11 @@ import javax.swing.JButton;
 
 public class ViewIslandSellsItem extends Screen {
 	
-	private Store store;
 	/**
 	* Create the application.
 	*/
 	public ViewIslandSellsItem(IslandTrader islandTrader) {
-		super("View Island Sale Item", islandTrader);		
+		super(islandTrader.getUI().getViewIsland().getName()+" buys the following items", islandTrader);		
 	}
 	
 //	/**
@@ -48,6 +40,7 @@ public class ViewIslandSellsItem extends Screen {
 	 */
 	@Override
 	protected void initialise(final JFrame container) {
+		Island viewIsland = islandTrader.getUI().getViewIsland();
 		container.getContentPane().setBackground(new Color(47, 79, 79));
 		container.setBounds(100, 100, 785, 582);
 		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -65,8 +58,8 @@ public class ViewIslandSellsItem extends Screen {
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<PricedItem> sellListModel = new DefaultListModel<PricedItem>();
 		
-		// Add the existing items to the List Model - HAVEN"T WORKING YET
-		sellListModel.addAll(getManager().getWorld().getCurrentIsland().getStore().getToSellList());
+		// Add the existing items to the List Model
+		sellListModel.addAll(viewIsland.getStore().getToSellList());
 		
 		// Create the JList
 		JList<PricedItem> sellItemList = new JList<PricedItem>(sellListModel);
