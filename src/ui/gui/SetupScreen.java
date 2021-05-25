@@ -71,6 +71,7 @@ public class SetupScreen extends Screen {
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
+		shipButton = new JRadioButton();
 		ButtonGroup buttonGroup  = new ButtonGroup();
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
 		//frame.setTitle("Welcome to Island Trader V0.5");
