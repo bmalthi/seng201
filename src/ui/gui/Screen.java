@@ -11,7 +11,7 @@ import main.IslandTrader;
  */
 public abstract class Screen {
 
-	protected JFrame frame;
+	private JFrame frame;
 	
 	// The game instance that this screen interacts with
 	protected final IslandTrader islandTrader;

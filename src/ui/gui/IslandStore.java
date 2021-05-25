@@ -33,19 +33,19 @@ public class IslandStore extends Screen {
 //	}
 	
 	/**
-	 * Initialize the contents of the container.
+	 * Initialize the contents of the frame.
 	 */
 	@Override
-	protected void initialise(final JFrame container) {
-		container.getContentPane().setBackground(new Color(184, 134, 11));
-		container.getContentPane().setLayout(null);
+	protected void initialise(final JFrame frame) {
+		frame.getContentPane().setBackground(new Color(184, 134, 11));
+		frame.getContentPane().setLayout(null);
 		
 		JTextArea txtrHey = new JTextArea("Welcome to the Island's store");
 		txtrHey.setForeground(Color.WHITE);
 		txtrHey.setFont(new Font("Holiday Sun", Font.PLAIN, 24));
 		txtrHey.setBackground(new Color(184, 134, 11));
 		txtrHey.setBounds(19, 19, 286, 40);
-		container.getContentPane().add(txtrHey);
+		frame.getContentPane().add(txtrHey);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! How's your adventure going so far? \n\nThis is the Island's store, where you can buy awesome items and sell your cool items. \n\n\n\n");
 		lblNewLabel_1_1.setLineWrap(true);
@@ -53,17 +53,17 @@ public class IslandStore extends Screen {
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 17));
 		lblNewLabel_1_1.setBackground(new Color(128, 0, 0));
 		lblNewLabel_1_1.setBounds(19, 62, 752, 85);
-		container.getContentPane().add(lblNewLabel_1_1);
+		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel burgerstore = new JLabel("");
 		burgerstore.setIcon(new ImageIcon(IslandStore.class.getResource("/burgerstore1.png")));
 		burgerstore.setBounds(362, 329, 429, 237);
-		container.getContentPane().add(burgerstore);
+		frame.getContentPane().add(burgerstore);
 		
 		JLabel eatingburger = new JLabel("");
 		eatingburger.setIcon(new ImageIcon(IslandStore.class.getResource("/1eatingBURGER.png")));
 		eatingburger.setBounds(691, 176, 79, 180);
-		container.getContentPane().add(eatingburger);
+		frame.getContentPane().add(eatingburger);
 		
 		JButton btnNewButton = new JButton("See what we have for sale");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -74,7 +74,7 @@ public class IslandStore extends Screen {
 			}
 		});
 		btnNewButton.setBounds(37, 193, 189, 73);
-		container.getContentPane().add(btnNewButton);
+		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnSeeWhatWe = new JButton("See what we are buying");
 		btnSeeWhatWe.addActionListener(new ActionListener() {
@@ -85,7 +85,7 @@ public class IslandStore extends Screen {
 			}
 		});
 		btnSeeWhatWe.setBounds(248, 193, 189, 73);
-		container.getContentPane().add(btnSeeWhatWe);
+		frame.getContentPane().add(btnSeeWhatWe);
 		
 		JButton btnViewPastPurchases = new JButton("View past purchases and sales");
 		btnViewPastPurchases.addActionListener(new ActionListener() {
@@ -96,7 +96,7 @@ public class IslandStore extends Screen {
 			}
 		});
 		btnViewPastPurchases.setBounds(116, 278, 215, 85);
-		container.getContentPane().add(btnViewPastPurchases);
+		frame.getContentPane().add(btnViewPastPurchases);
 		
 		JButton btnRepairShip = new JButton("Repair your ship");
 		btnRepairShip.addActionListener(new ActionListener() {
@@ -116,7 +116,7 @@ public class IslandStore extends Screen {
 		});
 		
 		btnRepairShip.setBounds(116, 375, 215, 73);
-		container.getContentPane().add(btnRepairShip);
+		frame.getContentPane().add(btnRepairShip);
 		
 		JButton btnBackToMain = new JButton("Back to main menu");
 		btnBackToMain.addActionListener(new ActionListener() {
@@ -127,8 +127,8 @@ public class IslandStore extends Screen {
 			}
 		});
 		btnBackToMain.setBounds(116, 466, 215, 73);
-		container.getContentPane().add(btnBackToMain);
-		container.setBounds(100, 100, 785, 582);
-		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().add(btnBackToMain);
+		frame.setBounds(100, 100, 785, 582);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

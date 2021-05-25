@@ -47,15 +47,15 @@ public class ViewIslandBuysItem extends Screen {
 //	}
 	
 	/**
-	 * Initialize the contents of the container.
+	 * Initialize the contents of the frame.
 	 */
 	@Override
-	protected void initialise(final JFrame container) {
+	protected void initialise(final JFrame frame) {
 		Island viewIsland = islandTrader.getUI().getViewIsland();
-		container.getContentPane().setBackground(new Color(47, 79, 79));
-		container.setBounds(100, 100, 785, 582);
-		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		container.getContentPane().setLayout(null);
+		frame.getContentPane().setBackground(new Color(47, 79, 79));
+		frame.setBounds(100, 100, 785, 582);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island buys:");
 		lblNewLabel_1_1.setLineWrap(true);
@@ -63,7 +63,7 @@ public class ViewIslandBuysItem extends Screen {
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
 		lblNewLabel_1_1.setBackground(new Color(47, 79, 79));
 		lblNewLabel_1_1.setBounds(38, 40, 653, 104);
-		container.getContentPane().add(lblNewLabel_1_1);
+		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel label = new JLabel();
 		// Create a ListModel to store the items in the JList
@@ -82,7 +82,7 @@ public class ViewIslandBuysItem extends Screen {
 		//JScrollPane scrollPane = new JScrollPane(buyItemList);
 		//buyItemList.add(scrollPane, BorderLayout.CENTER);
 		buyItemList.setVisibleRowCount(7);
-		container.getContentPane().add(buyItemList);
+		frame.getContentPane().add(buyItemList);
 
 		buyItemList.getSelectedValue();
 
@@ -96,11 +96,11 @@ public class ViewIslandBuysItem extends Screen {
 			}
 		});
 		btnMainMenu.setBounds(577, 278, 187, 67);
-		container.getContentPane().add(btnMainMenu);
+		frame.getContentPane().add(btnMainMenu);
 		
 		JScrollPane scrollPane = new JScrollPane(buyItemList);
-		container.getContentPane().add(scrollPane);
-		container.getContentPane().add(label);
+		frame.getContentPane().add(scrollPane);
+		frame.getContentPane().add(label);
 		
 	}
 }

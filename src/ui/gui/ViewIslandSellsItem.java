@@ -36,15 +36,16 @@ public class ViewIslandSellsItem extends Screen {
 //	}
 	
 	/**
-	 * Initialize the contents of the container.
+	 * Initialize the contents of the frame.
 	 */
 	@Override
-	protected void initialise(final JFrame container) {
+	protected void initialise(final JFrame frame) {
 		Island viewIsland = islandTrader.getUI().getViewIsland();
-		container.getContentPane().setBackground(new Color(47, 79, 79));
-		container.setBounds(100, 100, 785, 582);
-		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		container.getContentPane().setLayout(null);
+		
+		frame.getContentPane().setBackground(new Color(47, 79, 79));
+		frame.setBounds(100, 100, 785, 582);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
 		JTextArea lblHelloTrader = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island sells:");
 		lblHelloTrader.setLineWrap(true);
@@ -52,7 +53,7 @@ public class ViewIslandSellsItem extends Screen {
 		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
 		lblHelloTrader.setBackground(new Color(47, 79, 79));
 		lblHelloTrader.setBounds(38, 40, 653, 104);
-		container.getContentPane().add(lblHelloTrader);
+		frame.getContentPane().add(lblHelloTrader);
 		
 		JLabel label = new JLabel();
 		// Create a ListModel to store the items in the JList
@@ -66,7 +67,7 @@ public class ViewIslandSellsItem extends Screen {
 		sellItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
 		sellItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		sellItemList.setBounds(42, 172, 498, 333);
-		container.getContentPane().add(sellItemList);
+		frame.getContentPane().add(sellItemList);
 		
 		sellItemList.setVisibleRowCount(7);
 		sellItemList.getSelectedValue();
@@ -82,11 +83,11 @@ public class ViewIslandSellsItem extends Screen {
 
 		});
 		btnBackToMain.setBounds(577, 278, 187, 67);
-		container.getContentPane().add(btnBackToMain);
+		frame.getContentPane().add(btnBackToMain);
 		
 		
 		JScrollPane scrollPane = new JScrollPane(sellItemList);
-		container.getContentPane().add(scrollPane);
-		container.getContentPane().add(label);
+		frame.getContentPane().add(scrollPane);
+		frame.getContentPane().add(label);
 	}
 }
