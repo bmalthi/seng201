@@ -1,6 +1,8 @@
 package ui.gui;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import main.IslandTrader;
 import main.PricedItem;
 import main.Ship;
@@ -17,6 +19,7 @@ import java.util.List;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
@@ -50,24 +53,20 @@ public class ViewIslandSellsItem extends Screen {
 		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		container.getContentPane().setLayout(null);
 		
-		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island sells:");
-		lblNewLabel_1_1.setLineWrap(true);
-		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		lblNewLabel_1_1.setBackground(new Color(47, 79, 79));
-		lblNewLabel_1_1.setBounds(38, 40, 653, 104);
-		container.getContentPane().add(lblNewLabel_1_1);
+		JTextArea lblHelloTrader = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island sells:");
+		lblHelloTrader.setLineWrap(true);
+		lblHelloTrader.setForeground(new Color(255, 255, 255));
+		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		lblHelloTrader.setBackground(new Color(47, 79, 79));
+		lblHelloTrader.setBounds(38, 40, 653, 104);
+		container.getContentPane().add(lblHelloTrader);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(314, 237, 1, 16);
-		container.getContentPane().add(textPane);
-		
+		JLabel label = new JLabel();
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<PricedItem> sellListModel = new DefaultListModel<PricedItem>();
 		
 		// Add the existing items to the List Model - HAVEN"T WORKING YET
 		sellListModel.addAll(getManager().getWorld().getCurrentIsland().getStore().getToSellList());
-		
 		
 		// Create the JList
 		JList<PricedItem> sellItemList = new JList<PricedItem>(sellListModel);
@@ -76,6 +75,7 @@ public class ViewIslandSellsItem extends Screen {
 		sellItemList.setBounds(42, 172, 498, 333);
 		container.getContentPane().add(sellItemList);
 		
+		sellItemList.setVisibleRowCount(7);
 		sellItemList.getSelectedValue();
 		
 		JButton btnBackToMain = new JButton("Back to Island Properties");
@@ -90,5 +90,10 @@ public class ViewIslandSellsItem extends Screen {
 		});
 		btnBackToMain.setBounds(577, 278, 187, 67);
 		container.getContentPane().add(btnBackToMain);
+		
+		
+		JScrollPane scrollPane = new JScrollPane(sellItemList);
+		container.getContentPane().add(scrollPane);
+		container.getContentPane().add(label);
 	}
 }

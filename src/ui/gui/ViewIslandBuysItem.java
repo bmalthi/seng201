@@ -1,23 +1,22 @@
 package ui.gui;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import main.IslandTrader;
 import main.PricedItem;
-import main.Store;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import java.awt.Font;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JScrollBar;
+import javax.swing.UIManager;
 
 /**
  * This class represents the screen after the user clicked the "See What We Buys" button in View Island Properties and Visit Island Store Screen
@@ -27,8 +26,6 @@ import javax.swing.JScrollBar;
 public class ViewIslandBuysItem extends Screen {
 	
 	//private ArrayList<PricedItem> buyItems;	
-	private Store store;
-	private JFrame frame;
 	/**
 	* Create the application.
 	*/
@@ -37,16 +34,16 @@ public class ViewIslandBuysItem extends Screen {
 			
 	}
 	
-	/**
-	 * This is only here because WindowBuilder needs a JFrame
-	 * to be created within this file to allow us to edit the GUI
-	 * 
-	 * @wbp.parser.entryPoint
-	 */
-	protected void initialiseForWindowBuilder() {
-		frame = new JFrame();
-		initialise(frame);
-	}
+//	/**
+//	 * This is only here because WindowBuilder needs a JFrame
+//	 * to be created within this file to allow us to edit the GUI
+//	 * 
+//	 * @wbp.parser.entryPoint
+//	 */
+//	protected void initialiseForWindowBuilder() {
+//		frame = new JFrame();
+//		initialise(frame);
+//	}
 	
 	/**
 	 * Initialize the contents of the container.
@@ -66,24 +63,26 @@ public class ViewIslandBuysItem extends Screen {
 		lblNewLabel_1_1.setBounds(38, 40, 653, 104);
 		container.getContentPane().add(lblNewLabel_1_1);
 		
-		JPanel panel = new JPanel(new BorderLayout());
-
+		JLabel label = new JLabel();
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<PricedItem> buyListModel = new DefaultListModel<PricedItem>();
 		
 		// Add the existing items to the List Model - HAVEN"T WORKING YET
 		buyListModel.addAll(getManager().getWorld().getCurrentIsland().getStore().getToBuyList());
-		
+
 		
 		// Create the JList
 		JList<PricedItem> buyItemList = new JList<PricedItem>(buyListModel);
+		buyItemList.setBorder(UIManager.getBorder("ScrollPane.border"));
 		buyItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
 		buyItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		buyItemList.setBounds(42, 172, 498, 333);
 		//JScrollPane scrollPane = new JScrollPane(buyItemList);
 		//buyItemList.add(scrollPane, BorderLayout.CENTER);
-		
+		buyItemList.setVisibleRowCount(7);
 		container.getContentPane().add(buyItemList);
+
+		buyItemList.getSelectedValue();
 
 		JButton btnMainMenu = new JButton("Back to Island Properties");
 		btnMainMenu.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
@@ -97,9 +96,9 @@ public class ViewIslandBuysItem extends Screen {
 		btnMainMenu.setBounds(577, 278, 187, 67);
 		container.getContentPane().add(btnMainMenu);
 		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(525, 172, 15, 333);
-		frame.getContentPane().add(scrollBar);
+		JScrollPane scrollPane = new JScrollPane(buyItemList);
+		container.getContentPane().add(scrollPane);
+		container.getContentPane().add(label);
 		
 	}
 }
