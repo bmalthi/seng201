@@ -1,13 +1,18 @@
 package ui.gui;
 
 import javax.swing.JFrame;
+
+import main.FailureState;
 import main.IslandTrader;
 import main.PricedItem;
+import main.Store;
+
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import java.awt.Font;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -75,7 +80,13 @@ public class IslandBuysItem extends Screen {
 		btnBuyItem.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		btnBuyItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+////				if Store store = getWorld().getCurrentIsland().getStore();
+////				PricedItem sale = store.getToBuyList().get(option);
+//				//Validate the user can do this
+//				FailureState validationResult = validateSale(getManager().getWorld().getCurrentIsland().getStore().getToBuyList();
+//				if (validationResult == FailureState.SUCCESS) {
 				getManager().getPlayer().sellItem(buyItemList.getSelectedValue());
+				JOptionPane.showMessageDialog(btnBuyItem, "Successfully sold item(s)!");
 			}
 		});
 		btnBuyItem.setBounds(587, 244, 143, 71);

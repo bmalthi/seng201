@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
@@ -80,6 +81,7 @@ public class IslandSellsItem extends Screen {
 		btnSellItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getManager().getPlayer().buyItem(sellItemList.getSelectedValue());
+				JOptionPane.showMessageDialog(btnSellItem, "Successfully stored item(s) in the ship!");
 			}
 		});
 		btnSellItem.setBounds(585, 237, 143, 67);
