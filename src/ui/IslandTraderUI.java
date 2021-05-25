@@ -3,6 +3,7 @@ package ui;
 import java.util.ArrayList;
 
 import main.FailureState;
+import main.Island;
 import main.IslandTrader;
 import main.PricedItem;
 import main.Route;
@@ -84,5 +85,20 @@ public interface IslandTraderUI {
      * @param goodsSatisfy, boolean indicating if the goods were enough for the pirate, you lose game if false
      */
     public void encounterPirates(int diceThrow, boolean boardShip, ArrayList<PricedItem> transactions, boolean goodsSatisfy);
+    
+    /**
+     * Sets an view as the current viewIsland, so some ui's that want to view as another island can without
+     * passing the island into the ui
+     * 
+     * @param viewIsland, the island to view the current gui as
+     */
+    public void setViewIsland(Island viewIsland);
+    
+    /**
+     * Sets the current island we are viewing as
+     * 
+     * @return the current viewIsland
+     */	
+    public Island getViewIsland();    
   
 }

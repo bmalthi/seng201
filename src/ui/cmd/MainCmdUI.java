@@ -26,6 +26,9 @@ public class MainCmdUI implements IslandTraderUI {
     // The islandtrader this ui interacts with
     private IslandTrader islandTrader;
 
+    // The island currently being viewed in this gui
+    private Island viewIsland;
+    
 	/**
 	 * SubCMDUI to get a validated Play Name Choice
 	 */    
@@ -679,6 +682,8 @@ public class MainCmdUI implements IslandTraderUI {
 		this.islandDetailMenu = new IslandDetailMenu(this);
 		this.routeMenu = new RouteMenu(this);
 		this.repairShipInput = new RepairShipInput(this);
+		
+		this.setViewIsland(getCurrentIsland());
 		// Start the game
 		game.onSetupFinished();		
 	}
@@ -1011,4 +1016,25 @@ public class MainCmdUI implements IslandTraderUI {
     		
     	}
     }
+    
+    /**
+     * Sets an view as the current viewIsland, so some ui's that want to view as another island can without
+     * passing the island into the ui
+     * 
+     * @param viewIsland, the island to view the current gui as
+     */
+	@Override	
+    public void setViewIsland(Island viewIsland) {
+    	this.viewIsland = viewIsland;
+    } 
+    
+    /**
+     * Sets the current island we are viewing as
+     * 
+     * @return the current viewIsland
+     */
+	@Override	
+    public Island getViewIsland() {
+    	return this.viewIsland;
+    }      
 }

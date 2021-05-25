@@ -3,6 +3,7 @@ package ui.gui;
 import java.util.ArrayList;
 
 import main.FailureState;
+import main.Island;
 import main.IslandTrader;
 import main.PricedItem;
 import main.Route;
@@ -18,6 +19,9 @@ public class Gui implements IslandTraderUI {
 
     // The currently active screen in this gui
     private Screen theScreen;
+    
+    // The island currently being viewed in this gui
+    private Island viewIsland;
 
     /**
      * Initialises this UI and sets up the given IslandTrader, with the ships, islands, stores to be managed
@@ -28,6 +32,7 @@ public class Gui implements IslandTraderUI {
     @Override
     public void setup(IslandTrader islandTrader) {
         this.islandTrader = islandTrader;
+        this.setViewIsland(this.islandTrader.getWorld().getCurrentIsland());
         theScreen = new SetupScreen(islandTrader);
         theScreen.show();
     }
@@ -110,6 +115,7 @@ public class Gui implements IslandTraderUI {
      * @param numRescuedSailors, the random number of sailors rescued, depends on ship size
      * @param rewardRecord, each sailor gives a random reward, this is the total
      */
+	@Override	
     public void rescueSailors(int numRescuedSailors, PricedItem rewardRecord) {
     	//TODO
     }
@@ -122,8 +128,30 @@ public class Gui implements IslandTraderUI {
      * @param transactions, the record of items the pirates stole from the player
      * @param goodsSatisfy, boolean indicating if the goods were enough for the pirate, you lose game if false
      */
+	@Override	
     public void encounterPirates(int diceThrow, boolean boardShip, ArrayList<PricedItem> transactions, boolean goodsSatisfy) {
     	//TODO
     }
+    
+    /**
+     * Sets an view as the current viewIsland, so some ui's that want to view as another island can without
+     * passing the island into the ui
+     * 
+     * @param viewIsland, the island to view the current gui as
+     */
+	@Override	
+    public void setViewIsland(Island viewIsland) {
+    	this.viewIsland = viewIsland;
+    } 
+    
+    /**
+     * Sets the current island we are viewing as
+     * 
+     * @return the current viewIsland
+     */
+	@Override	
+    public Island getViewIsland() {
+    	return this.viewIsland;
+    }     
 	
 }
