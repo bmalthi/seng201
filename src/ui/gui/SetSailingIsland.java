@@ -92,7 +92,7 @@ public class SetSailingIsland extends Screen {
 		frame.getContentPane().add(routeList);
 		
 		JButton btnNewButton = new JButton("Let's set sailing!");
-		btnNewButton.addActionListener((e) -> getManager().sailRoute(0);
+		btnNewButton.addActionListener((e) -> getManager().sailRoute(0));
 
 		//			public void actionPerformed(ActionEvent e) {
 //				int choice = JOptionPane.showMessageDialog(frame, "Bad weather during the journey!");
@@ -111,7 +111,5 @@ public class SetSailingIsland extends Screen {
 		btnNewButton.addActionListener(e -> getManager().sailRoute(0));
 		btnNewButton.setBounds(297, 436, 169, 59);
 		frame.getContentPane().add(btnNewButton);
-				
 	}
-
-}
+}	

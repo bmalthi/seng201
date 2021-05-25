@@ -264,7 +264,7 @@ public class SetupScreen extends Screen {
 		//ship1.setHorizontalAlignment(SwingConstants.LEFT);
 		ship1.setIcon(new ImageIcon(SetupScreen.class.getResource("/0001.png")));
 		ship1.setBounds(351, 324, 163, 159);
-		frmWelcomeToIsland.getContentPane().add(ship1);  
+		frame.getContentPane().add(ship1);  
 		
 		JLabel ship2 = new JLabel("");
 		ship2.setIcon(new ImageIcon(SetupScreen.class.getResource("/02.png")));

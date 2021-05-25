@@ -26,6 +26,7 @@ public class GameStatus extends Screen {
 		super("Game Status", islandTrader);
 	}
 
+	/**
 	 * This is only here because WindowBuilder needs a JFrame
 	 * to be created within this file to allow us to edit the GUI
 	 * 

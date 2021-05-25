@@ -111,7 +111,7 @@ public class IslandStore extends Screen {
 			public void actionPerformed(ActionEvent e) {
 				if (getManager().validateRepair(null) == FailureState.SUCCESS) {
 					getManager().repairShip();
-					String choice = JOptionPane.showMessageDialog("Your ship is repaired!");
+					//String choice = JOptionPane.showMessageDialog("Your ship is repaired!");
 					
 				} else {
 					System.out.println("You don't have enough money to repair your ship");
