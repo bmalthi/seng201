@@ -93,6 +93,7 @@ public class SetSailingIsland extends Screen {
 		btnSailing.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selectedOption = routeList.getSelectedIndex();
+				getManager().getUI().setViewIsland(getManager().getWorld().getCurrentIsland()); //hack to make showing the route we sailed easier 
 				getManager().sailRoute(selectedOption);
 			}
 		});

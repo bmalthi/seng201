@@ -3,11 +3,13 @@
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 import main.FailureState;
 import main.Island;
 import main.IslandTrader;
 import main.PricedItem;
+import main.RandomEvent;
 import main.Route;
 import ui.IslandTraderUI;
 
@@ -94,8 +96,39 @@ public class Gui implements IslandTraderUI {
      */	
 	@Override
 	public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {
-		// TODO Auto-generated method stub
+		// Set Up
+		String title = "Sailing from " + getViewIsland() +" to " + route.otherIsland(getViewIsland());
+        theScreen.quit();
+        theScreen = new SailingScreen(islandTrader);
+        theScreen.getFrame().setTitle(title);
+		FailureState gameStatus = FailureState.SUCCESS;
+		JTextArea detail = ((SailingScreen)theScreen).getDetailTextArea();
+        
+		// Show the UI / Start the Journey
+        ((SailingScreen)theScreen).getHeaderTextArea().setText("Hello trader! Lets start our adventure to " + route.otherIsland(getViewIsland()));
+        theScreen.show();       
 		
+		// Show the user the wages we paid
+        detail.setText(wageRecord.toString()+"\n");
+		
+		// Call the game random event code
+		for (RandomEvent event : route.getEvents()) {
+			this.islandTrader.triggerRandomSailingEvent(event);
+			gameStatus = this.islandTrader.isGameOver();
+			if(gameStatus == FailureState.GAMEOVER_HARD)
+				break;
+		}
+		
+		if (gameStatus == FailureState.GAMEOVER_HARD) {
+			this.islandTrader.setGameOver();
+		} else if (gameStatus == FailureState.GAMEOVER_SOFT) {
+			detail.setText(detail.getText() +"You made it, but you have no money or time left to go anywhere");
+			detail.setText(detail.getText() +"You can trade if you want, else quit the game\n");
+		} else {
+			// Assume we made the next island (for now)
+			detail.setText(detail.getText() +"Congrats on your journey, you made it\n");
+		}        
+        
 	}
 	
     /**
@@ -108,7 +141,12 @@ public class Gui implements IslandTraderUI {
      */
 	@Override	
     public void encounterWeather(int damage, int repairCost, FailureState repairValidation) {
-		//TODO
+		//TODO		
+		JTextArea detail = ((SailingScreen)theScreen).getDetailTextArea();
+		// Kvie, send messages, aka update the SailingScreen detail text area
+		// eg
+		detail.setText(detail.getText() + "I am a donkey\n");
+		// Basically copy output that I have in maincmd for encounterweather
 	}
 	
     /**

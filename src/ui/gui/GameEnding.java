@@ -7,7 +7,6 @@ import main.IslandTrader;
 import java.awt.Color;
 import javax.swing.JTextArea;
 import java.awt.Font;
-import javax.swing.JLabel;
 
 /**
  * This class represents the screen after the user clicked the "Quit Game" button and (confirm that they really want to quit the game) in Main Menu
