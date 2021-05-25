@@ -1,19 +1,14 @@
 package ui.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-
 import main.IslandTrader;
 import main.PricedItem;
-
 import java.awt.Color;
 import javax.swing.JTextArea;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
@@ -26,16 +21,23 @@ import javax.swing.JButton;
  */
 public class IslandSellsItem extends Screen {
 
-	private JFrame frame;
-	private ArrayList<PricedItem> sellItems = new ArrayList<PricedItem>();
+	private ArrayList<PricedItem> sellItems;
 
 	/**
 	* Create the application.
 	*/
 	public IslandSellsItem(IslandTrader islandTrader) {
-		super("Island Sells Item", islandTrader);
-		initialize();
-			
+		super("Island Sells Item", islandTrader);		
+	}
+	
+	/**
+	 * This is only here because WindowBuilder needs a JFrame
+	 * to be created within this file to allow us to edit the GUI
+	 * 
+	 * @wbp.parser.entryPoint
+	 */
+	protected void initialiseForWindowBuilder() {
+		initialise(new JFrame());
 	}
 	
 	/**
@@ -44,8 +46,9 @@ public class IslandSellsItem extends Screen {
 	 * a "Sell Item" button for the user to sell item they chose from the list.
 	 * a "Back To Main Menu" button to go back to main menu
 	 */
-	private void initialize() {
-		frame = getFrame();
+	@Override
+	protected void initialise(final JFrame frame) {
+		sellItems = new ArrayList<PricedItem>();
 		frame.getContentPane().setBackground(new Color(47, 79, 79));
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,7 +67,7 @@ public class IslandSellsItem extends Screen {
 		frame.getContentPane().add(textPane);
 		
 		// Create a ListModel to store the items in the JList
-		DefaultListModel<PricedItem> sellListModel = new DefaultListModel<>();
+		DefaultListModel<PricedItem> sellListModel = new DefaultListModel<PricedItem>();
 		
 		// Add the existing items to the List Model
 		sellListModel.addAll(sellItems);

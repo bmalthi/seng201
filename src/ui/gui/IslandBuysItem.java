@@ -1,29 +1,14 @@
 package ui.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-
 import main.IslandTrader;
 import main.PricedItem;
-import main.Store;
-
 import java.awt.Color;
-import java.awt.Container;
-
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.table.TableModel;
-
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JList;
-import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -35,28 +20,35 @@ import java.awt.event.ActionEvent;
  */
 public class IslandBuysItem extends Screen {
 	
-	private ArrayList<PricedItem> buyItems = new ArrayList<PricedItem>();
-	private JFrame frame;
-
+	private ArrayList<PricedItem> buyItems;	
 	
 	/**
 	* Create the application.
 	*/
 	public IslandBuysItem(IslandTrader islandTrader) {
 		super("Island Buys Item", islandTrader);
-		//buyItems.addAll(buyItems);
-		initialize();
 			
 	}
 	
 	/**
+   * This is only here because WindowBuilder needs a JFrame
+	 * to be created within this file to allow us to edit the GUI
+	 * 
+	 * @wbp.parser.entryPoint
+	 */
+	protected void initialiseForWindowBuilder() {
+		initialise(new JFrame());
+	}
+  
+  /**
 	 * Initialize the contents of the frame, which include:
 	 * list of items for the user to view
 	 * a "Buy Item" button for the user to sell item they chose from the list.
 	 * a "Back To Main Menu" button to go back to main menu
 	 */
-	private void initialize() {
-		frame = getFrame();
+	@Override
+	protected void initialise(final JFrame frame) {
+		buyItems = new ArrayList<PricedItem>();
 		frame.getContentPane().setBackground(new Color(47, 79, 79));
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,7 +63,7 @@ public class IslandBuysItem extends Screen {
 		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		// Create a ListModel to store the items in the JList
-		DefaultListModel<PricedItem> buyListModel = new DefaultListModel<>();
+		DefaultListModel<PricedItem> buyListModel = new DefaultListModel<PricedItem>();
 		
 		// Add the existing items to the List Model
 		buyListModel.addAll(buyItems);

@@ -1,6 +1,5 @@
 package ui.gui;
 
-
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -27,24 +26,31 @@ import java.awt.event.ActionEvent;
  */
 public class SetSailingIsland extends Screen {
 
-	private JFrame frame;
-
 	/**
 	 * Create the application.
 	 */
 	public SetSailingIsland(IslandTrader islandTrader) {
 		super("Sailing To Another Island", islandTrader);
-		initialize();
 	}
 
+	/**
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
+ 	
 	/**
 	 * Initialize the contents of the frame, include
 	 * Buttons to get the user choice of sailing to another island
 	 * Button to set sailing
 	 */
-	private void initialize() {
+	@Override
+	protected void initialise(final JFrame frame) {
 		List<Route> routes = getManager().getWorld().getRoutesFromCurrent();
-		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.setBackground(new Color(135, 206, 250));
 		frame.getContentPane().setForeground(new Color(135, 206, 250));

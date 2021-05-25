@@ -5,41 +5,49 @@ import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
-
 import main.IslandTrader;
-
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
+
 /**
  * This class represents the screen after the user clicked the "View Ship Properties" button in Main Menu
  * @author kvie
  *
  */
+
 public class ShipProperties extends Screen {
 
-	private JFrame frame;
 	/**
 	 * Create the application.
 	 */
 	public ShipProperties(IslandTrader islandTrader) {
 		super("Ship Properties", islandTrader);
-		initialize();
 	}
 
 	/**
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
+ 	
+	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frame = getFrame();
+	@Override
+	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.getContentPane().setLayout(null);
 		
 		JLabel shipImage = new JLabel("");
 		shipImage.setIcon(new ImageIcon(ShipProperties.class.getResource("/1pirateshipstatus.png")));
-		shipImage.setBounds(538, 320, 241, 234);
+		shipImage.setBounds(572, 359, 207, 189);
 		frame.getContentPane().add(shipImage);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! How's your adventure going so far? \nDid you find any cool items from the island's store?\n\nHere is your ship properties: \n");
@@ -58,29 +66,16 @@ public class ShipProperties extends Screen {
 		    	screen.show();						
 			}
 		});
-		btnNewButton.setBounds(37, 423, 137, 40);
+		btnNewButton.setBounds(225, 431, 151, 61);
 		frame.getContentPane().add(btnNewButton);
 		
-		JLabel lblProfit = new JLabel(getManager().getPlayer().getShip().description());
+		JTextArea lblProfit = new JTextArea(getManager().getPlayer().getShip().description());
+		lblProfit.setLineWrap(true);
 		lblProfit.setForeground(new Color(0, 0, 128));
-		lblProfit.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		lblProfit.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblProfit.setBackground(new Color(70, 130, 180));
-		lblProfit.setBounds(32, 166, 732, 50);
+		lblProfit.setBounds(32, 166, 732, 181);
 		frame.getContentPane().add(lblProfit);
-		
-		JLabel lblProfit_1 = new JLabel(getManager().getPlayer().getShip().description());
-		lblProfit_1.setForeground(new Color(0, 0, 128));
-		lblProfit_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		lblProfit_1.setBackground(new Color(70, 130, 180));
-		lblProfit_1.setBounds(-705, 228, 1484, 69);
-		frame.getContentPane().add(lblProfit_1);
-		
-		JLabel lblProfit_2 = new JLabel(getManager().getPlayer().getShip().description());
-		lblProfit_2.setForeground(new Color(0, 0, 128));
-		lblProfit_2.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		lblProfit_2.setBackground(new Color(70, 130, 180));
-		lblProfit_2.setBounds(-1415, 309, 2179, 69);
-		frame.getContentPane().add(lblProfit_2);
 	
 		
 		frame.setBounds(100, 100, 785, 582);

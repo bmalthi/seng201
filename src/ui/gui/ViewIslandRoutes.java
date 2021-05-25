@@ -1,56 +1,51 @@
 package ui.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import main.Island;
 import main.IslandTrader;
-import main.PricedItem;
 import main.Route;
-
 import java.awt.Color;
 import javax.swing.JTextArea;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JLabel;
 import javax.swing.JList;
+
 /**
  * This class represents the screen after the user clicked the "View Routes to This Island" button in View Island Properties Screen.
  * @author kvie
  *
  */
 public class ViewIslandRoutes extends Screen {
-	
-	private JFrame frame;
 
 	/**
-	 * Create the application.
 	 */
 	public ViewIslandRoutes(IslandTrader islandTrader) {
-		
 		super("View Routes To The Current Island", islandTrader);
-		initialize();
 		
 	}
 
+	/**
+   	* This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
+ 
 	/**
 	 * Initialize the contents of the frame, which include:
 	 * a list of routes for the user to view
 	 * a "Back To Main Menu" button
 	 */
-	private void initialize() {
+	@Override
+	protected void initialise(final JFrame frame) {
 		List<Route> routes = getManager().getWorld().getRoutesFromCurrent();
-		frame = getFrame();
 		frame.getContentPane().setBackground(new Color(47, 79, 79));
 		frame.getContentPane().setLayout(null);
 		

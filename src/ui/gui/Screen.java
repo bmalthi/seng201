@@ -1,10 +1,8 @@
 package ui.gui;
-
-//import java.awt.EventQueue;
-
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
 import main.IslandTrader;
 /**
  * This class represents the main Screen that manages all the calls to other screens of the game
@@ -23,17 +21,54 @@ public abstract class Screen {
 	 */
 	protected Screen(final String title, final IslandTrader islandTrader) {
 		this.islandTrader = islandTrader;
-		initialize();
+		initialise(title);
 	}
 
 	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
+ 	
+    /**
+     * Initialises this screen's UI.
+     */
+    private void initialise(final String title) {
+        frame = new JFrame();
+        frame.setTitle(title);
+
+        // Prevent the frame from closing immediately when the user clicks the close button.
+        // Instead we add a WindowListener so we can tell our rocket manager that the user
+        // has requested to quit. This allows the rocket manager to perform actions that may
+        // be required before quitting E.g. Confirming the user really wants to quit,
+        // saving state etc.
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+            	islandTrader.onFinish();
+            }
+        });
+
+        initialise(frame);
+
+        // Size our frame
+        //frame.pack();
+
+        // We set the location of our frame relative to null. This causes the frame to be placed
+        // in the centre of the screen.
+        frame.setLocationRelativeTo(null);
+    }
+    
+    /**
+     * Creates and adds the required graphical components to the given container.
+     *
+     * @param container The container to add content to
+     */
+    protected abstract void initialise(JFrame frame);    
 	
 	/**
 	 * Gets the {@link IslandTrader} that this screen supports

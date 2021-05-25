@@ -4,9 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JTextArea;
-
 import main.IslandTrader;
-
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,10 +24,18 @@ public class MainScreen extends Screen {
 	 */
 	public MainScreen(IslandTrader islandTrader)  {
 		super("Island Trader", islandTrader);
-		initialize();
 		
 	}
-
+	
+	/**
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
 	
 	/**
 	 * Initialize the contents of the frame, which include:
@@ -37,8 +43,8 @@ public class MainScreen extends Screen {
 	 * Add buttons for the user to choose what they want to do
 	 * Get image of island
 	 */
-	public void initialize() {
-		JFrame frame = getFrame();
+	@Override
+	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
 		frame.getContentPane().setLayout(null);
 		

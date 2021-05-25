@@ -1,15 +1,11 @@
 package ui.gui;
 
-
 import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JTextArea;
-
 import main.FailureState;
 import main.IslandTrader;
-
 import java.awt.Font;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,23 +20,30 @@ import java.awt.event.ActionEvent;
  */
 public class IslandStore extends Screen {
 
-	private JFrame frame;
-
 	/**
 	 * Create the application.
 	 */
 	public IslandStore(IslandTrader islandTrader) {
 		super("Island Store", islandTrader);
-		initialize();
 	}
 
+	/**
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
+ 	
 	/**
 	 * Initialize the contents of the frame, which includes:
 	 * Some labels to let the user know they are at the store
 	 * Buttons for the user to choose what they want to do next
 	 */
-	private void initialize() {
-		frame = getFrame();
+	@Override
+	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(184, 134, 11));
 		frame.getContentPane().setLayout(null);
 		
@@ -131,5 +134,5 @@ public class IslandStore extends Screen {
 		frame.getContentPane().add(btnBackToMenu);
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-}
+	}
 }

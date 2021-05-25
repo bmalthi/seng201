@@ -1,36 +1,17 @@
 package ui.gui;
 
-import java.awt.EventQueue;
 import java.util.List;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
-
 import main.IslandTrader;
 import main.Ship;
 
 public class ListItemWindow {
 
 	private JFrame frame;
-	//private ArrayList<Ship> ships = new ArrayList<>();
 	private IslandTrader islandTrader;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ListItemWindow window = new ListItemWindow();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -38,7 +19,7 @@ public class ListItemWindow {
 	public ListItemWindow() {
 		initialize();
 	}
-
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */

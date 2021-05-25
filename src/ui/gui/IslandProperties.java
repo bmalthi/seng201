@@ -20,21 +20,27 @@ import java.awt.event.ActionEvent;
  */
 public class IslandProperties extends Screen {
 
-	private JFrame frame;
-
 	/**
 	 * Create the application.
 	 */
 	public IslandProperties(IslandTrader islandTrader) {
 		super("Island Properties", islandTrader);
-		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * This is only here because WindowBuilder needs a JFrame
+	 * to be created within this file to allow us to edit the GUI
+	 * 
+	 * @wbp.parser.entryPoint
 	 */
-	private void initialize() {
-		frame = getFrame();
+	protected void initialiseForWindowBuilder() {
+		initialise(new JFrame());
+	}
+	
+	/**
+	 * Initialize the contents of the container.
+	 */
+	protected void initialise(final JFrame frame) { 		
 		frame.getContentPane().setBackground(new Color(240, 230, 140));
 		frame.getContentPane().setLayout(null);
 		

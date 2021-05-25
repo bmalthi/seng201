@@ -1,25 +1,18 @@
 package ui.gui;
 
-
 import javax.swing.JFrame;
 
 import main.IslandTrader;
 import main.PricedItem;
-import main.Route;
-
 import java.awt.Color;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
-
 import java.awt.Font;
-import javax.swing.JLabel;
 import javax.swing.JList;
 /**
  * This class represents the screen after the user clicked the "View Past Purchases and Sales" button in Main Menu
@@ -27,23 +20,30 @@ import javax.swing.JList;
  *
  */
 public class PastPurchases extends Screen {
-
-	private JFrame frame;
 	/**
 	 * Create the application.
 	 */
 	public PastPurchases(IslandTrader islandTrader) {
 		super("View Past Purchases and Sales", islandTrader);
-		initialize();
 	}
 
 	/**
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
+  
+  /**
 	 * Initialize the contents of the frame, which include:
 	 * a list of transactions (if exists) 
 	 * a "Back To Main Menu" button
 	 */
-	private void initialize() {
-		frame = getFrame();
+	@Override
+	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(85, 107, 47));
 		frame.getContentPane().setLayout(null);
 		

@@ -19,30 +19,34 @@ import java.awt.event.ActionEvent;
  *
  */
 public class GameStatus extends Screen {
-	
-	private JFrame frame;
-	
 	/**
 	 * Create the application.
 	 */
 	public GameStatus(IslandTrader islandTrader) {
 		super("Game Status", islandTrader);
-		initialize();
 	}
 
+	 * This is only here because WindowBuilder needs a JFrame
+	 * to be created within this file to allow us to edit the GUI
+	 * 
+	 * @wbp.parser.entryPoint
+	 */
+	protected void initialiseForWindowBuilder() {
+		initialise(new JFrame());
+	}
+	
 	/**
 	 * Initialize the contents of the frame, which include:
 	 * Some labels to let the user know their current balance, days remaining and game score
 	 * Button to back to main menu
 	 */
-	private void initialize() {
-		frame = getFrame();
+	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(173, 216, 230));
 		frame.getContentPane().setLayout(null);
 		
 		JTextArea txtrHeyTraderHow = new JTextArea("Hey trader! How are you doing? \n");
 		txtrHeyTraderHow.setForeground(Color.WHITE);
-		txtrHeyTraderHow.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		txtrHeyTraderHow.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		txtrHeyTraderHow.setBackground(new Color(70, 130, 180));
 		txtrHeyTraderHow.setBounds(19, 36, 324, 37);
 		frame.getContentPane().add(txtrHeyTraderHow);
@@ -50,7 +54,7 @@ public class GameStatus extends Screen {
 		JLabel lblBalanceRemaining = new JLabel("You currently have " + getManager().getPlayer().getBalance() + " dollars.");
 		lblBalanceRemaining.setBackground(new Color(70, 130, 180));
 		lblBalanceRemaining.setForeground(new Color(0, 0, 128));
-		lblBalanceRemaining.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		lblBalanceRemaining.setFont(new Font("iCiel Brush Up", Font.PLAIN, 18));
 		lblBalanceRemaining.setBounds(149, 149, 317, 37);
 		frame.getContentPane().add(lblBalanceRemaining);
 		
@@ -80,7 +84,7 @@ public class GameStatus extends Screen {
 		int[] profitvalue = getManager().getPlayer().getProfitValue();
 		JLabel lblProfit = new JLabel("You made " + profitvalue[0] + " dollars profit and have " + profitvalue[1] + " dollars of cargo");
 		lblProfit.setForeground(new Color(0, 0, 128));
-		lblProfit.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		lblProfit.setFont(new Font("iCiel Brush Up", Font.PLAIN, 18));
 		lblProfit.setBackground(new Color(70, 130, 180));
 		lblProfit.setBounds(149, 198, 544, 37);
 		frame.getContentPane().add(lblProfit);
@@ -88,14 +92,14 @@ public class GameStatus extends Screen {
 		int dayRemaining = getManager().getGameLength() - getManager().getTime();
 		JLabel lblDaysRemaining = new JLabel("You are on day " + getManager().getTime() + " of " + getManager().getGameLength() + ". " + dayRemaining + " days left.");
 		lblDaysRemaining.setForeground(new Color(0, 0, 128));
-		lblDaysRemaining.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		lblDaysRemaining.setFont(new Font("iCiel Brush Up", Font.PLAIN, 18));
 		lblDaysRemaining.setBackground(new Color(70, 130, 180));
 		lblDaysRemaining.setBounds(149, 246, 518, 37);
 		frame.getContentPane().add(lblDaysRemaining);
 		
 		JLabel lblGameScore = new JLabel("Your score is: " + getManager().gameScore());
 		lblGameScore.setForeground(new Color(0, 0, 128));
-		lblGameScore.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		lblGameScore.setFont(new Font("iCiel Brush Up", Font.PLAIN, 18));
 		lblGameScore.setBackground(new Color(70, 130, 180));
 		lblGameScore.setBounds(199, 295, 309, 37);
 		frame.getContentPane().add(lblGameScore);

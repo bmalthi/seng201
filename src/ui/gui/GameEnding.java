@@ -4,39 +4,41 @@ package ui.gui;
 import javax.swing.JFrame;
 
 import main.IslandTrader;
-import main.PricedItem;
-
 import java.awt.Color;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import java.awt.Font;
 import javax.swing.JLabel;
+
 /**
  * This class represents the screen after the user clicked the "Quit Game" button and (confirm that they really want to quit the game) in Main Menu
  * @author kvie
  *
  */
 public class GameEnding extends Screen {
-
-	private JFrame frame;
 	
 	/**
 	 * Create the application.
 	 */
 	public GameEnding(IslandTrader islandTrader) {
 		super("Finish The Journey", islandTrader);
-		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame, which include: player's game status
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
+ 	
+	/**
+	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frame = getFrame();
+	@Override
+	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
 		frame.getContentPane().setLayout(null);
 		
