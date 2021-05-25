@@ -73,14 +73,11 @@ public class IslandSellsItem extends Screen {
 		sellItemList.setBounds(42, 172, 498, 284);
 		frame.getContentPane().add(sellItemList);
 		
-		sellItemList.getSelectedValue();
-		
 		JButton btnSellItem = new JButton("Buy item");
 		btnSellItem.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		btnSellItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getManager().getPlayer().buyItem(sellItemList.getSelectedValue());
-				JOptionPane.showMessageDialog(btnSellItem, "Successfully stored item(s) in the ship!");
+				getManager().buyStoreItem(sellItemList.getSelectedIndex());
 			}
 		});
 		btnSellItem.setBounds(585, 237, 143, 67);

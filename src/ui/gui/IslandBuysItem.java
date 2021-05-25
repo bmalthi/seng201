@@ -78,13 +78,7 @@ public class IslandBuysItem extends Screen {
 		btnBuyItem.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		btnBuyItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-////				if Store store = getWorld().getCurrentIsland().getStore();
-////				PricedItem sale = store.getToBuyList().get(option);
-//				//Validate the user can do this
-//				FailureState validationResult = validateSale(getManager().getWorld().getCurrentIsland().getStore().getToBuyList();
-//				if (validationResult == FailureState.SUCCESS) {
-				getManager().getPlayer().sellItem(buyItemList.getSelectedValue());
-				JOptionPane.showMessageDialog(btnBuyItem, "Successfully sold item(s)!");
+				getManager().buyStoreItem(buyItemList.getSelectedIndex());
 			}
 		});
 		btnBuyItem.setBounds(587, 244, 143, 71);

@@ -2,6 +2,8 @@ package ui.gui;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import main.FailureState;
 import main.Island;
 import main.IslandTrader;
@@ -79,8 +81,8 @@ public class Gui implements IslandTraderUI {
 	 * @param transaction,  the transaction we are showing details to the user about
 	 */	
 	@Override
-	public void processTransaction(PricedItem transaction) {
-		//TODO
+	public void processTransaction(PricedItem transaction) {	
+		JOptionPane.showMessageDialog(null, transaction.toString());
 	}  
 	
     /**
