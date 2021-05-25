@@ -27,16 +27,16 @@ public class ShipProperties extends Screen {
 		super("Ship Properties", islandTrader);
 	}
 
-	/**
- 	 * This is only here because WindowBuilder needs a JFrame
- 	 * to be created within this file to allow us to edit the GUI
- 	 * 
- 	 * @wbp.parser.entryPoint
- 	 */
- 	protected void initialiseForWindowBuilder() {
- 		initialise(new JFrame());
- 	}
- 	
+//	/**
+// 	 * This is only here because WindowBuilder needs a JFrame
+// 	 * to be created within this file to allow us to edit the GUI
+// 	 * 
+// 	 * @wbp.parser.entryPoint
+// 	 */
+// 	protected void initialiseForWindowBuilder() {
+// 		initialise(new JFrame());
+// 	}
+// 	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -66,15 +66,15 @@ public class ShipProperties extends Screen {
 		    	screen.show();						
 			}
 		});
-		btnNewButton.setBounds(225, 431, 151, 61);
+		btnNewButton.setBounds(225, 444, 151, 61);
 		frame.getContentPane().add(btnNewButton);
 		
 		JTextArea lblProfit = new JTextArea(getManager().getPlayer().getShip().description());
 		lblProfit.setLineWrap(true);
 		lblProfit.setForeground(new Color(0, 0, 128));
 		lblProfit.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
-		lblProfit.setBackground(new Color(70, 130, 180));
-		lblProfit.setBounds(32, 166, 732, 181);
+		lblProfit.setBackground(new Color(135, 206, 250));
+		lblProfit.setBounds(32, 166, 732, 266);
 		frame.getContentPane().add(lblProfit);
 	
 		

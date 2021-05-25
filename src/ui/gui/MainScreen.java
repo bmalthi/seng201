@@ -26,17 +26,17 @@ public class MainScreen extends Screen {
 		super("Island Trader", islandTrader);
 		
 	}
-	
-	/**
- 	 * This is only here because WindowBuilder needs a JFrame
- 	 * to be created within this file to allow us to edit the GUI
- 	 * 
- 	 * @wbp.parser.entryPoint
- 	 */
- 	protected void initialiseForWindowBuilder() {
- 		initialise(new JFrame());
- 	}
-	
+//	
+//	/**
+// 	 * This is only here because WindowBuilder needs a JFrame
+// 	 * to be created within this file to allow us to edit the GUI
+// 	 * 
+// 	 * @wbp.parser.entryPoint
+// 	 */
+// 	protected void initialiseForWindowBuilder() {
+// 		initialise(new JFrame());
+// 	}
+//	
 	/**
 	 * Initialize the contents of the frame, which include:
 	 * Set some labels 

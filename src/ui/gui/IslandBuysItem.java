@@ -14,6 +14,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * This class represents the screen after the user clicked the "See What We Buys" button in View Island Properties and Visit Island Store Screen
+ * @author kvie
+ *
+ */
 public class IslandBuysItem extends Screen {
 	
 	private ArrayList<PricedItem> buyItems;	
