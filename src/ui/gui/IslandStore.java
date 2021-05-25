@@ -8,6 +8,7 @@ import main.IslandTrader;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -97,30 +98,36 @@ public class IslandStore extends Screen {
 		btnViewPastPurchases.setBounds(116, 278, 215, 85);
 		container.getContentPane().add(btnViewPastPurchases);
 		
-		JButton btnNewButton_2_1 = new JButton("Repair your ship");
-		btnNewButton_2_1.addActionListener(new ActionListener() {
+		JButton btnRepairShip = new JButton("Repair your ship");
+		btnRepairShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (getManager().validateRepair(null) == FailureState.SUCCESS) {
-					getManager().repairShip();
+				int repairCost = getManager().getPlayer().getShip().getDamageAmount();
+				if (repairCost > 0 && getManager().validateRepair(getManager().getPlayer().getShip()) == FailureState.SUCCESS) {
+					JOptionPane.showMessageDialog(btnRepairShip, "Your ship is repaired!");
+//					int choice = JOptionPane.showConfirmDialog(getFrame(), "Do you want to repair the ship for " + repairCost,  "Repair Ship", JOptionPane.YES_NO_OPTION);
+//					if (choice == JOptionPane.YES_OPTION) {
+//						getManager().repairShip();
+//					} else if (choice == JOptionPane.NO_OPTION) {
+//						getFrame().setVisible(true);
 				} else {
-					System.out.println("You don't have enough money to repair your ship");
+					JOptionPane.showMessageDialog(btnRepairShip, "You don't have enough money to repair your ship");
 				}
 			}
 		});
 		
-		btnNewButton_2_1.setBounds(116, 375, 215, 73);
-		container.getContentPane().add(btnNewButton_2_1);
+		btnRepairShip.setBounds(116, 375, 215, 73);
+		container.getContentPane().add(btnRepairShip);
 		
-		JButton btnNewButton_2_1_1 = new JButton("Back to main menu");
-		btnNewButton_2_1_1.addActionListener(new ActionListener() {
+		JButton btnBackToMain = new JButton("Back to main menu");
+		btnBackToMain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
 				Screen screen = new MainScreen(islandTrader);
 				screen.show();
 			}
 		});
-		btnNewButton_2_1_1.setBounds(116, 466, 215, 73);
-		container.getContentPane().add(btnNewButton_2_1_1);
+		btnBackToMain.setBounds(116, 466, 215, 73);
+		container.getContentPane().add(btnBackToMain);
 		container.setBounds(100, 100, 785, 582);
 		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
