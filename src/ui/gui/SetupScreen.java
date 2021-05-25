@@ -22,12 +22,10 @@ import main.Ship;
 import java.awt.Font;
 
 import javax.swing.JRadioButton;
-import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.util.Enumeration;
 import java.util.List;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
@@ -71,45 +69,35 @@ public class SetupScreen extends Screen {
 	protected void initialise(final JFrame container) {
 		ButtonGroup buttonGroup  = new ButtonGroup();
 		container.getContentPane().setBackground(new Color(70, 130, 180));
-		//container.setTitle("Welcome to Island Trader V0.5");
 		container.setBounds(100, 100, 785, 582);
 		
 		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		container.getContentPane().setLayout(null);
 		
 		List<Ship> ships = getManager().getWorld().getShips();
-		JRadioButton rdbtnShip1 = new JRadioButton(ships.get(0).getName());
-		//rdbtnShip1.addActionListener((e) -> islandTrader.setShip(ships.get(0)));
 		
+		JRadioButton rdbtnShip1 = new JRadioButton(ships.get(0).getName());
 		rdbtnShip1.setForeground(new Color(0, 0, 0));	
 		buttonGroup.add(rdbtnShip1);
 		rdbtnShip1.setSelected(true);
 		rdbtnShip1.setBounds(40, 483, 141, 23);
 		container.getContentPane().add(rdbtnShip1);
-		//shipButton.add(rdbtnShip1);
 		
 		JRadioButton rdbtnShip2 = new JRadioButton(ships.get(1).getName());
-		//rdbtnShip2.addActionListener((e) -> islandTrader.setShip(ships.get(1)));
 		buttonGroup.add(rdbtnShip2);
 		rdbtnShip2.setBounds(221, 483, 141, 23);
 		container.getContentPane().add(rdbtnShip2);
-		//shipButton.add(rdbtnShip2);
 
 		JRadioButton rdbtnShip3 = new JRadioButton(ships.get(2).getName());
-		//rdbtnShip3.addActionListener((e) -> islandTrader.setShip(ships.get(2)));
 		buttonGroup.add(rdbtnShip3);
 		rdbtnShip3.setBounds(385, 483, 141, 23);
 		container.getContentPane().add(rdbtnShip3);
-		//shipButton.add(rdbtnShip3);
 		
 		JRadioButton rdbtnShip4 = new JRadioButton(ships.get(3).getName());
-		//rdbtnShip4.addActionListener((e) -> islandTrader.setShip(ships.get(3)));
 		buttonGroup.add(rdbtnShip4);
 		rdbtnShip4.setBounds(563, 483, 141, 23);
 		container.getContentPane().add(rdbtnShip4);
-		//shipButton.add(rdbtnShip4);
 		
-		//buttonGroup.clearSelection();
 
 		//SHould only be able to click this if valid things are selected
 		JButton btnLetsPlay = new JButton("Let's Play");

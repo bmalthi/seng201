@@ -18,6 +18,10 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.JPopupMenu;
+import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * This class represents the screen after the user clicked the "Sail To Another Island" button in Main Menu
@@ -33,16 +37,16 @@ public class SetSailingIsland extends Screen {
 		super("Sailing To Another Island", islandTrader);
 	}
 
-//	/**
-// 	 * This is only here because WindowBuilder needs a JFrame
-// 	 * to be created within this file to allow us to edit the GUI
-// 	 * 
-// 	 * @wbp.parser.entryPoint
-// 	 */
-// 	protected void initialiseForWindowBuilder() {
-// 		initialise(new JFrame());
-// 	}
-// 	
+	/**
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
+ 	
 	/**
 	 * Initialize the contents of the frame, include
 	 * Buttons to get the user choice of sailing to another island
@@ -50,7 +54,7 @@ public class SetSailingIsland extends Screen {
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
-		List<Route> routes = getManager().getWorld().getRoutesFromCurrent();
+//		List<Route> routes = getManager().getWorld().getRoutesFromCurrent();
 		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.setBackground(new Color(135, 206, 250));
 		frame.getContentPane().setForeground(new Color(135, 206, 250));
@@ -79,7 +83,7 @@ public class SetSailingIsland extends Screen {
 		DefaultListModel<Route> routeListModel = new DefaultListModel<>();
 				
 		// Add the existing items to the List Model
-		routeListModel.addAll(routes);
+		routeListModel.addAll(getManager().getWorld().getRoutesFromCurrent());
 				
 		// Create the JList
 		JList<Route> routeList = new JList<Route>(routeListModel);
@@ -88,28 +92,37 @@ public class SetSailingIsland extends Screen {
 		routeList.setBackground(new Color(0, 0, 128));
 		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		routeList.setBounds(27, 219, 732, 184);
+		routeList.setBounds(27, 219, 732, 166);
 		frame.getContentPane().add(routeList);
 		
-		JButton btnNewButton = new JButton("Let's set sailing!");
-		btnNewButton.addActionListener((e) -> getManager().sailRoute(0));
+		JButton btnSailing = new JButton("Let's set sailing!");
+		btnSailing.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getManager().sailRoute(routeList.getSelectedValue());
+			}
+		});
 
-		//			public void actionPerformed(ActionEvent e) {
-//				int choice = JOptionPane.showMessageDialog(frame, "Bad weather during the journey!");
-//				if (choice == JOptionPane.YES_OPTION) {
-//					quit();
-//					Screen screen = new GameEnding(islandTrader);
-//					screen.show();
-//						
-//				} else if (choice == JOptionPane.NO_OPTION) {
-//					frame.setVisible(true);
-//						//System.out.println("Let's continue the game");
-//						//continue main Menu as usual
-//
-//					} 
-//				}
-		btnNewButton.addActionListener(e -> getManager().sailRoute(0));
-		btnNewButton.setBounds(297, 436, 169, 59);
-		frame.getContentPane().add(btnNewButton);
+		btnSailing.setBounds(297, 429, 169, 59);
+		frame.getContentPane().add(btnSailing);
+		
+		JPopupMenu popupMenu = new JPopupMenu();
+		addPopup(btnSailing, popupMenu);
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
 	}
 }	

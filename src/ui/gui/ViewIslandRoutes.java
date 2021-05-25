@@ -3,6 +3,8 @@ package ui.gui;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+
+import main.Island;
 import main.IslandTrader;
 import main.Route;
 import java.awt.Color;
@@ -16,6 +18,7 @@ import javax.swing.JList;
 
 public class ViewIslandRoutes extends Screen {
 
+	private Island island;
 	/**
 	 */
 	public ViewIslandRoutes(IslandTrader islandTrader) {
@@ -39,16 +42,17 @@ public class ViewIslandRoutes extends Screen {
 	 */
 	@Override
 	protected void initialise(final JFrame container) {
-		List<Route> routes = getManager().getWorld().getRoutesFromCurrent();
+		
+		//List<Route> routes = getManager().getWorld().getRoutes(getManager().getWorld().getCurrentIsland(), island);
 		container.getContentPane().setBackground(new Color(47, 79, 79));
 		container.getContentPane().setLayout(null);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are all routes avaiable to this island:");
 		lblNewLabel_1_1.setLineWrap(true);
 		lblNewLabel_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
-		lblNewLabel_1_1.setBackground(new Color(47, 79, 79));
-		lblNewLabel_1_1.setBounds(41, 48, 653, 104);
+		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		lblNewLabel_1_1.setBackground(new Color(0, 128, 128));
+		lblNewLabel_1_1.setBounds(27, 48, 653, 104);
 		container.getContentPane().add(lblNewLabel_1_1);
 		
 		// SHOULD BE USING TEXT AREA _ ASK TUTOR
@@ -57,27 +61,27 @@ public class ViewIslandRoutes extends Screen {
 		
 		
 		// Add the existing items to the List Model
-		routeListModel.addAll(routes);
+		routeListModel.addAll(getManager().getWorld().getRoutes(getManager().getWorld().getCurrentIsland(), island));
 		
 		// Create the JList
 		JList<Route> routeList = new JList<Route>(routeListModel);
 		routeList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		routeList.setForeground(new Color(255, 255, 255));
 		routeList.setBackground(new Color(85, 107, 47));
-		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		routeList.setBounds(27, 219, 732, 115);
+		routeList.setBounds(27, 219, 732, 147);
 		container.getContentPane().add(routeList);
 		
-		JButton btnNewButton = new JButton("Back to main menu");
+		JButton btnNewButton = new JButton("Back to Island Properties");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				Screen screen = new MainScreen(islandTrader);
+				Screen screen = new IslandProperties(islandTrader);
 				screen.show();
 			}
 		});
-		btnNewButton.setBounds(298, 428, 164, 75);
+		btnNewButton.setBounds(298, 428, 189, 75);
 		container.getContentPane().add(btnNewButton);
 		
 		container.setBackground(new Color(47, 79, 79));

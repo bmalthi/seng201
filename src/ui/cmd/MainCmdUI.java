@@ -684,7 +684,7 @@ public class MainCmdUI implements IslandTraderUI {
 	}
 
     /**
-     * Method used to start the game, where the user selects a ship, playername and game length
+     * Method used to start the game, where the user selects a ship, player name and game length
      * before triggering the main menu
      */		
 	@Override

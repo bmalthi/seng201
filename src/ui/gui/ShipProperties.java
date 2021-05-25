@@ -36,7 +36,7 @@ public class ShipProperties extends Screen {
 // 	protected void initialiseForWindowBuilder() {
 // 		initialise(new JFrame());
 // 	}
-// 	
+ 	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -46,8 +46,8 @@ public class ShipProperties extends Screen {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel shipImage = new JLabel("");
-		shipImage.setIcon(new ImageIcon(ShipProperties.class.getResource("/1pirateshipstatus.png")));
-		shipImage.setBounds(572, 359, 207, 189);
+		shipImage.setIcon(new ImageIcon(ShipProperties.class.getResource("/01piratestatus.png")));
+		shipImage.setBounds(603, 401, 176, 169);
 		frame.getContentPane().add(shipImage);
 		
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! How's your adventure going so far? \nDid you find any cool items from the island's store?\n\nHere is your ship properties: \n");
@@ -66,7 +66,7 @@ public class ShipProperties extends Screen {
 		    	screen.show();						
 			}
 		});
-		btnNewButton.setBounds(225, 444, 151, 61);
+		btnNewButton.setBounds(250, 460, 151, 61);
 		frame.getContentPane().add(btnNewButton);
 		
 		JTextArea lblProfit = new JTextArea(getManager().getPlayer().getShip().description());

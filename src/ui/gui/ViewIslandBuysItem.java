@@ -3,6 +3,8 @@ package ui.gui;
 import javax.swing.JFrame;
 import main.IslandTrader;
 import main.PricedItem;
+import main.Store;
+
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
@@ -18,15 +20,15 @@ import java.awt.event.ActionEvent;
  * @author kvie
  *
  */
-public class IslandBuysItem extends Screen {
+public class ViewIslandBuysItem extends Screen {
 	
 	//private ArrayList<PricedItem> buyItems;	
-	
+	private Store store;
 	/**
 	* Create the application.
 	*/
-	public IslandBuysItem(IslandTrader islandTrader) {
-		super("Island Buys Item", islandTrader);
+	public ViewIslandBuysItem(IslandTrader islandTrader) {
+		super("View Island Buys Item", islandTrader);
 			
 	}
 	
@@ -39,13 +41,12 @@ public class IslandBuysItem extends Screen {
 //	protected void initialiseForWindowBuilder() {
 //		initialise(new JFrame());
 //	}
-//	
+	
 	/**
 	 * Initialize the contents of the container.
 	 */
 	@Override
 	protected void initialise(final JFrame container) {
-		//buyItems = new ArrayList<PricedItem>();
 		container.getContentPane().setBackground(new Color(47, 79, 79));
 		container.setBounds(100, 100, 785, 582);
 		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,41 +57,33 @@ public class IslandBuysItem extends Screen {
 		lblNewLabel_1_1.setForeground(Color.WHITE);
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
 		lblNewLabel_1_1.setBackground(new Color(47, 79, 79));
-		lblNewLabel_1_1.setBounds(42, 45, 653, 104);
+		lblNewLabel_1_1.setBounds(38, 40, 653, 104);
 		container.getContentPane().add(lblNewLabel_1_1);
+		
 		
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<PricedItem> buyListModel = new DefaultListModel<PricedItem>();
 		
-		// Add the existing items to the List Model
+		// Add the existing items to the List Model - HAVEN"T WORKING YET
 		buyListModel.addAll(getManager().getWorld().getCurrentIsland().getStore().getToBuyList());
+		
 		// Create the JList
 		JList<PricedItem> buyItemList = new JList<PricedItem>(buyListModel);
 		buyItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
 		buyItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		buyItemList.setBounds(42, 172, 498, 333);
 		container.getContentPane().add(buyItemList);
-				
-		JButton btnBuyItem = new JButton("Sell item");
-		btnBuyItem.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		btnBuyItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				getManager().getPlayer().sellItem(buyItemList.getSelectedValue());
-			}
-		});
-		btnBuyItem.setBounds(587, 244, 143, 71);
-		container.getContentPane().add(btnBuyItem);
-		
-		JButton btnMainMenu = new JButton("Back to store front");
+						
+		JButton btnMainMenu = new JButton("Back to Island Properties");
 		btnMainMenu.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				Screen screen = new IslandStore(islandTrader);
+				Screen screen = new IslandProperties(islandTrader);
 				screen.show();
 			}
 		});
-		btnMainMenu.setBounds(587, 342, 143, 71);
+		btnMainMenu.setBounds(577, 278, 187, 67);
 		container.getContentPane().add(btnMainMenu);
 	}
 	

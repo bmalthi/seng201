@@ -84,10 +84,10 @@ public class PastPurchases extends Screen {
 		JList<PricedItem> transactionsList = new JList<PricedItem>(transactionsListModel);
 		transactionsList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		transactionsList.setForeground(new Color(255, 255, 255));
-		transactionsList.setBackground(new Color(0, 0, 0));
-		transactionsList.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		transactionsList.setBackground(new Color(0, 51, 0));
+		transactionsList.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
 		transactionsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		transactionsList.setBounds(27, 219, 732, 131);
+		transactionsList.setBounds(78, 159, 645, 297);
 		frame.getContentPane().add(transactionsList);
 		if (transactions.size() == 0) {
 			JTextArea txtrHeyTraderHow_1_1_2 = new JTextArea("You have no transactions yet");

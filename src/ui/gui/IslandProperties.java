@@ -4,14 +4,17 @@ import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JTextArea;
 
+import main.Island;
 import main.IslandTrader;
 
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 /**
  * This class represents the screen after the user clicked the "View Island Properties" button in Main Menu
@@ -36,11 +39,12 @@ public class IslandProperties extends Screen {
 //	protected void initialiseForWindowBuilder() {
 //		initialise(new JFrame());
 //	}
-//	
+	
 	/**
 	 * Initialize the contents of the container.
 	 */
-	protected void initialise(final JFrame frame) { 		
+	protected void initialise(final JFrame frame) { 	
+		ButtonGroup buttonGroup  = new ButtonGroup();
 		frame.getContentPane().setBackground(new Color(240, 230, 140));
 		frame.getContentPane().setLayout(null);
 		
@@ -82,30 +86,46 @@ public class IslandProperties extends Screen {
 		island5.setIcon(new ImageIcon(IslandProperties.class.getResource("/island5.png")));
 		frame.getContentPane().add(island5);
 		
-		JRadioButton rdbtnHomeIsland = new JRadioButton("Home Island");
-		rdbtnHomeIsland.addActionListener((e) -> getManager().getWorld().getIslands().get(0));
+		List<Island> islands = getManager().getWorld().getIslands();
+
+		JRadioButton rdbtnHomeIsland = new JRadioButton(islands.get(0).getName());
+		rdbtnHomeIsland.setForeground(new Color(0, 0, 0));	
+		rdbtnHomeIsland.setSelected(true);
 		rdbtnHomeIsland.setBounds(6, 297, 141, 23);
+		buttonGroup.add(rdbtnHomeIsland);
 		frame.getContentPane().add(rdbtnHomeIsland);
 		
-		JRadioButton rdbtnEverythingIsland = new JRadioButton("Everything Island");
-		rdbtnEverythingIsland.addActionListener((e) -> getManager().getWorld().getIslands().get(1));
+		JRadioButton rdbtnEverythingIsland = new JRadioButton(islands.get(1).getName());
 		rdbtnEverythingIsland.setBounds(158, 297, 141, 23);
+		buttonGroup.add(rdbtnEverythingIsland);
 		frame.getContentPane().add(rdbtnEverythingIsland);
 		
-		JRadioButton rdbtnMechanicalIsland = new JRadioButton("Mechanical Island");
-		rdbtnMechanicalIsland.addActionListener((e) -> getManager().getWorld().getIslands().get(2));
+		JRadioButton rdbtnMechanicalIsland = new JRadioButton(islands.get(2).getName());
 		rdbtnMechanicalIsland.setBounds(316, 297, 158, 23);
+		buttonGroup.add(rdbtnMechanicalIsland);
 		frame.getContentPane().add(rdbtnMechanicalIsland);
 		
-		JRadioButton rdbtnHoarderIsland = new JRadioButton("Hoarder Island");
-		rdbtnHoarderIsland.addActionListener((e) -> getManager().getWorld().getIslands().get(3));
+		JRadioButton rdbtnHoarderIsland = new JRadioButton(islands.get(3).getName());
 		rdbtnHoarderIsland.setBounds(477, 297, 141, 23);
+		buttonGroup.add(rdbtnHoarderIsland);
 		frame.getContentPane().add(rdbtnHoarderIsland);
 		
-		JRadioButton rdbtnDangerIsland = new JRadioButton("Danger Island");
-		rdbtnDangerIsland.addActionListener((e) -> getManager().getWorld().getIslands().get(4));
+		JRadioButton rdbtnDangerIsland = new JRadioButton(islands.get(4).getName());
 		rdbtnDangerIsland.setBounds(623, 297, 141, 23);
+		buttonGroup.add(rdbtnDangerIsland);
 		frame.getContentPane().add(rdbtnDangerIsland);
+		
+		if (rdbtnHomeIsland.isSelected()) {
+			getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(0));	
+		} else if (rdbtnEverythingIsland.isSelected()) {
+			getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(1));	
+		} else if (rdbtnMechanicalIsland.isSelected()) {
+			getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(2));	
+		} else if (rdbtnHoarderIsland.isSelected()) {
+			getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(3));	
+		} else if (rdbtnDangerIsland.isSelected()) {
+			getManager().getWorld().setCurrentIsland(getManager().getWorld().getIslands().get(4));	
+		}
 		
 		JButton btnViewRoutes = new JButton("View Routes to this Island");
 		btnViewRoutes.addActionListener(new ActionListener() {
@@ -122,7 +142,7 @@ public class IslandProperties extends Screen {
 		btnSeeWhatSells.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				Screen screen = new IslandSellsItem(islandTrader);
+				Screen screen = new ViewIslandSellsItem(islandTrader);
 		    	screen.show();
 			}
 			
@@ -134,7 +154,7 @@ public class IslandProperties extends Screen {
 		btnSeeWhatBuys.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
-				Screen screen = new IslandBuysItem(islandTrader);
+				Screen screen = new ViewIslandBuysItem(islandTrader);
 		    	screen.show();
 			}
 		});
