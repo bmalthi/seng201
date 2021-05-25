@@ -24,7 +24,17 @@ public class IslandProperties extends Screen {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * This is only here because WindowBuilder needs a JFrame
+	 * to be created within this file to allow us to edit the GUI
+	 * 
+	 * @wbp.parser.entryPoint
+	 */
+	protected void initialiseForWindowBuilder() {
+		initialise(new JFrame());
+	}
+	
+	/**
+	 * Initialize the contents of the container.
 	 */
 	protected void initialise(final JFrame frame) { 		
 		frame.getContentPane().setBackground(new Color(240, 230, 140));
