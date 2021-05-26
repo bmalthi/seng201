@@ -83,6 +83,7 @@ public class SetupScreen extends Screen {
 		JTextArea shipDetailText = new JTextArea(getManager().getWorld().getShips().get(0).details());
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
 		frame.getContentPane().setLayout(null);
+        frame.setBounds(100, 100, 785, 630);		
 		
 		// Get the list of ships for each radio button
 		List<Ship> ships = getManager().getWorld().getShips();

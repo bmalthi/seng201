@@ -12,14 +12,19 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+
 import java.awt.Font;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JScrollBar;
 /**
  * This class represents the screen after the user clicked the "View Past Purchases and Sales" button in Main Menu
  * @author kvie
  *
  */
 public class PastPurchases extends Screen {
+	private JFrame frame_1;
 	/**
 	 * Create the application.
   	 * @param islandTrader, the game manager 
@@ -28,15 +33,16 @@ public class PastPurchases extends Screen {
 		super("View Past Purchases and Sales", islandTrader);
 	}
 
-//	/**
-// 	 * This is only here because WindowBuilder needs a JFrame
-// 	 * to be created within this file to allow us to edit the GUI
-// 	 *
-// 	 * @wbp.parser.entryPoint
-// 	 */
-// 	protected void initialiseForWindowBuilder() {
-// 		initialise(new JFrame());
-// 	}
+	/**
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 *
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		frame_1 = new JFrame();
+ 		initialise(frame_1);
+ 	}
   
   /**
 	 * Initialize the contents of the frame, which include:
@@ -74,7 +80,7 @@ public class PastPurchases extends Screen {
 		txtrPurchasesInfo.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
 		txtrPurchasesInfo.setBackground(new Color(47, 79, 79));
 		txtrPurchasesInfo.setBounds(19, 89, 550, 44);
-		frame.getContentPane().add(txtrPurchasesInfo);
+		frame.getContentPane().add(txtrPurchasesInfo);	
 		
 		// Get a list of available transactions 
 		List<PricedItem> transactions = getManager().getPlayer().getTransactions();
@@ -93,16 +99,24 @@ public class PastPurchases extends Screen {
 			txtrNoTransactions.setBounds(97, 274, 462, 44);
 			frame.getContentPane().add(txtrNoTransactions);
 		} else {
-			// Create the JList
+			// Create the scrollPane
+			JScrollPane scrollPane = new JScrollPane();
+			scrollPane.setBounds(78, 159, 645, 297);
+			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			
+			//Create the list
 			JList<PricedItem> transactionsList = new JList<PricedItem>(transactionsListModel);
-			transactionsList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-			transactionsList.setForeground(new Color(255, 255, 255));
-			transactionsList.setBackground(new Color(0, 51, 0));
+			transactionsList.setLayoutOrientation(JList.VERTICAL); //must be vertical
+			//transactionsList.setForeground(new Color(255, 255, 255));
+			//transactionsList.setBackground(new Color(0, 51, 0));
 			transactionsList.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
-			transactionsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-			transactionsList.setBounds(78, 159, 645, 297);
-			frame.getContentPane().add(transactionsList);
+			transactionsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			transactionsList.setBounds(0, 0, 645, 297); //Should start at zero, zero
+			
+			//Add the stuff
+			scrollPane.add(transactionsList);
+			frame.getContentPane().add(scrollPane);	
 		}
-
+		
 	}
 }
