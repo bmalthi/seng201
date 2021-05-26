@@ -98,20 +98,23 @@ public class IslandStore extends Screen {
 		btnViewPastPurchases.setBounds(116, 278, 215, 85);
 		frame.getContentPane().add(btnViewPastPurchases);
 		
-		JButton btnRepairShip = new JButton("Repair your ship");
+		JButton btnRepairShip = new JButton("Repair your ship (" +getManager().getPlayer().getShip().getDamageAmount() +" damage)");
 		btnRepairShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int repairCost = getManager().getPlayer().getShip().getDamageAmount();
-				if (repairCost > 0 && getManager().validateRepair(getManager().getPlayer().getShip()) == FailureState.SUCCESS) {
-					JOptionPane.showMessageDialog(btnRepairShip, "Your ship is repaired!");
-//					int choice = JOptionPane.showConfirmDialog(getFrame(), "Do you want to repair the ship for " + repairCost,  "Repair Ship", JOptionPane.YES_NO_OPTION);
-//					if (choice == JOptionPane.YES_OPTION) {
-//						getManager().repairShip();
-//					} else if (choice == JOptionPane.NO_OPTION) {
-//						getFrame().setVisible(true);
-				} else {
-					JOptionPane.showMessageDialog(btnRepairShip, "You don't have enough money to repair your ship");
-				}
+				
+		    	int damage = getManager().getPlayer().getShip().getDamageAmount();
+		    	int repairCost = getManager().getPlayer().getShip().getDamageAmount();
+		    	if (damage > 0) {
+		    		if (getManager().validateRepair(getManager().getPlayer().getShip()) == FailureState.NOMONEY)
+		    			JOptionPane.showMessageDialog(null, "You have " +repairCost +" worth of damage, but only have " +getManager().getPlayer().getBalance() +"dollars. Trade to get more money");
+		    		else {
+		    			getManager().repairShip();
+		    			JOptionPane.showMessageDialog(null, "Repaired " +damage +" damage to your ship, costing " +repairCost +" dollars");
+		    		}
+		    	} else {
+		    		JOptionPane.showMessageDialog(null, "You have no damage to your ship");
+		    	}					
+
 			}
 		});
 		
