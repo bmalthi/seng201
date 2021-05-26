@@ -202,6 +202,20 @@ public class Ship {
 	}
 	
 	/**
+	 * Returns core ship details (needed at start of game in gui)
+	 * @return the string description
+	 */		
+	public String details() {		
+		String output = "";
+		output = output + "  It has " +getNumberOfCrew() + " crew and speed of " + getSailSpeed() +" at cost of " +getCostPerDay() +" per day wages. It can take " +getEndurance() +" damage\n";
+		output = output + "  It has the following storage:\n";
+		for (StorageList list : storage) {
+			output = output +"    " + list.description() +"\n";
+		}
+		return output;						
+	}	
+	
+	/**
 	 * Returns a string representation of the ship
 	 */	
 	@Override

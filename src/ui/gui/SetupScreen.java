@@ -40,6 +40,7 @@ public class SetupScreen extends Screen {
 	//private final ButtonGroup buttonGroup  = new ButtonGroup();
 	
 	public static final String NAME_REGEX = "^[a-z A-Z]{3,15}$";
+	private JFrame frame_1;
 	
  
 	/**
@@ -52,15 +53,16 @@ public class SetupScreen extends Screen {
 	
 	}
 	
-//	/**
-//	 * This is only here because WindowBuilder needs a JFrame
-//	 * to be created within this file to allow us to edit the GUI
-//	 * 
-//	 * @wbp.parser.entryPoint
-//	 */
-//	protected void initialiseForWindowBuilder() {
-//		initialise(new JFrame());
-//	}
+	/**
+	 * This is only here because WindowBuilder needs a JFrame
+	 * to be created within this file to allow us to edit the GUI
+	 * 
+	 * @wbp.parser.entryPoint
+	 */
+	protected void initialiseForWindowBuilder() {
+		frame_1 = new JFrame();
+		initialise(frame_1);
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -68,6 +70,7 @@ public class SetupScreen extends Screen {
 	@Override
 	protected void initialise(final JFrame frame) {
 		ButtonGroup buttonGroup  = new ButtonGroup();
+		JTextArea shipDetailText = new JTextArea(getManager().getWorld().getShips().get(0).details());
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
 		frame.setBounds(100, 100, 785, 582);
 		
@@ -77,6 +80,12 @@ public class SetupScreen extends Screen {
 		List<Ship> ships = getManager().getWorld().getShips();
 		
 		JRadioButton rdbtnShip1 = new JRadioButton(ships.get(0).getName());
+		rdbtnShip1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (rdbtnShip1.isSelected())
+					shipDetailText.setText(getManager().getWorld().getShips().get(0).details());
+			}
+		});
 		rdbtnShip1.setForeground(new Color(0, 0, 0));	
 		buttonGroup.add(rdbtnShip1);
 		rdbtnShip1.setSelected(true);
@@ -84,16 +93,34 @@ public class SetupScreen extends Screen {
 		frame.getContentPane().add(rdbtnShip1);
 		
 		JRadioButton rdbtnShip2 = new JRadioButton(ships.get(1).getName());
+		rdbtnShip2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (rdbtnShip2.isSelected())
+					shipDetailText.setText(getManager().getWorld().getShips().get(1).details());				
+			}
+		});		
 		buttonGroup.add(rdbtnShip2);
 		rdbtnShip2.setBounds(221, 483, 141, 23);
 		frame.getContentPane().add(rdbtnShip2);
 
 		JRadioButton rdbtnShip3 = new JRadioButton(ships.get(2).getName());
+		rdbtnShip3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (rdbtnShip3.isSelected())
+					shipDetailText.setText(getManager().getWorld().getShips().get(2).details());				
+			}
+		});		
 		buttonGroup.add(rdbtnShip3);
 		rdbtnShip3.setBounds(385, 483, 141, 23);
 		frame.getContentPane().add(rdbtnShip3);
 		
 		JRadioButton rdbtnShip4 = new JRadioButton(ships.get(3).getName());
+		rdbtnShip4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (rdbtnShip4.isSelected())
+					shipDetailText.setText(getManager().getWorld().getShips().get(3).details());				
+			}
+		});			
 		buttonGroup.add(rdbtnShip4);
 		rdbtnShip4.setBounds(563, 483, 141, 23);
 		frame.getContentPane().add(rdbtnShip4);
@@ -281,7 +308,12 @@ public class SetupScreen extends Screen {
 		pirate.setBounds(647, 6, 147, 221);
 		frame.getContentPane().add(pirate);
 		
+		
+		shipDetailText.setFont(new Font("Lucida Grande", Font.PLAIN, 7));
+		shipDetailText.setLineWrap(true);
+		shipDetailText.setBackground(new Color(70, 130, 180));
+		shipDetailText.setBounds(39, 506, 602, 48);
+		frame.getContentPane().add(shipDetailText);
+		
 	}
-    
-    
    }
