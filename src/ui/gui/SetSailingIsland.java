@@ -23,6 +23,7 @@ import java.awt.event.MouseEvent;
  *
  */
 public class SetSailingIsland extends Screen {
+	private JFrame frame_1;
 
 	/**
 	 * Create the application.
@@ -31,15 +32,16 @@ public class SetSailingIsland extends Screen {
 		super("Sailing To Another Island", islandTrader);
 	}
 
-	/**
- 	 * This is only here because WindowBuilder needs a JFrame
- 	 * to be created within this file to allow us to edit the GUI
- 	 * 
- 	 * @wbp.parser.entryPoint
- 	 */
- 	protected void initialiseForWindowBuilder() {
- 		initialise(new JFrame());
- 	}
+//	/**
+// 	 * This is only here because WindowBuilder needs a JFrame
+// 	 * to be created within this file to allow us to edit the GUI
+// 	 * 
+// 	 * @wbp.parser.entryPoint
+// 	 */
+// 	protected void initialiseForWindowBuilder() {
+// 		frame_1 = new JFrame();
+// 		initialise(frame_1);
+// 	}
  	
 	/**
 	 * Initialize the contents of the frame, include
@@ -98,11 +100,22 @@ public class SetSailingIsland extends Screen {
 			}
 		});
 
-		btnSailing.setBounds(297, 429, 169, 59);
+		btnSailing.setBounds(392, 430, 169, 61);
 		frame.getContentPane().add(btnSailing);
 		
 		JPopupMenu popupMenu = new JPopupMenu();
 		addPopup(btnSailing, popupMenu);
+		
+		JButton btnNewButton = new JButton("Back to main menu");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				quit();
+				Screen screen = new MainScreen(islandTrader);
+				screen.show();
+			}
+		});
+		btnNewButton.setBounds(191, 430, 151, 61);
+		frame.getContentPane().add(btnNewButton);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {

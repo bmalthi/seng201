@@ -65,7 +65,7 @@ public class ViewIslandRoutes extends Screen {
 		routeList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		routeList.setForeground(new Color(255, 255, 255));
 		routeList.setBackground(new Color(85, 107, 47));
-		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		routeList.setBounds(27, 219, 732, 118);
 		frame.getContentPane().add(routeList);

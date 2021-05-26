@@ -47,12 +47,12 @@ public class SailingScreen extends Screen {
 		frame.getContentPane().setLayout(null);
 		
 		
-		header = new JTextArea("Hello trader! Lets start our adventure");
+		header = new JTextArea("Hello trader! Every day is a new adventure.\n\nLet's set sailing to another island! Lots of interesting things are waiting for us!");
 		header.setLineWrap(true);
 		header.setForeground(new Color(0, 0, 128));
 		header.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		header.setBackground(new Color(135, 206, 250));
-		header.setBounds(32, 27, 577, 127);
+		header.setBounds(32, 32, 701, 97);
 		frame.getContentPane().add(header);
 		
 		JButton btnNewButton = new JButton("Back to main menu");
@@ -63,7 +63,7 @@ public class SailingScreen extends Screen {
 		    	screen.show();						
 			}
 		});
-		btnNewButton.setBounds(250, 460, 151, 61);
+		btnNewButton.setBounds(293, 460, 151, 61);
 		frame.getContentPane().add(btnNewButton);
 		
 		detail = new JTextArea("");

@@ -25,15 +25,15 @@ public class ViewIslandSellsItem extends Screen {
 		super(islandTrader.getUI().getViewIsland().getName()+" buys the following items", islandTrader);		
 	}
 	
-//	/**
-//	 * This is only here because WindowBuilder needs a JFrame
-//	 * to be created within this file to allow us to edit the GUI
-//	 * 
-//	 * @wbp.parser.entryPoint
-//	 */
-//	protected void initialiseForWindowBuilder() {
-//		initialise(new JFrame());
-//	}
+	/**
+	 * This is only here because WindowBuilder needs a JFrame
+	 * to be created within this file to allow us to edit the GUI
+	 * 
+	 * @wbp.parser.entryPoint
+	 */
+	protected void initialiseForWindowBuilder() {
+		initialise(new JFrame());
+	}
 	
 	/**
 	 * Initialize the contents of the frame.
@@ -85,9 +85,9 @@ public class ViewIslandSellsItem extends Screen {
 		btnBackToMain.setBounds(577, 278, 187, 67);
 		frame.getContentPane().add(btnBackToMain);
 		
-		
-		JScrollPane scrollPane = new JScrollPane(sellItemList);
-		frame.getContentPane().add(scrollPane);
-		frame.getContentPane().add(label);
+//		
+//		JScrollPane scrollPane = new JScrollPane(sellItemList);
+//		frame.getContentPane().add(scrollPane);
+//		frame.getContentPane().add(label);
 	}
 }
