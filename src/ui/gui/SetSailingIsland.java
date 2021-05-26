@@ -38,15 +38,15 @@ public class SetSailingIsland extends Screen {
 		super("Sailing To Another Island", islandTrader);
 	}
 
-	/**
- 	 * This is only here because WindowBuilder needs a JFrame
- 	 * to be created within this file to allow us to edit the GUI
- 	 * 
- 	 * @wbp.parser.entryPoint
- 	 */
- 	protected void initialiseForWindowBuilder() {
- 		initialise(new JFrame());
- 	}
+//	/**
+// 	 * This is only here because WindowBuilder needs a JFrame
+// 	 * to be created within this file to allow us to edit the GUI
+// 	 * 
+// 	 * @wbp.parser.entryPoint
+// 	 */
+// 	protected void initialiseForWindowBuilder() {
+// 		initialise(new JFrame());
+// 	}
  	
 	/**
 	 * Initialize the contents of the frame, which include:
@@ -109,7 +109,7 @@ public class SetSailingIsland extends Screen {
 		routeList.setLayoutOrientation(JList.VERTICAL);
 		routeList.setForeground(new Color(255, 255, 255));
 		routeList.setBackground(new Color(0, 0, 128));
-		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		//Add the stuff
@@ -126,7 +126,7 @@ public class SetSailingIsland extends Screen {
 			}
 		});
 
-		btnSailing.setBounds(392, 430, 169, 61);
+		btnSailing.setBounds(392, 450, 169, 61);
 		frame.getContentPane().add(btnSailing);
 		
 		JButton btnBackToMainMenu = new JButton("Back to main menu");
@@ -137,7 +137,7 @@ public class SetSailingIsland extends Screen {
 				screen.show();
 			}
 		});
-		btnBackToMainMenu.setBounds(191, 430, 151, 61);
+		btnBackToMainMenu.setBounds(191, 450, 151, 61);
 		frame.getContentPane().add(btnBackToMainMenu);
 	}
 

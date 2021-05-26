@@ -38,16 +38,6 @@ public class ViewIslandRoutes extends Screen {
 	public ViewIslandRoutes(IslandTrader islandTrader) {		
 		super("View Routes from " + islandTrader.getWorld().getCurrentIsland() +" to " +islandTrader.getUI().getViewIsland(), islandTrader);
 	}
-
-	/**
-	 * This is only here because WindowBuilder needs a JFrame
-	 * to be created within this file to allow us to edit the GUI
-	 * 
-	 * @wbp.parser.entryPoint
-	 */
-	protected void initialiseForWindowBuilder() {
-		initialise(new JFrame());
-	}
 	
 	/**
 	 * Initialize the contents of the frame, which include:
@@ -66,7 +56,7 @@ public class ViewIslandRoutes extends Screen {
 		lblHelloTrader.setLineWrap(true);
 		lblHelloTrader.setForeground(Color.WHITE);
 		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		lblHelloTrader.setBackground(new Color(0, 128, 128));
+		lblHelloTrader.setBackground(new Color(0, 51, 51));
 		lblHelloTrader.setBounds(27, 48, 653, 104);
 		frame.getContentPane().add(lblHelloTrader);
 
@@ -100,7 +90,7 @@ public class ViewIslandRoutes extends Screen {
 		routeList.setCellRenderer(cellRenderer);
 		routeList.setLayoutOrientation(JList.VERTICAL);
 		routeList.setForeground(new Color(255, 255, 255));
-		routeList.setBackground(new Color(85, 107, 47));
+		routeList.setBackground(new Color(0, 102, 102));
 		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		routeList.setBounds(0, 0, 732, 118);
