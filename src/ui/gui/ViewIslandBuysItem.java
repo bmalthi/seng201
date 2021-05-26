@@ -16,6 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 
@@ -51,7 +53,6 @@ public class ViewIslandBuysItem extends Screen {
 	 */
 	@Override
 	protected void initialise(final JFrame container) {
-		Island viewIsland = islandTrader.getUI().getViewIsland();
 		container.getContentPane().setBackground(new Color(47, 79, 79));
 		container.setBounds(100, 100, 785, 582);
 		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,14 +67,17 @@ public class ViewIslandBuysItem extends Screen {
 		container.getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel label = new JLabel();
+		
 		// Create a ListModel to store the items in the JList
-		DefaultListModel<PricedItem> buyListModel = new DefaultListModel<PricedItem>();
+		DefaultListModel<String> buyListModel = new DefaultListModel<String>();
 		
 		// Add the existing items to the List Model
-		buyListModel.addAll(viewIsland.getStore().getToBuyList());	
-
+		refreshList(buyListModel);
+		
 		// Create the JList
-		JList<PricedItem> buyItemList = new JList<PricedItem>(buyListModel);
+		JList<String> buyItemList = new JList<String>(buyListModel);
+		
+		
 		buyItemList.setBorder(UIManager.getBorder("ScrollPane.border"));
 		buyItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
 		buyItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -97,11 +101,18 @@ public class ViewIslandBuysItem extends Screen {
 		btnMainMenu.setBounds(577, 278, 187, 67);
 		container.getContentPane().add(btnMainMenu);
 		
-//		JScrollPane scrollPane = new JScrollPane(buyItemList);
-//		frame.getContentPane().add(scrollPane);
-//		frame.getContentPane().add(label);
-		
 	}
+	
+	/**
+	 * Refreshes the list of items after a successful purchase
+	 */	
+	private void refreshList(DefaultListModel<String> buyListModel) {
+		Island viewIsland = islandTrader.getUI().getViewIsland();		
+		buyListModel.removeAllElements();
+		List<PricedItem> itemList = viewIsland.getStore().getToBuyList();
+		ArrayList<String> itemListStrings = ((Gui)islandTrader.getUI()).stringList(itemList, true);
+		buyListModel.addAll(itemListStrings);
+	}	
 }
 
 
