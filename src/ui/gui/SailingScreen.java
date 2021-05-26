@@ -28,15 +28,15 @@ public class SailingScreen extends Screen {
 		super("", islandTrader);
 	}
 
-//	/**
-// 	 * This is only here because WindowBuilder needs a JFrame
-// 	 * to be created within this file to allow us to edit the GUI
-// 	 * 
-// 	 * @wbp.parser.entryPoint
-// 	 */
-// 	protected void initialiseForWindowBuilder() {
-// 		initialise(new JFrame());
-// 	}
+	/**
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
  	
 	/**
 	 * Initialize the contents of the frame.
@@ -69,7 +69,7 @@ public class SailingScreen extends Screen {
 		routeDetail = new JTextArea("");
 		routeDetail.setLineWrap(true);	
 		routeDetail.setForeground(new Color(255, 255, 255));
-		routeDetail.setFont(new Font("iCiel Brush Up", Font.PLAIN, 14));
+		routeDetail.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
 		routeDetail.setBackground(new Color(70, 130, 180));		
 		routeDetail.setBounds(32, 166, 732, 266);
 		

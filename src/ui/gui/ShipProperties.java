@@ -71,7 +71,7 @@ public class ShipProperties extends Screen {
 		JTextArea lblProfit = new JTextArea(getManager().getPlayer().getShip().description());
 		lblProfit.setLineWrap(true);
 		lblProfit.setForeground(new Color(0, 0, 128));
-		lblProfit.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
+		lblProfit.setFont(new Font("iCiel Brush Up", Font.PLAIN, 21));
 		lblProfit.setBackground(new Color(135, 206, 250));
 		lblProfit.setBounds(32, 166, 732, 266);
 		frame.getContentPane().add(lblProfit);

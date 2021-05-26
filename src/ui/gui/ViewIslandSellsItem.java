@@ -83,6 +83,10 @@ public class ViewIslandSellsItem extends Screen {
 //		frame.getContentPane().add(scrollPane);
 
 	    
+//		JScrollBar scrollBar = new JScrollBar();
+//		scrollBar.setBounds(525, 172, 15, 333);
+//		frame.getContentPane().add(scrollBar);
+		
 		// Button to back to main menu
 		JButton btnBackToMain = new JButton("Back to Island Properties");
 		btnBackToMain.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
@@ -97,9 +101,7 @@ public class ViewIslandSellsItem extends Screen {
 		btnBackToMain.setBounds(577, 296, 187, 67);
 		frame.getContentPane().add(btnBackToMain);
 		
-		JScrollBar scrollBar = new JScrollBar();
-		scrollBar.setBounds(525, 172, 15, 333);
-		frame.getContentPane().add(scrollBar);
+
 		
 		JLabel lblStoreImage = new JLabel("");
 		lblStoreImage.setIcon(new ImageIcon(ViewIslandSellsItem.class.getResource("/storeIMAGE.png")));

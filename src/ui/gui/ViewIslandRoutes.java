@@ -24,15 +24,15 @@ public class ViewIslandRoutes extends Screen {
 		super("View Routes from " + islandTrader.getWorld().getCurrentIsland() +" to " +islandTrader.getUI().getViewIsland(), islandTrader);
 	}
 
-//	/**
-//	 * This is only here because WindowBuilder needs a JFrame
-//	 * to be created within this file to allow us to edit the GUI
-//	 * 
-//	 * @wbp.parser.entryPoint
-//	 */
-//	protected void initialiseForWindowBuilder() {
-//		initialise(new JFrame());
-//	}
+	/**
+	 * This is only here because WindowBuilder needs a JFrame
+	 * to be created within this file to allow us to edit the GUI
+	 * 
+	 * @wbp.parser.entryPoint
+	 */
+	protected void initialiseForWindowBuilder() {
+		initialise(new JFrame());
+	}
 	
 	/**
 	 * Initialize the contents of the frame.
@@ -70,16 +70,16 @@ public class ViewIslandRoutes extends Screen {
 		routeList.setBounds(27, 219, 732, 118);
 		frame.getContentPane().add(routeList);
 		
-		JButton btnNewButton = new JButton("Back to Island Properties");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnBackToMainMenu = new JButton("Back to Island Properties");
+		btnBackToMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
 				Screen screen = new IslandProperties(islandTrader);
 				screen.show();
 			}
 		});
-		btnNewButton.setBounds(298, 428, 189, 75);
-		frame.getContentPane().add(btnNewButton);
+		btnBackToMainMenu.setBounds(298, 428, 189, 75);
+		frame.getContentPane().add(btnBackToMainMenu);
 		
 		frame.setBackground(new Color(47, 79, 79));
 		frame.setBounds(100, 100, 785, 582);

@@ -123,11 +123,11 @@ public class Gui implements IslandTraderUI {
 		if (gameStatus == FailureState.GAMEOVER_HARD) {
 			this.islandTrader.setGameOver();
 		} else if (gameStatus == FailureState.GAMEOVER_SOFT) {
-			detail.setText(detail.getText() +"You made it, but you have no money or time left to go anywhere");
-			detail.setText(detail.getText() +"You can trade if you want, else quit the game\n");
+			detail.setText(detail.getText() + "You made it, but you have no money or time left to go anywhere.\n");
+			detail.setText(detail.getText() + "You can trade if you want, else quit the game\n");
 		} else {
 			// Assume we made the next island (for now)
-			detail.setText(detail.getText() +"Congrats on your journey, you made it\n");
+			detail.setText(detail.getText() + "Congrats on your journey, you made it!\n");
 		}        
         
 	}
@@ -144,12 +144,12 @@ public class Gui implements IslandTraderUI {
     public void encounterWeather(int damage, int repairCost, FailureState repairValidation) {
 		JTextArea detail = ((SailingScreen)theScreen).getDetailTextArea();
 		
-		detail.setText(detail.getText() +"*** You encountered bad weather ***");
+		detail.setText(detail.getText() + "*** You encountered bad weather ***\n");
 		//try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
-		detail.setText(detail.getText() +"Unfortunately the weather caused " +damage +" damage.");
-		detail.setText(detail.getText() +"It will cost " +repairCost +" to repair\n");
+		detail.setText(detail.getText() + "Unfortunately the weather caused " + damage + " damage.");
+		detail.setText(detail.getText() + " It will cost " + repairCost +" to repair.\n");
 		if (repairValidation == FailureState.NOMONEY)
-			detail.setText(detail.getText() +"This is more money than you have you will have to trade before you can sail again\n");
+			detail.setText(detail.getText() + "This is more money than you have you will have to trade before you can sail again\n");
 		
 	}
 	
@@ -163,12 +163,12 @@ public class Gui implements IslandTraderUI {
     public void rescueSailors(int numRescuedSailors, PricedItem rewardRecord) {
 		JTextArea detail = ((SailingScreen)theScreen).getDetailTextArea();
 		
-		detail.setText(detail.getText() +"*** You encountered sailors in distress ***");
+		detail.setText(detail.getText() + "*** You encountered sailors in distress ***\n");
     	//try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
-    	detail.setText(detail.getText() +"There are " +numRescuedSailors +" sailors, who are very greatful for their rescue");
+    	detail.setText(detail.getText() + "There are " + numRescuedSailors + " sailors, who are very greatful for their rescue.");
     	
 		// Show the user their reward 
-		detail.setText(rewardRecord.toString()+"\n");
+		detail.setText(rewardRecord.toString() + "\n");
 		
     }
     
@@ -184,34 +184,34 @@ public class Gui implements IslandTraderUI {
     public void encounterPirates(int diceThrow, boolean boardShip, ArrayList<PricedItem> transactions, boolean goodsSatisfy) {
 		JTextArea detail = ((SailingScreen)theScreen).getDetailTextArea();
 		
-		detail.setText(detail.getText() +"*** !!! You encountered Pirates !!! ***");
+		detail.setText(detail.getText() +"*** !!! You encountered Pirates !!! ***\n");
 		detail.setText(detail.getText() +"*** !!! They are trying to board your ship !!! ***\n");
     	
     	// Show dice game, result is predetermined
-		detail.setText(detail.getText() +"You must roll a die to stop them");
+		detail.setText(detail.getText() + "You must roll a die to stop them\n");
     	if (this.islandTrader.getPlayer().getShip().hasWeapons())
-    		detail.setText(detail.getText() +"Because you have weapons you have to roll a 3 or above\n");    		
+    		detail.setText(detail.getText() + " Because you have weapons you have to roll a 3 or above\n");    		
     	else
-    		detail.setText(detail.getText() +"You have no weapons to fight them off, you must roll 5 or 6\n");    		
+    		detail.setText(detail.getText() + "You have no weapons to fight them off, you must roll 5 or 6\n");    		
     	
     	// Pause for 2 seconds
     	//try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}    
     	
     	// Show result of dice game
 		if (diceThrow > 2 && this.islandTrader.getPlayer().getShip().hasWeapons())
-			detail.setText(detail.getText() +"You rolled a " +diceThrow +" you fend off the pirates.\n");
+			detail.setText(detail.getText() + "You rolled a " + diceThrow +" you fend off the pirates.\n");
 		else if (diceThrow > 4)
-			detail.setText(detail.getText() +"You rolled a " +diceThrow +" you fend off the pirates.\n");		
+			detail.setText(detail.getText() + "You rolled a " + diceThrow +" you fend off the pirates.\n");		
 		else
-			detail.setText(detail.getText() +"You rolled a " +diceThrow +" the pirates board your ship.\n");    	
+			detail.setText(detail.getText() + "You rolled a " + diceThrow +" the pirates board your ship.\n");    	
     	
 		//Board the ship, if we lost the dice game
     	if (boardShip) {    		
     		//Steal the goods
-    		detail.setText(detail.getText() +"The pirates now steal all of your goods\n");
+    		detail.setText(detail.getText() + "The pirates now steal all of your goods\n");
     		for (PricedItem transaction : transactions) {    			
     			//Show the user what was stolen
-    			detail.setText(detail.getText() + transaction.toString()+"\n");
+    			detail.setText(detail.getText() + transaction.toString() + "\n");
     		}
     		
     		// Pause for 2 seconds
@@ -219,11 +219,11 @@ public class Gui implements IslandTraderUI {
     		
     		// Does this satisfy them
     		if (goodsSatisfy) {
-    			detail.setText(detail.getText() +"The pirates are happy with your cargo. You live another day\n");
+    			detail.setText(detail.getText() + "The pirates are happy with your cargo. You live another day.\n");
     		} else {
-    			detail.setText(detail.getText() +"Unfortunately that wasn't enough for them\n");
-    			detail.setText(detail.getText() +"The pirates take everything and you are forced to walk the plank");
-    			detail.setText(detail.getText() +"Hope you can swim\n");
+    			detail.setText(detail.getText() + "Unfortunately that wasn't enough for them\n");
+    			detail.setText(detail.getText() + " The pirates take everything and you are forced to walk the plank.");
+    			detail.setText(detail.getText() + "Hope you can swim!\n");
     		}
     		
     	}

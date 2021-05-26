@@ -75,7 +75,6 @@ public class ViewIslandBuysItem extends Screen {
 		// Create the JList
 		JList<String> buyItemList = new JList<String>(buyListModel);
 		
-		
 		buyItemList.setBorder(UIManager.getBorder("ScrollPane.border"));
 		buyItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
 		buyItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -106,7 +105,7 @@ public class ViewIslandBuysItem extends Screen {
 				screen.show();
 			}
 		});
-		btnMainMenu.setBounds(577, 278, 187, 67);
+		btnMainMenu.setBounds(577, 296, 187, 67);
 		container.getContentPane().add(btnMainMenu);
 		
 	}
