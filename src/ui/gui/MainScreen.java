@@ -18,7 +18,6 @@ import java.awt.event.ActionEvent;
  *
  */
 public class MainScreen extends Screen {
-	private JFrame frame_1;
 	/**
 	 * Create this screen
 	 * @param islandTrader - the trader this screen interacts with
