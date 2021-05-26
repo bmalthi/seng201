@@ -295,7 +295,7 @@ public class Gui implements IslandTraderUI {
 	 * validate if this user can sail this route
 	 * @param list, the list of objects to convert into a string list (using toString method)
 	 * @param validate, boolean do we want to validate the item and indicate to the user validation 
-	 * @return ArrayList<String> of the route list input 
+	 * @return List of strings for the input list
 	 */	
 	public ArrayList<String> routeStringList(List<?> list, boolean validate) {		
 		ArrayList<String> routes = stringList(list, validate);
