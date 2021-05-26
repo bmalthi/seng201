@@ -101,7 +101,7 @@ public class PastPurchases extends Screen {
 		} else {
 			// Create the scrollPane
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(78, 159, 645, 297);
+			scrollPane.setBounds(78, 159, 645, 300);
 			scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			
 			//Create the list
@@ -114,7 +114,8 @@ public class PastPurchases extends Screen {
 			transactionsList.setBounds(0, 0, 645, 297); //Should start at zero, zero
 			
 			//Add the stuff
-			scrollPane.add(transactionsList);
+			//scrollPane.add(transactionsList);
+			scrollPane.setViewportView(transactionsList);
 			frame.getContentPane().add(scrollPane);	
 		}
 		
