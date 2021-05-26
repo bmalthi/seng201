@@ -87,11 +87,10 @@ public class ViewIslandBuysItem extends Screen {
 		JList<String> buyItemList = new JList<String>(buyListModel);
 		
 		buyItemList.setBorder(UIManager.getBorder("ScrollPane.border"));
+		buyItemList.setLayoutOrientation(JList.VERTICAL); //must be vertical
 		buyItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
-		buyItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		buyItemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		buyItemList.setBounds(42, 172, 498, 333);
-
-		buyItemList.getSelectedValue();
 		
 		//Add the scroll pane
 		scrollPane.setViewportView(buyItemList);
