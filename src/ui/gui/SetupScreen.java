@@ -45,7 +45,6 @@ public class SetupScreen extends Screen {
 	//private final ButtonGroup buttonGroup  = new ButtonGroup();
 	
 	public static final String NAME_REGEX = "^[a-z A-Z]{3,15}$";
-	private JFrame frame_1;
 	
  
 	/**

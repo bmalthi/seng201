@@ -5,8 +5,6 @@ package test.main;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,7 +15,6 @@ import main.FailureState;
 import main.Island;
 import main.IslandTrader;
 import main.Item;
-import main.ItemType;
 import main.PiratesEncounter;
 import main.Player;
 import main.PriceType;
@@ -28,7 +25,6 @@ import main.Route;
 import main.StorageList;
 import main.Store;
 import main.UnfortunateWeather;
-import ui.IslandTraderUI;
 import ui.cmd.MainCmdUI;
 
 /**
@@ -125,7 +121,6 @@ class IslandTraderTest {
         islandTrader.setGameLength(20);	
         
         // Test is game is over
-        PricedItem firstInList = islandTrader.getWorld().getCurrentIsland().getStore().getToSellList().get(0);
         islandTrader.buyStoreItem(0);
         assertTrue(islandTrader.isGameOver() == FailureState.SUCCESS);
         
