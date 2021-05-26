@@ -53,16 +53,16 @@ public class SetupScreen extends Screen {
 	
 	}
 	
-	/**
-	 * This is only here because WindowBuilder needs a JFrame
-	 * to be created within this file to allow us to edit the GUI
-	 * 
-	 * @wbp.parser.entryPoint
-	 */
-	protected void initialiseForWindowBuilder() {
-		frame_1 = new JFrame();
-		initialise(frame_1);
-	}
+//	/**
+//	 * This is only here because WindowBuilder needs a JFrame
+//	 * to be created within this file to allow us to edit the GUI
+//	 * 
+//	 * @wbp.parser.entryPoint
+//	 */
+//	protected void initialiseForWindowBuilder() {
+//		frame_1 = new JFrame();
+//		initialise(frame_1);
+//	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -72,7 +72,7 @@ public class SetupScreen extends Screen {
 		ButtonGroup buttonGroup  = new ButtonGroup();
 		JTextArea shipDetailText = new JTextArea(getManager().getWorld().getShips().get(0).details());
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
-		frame.setBounds(100, 100, 785, 582);
+		frame.setBounds(100, 100, 785, 650);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -156,7 +156,7 @@ public class SetupScreen extends Screen {
 		btnLetsPlay.setEnabled(false);
 		btnLetsPlay.setForeground(new Color(255, 255, 255));
 		btnLetsPlay.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		btnLetsPlay.setBounds(653, 506, 126, 42);
+		btnLetsPlay.setBounds(647, 539, 126, 42);
 		btnLetsPlay.setOpaque(true);
 		frame.getContentPane().add(btnLetsPlay);		
 		
@@ -309,10 +309,10 @@ public class SetupScreen extends Screen {
 		frame.getContentPane().add(pirate);
 		
 		
-		shipDetailText.setFont(new Font("Lucida Grande", Font.PLAIN, 7));
+		shipDetailText.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		shipDetailText.setLineWrap(true);
 		shipDetailText.setBackground(new Color(70, 130, 180));
-		shipDetailText.setBounds(39, 506, 602, 48);
+		shipDetailText.setBounds(33, 512, 602, 110);
 		frame.getContentPane().add(shipDetailText);
 		
 	}
