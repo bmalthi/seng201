@@ -1,6 +1,7 @@
 	package ui.gui;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
@@ -266,5 +267,27 @@ public class Gui implements IslandTraderUI {
     public Screen getScreen() {
     	return this.theScreen;
     } 	
+    
+	/**
+	 * Helper method to take a list of objects and format them in list form to display to the user.
+	 * Can add a 1 based counter and also can validate if this user can purchase / action the item
+	 * @param list, the list of objects to convert into a string list (using toString method)
+	 * @param validate, boolean do we want to validate the item and indicate to the user validation
+	 * @return ArrayList<String> of the list input
+	 */	
+	public ArrayList<String> stringList(List<?> list, boolean validate) {
+		String validPrefix;
+		ArrayList<String> names = new ArrayList<String>();				
+		for (Object obj : list) {
+			// Add a prefix if the item is valid for the user
+			if (validate && islandTrader.validate(obj) == FailureState.SUCCESS)
+				validPrefix = "* ";
+			else
+				validPrefix = "";
+			
+			names.add(validPrefix + obj.toString());
+		}
+		return names;
+	}    
 	
 }
