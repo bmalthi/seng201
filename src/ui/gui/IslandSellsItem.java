@@ -31,16 +31,6 @@ public class IslandSellsItem extends Screen {
 	}
 	
 	/**
-	 * This is only here because WindowBuilder needs a JFrame
-	 * to be created within this file to allow us to edit the GUI
-	 * 
-	 * @wbp.parser.entryPoint
-	 */
-	protected void initialiseForWindowBuilder() {
-		initialise(new JFrame());
-	}
-	
-	/**
 	 * Initialize the contents of the frame.
      * @param frame, the frame to add content too
 	 */
@@ -75,8 +65,9 @@ public class IslandSellsItem extends Screen {
 		
 		// Create the JList
 		JList<String> sellItemList = new JList<String>(sellListModel);
+		sellItemList.setLayoutOrientation(JList.VERTICAL); //must be vertical
 		sellItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
-		sellItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		sellItemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		sellItemList.setBounds(0, 0, 498, 284);
 		
 		//Add scroll pane

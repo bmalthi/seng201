@@ -27,7 +27,7 @@ public class MainScreen extends Screen {
 		super("Island Trader", islandTrader);
 		
 	}
-		
+
 	/**
 	 * Initialize the contents of the frame, which include:
 	 * Set some labels 

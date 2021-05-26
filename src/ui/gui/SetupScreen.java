@@ -41,9 +41,6 @@ public class SetupScreen extends Screen {
 	private JTextField txtbetweenCharacters;
 	private JSlider slider;
 	
-	//private JRadioButton shipButton;
-	//private final ButtonGroup buttonGroup  = new ButtonGroup();
-	
 	public static final String NAME_REGEX = "^[a-z A-Z]{3,15}$";
 	
  
@@ -56,17 +53,6 @@ public class SetupScreen extends Screen {
 		super("Island Trader Setup", islandTrader);
 	
 	}
-	
-//	/**
-//	 * This is only here because WindowBuilder needs a JFrame
-//	 * to be created within this file to allow us to edit the GUI
-//	 * 
-//	 * @wbp.parser.entryPoint
-//	 */
-//	protected void initialiseForWindowBuilder() {
-//		frame_1 = new JFrame();
-//		initialise(frame_1);
-//	}
 
 	/**
 	 * Initialize the contents of the frame, which includes:

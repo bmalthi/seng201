@@ -71,8 +71,9 @@ public class IslandBuysItem extends Screen {
 		
 		// Create the JList
 		JList<String> buyItemList = new JList<String>(buyListModel);
+		buyItemList.setLayoutOrientation(JList.VERTICAL); //must be vertical
 		buyItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
-		buyItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		buyItemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		buyItemList.setBounds(0, 0, 498, 333);
 		
 		//Add the scroll pane

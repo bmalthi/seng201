@@ -40,17 +40,6 @@ public class ViewIslandBuysItem extends Screen {
 			
 	}
 	
-//	/**
-//	 * This is only here because WindowBuilder needs a JFrame
-//	 * to be created within this file to allow us to edit the GUI
-//	 * 
-//	 * @wbp.parser.entryPoint
-//	 */
-//	protected void initialiseForWindowBuilder() {
-//		frame = new JFrame();
-//		initialise(frame);
-//	}
-	
 	/**
 	 * Initialize the contents of the frame, which include:
  	 * list of items for the user to view
@@ -87,11 +76,10 @@ public class ViewIslandBuysItem extends Screen {
 		JList<String> buyItemList = new JList<String>(buyListModel);
 		
 		buyItemList.setBorder(UIManager.getBorder("ScrollPane.border"));
+		buyItemList.setLayoutOrientation(JList.VERTICAL); //must be vertical
 		buyItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
-		buyItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		buyItemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		buyItemList.setBounds(42, 172, 498, 333);
-
-		buyItemList.getSelectedValue();
 		
 		//Add the scroll pane
 		scrollPane.setViewportView(buyItemList);

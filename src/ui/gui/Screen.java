@@ -26,16 +26,6 @@ public abstract class Screen {
 		initialise(title);
 	}
 
-//	/**
-// 	 * This is only here because WindowBuilder needs a JFrame
-// 	 * to be created within this file to allow us to edit the GUI
-// 	 * 
-// 	 * @wbp.parser.entryPoint
-// 	 */
-// 	protected void initialiseForWindowBuilder() {
-// 		initialise(new JFrame());
-// 	}
-// 	
     /**
      * Initialises this screen's UI.
 	 * @param title, the title of the window

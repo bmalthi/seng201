@@ -35,17 +35,6 @@ public class ViewIslandSellsItem extends Screen {
 		super(islandTrader.getUI().getViewIsland().getName()+" buys the following items", islandTrader);		
 	}
 	
-//	/**
-//	 * This is only here because WindowBuilder needs a JFrame
-//	 * to be created within this file to allow us to edit the GUI
-//	 * 
-//	 * @wbp.parser.entryPoint
-//	 */
-//	protected void initialiseForWindowBuilder() {
-//		frame_1 = new JFrame();
-//		initialise(frame_1);
-//	}
-	
 	/**
 	 * Initialize the contents of the frame, which include:
  	 * list of items for the user to view
@@ -80,10 +69,10 @@ public class ViewIslandSellsItem extends Screen {
 		
 		// Create the JList
 		JList<String> sellItemList = new JList<String>(sellListModel);
+		sellItemList.setLayoutOrientation(JList.VERTICAL); //must be vertical
 		sellItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
-		sellItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		sellItemList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		sellItemList.setBounds(0, 0, 498, 333);
-		frame.getContentPane().add(sellItemList);
 		
 		sellItemList.setVisibleRowCount(7);
 		sellItemList.getSelectedValue();
