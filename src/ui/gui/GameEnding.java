@@ -23,7 +23,6 @@ public class GameEnding extends Screen {
 	}
 
 	/**
-	 * Initialize the contents of the frame, which include: player's game status
  	 * This is only here because WindowBuilder needs a JFrame
  	 * to be created within this file to allow us to edit the GUI
  	 * 
@@ -34,13 +33,15 @@ public class GameEnding extends Screen {
  	}
  	
 	/**
-	 * Initialize the contents of the frame.
+	 *Initialize the contents of the frame, which include: player's days played, profit made, score gained
+	 *
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
 		frame.getContentPane().setLayout(null);
 		
+		// Get the ship information
 		JTextArea lblDaysPlayed = new JTextArea("You played for " + getManager().getTime() + " days, our of " + getManager().getGameLength());
 		lblDaysPlayed.setLineWrap(true);
 		lblDaysPlayed.setForeground(Color.WHITE);

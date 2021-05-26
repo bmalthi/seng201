@@ -1,6 +1,7 @@
 package ui.gui;
 
 import javax.swing.JFrame;
+
 import java.awt.Color;
 import javax.swing.JTextArea;
 import main.FailureState;
@@ -12,7 +13,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+/**
+ * This class represents the screen after the user clicked the "View Island Store" button in Main Menu
+ * @author kvie
+ *
+ */
 public class IslandStore extends Screen {
 
 	/**
@@ -33,13 +38,17 @@ public class IslandStore extends Screen {
 //	}
 	
 	/**
-	 * Initialize the contents of the frame.
-	 */
+	 * Initialize the contents of the frame, which includes:
+ 	 * Some labels to let the user know they are at the store
+ 	 * Buttons for the user to choose what they want to do next
+ 	 */
+	
 	@Override
 	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(184, 134, 11));
 		frame.getContentPane().setLayout(null);
 		
+		// Introduce the screen
 		JTextArea txtrStoreWelcome = new JTextArea("Welcome to the Island's store");
 		txtrStoreWelcome.setForeground(Color.WHITE);
 		txtrStoreWelcome.setFont(new Font("Holiday Sun", Font.PLAIN, 24));
@@ -55,6 +64,7 @@ public class IslandStore extends Screen {
 		lblHelloTrader.setBounds(19, 62, 752, 85);
 		frame.getContentPane().add(lblHelloTrader);
 		
+		// Get store images
 		JLabel store = new JLabel("");
 		store.setIcon(new ImageIcon(IslandStore.class.getResource("/STORE1.png")));
 		store.setBounds(449, 320, 336, 228);
@@ -103,6 +113,7 @@ public class IslandStore extends Screen {
 		btnViewPastPurchases.setBounds(116, 278, 215, 85);
 		frame.getContentPane().add(btnViewPastPurchases);
 		
+		// Button to repair ship if have any damage
 		JButton btnRepairShip = new JButton("Repair your ship (" +getManager().getPlayer().getShip().getDamageAmount() +" damage)");
 		btnRepairShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -126,6 +137,7 @@ public class IslandStore extends Screen {
 		btnRepairShip.setBounds(116, 375, 215, 73);
 		frame.getContentPane().add(btnRepairShip);
 		
+		// Button to back to main menu
 		JButton btnBackToMain = new JButton("Back to main menu");
 		btnBackToMain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

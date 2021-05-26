@@ -44,7 +44,7 @@ public class SetSailingIsland extends Screen {
 // 	}
  	
 	/**
-	 * Initialize the contents of the frame, include
+	 * Initialize the contents of the frame, which include:
 	 * Buttons to get the user choice of sailing to another island
 	 * Button to set sailing
 	 */
@@ -56,6 +56,7 @@ public class SetSailingIsland extends Screen {
 		frame.getContentPane().setForeground(new Color(135, 206, 250));
 		frame.getContentPane().setLayout(null);
 		
+		// Introduce the screen
 		JTextArea lblHelloTrader = new JTextArea("Hello trader! Are you ready to explore the next island?\n\n");
 		lblHelloTrader.setLineWrap(true);
 		lblHelloTrader.setForeground(Color.WHITE);
@@ -64,7 +65,7 @@ public class SetSailingIsland extends Screen {
 		lblHelloTrader.setBounds(28, 37, 503, 47);
 		frame.getContentPane().add(lblHelloTrader);
 		
-		
+		// Get the route that the player wants to go
 		JTextArea lblWhereToGo = new JTextArea("Where do you want to go?");
 		lblWhereToGo.setLineWrap(true);
 		lblWhereToGo.setForeground(Color.WHITE);
@@ -91,6 +92,7 @@ public class SetSailingIsland extends Screen {
 		routeList.setBounds(27, 219, 732, 166);
 		frame.getContentPane().add(routeList);
 		
+		// Button to start sailing
 		JButton btnSailing = new JButton("Let's set sailing!");
 		btnSailing.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -103,35 +105,16 @@ public class SetSailingIsland extends Screen {
 		btnSailing.setBounds(392, 430, 169, 61);
 		frame.getContentPane().add(btnSailing);
 		
-		JPopupMenu popupMenu = new JPopupMenu();
-		addPopup(btnSailing, popupMenu);
-		
-		JButton btnNewButton = new JButton("Back to main menu");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnBackToMainMenu = new JButton("Back to main menu");
+		btnBackToMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
 				Screen screen = new MainScreen(islandTrader);
 				screen.show();
 			}
 		});
-		btnNewButton.setBounds(191, 430, 151, 61);
-		frame.getContentPane().add(btnNewButton);
+		btnBackToMainMenu.setBounds(191, 430, 151, 61);
+		frame.getContentPane().add(btnBackToMainMenu);
 	}
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
-	}
+
 }	

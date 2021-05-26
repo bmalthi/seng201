@@ -37,7 +37,9 @@ public class ShipProperties extends Screen {
 // 	}
  	
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame, which includes:
+	 * Some labels for the introduction of the screen
+	 * The properties of the ship
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
@@ -57,6 +59,7 @@ public class ShipProperties extends Screen {
 		lblHelloTrader.setBounds(32, 27, 649, 127);
 		frame.getContentPane().add(lblHelloTrader);
 		
+		// Button to back to main screen
 		JButton btnNewButton = new JButton("Back to main menu");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -68,6 +71,7 @@ public class ShipProperties extends Screen {
 		btnNewButton.setBounds(250, 460, 151, 61);
 		frame.getContentPane().add(btnNewButton);
 		
+		// Get the information of the ship
 		JTextArea lblProfit = new JTextArea(getManager().getPlayer().getShip().description());
 		lblProfit.setLineWrap(true);
 		lblProfit.setForeground(new Color(0, 0, 128));

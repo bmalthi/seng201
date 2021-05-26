@@ -40,7 +40,7 @@ public class MainScreen extends Screen {
 	/**
 	 * Initialize the contents of the frame, which include:
 	 * Set some labels 
-	 * Add buttons for the user to choose what they want to do
+	 * Add buttons for the user to choose what they want to do and move to the next screen based on their choice
 	 * Get image of island
 	 */
 	@Override
@@ -63,20 +63,22 @@ public class MainScreen extends Screen {
 		lblHelloTrader.setBounds(20, 54, 704, 119);
 		frame.getContentPane().add(lblHelloTrader);
 		
-		JButton btnNewButton = new JButton("VIEW MONEY & DAYS REMAINING");
-		btnNewButton.addActionListener(new ActionListener() {
+		// Button to view game status
+		JButton btnViewGameStatus = new JButton("VIEW MONEY & DAYS REMAINING");
+		btnViewGameStatus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
 				Screen screen = new GameStatus(islandTrader);
 		    	screen.show();				
 			}
 		});
-		btnNewButton.setForeground(Color.BLACK);
-		btnNewButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
-		btnNewButton.setBackground(Color.WHITE);
-		btnNewButton.setBounds(56, 182, 237, 74);
-		frame.getContentPane().add(btnNewButton);
+		btnViewGameStatus.setForeground(Color.BLACK);
+		btnViewGameStatus.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+		btnViewGameStatus.setBackground(Color.WHITE);
+		btnViewGameStatus.setBounds(56, 182, 237, 74);
+		frame.getContentPane().add(btnViewGameStatus);
 		
+		// Button to view past purchases and sales 
 		JButton btnViewPastPurchases = new JButton("VIEW PAST PURCHASES & SALES");
 		btnViewPastPurchases.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -88,6 +90,7 @@ public class MainScreen extends Screen {
 		btnViewPastPurchases.setBounds(56, 268, 237, 74);
 		frame.getContentPane().add(btnViewPastPurchases);
 		
+		// Button to visit the island store
 		JButton btnVisitIslandStore = new JButton("VISIT ISLAND STORE");
 		btnVisitIslandStore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -99,6 +102,7 @@ public class MainScreen extends Screen {
 		btnVisitIslandStore.setBounds(56, 354, 237, 74);
 		frame.getContentPane().add(btnVisitIslandStore);
 		
+		// Button to view ship status
 		JButton btnViewShipStatus = new JButton("VIEW SHIP PROPERTIES");
 		btnViewShipStatus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -110,6 +114,7 @@ public class MainScreen extends Screen {
 		btnViewShipStatus.setBounds(325, 182, 234, 74);
 		frame.getContentPane().add(btnViewShipStatus);
 		
+		// Button to view island properties
 		JButton btnViewIslandProperties = new JButton("VIEW ISLAND PROPERTIES");
 		btnViewIslandProperties.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -121,17 +126,19 @@ public class MainScreen extends Screen {
 		btnViewIslandProperties.setBounds(325, 268, 237, 74);
 		frame.getContentPane().add(btnViewIslandProperties);
 		
-		JButton btnSailToAnother = new JButton("SAIL TO ANOTHER ISLAND");
-		btnSailToAnother.addActionListener(new ActionListener() {
+		// Button to sail to another island
+		JButton btnSailToAnotherIsland = new JButton("SAIL TO ANOTHER ISLAND");
+		btnSailToAnotherIsland.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
 				Screen screen = new SetSailingIsland(islandTrader);
 		    	screen.show();
 			}
 		});
-		btnSailToAnother.setBounds(325, 354, 234, 74);
-		frame.getContentPane().add(btnSailToAnother);
+		btnSailToAnotherIsland.setBounds(325, 354, 234, 74);
+		frame.getContentPane().add(btnSailToAnotherIsland);
 		
+		// Button to quit the game
 		JButton btnQuitGame = new JButton("QUIT GAME");
 		btnQuitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -142,9 +149,9 @@ public class MainScreen extends Screen {
 					screen.show();
 					
 				} else if (choice == JOptionPane.NO_OPTION) {
-					frame.setVisible(true);
-					//System.out.println("Let's continue the game");
-					//continue main Menu as usual
+					//frame.setVisible(true);
+					Screen screen = new MainScreen(islandTrader);
+					screen.show();
 
 				} 
 			}
@@ -152,6 +159,7 @@ public class MainScreen extends Screen {
 		btnQuitGame.setBounds(20, 477, 143, 59);
 		frame.getContentPane().add(btnQuitGame);
 		
+		// Get island image
 		JLabel lblislandImage = new JLabel("");
 		lblislandImage.setIcon(new ImageIcon(MainScreen.class.getResource("/HOMEISLAND.png")));
 		lblislandImage.setBounds(0, 198, 785, 365);

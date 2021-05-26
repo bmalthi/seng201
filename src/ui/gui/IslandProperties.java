@@ -41,13 +41,16 @@ public class IslandProperties extends Screen {
 //	}
 	
 	/**
-	 * Initialize the contents of the container.
+	 * Initialize the contents of the container, which include:s
+	 * Show the 5 Islands for the user to choose 
+	 * Buttons for the user to choose what they'd want to do at the chosen island
 	 */
 	protected void initialise(final JFrame frame) { 	
 		ButtonGroup buttonGroup  = new ButtonGroup();
 		frame.getContentPane().setBackground(new Color(240, 230, 140));
 		frame.getContentPane().setLayout(null);
 		
+		// Some labels to introduce the screen
 		JTextArea lblHelloTrader = new JTextArea("Hello trader! How's the sailing going? Hope it is going all well \nand you haven't seen any pirates yet!\n");
 		lblHelloTrader.setBounds(20, 27, 653, 63);
 		lblHelloTrader.setLineWrap(true);
@@ -86,8 +89,10 @@ public class IslandProperties extends Screen {
 		island5.setIcon(new ImageIcon(IslandProperties.class.getResource("/island5.png")));
 		frame.getContentPane().add(island5);
 		
+		// Get the list of islands 
 		List<Island> islands = getManager().getWorld().getIslands();
 
+		// Get radio button for each island
 		JRadioButton rdbtnHomeIsland = new JRadioButton(islands.get(0).getName());
 		rdbtnHomeIsland.setForeground(new Color(0, 0, 0));	
 		rdbtnHomeIsland.setSelected(true);
@@ -115,7 +120,7 @@ public class IslandProperties extends Screen {
 		buttonGroup.add(rdbtnDangerIsland);
 		frame.getContentPane().add(rdbtnDangerIsland);
 		
-		
+		// Buttons for user to choose what they'd want to do with the chosen island
 		JButton btnViewRoutes = new JButton("View Routes to this Island");
 		btnViewRoutes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

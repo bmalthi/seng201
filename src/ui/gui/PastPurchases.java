@@ -47,6 +47,7 @@ public class PastPurchases extends Screen {
 		frame.getContentPane().setBackground(new Color(85, 107, 47));
 		frame.getContentPane().setLayout(null);
 		
+		// Button to back to main screen
 		JButton btnBackToMainMenu = new JButton("Back to main menu");
 		btnBackToMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -58,6 +59,7 @@ public class PastPurchases extends Screen {
 		btnBackToMainMenu.setBounds(36, 484, 145, 44);
 		frame.getContentPane().add(btnBackToMainMenu);
 		
+		// Some labels to introduce the screen
 		JTextArea txtrHelloTrader = new JTextArea("Hey trader! How are your jouney going?\n");
 		txtrHelloTrader.setForeground(Color.WHITE);
 		txtrHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
@@ -72,6 +74,7 @@ public class PastPurchases extends Screen {
 		txtrPurchasesInfo.setBounds(33, 89, 462, 44);
 		frame.getContentPane().add(txtrPurchasesInfo);
 		
+		// Get a list of available transactions 
 		List<PricedItem> transactions = getManager().getPlayer().getTransactions();
 
 		// Create a ListModel to store the items in the JList
@@ -80,24 +83,24 @@ public class PastPurchases extends Screen {
 		// Add the existing items to the List Model
 		transactionsListModel.addAll(transactions);
 		
-		// Create the JList
-		JList<PricedItem> transactionsList = new JList<PricedItem>(transactionsListModel);
-		transactionsList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		transactionsList.setForeground(new Color(255, 255, 255));
-		transactionsList.setBackground(new Color(0, 51, 0));
-		transactionsList.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
-		transactionsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		transactionsList.setBounds(78, 159, 645, 297);
-		frame.getContentPane().add(transactionsList);
 		if (transactions.size() == 0) {
-			JTextArea txtrHeyTraderHow_1_1_2 = new JTextArea("You have no transactions yet");
-			txtrHeyTraderHow_1_1_2.setForeground(Color.WHITE);
-			txtrHeyTraderHow_1_1_2.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-			txtrHeyTraderHow_1_1_2.setBackground(new Color(47, 79, 79));
-			txtrHeyTraderHow_1_1_2.setBounds(97, 274, 462, 44);
-			frame.getContentPane().add(txtrHeyTraderHow_1_1_2);
+			JTextArea txtrNoTransactions = new JTextArea("You have no transactions yet");
+			txtrNoTransactions.setForeground(Color.WHITE);
+			txtrNoTransactions.setFont(new Font("Lucida Grande", Font.PLAIN, 22));
+			txtrNoTransactions.setBackground(new Color(47, 79, 79));
+			txtrNoTransactions.setBounds(97, 274, 462, 44);
+			frame.getContentPane().add(txtrNoTransactions);
+		} else {
+			// Create the JList
+			JList<PricedItem> transactionsList = new JList<PricedItem>(transactionsListModel);
+			transactionsList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+			transactionsList.setForeground(new Color(255, 255, 255));
+			transactionsList.setBackground(new Color(0, 51, 0));
+			transactionsList.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
+			transactionsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+			transactionsList.setBounds(78, 159, 645, 297);
+			frame.getContentPane().add(transactionsList);
 		}
-		
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

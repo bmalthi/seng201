@@ -22,7 +22,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 
 /**
- * This class represents the screen after the user clicked the "See What We Buys" button in View Island Properties and Visit Island Store Screen
+ * This class represents the screen after the user clicked the "See What We Buys" button in View Island Properties Screen
  * @author kvie
  *
  */
@@ -49,7 +49,9 @@ public class ViewIslandBuysItem extends Screen {
 //	}
 	
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame, which include:
+ 	 * list of items for the user to view
+ 	 * a "Back To Island Properties" button to go back to Island Properties screen
 	 */
 	@Override
 	protected void initialise(final JFrame container) {
@@ -58,6 +60,7 @@ public class ViewIslandBuysItem extends Screen {
 		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		container.getContentPane().setLayout(null);
 		
+		// Introduce the screen
 		JTextArea lblHelloTrader = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island buys:");
 		lblHelloTrader.setLineWrap(true);
 		lblHelloTrader.setForeground(Color.WHITE);
@@ -86,6 +89,7 @@ public class ViewIslandBuysItem extends Screen {
 
 		buyItemList.getSelectedValue();
 		
+		// Get images of the store
 		JLabel lblStoreImage = new JLabel("");
 		lblStoreImage.setIcon(new ImageIcon(ViewIslandBuysItem.class.getResource("/storeIMAGE.png")));
 		lblStoreImage.setBounds(603, 415, 176, 133);
@@ -96,17 +100,17 @@ public class ViewIslandBuysItem extends Screen {
 		storePeople.setBounds(603, 210, 117, 92);
 		container.getContentPane().add(storePeople);
 		
-		JButton btnMainMenu = new JButton("Back to Island Properties");
-		btnMainMenu.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-		btnMainMenu.addActionListener(new ActionListener() {
+		JButton btnIslandProperties = new JButton("Back to Island Properties");
+		btnIslandProperties.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		btnIslandProperties.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
 				Screen screen = new IslandProperties(islandTrader);
 				screen.show();
 			}
 		});
-		btnMainMenu.setBounds(577, 296, 187, 67);
-		container.getContentPane().add(btnMainMenu);
+		btnIslandProperties.setBounds(577, 296, 187, 67);
+		container.getContentPane().add(btnIslandProperties);
 		
 	}
 	

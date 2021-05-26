@@ -17,7 +17,7 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 
 /**
- * This class represents the screen after the user clicked the "See What We Buys" button in View Island Properties and Visit Island Store Screen
+ * This class represents the screen after the user clicked the "See What We Are Buying" button in Visit Island Store Screen
  * @author kvie
  *
  */
@@ -42,8 +42,12 @@ public class IslandBuysItem extends Screen {
 //	}
 //	
 	/**
-	 * Initialize the contents of the frame.
-	 */
+	 * Initialize the contents of the frame, which include:
+ 	 * list of items for the user to view
+ 	 * a "Buy Item" button for the user to sell item they chose from the list.
+ 	 * a "Back To Main Menu" button to go back to main menu	 
+ 	 */
+	
 	@Override
 	protected void initialise(final JFrame frame) {
 		//buyItems = new ArrayList<PricedItem>();
@@ -52,6 +56,7 @@ public class IslandBuysItem extends Screen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		// Introduce the screen
 		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island buys:");
 		lblNewLabel_1_1.setLineWrap(true);
 		lblNewLabel_1_1.setForeground(Color.WHITE);
@@ -84,6 +89,7 @@ public class IslandBuysItem extends Screen {
 		btnBuyItem.setBounds(587, 244, 143, 71);
 		frame.getContentPane().add(btnBuyItem);
 		
+		// Button to back to the Island Store screen
 		JButton btnMainMenu = new JButton("Back to store front");
 		btnMainMenu.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		btnMainMenu.addActionListener(new ActionListener() {

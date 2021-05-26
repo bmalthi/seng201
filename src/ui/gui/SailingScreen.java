@@ -13,6 +13,7 @@ import javax.swing.JTextArea;
 import main.IslandTrader;
 
 /**
+ * This class represents the screen after the player sail to another island
  * @author bmalthi
  *
  */
@@ -39,15 +40,17 @@ public class SailingScreen extends Screen {
  	}
  	
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame, which include:
+	 * JLabel to introduce the screen
+	 * Button to back to main menu
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.getContentPane().setLayout(null);
 		
-		
-		headerHelloTrader = new JTextArea("Hello trader! Every day is a new adventure.\n\nLet's set sailing to another island! Lots of interesting things are waiting for us!");
+		// Introduce the screen
+		headerHelloTrader = new JTextArea("Hello trader! Every day is a new adventure.\nLet's set sailing to another island! Lots of interesting things are waiting for us!");
 		headerHelloTrader.setLineWrap(true);
 		headerHelloTrader.setForeground(new Color(0, 0, 128));
 		headerHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
@@ -55,6 +58,7 @@ public class SailingScreen extends Screen {
 		headerHelloTrader.setBounds(32, 32, 701, 105);
 		frame.getContentPane().add(headerHelloTrader);
 		
+		// Button to back to main menu
 		JButton btnBackToMainMenu = new JButton("Back to main menu");
 		btnBackToMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

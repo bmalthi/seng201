@@ -45,6 +45,7 @@ public class GameStatus extends Screen {
 		frame.getContentPane().setBackground(new Color(173, 216, 230));
 		frame.getContentPane().setLayout(null);
 		
+		// Set up introduction for the screen
 		JTextArea txtrHelloTrader = new JTextArea("Hey trader! How are you doing? \n");
 		txtrHelloTrader.setForeground(Color.WHITE);
 		txtrHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
@@ -59,6 +60,7 @@ public class GameStatus extends Screen {
 		lblBalanceRemaining.setBounds(149, 149, 317, 37);
 		frame.getContentPane().add(lblBalanceRemaining);
 		
+		// Get the captain image
 		JLabel seacaptain = new JLabel("");
 		seacaptain.setIcon(new ImageIcon(GameStatus.class.getResource("/seacaptain.png")));
 		seacaptain.setBounds(19, 317, 235, 231);
@@ -82,6 +84,7 @@ public class GameStatus extends Screen {
 		txtGameStatus.setBounds(19, 85, 324, 37);
 		frame.getContentPane().add(txtGameStatus);
 		
+		// Get the profit value, days remaining and game score
 		int[] profitvalue = getManager().getPlayer().getProfitValue();
 		JLabel lblProfit = new JLabel("You made " + profitvalue[0] + " dollars profit and have " + profitvalue[1] + " dollars of cargo");
 		lblProfit.setForeground(new Color(0, 0, 128));

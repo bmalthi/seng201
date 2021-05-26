@@ -31,6 +31,11 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * This class represents the Setup Screen of the game
+ * @author kvie
+ *
+ */
 public class SetupScreen extends Screen {
 
 	private JTextField txtbetweenCharacters;
@@ -65,8 +70,14 @@ public class SetupScreen extends Screen {
 //	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame, which includes:
+ 	 * Set label
+ 	 * Get the lists of the ship + ships's detail
+ 	 * Show images of the ship
+ 	 * Get the user choice of ship - set ship based on the choice
+ 	 * Add button to move to Main Screen
 	 */
+	
 	@Override
 	protected void initialise(final JFrame frame) {
 		ButtonGroup buttonGroup  = new ButtonGroup();
@@ -77,8 +88,10 @@ public class SetupScreen extends Screen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		// Get the list of ships for each radio button
 		List<Ship> ships = getManager().getWorld().getShips();
 		
+		// Get ships for each radio button and add them to a button Group
 		JRadioButton rdbtnShip1 = new JRadioButton(ships.get(0).getName());
 		rdbtnShip1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -92,6 +105,7 @@ public class SetupScreen extends Screen {
 		rdbtnShip1.setBounds(40, 483, 141, 23);
 		frame.getContentPane().add(rdbtnShip1);
 		
+		// Get ships for each radio button and add them to a button Group
 		JRadioButton rdbtnShip2 = new JRadioButton(ships.get(1).getName());
 		rdbtnShip2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -103,6 +117,7 @@ public class SetupScreen extends Screen {
 		rdbtnShip2.setBounds(221, 483, 141, 23);
 		frame.getContentPane().add(rdbtnShip2);
 
+		// Get ships for each radio button and add them to a button Group
 		JRadioButton rdbtnShip3 = new JRadioButton(ships.get(2).getName());
 		rdbtnShip3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -114,6 +129,7 @@ public class SetupScreen extends Screen {
 		rdbtnShip3.setBounds(385, 483, 141, 23);
 		frame.getContentPane().add(rdbtnShip3);
 		
+		// Get ships for each radio button and add them to a button Group
 		JRadioButton rdbtnShip4 = new JRadioButton(ships.get(3).getName());
 		rdbtnShip4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -126,7 +142,7 @@ public class SetupScreen extends Screen {
 		frame.getContentPane().add(rdbtnShip4);
 		
 
-		//SHould only be able to click this if valid things are selected
+		//This button should only be able to click this if valid things are selected
 		JButton btnLetsPlay = new JButton("Let's Play");
 		btnLetsPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -160,6 +176,7 @@ public class SetupScreen extends Screen {
 		btnLetsPlay.setOpaque(true);
 		frame.getContentPane().add(btnLetsPlay);		
 		
+		// Set up some labels for the game
 		JLabel lblConfirmName = new JLabel("");
 		lblConfirmName.setForeground(new Color(255, 0, 0));
 		lblConfirmName.setBounds(249, 192, 392, 16);
@@ -228,7 +245,6 @@ public class SetupScreen extends Screen {
 		txtbetweenCharacters.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				//lblNewLabel_2_2_1.setText(txtbetweenCharacters.getText());
 				if ("(between 3-15 characters)".equals(txtbetweenCharacters.getText())) {
 					txtbetweenCharacters.setText("");
 					lblConfirmName.setText("(between 3-15 characters)");
@@ -242,13 +258,14 @@ public class SetupScreen extends Screen {
 		frame.getContentPane().add(txtbetweenCharacters);
 		txtbetweenCharacters.setColumns(10);
 		
-		JTextArea lblNewLabel_1 = new JTextArea("Let's get started!!!");
-		lblNewLabel_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
-		lblNewLabel_1.setBackground(new Color(70, 130, 180));
-		lblNewLabel_1.setBounds(35, 116, 172, 38);
-		frame.getContentPane().add(lblNewLabel_1);
+		JTextArea lblLetsStart = new JTextArea("Let's get started!!!");
+		lblLetsStart.setForeground(new Color(255, 255, 255));
+		lblLetsStart.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
+		lblLetsStart.setBackground(new Color(70, 130, 180));
+		lblLetsStart.setBounds(35, 116, 172, 38);
+		frame.getContentPane().add(lblLetsStart);
 		
+		// Create a slider for the game length
 		slider = new JSlider();
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
@@ -279,6 +296,7 @@ public class SetupScreen extends Screen {
 		lblShipChoice.setBounds(35, 287, 235, 31);
 		frame.getContentPane().add(lblShipChoice);
 		
+		// Get the ship images
 		JLabel ship1 = new JLabel("");
 		ship1.setIcon(new ImageIcon(SetupScreen.class.getResource("/another3.png")));
 		ship1.setBounds(40, 314, 147, 169);
@@ -307,7 +325,7 @@ public class SetupScreen extends Screen {
 		pirate.setBounds(647, 6, 147, 221);
 		frame.getContentPane().add(pirate);
 		
-		
+		// Get the ship detail
 		shipDetailText.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		shipDetailText.setLineWrap(true);
 		shipDetailText.setBackground(new Color(70, 130, 180));

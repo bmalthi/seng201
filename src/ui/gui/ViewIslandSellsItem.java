@@ -23,6 +23,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollBar;
 
+/**
+ * This class represents the screen after the user clicked the "See What We Sells" button in View Island Properties Screen 
+ *
+ */
 public class ViewIslandSellsItem extends Screen {
 	private JFrame frame_1;
 	
@@ -45,8 +49,11 @@ public class ViewIslandSellsItem extends Screen {
 //	}
 	
 	/**
-	 * Initialize the contents of the frame.
-	 */
+	 * Initialize the contents of the frame, which include:
+ 	 * list of items for the user to view
+ 	 * a "Back To Island Properties" button to go back to Island Properties screen
+ 	 */
+	
 	@Override
 	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(47, 79, 79));
@@ -54,6 +61,7 @@ public class ViewIslandSellsItem extends Screen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		// Introduce the screen
 		JTextArea lblHelloTrader = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island sells:");
 		lblHelloTrader.setLineWrap(true);
 		lblHelloTrader.setForeground(new Color(255, 255, 255));
@@ -88,9 +96,9 @@ public class ViewIslandSellsItem extends Screen {
 //		frame.getContentPane().add(scrollBar);
 		
 		// Button to back to main menu
-		JButton btnBackToMain = new JButton("Back to Island Properties");
-		btnBackToMain.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-		btnBackToMain.addActionListener(new ActionListener() {
+		JButton btnBackToIslandProperties = new JButton("Back to Island Properties");
+		btnBackToIslandProperties.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		btnBackToIslandProperties.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
 				Screen screen = new IslandProperties(islandTrader);
@@ -98,11 +106,10 @@ public class ViewIslandSellsItem extends Screen {
 			}
 
 		});
-		btnBackToMain.setBounds(577, 296, 187, 67);
-		frame.getContentPane().add(btnBackToMain);
+		btnBackToIslandProperties.setBounds(577, 296, 187, 67);
+		frame.getContentPane().add(btnBackToIslandProperties);
 		
-
-		
+		// Get images for the store
 		JLabel lblStoreImage = new JLabel("");
 		lblStoreImage.setIcon(new ImageIcon(ViewIslandSellsItem.class.getResource("/storeIMAGE.png")));
 		lblStoreImage.setBounds(603, 415, 176, 133);
