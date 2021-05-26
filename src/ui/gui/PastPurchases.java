@@ -17,7 +17,6 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.Font;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.JScrollBar;
 /**
  * This class represents the screen after the user clicked the "View Past Purchases and Sales" button in Main Menu
  * @author kvie
