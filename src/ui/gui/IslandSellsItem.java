@@ -2,7 +2,6 @@ package ui.gui;
 
 import javax.swing.JFrame;
 
-import main.Island;
 import main.IslandTrader;
 import main.PricedItem;
 import java.awt.Color;
@@ -10,6 +9,9 @@ import javax.swing.JTextArea;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
@@ -40,7 +42,6 @@ public class IslandSellsItem extends Screen {
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
-		Island viewIsland = islandTrader.getWorld().getCurrentIsland();
 		frame.getContentPane().setBackground(new Color(47, 79, 79));
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,14 +60,14 @@ public class IslandSellsItem extends Screen {
 		frame.getContentPane().add(textPane);
 		
 		// Create a ListModel to store the items in the JList
-		DefaultListModel<PricedItem> sellListModel = new DefaultListModel<PricedItem>();
+		DefaultListModel<String> sellListModel = new DefaultListModel<String>();
 		
 		// Add the existing items to the List Model
-		sellListModel.addAll(viewIsland.getStore().getToSellList());
+		refreshList(sellListModel);
 		
 		
 		// Create the JList
-		JList<PricedItem> sellItemList = new JList<PricedItem>(sellListModel);
+		JList<String> sellItemList = new JList<String>(sellListModel);
 		sellItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
 		sellItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		sellItemList.setBounds(42, 172, 498, 284);
@@ -100,8 +101,10 @@ public class IslandSellsItem extends Screen {
 	/**
 	 * Refreshes the list of items after a successful sale
 	 */	
-	private void refreshList(DefaultListModel<PricedItem> sellListModel) {
+	private void refreshList(DefaultListModel<String> sellListModel) {
 		sellListModel.removeAllElements();
-		sellListModel.addAll(islandTrader.getWorld().getCurrentIsland().getStore().getToSellList());
+		List<PricedItem> itemList = islandTrader.getWorld().getCurrentIsland().getStore().getToSellList();
+		ArrayList<String> itemListStrings = ((Gui)islandTrader.getUI()).stringList(itemList, true);
+		sellListModel.addAll(itemListStrings);
 	}
 }
