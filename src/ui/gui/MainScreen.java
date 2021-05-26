@@ -55,12 +55,12 @@ public class MainScreen extends Screen {
 		txtrANewAdventure.setBounds(20, 17, 242, 33);
 		frame.getContentPane().add(txtrANewAdventure);
 		
-		JTextArea lblHelloTrader = new JTextArea("Hello new trader! Every day is a new adventure, and today it begins with you. \nAs a trader, you can buy items in the current island store and sell them in another island. \n\nYou are currently at the Home Island. What do you want to do now? ");
+		JTextArea lblHelloTrader = new JTextArea("Hello new trader! Every day is a new adventure, and today it begins with you. \nAs a trader, you can buy items in the current island store and sell them in another island. \n\nYou are currently at the " + getManager().getWorld().getCurrentIsland() + ". What do you want to do now? ");
 		lblHelloTrader.setLineWrap(true);
 		lblHelloTrader.setForeground(Color.WHITE);
 		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 17));
 		lblHelloTrader.setBackground(new Color(0, 0, 128));
-		lblHelloTrader.setBounds(20, 48, 704, 111);
+		lblHelloTrader.setBounds(20, 54, 704, 119);
 		frame.getContentPane().add(lblHelloTrader);
 		
 		JButton btnNewButton = new JButton("VIEW MONEY & DAYS REMAINING");

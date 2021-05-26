@@ -1,6 +1,7 @@
 package ui.gui;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import main.Island;
 import main.IslandTrader;
@@ -12,6 +13,7 @@ import javax.swing.ListSelectionModel;
 import java.awt.Font;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -84,7 +86,17 @@ public class ViewIslandBuysItem extends Screen {
 		container.getContentPane().add(buyItemList);
 
 		buyItemList.getSelectedValue();
-
+		
+		JLabel lblStoreImage = new JLabel("");
+		lblStoreImage.setIcon(new ImageIcon(ViewIslandBuysItem.class.getResource("/storeIMAGE.png")));
+		lblStoreImage.setBounds(603, 415, 176, 133);
+		container.getContentPane().add(lblStoreImage);
+		
+		JLabel storePeople = new JLabel("");
+		storePeople.setIcon(new ImageIcon(ViewIslandBuysItem.class.getResource("/storePEOPLE.png")));
+		storePeople.setBounds(603, 210, 117, 92);
+		container.getContentPane().add(storePeople);
+		
 		JButton btnMainMenu = new JButton("Back to Island Properties");
 		btnMainMenu.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		btnMainMenu.addActionListener(new ActionListener() {

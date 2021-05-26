@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import main.Island;
 import main.IslandTrader;
 import main.PricedItem;
+
 import java.awt.Color;
 import javax.swing.JTextArea;
 import java.awt.Font;
@@ -14,12 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JScrollBar;
 
 public class ViewIslandSellsItem extends Screen {
+	private JFrame frame_1;
 	
 	/**
 	* Create the application.
@@ -35,7 +40,8 @@ public class ViewIslandSellsItem extends Screen {
 //	 * @wbp.parser.entryPoint
 //	 */
 //	protected void initialiseForWindowBuilder() {
-//		initialise(new JFrame());
+//		frame_1 = new JFrame();
+//		initialise(frame_1);
 //	}
 	
 	/**
@@ -72,6 +78,12 @@ public class ViewIslandSellsItem extends Screen {
 		sellItemList.setVisibleRowCount(7);
 		sellItemList.getSelectedValue();
 		
+//		final JScrollPane scrollPane = new JScrollPane(frame);
+//		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//		frame.getContentPane().add(scrollPane);
+
+	    
+		// Button to back to main menu
 		JButton btnBackToMain = new JButton("Back to Island Properties");
 		btnBackToMain.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		btnBackToMain.addActionListener(new ActionListener() {
@@ -82,8 +94,22 @@ public class ViewIslandSellsItem extends Screen {
 			}
 
 		});
-		btnBackToMain.setBounds(577, 278, 187, 67);
+		btnBackToMain.setBounds(577, 296, 187, 67);
 		frame.getContentPane().add(btnBackToMain);
+		
+		JScrollBar scrollBar = new JScrollBar();
+		scrollBar.setBounds(525, 172, 15, 333);
+		frame.getContentPane().add(scrollBar);
+		
+		JLabel lblStoreImage = new JLabel("");
+		lblStoreImage.setIcon(new ImageIcon(ViewIslandSellsItem.class.getResource("/storeIMAGE.png")));
+		lblStoreImage.setBounds(603, 415, 176, 133);
+		frame.getContentPane().add(lblStoreImage);
+		
+		JLabel storePeople = new JLabel("");
+		storePeople.setIcon(new ImageIcon(ViewIslandSellsItem.class.getResource("/storePEOPLE.png")));
+		storePeople.setBounds(603, 210, 117, 92);
+		frame.getContentPane().add(storePeople);
 	}
 	
 	/**
@@ -97,3 +123,6 @@ public class ViewIslandSellsItem extends Screen {
 		sellListModel.addAll(itemListStrings);
 	}	
 }
+
+
+

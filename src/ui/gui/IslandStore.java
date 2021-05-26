@@ -55,37 +55,42 @@ public class IslandStore extends Screen {
 		lblHelloTrader.setBounds(19, 62, 752, 85);
 		frame.getContentPane().add(lblHelloTrader);
 		
-		JLabel burgerstore = new JLabel("");
-		burgerstore.setIcon(new ImageIcon(IslandStore.class.getResource("/burgerstore1.png")));
-		burgerstore.setBounds(362, 329, 429, 237);
-		frame.getContentPane().add(burgerstore);
+		JLabel store = new JLabel("");
+		store.setIcon(new ImageIcon(IslandStore.class.getResource("/STORE1.png")));
+		store.setBounds(449, 320, 336, 228);
+		frame.getContentPane().add(store);
 		
 		JLabel eatingburger = new JLabel("");
 		eatingburger.setIcon(new ImageIcon(IslandStore.class.getResource("/1eatingBURGER.png")));
-		eatingburger.setBounds(691, 176, 79, 180);
+		eatingburger.setBounds(531, 159, 79, 180);
 		frame.getContentPane().add(eatingburger);
 		
-		JButton btnNewButton = new JButton("See what we have for sale");
-		btnNewButton.addActionListener(new ActionListener() {
+		JLabel groceryperson = new JLabel("");
+		groceryperson.setIcon(new ImageIcon(IslandStore.class.getResource("/groceryPERSONpng.png")));
+		groceryperson.setBounds(608, 206, 121, 133);
+		frame.getContentPane().add(groceryperson);
+		
+		JButton btnSeeWhatSells = new JButton("See what we have for sale");
+		btnSeeWhatSells.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
 				Screen screen = new IslandSellsItem(islandTrader);
 				screen.show();
 			}
 		});
-		btnNewButton.setBounds(37, 193, 189, 73);
-		frame.getContentPane().add(btnNewButton);
+		btnSeeWhatSells.setBounds(37, 193, 189, 73);
+		frame.getContentPane().add(btnSeeWhatSells);
 		
-		JButton btnSeeWhatWe = new JButton("See what we are buying");
-		btnSeeWhatWe.addActionListener(new ActionListener() {
+		JButton btnSeeWhatBuy = new JButton("See what we are buying");
+		btnSeeWhatBuy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
 				Screen screen = new IslandBuysItem(islandTrader);
 				screen.show();
 			}
 		});
-		btnSeeWhatWe.setBounds(248, 193, 189, 73);
-		frame.getContentPane().add(btnSeeWhatWe);
+		btnSeeWhatBuy.setBounds(248, 193, 189, 73);
+		frame.getContentPane().add(btnSeeWhatBuy);
 		
 		JButton btnViewPastPurchases = new JButton("View past purchases and sales");
 		btnViewPastPurchases.addActionListener(new ActionListener() {
