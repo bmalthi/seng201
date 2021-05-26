@@ -77,7 +77,7 @@ public class IslandBuysItem extends Screen {
 		btnBuyItem.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		btnBuyItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getManager().buyStoreItem(buyItemList.getSelectedIndex());
+				getManager().sellStoreItem(buyItemList.getSelectedIndex());
 				refreshList(buyListModel);
 			}
 		});
