@@ -34,16 +34,15 @@ public class SetSailingIsland extends Screen {
 		super("Sailing To Another Island", islandTrader);
 	}
 
-//	/**
-// 	 * This is only here because WindowBuilder needs a JFrame
-// 	 * to be created within this file to allow us to edit the GUI
-// 	 * 
-// 	 * @wbp.parser.entryPoint
-// 	 */
-// 	protected void initialiseForWindowBuilder() {
-// 		JFrame frame = new JFrame();
-// 		initialise(frame);
-// 	}
+	/**
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
  	
 	/**
 	 * Initialize the contents of the frame, which include:
@@ -68,12 +67,12 @@ public class SetSailingIsland extends Screen {
 		frame.getContentPane().add(lblHelloTrader);
 		
 		// Get the route that the player wants to go
-		JTextArea lblWhereToGo = new JTextArea("Where do you want to go?(* you can do)");
+		JTextArea lblWhereToGo = new JTextArea("Where do you want to go? (* you can do)");
 		lblWhereToGo.setLineWrap(true);
 		lblWhereToGo.setForeground(Color.WHITE);
 		lblWhereToGo.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblWhereToGo.setBackground(new Color(65, 105, 225));
-		lblWhereToGo.setBounds(28, 112, 249, 60);
+		lblWhereToGo.setBounds(28, 112, 500, 40);
 		frame.getContentPane().add(lblWhereToGo);
 		
 		// Create the scroll pane

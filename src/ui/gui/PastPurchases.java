@@ -17,7 +17,6 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.Font;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.JScrollBar;
 /**
  * This class represents the screen after the user clicked the "View Past Purchases and Sales" button in Main Menu
  * @author kvie
@@ -107,14 +106,13 @@ public class PastPurchases extends Screen {
 			//Create the list
 			JList<PricedItem> transactionsList = new JList<PricedItem>(transactionsListModel);
 			transactionsList.setLayoutOrientation(JList.VERTICAL); //must be vertical
-			//transactionsList.setForeground(new Color(255, 255, 255));
-			//transactionsList.setBackground(new Color(0, 51, 0));
+			transactionsList.setForeground(new Color(255, 255, 255));
+			transactionsList.setBackground(new Color(0, 51, 0));
 			transactionsList.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
 			transactionsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			transactionsList.setBounds(0, 0, 645, 297); //Should start at zero, zero
 			
 			//Add the stuff
-			//scrollPane.add(transactionsList);
 			scrollPane.setViewportView(transactionsList);
 			frame.getContentPane().add(scrollPane);	
 		}
