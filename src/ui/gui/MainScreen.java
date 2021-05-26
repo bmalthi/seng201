@@ -61,7 +61,7 @@ public class MainScreen extends Screen {
 		lblHelloTrader.setForeground(Color.WHITE);
 		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 17));
 		lblHelloTrader.setBackground(new Color(0, 0, 128));
-		lblHelloTrader.setBounds(20, 54, 704, 119);
+		lblHelloTrader.setBounds(20, 54, 704, 125);
 		frame.getContentPane().add(lblHelloTrader);
 		
 		// Button to view game status

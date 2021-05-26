@@ -10,8 +10,11 @@ import main.PricedItem;
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+
 import java.awt.Font;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -68,6 +71,12 @@ public class ViewIslandBuysItem extends Screen {
 		lblHelloTrader.setBounds(38, 40, 653, 104);
 		container.getContentPane().add(lblHelloTrader);
 		
+		// Create the scroll pane
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(42, 172, 498, 333);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<String> buyListModel = new DefaultListModel<String>();
 		
@@ -81,12 +90,12 @@ public class ViewIslandBuysItem extends Screen {
 		buyItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
 		buyItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		buyItemList.setBounds(42, 172, 498, 333);
-		//JScrollPane scrollPane = new JScrollPane(buyItemList);
-		//buyItemList.add(scrollPane, BorderLayout.CENTER);
-		//buyItemList.setVisibleRowCount(7);
-		container.getContentPane().add(buyItemList);
 
 		buyItemList.getSelectedValue();
+		
+		//Add the scroll pane
+		scrollPane.setViewportView(buyItemList);
+		container.getContentPane().add(scrollPane);	
 		
 		// Get images of the store
 		JLabel lblStoreImage = new JLabel("");

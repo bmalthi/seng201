@@ -111,8 +111,6 @@ public class SetSailingIsland extends Screen {
 		routeList.setBackground(new Color(0, 0, 128));
 		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		routeList.setBounds(0, 0, 732, 166);
-		frame.getContentPane().add(routeList);
 		
 		//Add the stuff
 		scrollPane.setViewportView(routeList);

@@ -69,7 +69,7 @@ public class ViewIslandRoutes extends Screen {
 		lblHelloTrader.setBackground(new Color(0, 128, 128));
 		lblHelloTrader.setBounds(27, 48, 653, 104);
 		frame.getContentPane().add(lblHelloTrader);
-		
+
 		// Create a Custom ListModel to store the items in the JList
 		Island viewIsland = islandTrader.getUI().getViewIsland();
 		List<Route> routes = getManager().getWorld().getRoutes(getManager().getWorld().getCurrentIsland(), viewIsland);
@@ -101,14 +101,13 @@ public class ViewIslandRoutes extends Screen {
 		routeList.setLayoutOrientation(JList.VERTICAL);
 		routeList.setForeground(new Color(255, 255, 255));
 		routeList.setBackground(new Color(85, 107, 47));
-		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		routeList.setBounds(0, 0, 732, 118);
-		
-		//Add the stuff
 		scrollPane.setViewportView(routeList);
-		frame.getContentPane().add(scrollPane);		
+		frame.getContentPane().add(scrollPane);	
 		
+		// Button to back to Island Properties
 		JButton btnBackToIslandProperties = new JButton("Back to Island Properties");
 		btnBackToIslandProperties.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
