@@ -30,16 +30,6 @@ public class IslandProperties extends Screen {
 	public IslandProperties(IslandTrader islandTrader) {
 		super("Island Properties", islandTrader);
 	}
-
-//	/**
-//	 * This is only here because WindowBuilder needs a JFrame
-//	 * to be created within this file to allow us to edit the GUI
-//	 * 
-//	 * @wbp.parser.entryPoint
-//	 */
-//	protected void initialiseForWindowBuilder() {
-//		initialise(new JFrame());
-//	}
 	
 	/**
 	 * Initialize the contents of the container, which include:s

@@ -35,17 +35,6 @@ public class ViewIslandSellsItem extends Screen {
 		super(islandTrader.getUI().getViewIsland().getName()+" buys the following items", islandTrader);		
 	}
 	
-//	/**
-//	 * This is only here because WindowBuilder needs a JFrame
-//	 * to be created within this file to allow us to edit the GUI
-//	 * 
-//	 * @wbp.parser.entryPoint
-//	 */
-//	protected void initialiseForWindowBuilder() {
-//		frame_1 = new JFrame();
-//		initialise(frame_1);
-//	}
-	
 	/**
 	 * Initialize the contents of the frame, which include:
  	 * list of items for the user to view
