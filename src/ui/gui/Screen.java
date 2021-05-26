@@ -40,7 +40,8 @@ public abstract class Screen {
     protected void initialise(final String title) {
     	((Gui)this.islandTrader.getUI()).setScreen(this);
         frame = new JFrame();
-        frame.setTitle(title);
+        frame.setTitle(title);      
+        frame.setDefaultCloseOperation(JFrame. DO_NOTHING_ON_CLOSE);
 
         // Prevent the frame from closing immediately when the user clicks the close button.
         // Instead we add a WindowListener so we can tell our rocket manager that the user

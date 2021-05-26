@@ -57,7 +57,6 @@ public class ViewIslandBuysItem extends Screen {
 	protected void initialise(final JFrame container) {
 		container.getContentPane().setBackground(new Color(47, 79, 79));
 		container.setBounds(100, 100, 785, 582);
-		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		container.getContentPane().setLayout(null);
 		
 		// Introduce the screen

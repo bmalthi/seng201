@@ -49,8 +49,10 @@ public class ViewIslandRoutes extends Screen {
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
+		frame.setBackground(new Color(47, 79, 79));
+		frame.setBounds(100, 100, 785, 582);			
 		frame.getContentPane().setBackground(new Color(47, 79, 79));
-		frame.getContentPane().setLayout(null);
+		frame.getContentPane().setLayout(null);	
 		
 		// Labels to introduce the screen
 		JTextArea lblHelloTrader = new JTextArea("Hello " +getManager().getPlayer()+"! Is it time to go?\n\nHere are all routes available to " +islandTrader.getUI().getViewIsland());
@@ -87,11 +89,6 @@ public class ViewIslandRoutes extends Screen {
 		});
 		btnBackToIslandProperties.setBounds(298, 428, 189, 75);
 		frame.getContentPane().add(btnBackToIslandProperties);
-		
-		frame.setBackground(new Color(47, 79, 79));
-		frame.setBounds(100, 100, 785, 582);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 	}
 	
 	/**

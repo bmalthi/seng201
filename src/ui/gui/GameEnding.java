@@ -41,6 +41,7 @@ public class GameEnding extends Screen {
 	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
 		frame.getContentPane().setLayout(null);
+		frame.setBounds(100, 100, 785, 582);
 		
 		// Get the ship information
 		JTextArea lblDaysPlayed = new JTextArea("You played for " + getManager().getTime() + " days, our of " + getManager().getGameLength());
@@ -83,8 +84,7 @@ public class GameEnding extends Screen {
 		txtrGameStatus.setBounds(240, 112, 280, 47);
 		frame.getContentPane().add(txtrGameStatus);
 		frame.setBackground(new Color(47, 79, 79));
-		frame.setBounds(100, 100, 785, 582);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	}
 
 }

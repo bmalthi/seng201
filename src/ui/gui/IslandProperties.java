@@ -50,6 +50,7 @@ public class IslandProperties extends Screen {
 		ButtonGroup buttonGroup  = new ButtonGroup();
 		frame.getContentPane().setBackground(new Color(240, 230, 140));
 		frame.getContentPane().setLayout(null);
+		frame.setBounds(100, 100, 785, 582);		
 		
 		// Some labels to introduce the screen
 		JTextArea lblHelloTrader = new JTextArea("Hello " +getManager().getPlayer() +"! How's the sailing going? Hope it is going all well and you haven't seen any pirates yet!\n");
@@ -209,7 +210,6 @@ public class IslandProperties extends Screen {
 		lblUserChoice.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblUserChoice.setBounds(20, 316, 454, 38);
 		frame.getContentPane().add(lblUserChoice);
-		frame.setBounds(100, 100, 785, 582);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	}
 }

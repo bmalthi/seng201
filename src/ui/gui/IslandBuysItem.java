@@ -54,7 +54,6 @@ public class IslandBuysItem extends Screen {
 		//buyItems = new ArrayList<PricedItem>();
 		frame.getContentPane().setBackground(new Color(47, 79, 79));
 		frame.setBounds(100, 100, 785, 582);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		// Introduce the screen

@@ -47,6 +47,7 @@ public class PastPurchases extends Screen {
 	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(85, 107, 47));
 		frame.getContentPane().setLayout(null);
+		frame.setBounds(100, 100, 785, 582);		
 		
 		// Button to back to main screen
 		JButton btnBackToMainMenu = new JButton("Back to main menu");
@@ -102,7 +103,6 @@ public class PastPurchases extends Screen {
 			transactionsList.setBounds(78, 159, 645, 297);
 			frame.getContentPane().add(transactionsList);
 		}
-		frame.setBounds(100, 100, 785, 582);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	}
 }

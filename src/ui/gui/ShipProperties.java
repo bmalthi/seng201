@@ -44,6 +44,7 @@ public class ShipProperties extends Screen {
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
+		frame.setBounds(100, 100, 785, 582);		
 		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.getContentPane().setLayout(null);
 		
@@ -80,11 +81,6 @@ public class ShipProperties extends Screen {
 		lblProfit.setBackground(new Color(135, 206, 250));
 		lblProfit.setBounds(32, 166, 732, 266);
 		frame.getContentPane().add(lblProfit);
-	
-		
-		frame.setBounds(100, 100, 785, 582);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
+
 	}
 }
