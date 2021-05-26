@@ -177,44 +177,44 @@ public class World {
 		 * Routes - create routes from an island to another 
 		 * with some events that may occur (depend on the probability) 
 		 */		
-		Route route12 = new Route(5, island1, island2, this);
+		Route route12 = new Route(4, island1, island2, this);
 		route12.addEvent(new RescueSailors(20));
 		route12.addEvent(new UnfortunateWeather(70));
 		routes.add(route12);		
 		
-		Route route13 = new Route(10, island1, island3, this);
+		Route route13 = new Route(7, island1, island3, this);
 		route13.addEvent(new RescueSailors(80));
 		routes.add(route13);
 		
-		Route route14 = new Route(10, island1, island4, this);
+		Route route14 = new Route(7, island1, island4, this);
 		route14.addEvent(new UnfortunateWeather(60));
 		routes.add(route14);
 		
-		Route route15 = new Route(15, island1, island5, this);
+		Route route15 = new Route(10, island1, island5, this);
 		route15.addEvent(new RescueSailors(30));
 		route15.addEvent(new PiratesEncounter(40));	
 		routes.add(route15);
 		
-		Route route15B = new Route(30, island1, island5, this);
+		Route route15B = new Route(20, island1, island5, this);
 		route15B.addEvent(new RescueSailors(30));
 		route15B.addEvent(new PiratesEncounter(80));	
 		routes.add(route15B);		
 		
-		Route route23= new Route(10, island2, island3, this);
+		Route route23= new Route(7, island2, island3, this);
 		route23.addEvent(new UnfortunateWeather(80));
 		routes.add(route23);
 		
-		Route route24 = new Route(10, island2, island4, this);
+		Route route24 = new Route(7, island2, island4, this);
 		route24.addEvent(new UnfortunateWeather(100));
 		routes.add(route24);
 		
-		Route route25 = new Route(10, island2, island5, this);
+		Route route25 = new Route(7, island2, island5, this);
 		route25.addEvent(new UnfortunateWeather(20));
 		route25.addEvent(new RescueSailors(30));
 		route25.addEvent(new PiratesEncounter(60));
 		routes.add(route25);
 		
-		Route route25B = new Route(40, island2, island5, this);
+		Route route25B = new Route(25, island2, island5, this);
 		route25B.addEvent(new UnfortunateWeather(40));
 		route25B.addEvent(new RescueSailors(80));
 		routes.add(route25B);		
@@ -223,13 +223,13 @@ public class World {
 		route34.addEvent(new UnfortunateWeather(20));
 		routes.add(route34);
 		
-		Route route35 = new Route(10, island3, island5, this);
+		Route route35 = new Route(8, island3, island5, this);
 		route35.addEvent(new UnfortunateWeather(90));
 		route35.addEvent(new RescueSailors(10));
 		route35.addEvent(new PiratesEncounter(50));
 		routes.add(route35);
 		
-		Route route45 = new Route(20, island4, island5, this);
+		Route route45 = new Route(15, island4, island5, this);
 		route45.addEvent(new UnfortunateWeather(90));
 		route45.addEvent(new PiratesEncounter(30));
 		routes.add(route45);				
@@ -247,7 +247,7 @@ public class World {
 		ship2.getStorageBays().add(new StorageList("Upgradable", 1, ItemType.UPGRADE));		
 		ships.add(ship2);
 		
-		Ship ship3 = new Ship("Steel Skull", 6, 1, 20);
+		Ship ship3 = new Ship("Steel Skull", 6, 2, 20);
 		ship3.getStorageBays().add(new StorageList("Cargo Hold 1", 20, ItemType.CARGO));	
 		ship3.getStorageBays().add(new StorageList("Cannon Bay 1", 2, ItemType.WEAPON));
 		ship3.getStorageBays().add(new StorageList("Upgradable", 1, ItemType.UPGRADE));		
