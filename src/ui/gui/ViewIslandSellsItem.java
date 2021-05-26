@@ -58,7 +58,7 @@ public class ViewIslandSellsItem extends Screen {
 		frame.getContentPane().setLayout(null);
 		
 		// Introduce the screen
-		JTextArea lblHelloTrader = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island sells:");
+		JTextArea lblHelloTrader = new JTextArea("Hello " +getManager().getPlayer() +"!\nHave you experienced some cool things in this island?\n\nHere are items that this island sells: (* you can buy)");
 		lblHelloTrader.setLineWrap(true);
 		lblHelloTrader.setForeground(new Color(255, 255, 255));
 		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
@@ -119,6 +119,7 @@ public class ViewIslandSellsItem extends Screen {
 	
 	/**
 	 * Refreshes the list of items after a successful sale
+
 	 */	
 	private void refreshList(DefaultListModel<String> sellListModel) {
 		Island viewIsland = islandTrader.getUI().getViewIsland();	

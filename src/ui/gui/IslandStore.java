@@ -54,10 +54,10 @@ public class IslandStore extends Screen {
 		txtrStoreWelcome.setForeground(Color.WHITE);
 		txtrStoreWelcome.setFont(new Font("Holiday Sun", Font.PLAIN, 24));
 		txtrStoreWelcome.setBackground(new Color(184, 134, 11));
-		txtrStoreWelcome.setBounds(19, 19, 286, 40);
+		txtrStoreWelcome.setBounds(19, 19, 350, 40);
 		frame.getContentPane().add(txtrStoreWelcome);
 		
-		JTextArea lblHelloTrader = new JTextArea("Hello trader! How's your adventure going so far? \n\nThis is the Island's store, where you can buy awesome items and sell your cool items. \n\n\n\n");
+		JTextArea lblHelloTrader = new JTextArea("Hello " +getManager().getPlayer() +"! How's your adventure going so far? \n\nThis is the Island's store, where you can buy awesome items and sell your cool items. \n\n\n\n");
 		lblHelloTrader.setLineWrap(true);
 		lblHelloTrader.setForeground(Color.WHITE);
 		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 17));

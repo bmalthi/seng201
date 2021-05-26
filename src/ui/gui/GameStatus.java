@@ -47,12 +47,19 @@ public class GameStatus extends Screen {
 		frame.getContentPane().setLayout(null);
 		
 		// Set up introduction for the screen
-		JTextArea txtrHelloTrader = new JTextArea("Hey trader! How are you doing? \n");
+		JTextArea txtrHelloTrader = new JTextArea("Hello " +getManager().getPlayer() +"! How are you doing? \n");
 		txtrHelloTrader.setForeground(Color.WHITE);
 		txtrHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		txtrHelloTrader.setBackground(new Color(70, 130, 180));
-		txtrHelloTrader.setBounds(19, 36, 324, 37);
+		txtrHelloTrader.setBounds(19, 36, 450, 37);
 		frame.getContentPane().add(txtrHelloTrader);
+		
+		JTextArea txtGameStatus = new JTextArea("Here is the game status:");
+		txtGameStatus.setForeground(Color.WHITE);
+		txtGameStatus.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		txtGameStatus.setBackground(new Color(70, 130, 180));
+		txtGameStatus.setBounds(19, 85, 450, 37);
+		frame.getContentPane().add(txtGameStatus);		
 		
 		JLabel lblBalanceRemaining = new JLabel("You currently have " + getManager().getPlayer().getBalance() + " dollars.");
 		lblBalanceRemaining.setBackground(new Color(70, 130, 180));
@@ -76,14 +83,7 @@ public class GameStatus extends Screen {
 			}
 		});
 		btnBackToMainMenu.setBounds(311, 395, 174, 68);
-		frame.getContentPane().add(btnBackToMainMenu);
-		
-		JTextArea txtGameStatus = new JTextArea("Here is the game status:");
-		txtGameStatus.setForeground(Color.WHITE);
-		txtGameStatus.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		txtGameStatus.setBackground(new Color(70, 130, 180));
-		txtGameStatus.setBounds(19, 85, 324, 37);
-		frame.getContentPane().add(txtGameStatus);
+		frame.getContentPane().add(btnBackToMainMenu);		
 		
 		// Get the profit value, days remaining and game score
 		int[] profitvalue = getManager().getPlayer().getProfitValue();

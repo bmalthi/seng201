@@ -58,7 +58,7 @@ public class IslandBuysItem extends Screen {
 		frame.getContentPane().setLayout(null);
 		
 		// Introduce the screen
-		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island buys:");
+		JTextArea lblNewLabel_1_1 = new JTextArea("Hello " +getManager().getPlayer() +"!\nHave you experienced some cool things in this island?\n\nHere are items that this island buys: (* you can sell)");
 		lblNewLabel_1_1.setLineWrap(true);
 		lblNewLabel_1_1.setForeground(Color.WHITE);
 		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
@@ -106,6 +106,7 @@ public class IslandBuysItem extends Screen {
 	
 	/**
 	 * Refreshes the list of items after a successful purchase
+	 * @param buyListModel, the UI list of items to be refreshed
 	 */	
 	private void refreshList(DefaultListModel<String> buyListModel) {
 		buyListModel.removeAllElements();

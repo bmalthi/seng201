@@ -52,7 +52,7 @@ public class IslandProperties extends Screen {
 		frame.getContentPane().setLayout(null);
 		
 		// Some labels to introduce the screen
-		JTextArea lblHelloTrader = new JTextArea("Hello trader! How's the sailing going? Hope it is going all well \nand you haven't seen any pirates yet!\n");
+		JTextArea lblHelloTrader = new JTextArea("Hello " +getManager().getPlayer() +"! How's the sailing going? Hope it is going all well and you haven't seen any pirates yet!\n");
 		lblHelloTrader.setBounds(20, 27, 653, 63);
 		lblHelloTrader.setLineWrap(true);
 		lblHelloTrader.setForeground(new Color(0, 0, 0));

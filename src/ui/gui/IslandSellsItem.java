@@ -48,7 +48,7 @@ public class IslandSellsItem extends Screen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JTextArea lblHelloTrader = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island sells:");
+		JTextArea lblHelloTrader = new JTextArea("Hello " +getManager().getPlayer() +"!\nHave you experienced some cool things in this island?\n\nHere are items that this island sells: (* you can buy)");
 		lblHelloTrader.setLineWrap(true);
 		lblHelloTrader.setForeground(new Color(255, 255, 255));
 		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
@@ -101,6 +101,7 @@ public class IslandSellsItem extends Screen {
 	
 	/**
 	 * Refreshes the list of items after a successful sale
+	 * @param sellListModel, the UI list of items to be refreshed
 	 */	
 	private void refreshList(DefaultListModel<String> sellListModel) {
 		sellListModel.removeAllElements();

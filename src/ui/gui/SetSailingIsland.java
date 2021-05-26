@@ -2,6 +2,7 @@ package ui.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
+
 import main.IslandTrader;
 import main.Route;
 import java.awt.Color;
@@ -11,6 +12,8 @@ import java.awt.Font;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 /**
@@ -35,8 +38,8 @@ public class SetSailingIsland extends Screen {
 // 	 * @wbp.parser.entryPoint
 // 	 */
 // 	protected void initialiseForWindowBuilder() {
-// 		frame_1 = new JFrame();
-// 		initialise(frame_1);
+// 		JFrame frame = new JFrame();
+// 		initialise(frame);
 // 	}
  	
 	/**
@@ -46,40 +49,39 @@ public class SetSailingIsland extends Screen {
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
-//		List<Route> routes = getManager().getWorld().getRoutesFromCurrent();
 		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.setBackground(new Color(135, 206, 250));
 		frame.getContentPane().setForeground(new Color(135, 206, 250));
 		frame.getContentPane().setLayout(null);
 		
 		// Introduce the screen
-		JTextArea lblHelloTrader = new JTextArea("Hello trader! Are you ready to explore the next island?\n\n");
+		JTextArea lblHelloTrader = new JTextArea("Hello " +getManager().getPlayer() +"!\nAre you ready to explore the next island?");
 		lblHelloTrader.setLineWrap(true);
 		lblHelloTrader.setForeground(Color.WHITE);
 		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblHelloTrader.setBackground(new Color(65, 105, 225));
-		lblHelloTrader.setBounds(28, 37, 503, 47);
+		lblHelloTrader.setBounds(28, 37, 500, 60);
 		frame.getContentPane().add(lblHelloTrader);
 		
 		// Get the route that the player wants to go
-		JTextArea lblWhereToGo = new JTextArea("Where do you want to go?");
+		JTextArea lblWhereToGo = new JTextArea("Where do you want to go?(* you can do)");
 		lblWhereToGo.setLineWrap(true);
 		lblWhereToGo.setForeground(Color.WHITE);
 		lblWhereToGo.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblWhereToGo.setBackground(new Color(65, 105, 225));
-		lblWhereToGo.setBounds(28, 112, 249, 47);
+		lblWhereToGo.setBounds(28, 112, 249, 60);
 		frame.getContentPane().add(lblWhereToGo);
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// Create a ListModel to store the items in the JList
-		DefaultListModel<Route> routeListModel = new DefaultListModel<>();
-				
+		DefaultListModel<String> routeListModel = new DefaultListModel<>();
+		
 		// Add the existing items to the List Model
-		routeListModel.addAll(getManager().getWorld().getRoutesFromCurrent());
-				
+		refreshList(routeListModel);
+		
 		// Create the JList
-		JList<Route> routeList = new JList<Route>(routeListModel);
+		JList<String> routeList = new JList<String>(routeListModel);
 		routeList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		routeList.setForeground(new Color(255, 255, 255));
 		routeList.setBackground(new Color(0, 0, 128));
@@ -113,4 +115,14 @@ public class SetSailingIsland extends Screen {
 		frame.getContentPane().add(btnBackToMainMenu);
 	}
 
+	/**
+	 * Refreshes the list of routes available
+	 * @param routeListModel, the routeListModel to update with new routes
+	 */	
+	private void refreshList(DefaultListModel<String> routeListModel) {
+		routeListModel.removeAllElements();
+		List<Route> routeList = getManager().getWorld().getRoutesFromCurrent();
+		ArrayList<String> itemListStrings = ((Gui)islandTrader.getUI()).routeStringList(routeList, true);
+		routeListModel.addAll(itemListStrings);
+	}		
 }	

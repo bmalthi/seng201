@@ -270,7 +270,7 @@ public class Gui implements IslandTraderUI {
     
 	/**
 	 * Helper method to take a list of objects and format them in list form to display to the user.
-	 * Can add a 1 based counter and also can validate if this user can purchase / action the item
+	 * validate if this user can purchase / action the item
 	 * @param list, the list of objects to convert into a string list (using toString method)
 	 * @param validate, boolean do we want to validate the item and indicate to the user validation
 	 * @return List of strings for the input list
@@ -289,5 +289,25 @@ public class Gui implements IslandTraderUI {
 		}
 		return names;
 	}    
+	
+	/**
+	 * Helper method to take a list of Routes and format them in list form to display to the user.
+	 * validate if this user can sail this route
+	 * @param list, the list of objects to convert into a string list (using toString method)
+	 * @param validate, boolean do we want to validate the item and indicate to the user validation 
+	 * @return ArrayList<String> of the route list input 
+	 */	
+	public ArrayList<String> routeStringList(List<?> list, boolean validate) {		
+		ArrayList<String> routes = stringList(list, validate);
+		String routeSuffix;
+		Route route;
+		for (int i = 0; i < routes.size(); i++) {
+			route = (Route) list.get(i);
+			// For each route add a suffix with more detail for the user
+			routeSuffix = "\n  This route is " +route.getDistance() +"km. It will take you " +islandTrader.getPlayer().getShip().sailingDays(route) +" days\n"; 
+			routes.set(i, routes.get(i) + routeSuffix);
+		}
+		return routes;		
+	}		
 	
 }

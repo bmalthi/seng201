@@ -61,18 +61,18 @@ public class PastPurchases extends Screen {
 		frame.getContentPane().add(btnBackToMainMenu);
 		
 		// Some labels to introduce the screen
-		JTextArea txtrHelloTrader = new JTextArea("Hey trader! How are your jouney going?\n");
+		JTextArea txtrHelloTrader = new JTextArea("Hey " +getManager().getPlayer() +"! How is your jouney going?\n");
 		txtrHelloTrader.setForeground(Color.WHITE);
 		txtrHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
 		txtrHelloTrader.setBackground(new Color(47, 79, 79));
-		txtrHelloTrader.setBounds(33, 33, 462, 44);
+		txtrHelloTrader.setBounds(19, 33, 550, 44);
 		frame.getContentPane().add(txtrHelloTrader);
 		
 		JTextArea txtrPurchasesInfo = new JTextArea("Here are all your purchases and sales:\n");
 		txtrPurchasesInfo.setForeground(Color.WHITE);
 		txtrPurchasesInfo.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
 		txtrPurchasesInfo.setBackground(new Color(47, 79, 79));
-		txtrPurchasesInfo.setBounds(33, 89, 462, 44);
+		txtrPurchasesInfo.setBounds(19, 89, 550, 44);
 		frame.getContentPane().add(txtrPurchasesInfo);
 		
 		// Get a list of available transactions 

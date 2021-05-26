@@ -52,12 +52,12 @@ public class ShipProperties extends Screen {
 		shipImage.setBounds(603, 401, 176, 169);
 		frame.getContentPane().add(shipImage);
 		
-		JTextArea lblHelloTrader = new JTextArea("Hello trader! How's your adventure going so far? \nDid you find any cool items from the island's store?\n\nHere is your ship properties: \n");
+		JTextArea lblHelloTrader = new JTextArea("Hello " +getManager().getPlayer() +"! How's your adventure going so far? \nDid you find any cool items from the island's store?\n\nHere is your ship properties: \n");
 		lblHelloTrader.setLineWrap(true);
 		lblHelloTrader.setForeground(new Color(255, 255, 255));
 		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
 		lblHelloTrader.setBackground(new Color(70, 130, 180));
-		lblHelloTrader.setBounds(32, 27, 649, 127);
+		lblHelloTrader.setBounds(32, 27, 700, 127);
 		frame.getContentPane().add(lblHelloTrader);
 		
 		// Button to back to main screen
@@ -76,7 +76,7 @@ public class ShipProperties extends Screen {
 		JTextArea lblProfit = new JTextArea(getManager().getPlayer().getShip().description());
 		lblProfit.setLineWrap(true);
 		lblProfit.setForeground(new Color(0, 0, 128));
-		lblProfit.setFont(new Font("iCiel Brush Up", Font.PLAIN, 21));
+		lblProfit.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
 		lblProfit.setBackground(new Color(135, 206, 250));
 		lblProfit.setBounds(32, 166, 732, 266);
 		frame.getContentPane().add(lblProfit);

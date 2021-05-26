@@ -72,7 +72,7 @@ public class GameEnding extends Screen {
 		txtrThankYou.setForeground(Color.WHITE);
 		txtrThankYou.setFont(new Font("iCiel Brush Up", Font.PLAIN, 23));
 		txtrThankYou.setBackground(new Color(165, 42, 42));
-		txtrThankYou.setBounds(274, 368, 225, 47);
+		txtrThankYou.setBounds(240, 368, 280, 47);
 		frame.getContentPane().add(txtrThankYou);
 		
 		JTextArea txtrGameStatus = new JTextArea("FINISH THE JOURNEY");
@@ -80,7 +80,7 @@ public class GameEnding extends Screen {
 		txtrGameStatus.setForeground(Color.WHITE);
 		txtrGameStatus.setFont(new Font("iCiel Brush Up", Font.PLAIN, 27));
 		txtrGameStatus.setBackground(new Color(165, 42, 42));
-		txtrGameStatus.setBounds(277, 112, 210, 47);
+		txtrGameStatus.setBounds(240, 112, 280, 47);
 		frame.getContentPane().add(txtrGameStatus);
 		frame.setBackground(new Color(47, 79, 79));
 		frame.setBounds(100, 100, 785, 582);

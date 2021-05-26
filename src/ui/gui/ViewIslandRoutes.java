@@ -13,6 +13,9 @@ import javax.swing.ListSelectionModel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JList;
 
 /**
@@ -29,15 +32,15 @@ public class ViewIslandRoutes extends Screen {
 		super("View Routes from " + islandTrader.getWorld().getCurrentIsland() +" to " +islandTrader.getUI().getViewIsland(), islandTrader);
 	}
 
-//	/**
-//	 * This is only here because WindowBuilder needs a JFrame
-//	 * to be created within this file to allow us to edit the GUI
-//	 * 
-//	 * @wbp.parser.entryPoint
-//	 */
-//	protected void initialiseForWindowBuilder() {
-//		initialise(new JFrame());
-//	}
+	/**
+	 * This is only here because WindowBuilder needs a JFrame
+	 * to be created within this file to allow us to edit the GUI
+	 * 
+	 * @wbp.parser.entryPoint
+	 */
+	protected void initialiseForWindowBuilder() {
+		initialise(new JFrame());
+	}
 	
 	/**
 	 * Initialize the contents of the frame, which include:
@@ -46,13 +49,11 @@ public class ViewIslandRoutes extends Screen {
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
-		Island viewIsland = islandTrader.getUI().getViewIsland();
-
 		frame.getContentPane().setBackground(new Color(47, 79, 79));
 		frame.getContentPane().setLayout(null);
 		
 		// Labels to introduce the screen
-		JTextArea lblHelloTrader = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are all routes avaiable to " +islandTrader.getUI().getViewIsland());
+		JTextArea lblHelloTrader = new JTextArea("Hello " +getManager().getPlayer()+"! Is it time to go?\n\nHere are all routes available to " +islandTrader.getUI().getViewIsland());
 		lblHelloTrader.setLineWrap(true);
 		lblHelloTrader.setForeground(Color.WHITE);
 		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
@@ -61,13 +62,13 @@ public class ViewIslandRoutes extends Screen {
 		frame.getContentPane().add(lblHelloTrader);
 		
 		// Create a ListModel to store the items in the JList
-		DefaultListModel<Route> routeListModel = new DefaultListModel<>();
+		DefaultListModel<String> routeListModel = new DefaultListModel<>();
 		
 		// Add the existing items to the List Model
-		routeListModel.addAll(getManager().getWorld().getRoutes(getManager().getWorld().getCurrentIsland(), viewIsland));
+		refreshList(routeListModel);
 		
 		// Create the JList
-		JList<Route> routeList = new JList<Route>(routeListModel);
+		JList<String> routeList = new JList<String>(routeListModel);
 		routeList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		routeList.setForeground(new Color(255, 255, 255));
 		routeList.setBackground(new Color(85, 107, 47));
@@ -92,5 +93,17 @@ public class ViewIslandRoutes extends Screen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
+	
+	/**
+	 * Refreshes the list of routes available
+	 * @param routeListModel, the routeListModel to update with new routes
+	 */	
+	private void refreshList(DefaultListModel<String> routeListModel) {
+		Island viewIsland = islandTrader.getUI().getViewIsland();
+		routeListModel.removeAllElements();
+		List<Route> routeList = getManager().getWorld().getRoutes(getManager().getWorld().getCurrentIsland(), viewIsland);
+		ArrayList<String> itemListStrings = ((Gui)islandTrader.getUI()).routeStringList(routeList, true);
+		routeListModel.addAll(itemListStrings);
+	}		
 
 }
