@@ -23,7 +23,6 @@ import javax.swing.JScrollPane;
  *
  */
 public class PastPurchases extends Screen {
-	private JFrame frame_1;
 	/**
 	 * Create the application.
   	 * @param islandTrader, the game manager 
@@ -31,17 +30,6 @@ public class PastPurchases extends Screen {
 	public PastPurchases(IslandTrader islandTrader) {
 		super("View Past Purchases and Sales", islandTrader);
 	}
-
-//	/**
-// 	 * This is only here because WindowBuilder needs a JFrame
-// 	 * to be created within this file to allow us to edit the GUI
-// 	 *
-// 	 * @wbp.parser.entryPoint
-// 	 */
-// 	protected void initialiseForWindowBuilder() {
-// 		frame_1 = new JFrame();
-// 		initialise(frame_1);
-// 	}
   
   /**
 	 * Initialize the contents of the frame, which include:

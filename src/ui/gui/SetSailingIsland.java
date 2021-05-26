@@ -7,12 +7,16 @@ import javax.swing.JScrollPane;
 import main.IslandTrader;
 import main.Route;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 
 import java.awt.Font;
-import javax.swing.DefaultListModel;
+
+import javax.swing.AbstractListModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -75,30 +79,42 @@ public class SetSailingIsland extends Screen {
 		lblWhereToGo.setBounds(28, 112, 500, 40);
 		frame.getContentPane().add(lblWhereToGo);
 		
-		// Create the scroll pane
+		// Create a Custom ListModel to store the items in the JList
+		List<Route> routes = getManager().getWorld().getRoutesFromCurrent();
+		ArrayList<String> routeListStrings = ((Gui)islandTrader.getUI()).routeStringList(routes, true);
+		
+		@SuppressWarnings("serial")
+		AbstractListModel<String> routeListModel = new AbstractListModel<String>() {
+	        @Override
+	        public int getSize() {
+	            return routeListStrings.size();
+	        }
+
+	        @Override
+	        public String getElementAt(int index) {
+	            return routeListStrings.get(index);
+	        }
+	    };
+		//And a custom renderer to do the linebreaks in HTML
+	    MyRouteRenderer cellRenderer = new MyRouteRenderer();
+		
+		// Create the scrollPane
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(42, 172, 498, 333);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
-		// Create a ListModel to store the items in the JList
-		DefaultListModel<String> routeListModel = new DefaultListModel<>();
-		
-		// Add the existing items to the List Model
-		refreshList(routeListModel);
+		scrollPane.setBounds(27, 190, 732, 250);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		
 		// Create the JList
 		JList<String> routeList = new JList<String>(routeListModel);
-		routeList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		routeList.setCellRenderer(cellRenderer);
+		routeList.setLayoutOrientation(JList.VERTICAL);
 		routeList.setForeground(new Color(255, 255, 255));
 		routeList.setBackground(new Color(0, 0, 128));
 		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		routeList.setBounds(27, 219, 732, 166);
 		
-		//Add the scroll pane
+		//Add the stuff
 		scrollPane.setViewportView(routeList);
-		frame.getContentPane().add(scrollPane);	
+		frame.getContentPane().add(scrollPane);			
 		
 		// Button to start sailing
 		JButton btnSailing = new JButton("Let's set sailing!");
@@ -126,13 +142,19 @@ public class SetSailingIsland extends Screen {
 	}
 
 	/**
-	 * Refreshes the list of routes available
-	 * @param routeListModel, the routeListModel to update with new routes
-	 */	
-	private void refreshList(DefaultListModel<String> routeListModel) {
-		routeListModel.removeAllElements();
-		List<Route> routeList = getManager().getWorld().getRoutesFromCurrent();
-		ArrayList<String> itemListStrings = ((Gui)islandTrader.getUI()).routeStringList(routeList, true);
-		routeListModel.addAll(itemListStrings);
-	}		
+	 * Override the List Renderer so that it prints HTML in each cell with line breaks
+	 */
+	@SuppressWarnings("serial")	
+	private class MyRouteRenderer extends DefaultListCellRenderer {
+
+		  public MyRouteRenderer() {
+		  }
+
+		  @Override
+		  public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+		    String text = "<html>" + value.toString().replaceAll("\n", "<br/>") + "<br/></html>";
+		    return super.getListCellRendererComponent(list, text, index, isSelected, cellHasFocus);
+		  }
+
+	}
 }	
