@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 26, 2021 10:06:49 AM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package main;
+
+import javax.swing.SwingUtilities;
+import ui.gui.Gui;
+import ui.IslandTraderUI;
+import ui.cmd.MainCmdUI;
+
+/**
+ * The main method of the game
+ * Be default loads the gui, but will load the cmd line if &quot;cmd&quot; is passed as cmd line arguments
+ *
+ */
+<span class="nc" id="L13">public class Main {</span>
+
+	/**
+	 * Main method to run the game, chooses between gui (default) and cmd ui if
+	 * cmd is passed as arg
+	 * 
+	 * @param args is the args to pass to the app
+	 */
+	public static void main(String[] args) {
+
+        IslandTraderUI ui;		
+        
+<span class="nc bnc" id="L25" title="All 4 branches missed.">        if (args.length &gt; 0 &amp;&amp; (args[0].equals(&quot;cmd&quot;))) {</span>
+        	//START CMD LINE        	
+<span class="nc" id="L27">            ui = new MainCmdUI();</span>
+<span class="nc" id="L28">            IslandTrader islandTrader = new IslandTrader(ui);</span>
+<span class="nc" id="L29">            islandTrader.start();	        	            </span>
+<span class="nc" id="L30">        } else {</span>
+        	//START GUI - DEFAULT
+<span class="nc" id="L32">            ui = new Gui();</span>
+<span class="nc" id="L33">            IslandTrader islandTrader = new IslandTrader(ui);</span>
+            
+            // Ensure the Island is started on the Swing event dispatch thread (EDT). To be thread safe,
+            // all swing code should run on this thread unless explicitly stated as being thread safe.
+<span class="nc" id="L37">            SwingUtilities.invokeLater(() -&gt; islandTrader.start());</span>
+        }
+<span class="nc" id="L39">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 26, 2021 10:06:49 AM)</div></body></html>

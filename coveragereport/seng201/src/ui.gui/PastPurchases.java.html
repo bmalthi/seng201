@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>PastPurchases.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 26, 2021 10:06:49 AM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">ui.gui</a> &gt; <span class="el_source">PastPurchases.java</span></div><h1>PastPurchases.java</h1><pre class="source lang-java linenums">package ui.gui;
+
+import javax.swing.JFrame;
+
+import main.IslandTrader;
+import main.PricedItem;
+import java.awt.Color;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
+import java.awt.Font;
+import javax.swing.JList;
+/**
+ * This class represents the screen after the user clicked the &quot;View Past Purchases and Sales&quot; button in Main Menu
+ * @author kvie
+ *
+ */
+public class PastPurchases extends Screen {
+	/**
+	 * Create the application.
+  	 * @param islandTrader, the game manager 
+	 */
+	public PastPurchases(IslandTrader islandTrader) {
+<span class="nc" id="L28">		super(&quot;View Past Purchases and Sales&quot;, islandTrader);</span>
+<span class="nc" id="L29">	}</span>
+
+//	/**
+// 	 * This is only here because WindowBuilder needs a JFrame
+// 	 * to be created within this file to allow us to edit the GUI
+// 	 *
+// 	 * @wbp.parser.entryPoint
+// 	 */
+// 	protected void initialiseForWindowBuilder() {
+// 		initialise(new JFrame());
+// 	}
+  
+  /**
+	 * Initialize the contents of the frame, which include:
+	 * a list of transactions (if exists) 
+	 * a &quot;Back To Main Menu&quot; button
+	 */
+	@Override
+	protected void initialise(final JFrame frame) {
+<span class="nc" id="L48">		frame.getContentPane().setBackground(new Color(85, 107, 47));</span>
+<span class="nc" id="L49">		frame.getContentPane().setLayout(null);</span>
+		
+		// Button to back to main screen
+<span class="nc" id="L52">		JButton btnBackToMainMenu = new JButton(&quot;Back to main menu&quot;);</span>
+<span class="nc" id="L53">		btnBackToMainMenu.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L55">				quit();</span>
+<span class="nc" id="L56">				Screen screen = new MainScreen(islandTrader);</span>
+<span class="nc" id="L57">		    	screen.show();</span>
+<span class="nc" id="L58">			}</span>
+		});
+<span class="nc" id="L60">		btnBackToMainMenu.setBounds(36, 484, 145, 44);</span>
+<span class="nc" id="L61">		frame.getContentPane().add(btnBackToMainMenu);</span>
+		
+		// Some labels to introduce the screen
+<span class="nc" id="L64">		JTextArea txtrHelloTrader = new JTextArea(&quot;Hey trader! How are your jouney going?\n&quot;);</span>
+<span class="nc" id="L65">		txtrHelloTrader.setForeground(Color.WHITE);</span>
+<span class="nc" id="L66">		txtrHelloTrader.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 22));</span>
+<span class="nc" id="L67">		txtrHelloTrader.setBackground(new Color(47, 79, 79));</span>
+<span class="nc" id="L68">		txtrHelloTrader.setBounds(33, 33, 462, 44);</span>
+<span class="nc" id="L69">		frame.getContentPane().add(txtrHelloTrader);</span>
+		
+<span class="nc" id="L71">		JTextArea txtrPurchasesInfo = new JTextArea(&quot;Here are all your purchases and sales:\n&quot;);</span>
+<span class="nc" id="L72">		txtrPurchasesInfo.setForeground(Color.WHITE);</span>
+<span class="nc" id="L73">		txtrPurchasesInfo.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 22));</span>
+<span class="nc" id="L74">		txtrPurchasesInfo.setBackground(new Color(47, 79, 79));</span>
+<span class="nc" id="L75">		txtrPurchasesInfo.setBounds(33, 89, 462, 44);</span>
+<span class="nc" id="L76">		frame.getContentPane().add(txtrPurchasesInfo);</span>
+		
+		// Get a list of available transactions 
+<span class="nc" id="L79">		List&lt;PricedItem&gt; transactions = getManager().getPlayer().getTransactions();</span>
+
+		// Create a ListModel to store the items in the JList
+<span class="nc" id="L82">		DefaultListModel&lt;PricedItem&gt; transactionsListModel = new DefaultListModel&lt;&gt;();</span>
+		
+		// Add the existing items to the List Model
+<span class="nc" id="L85">		transactionsListModel.addAll(transactions);</span>
+		
+<span class="nc bnc" id="L87" title="All 2 branches missed.">		if (transactions.size() == 0) {</span>
+<span class="nc" id="L88">			JTextArea txtrNoTransactions = new JTextArea(&quot;You have no transactions yet&quot;);</span>
+<span class="nc" id="L89">			txtrNoTransactions.setForeground(Color.WHITE);</span>
+<span class="nc" id="L90">			txtrNoTransactions.setFont(new Font(&quot;Lucida Grande&quot;, Font.PLAIN, 22));</span>
+<span class="nc" id="L91">			txtrNoTransactions.setBackground(new Color(47, 79, 79));</span>
+<span class="nc" id="L92">			txtrNoTransactions.setBounds(97, 274, 462, 44);</span>
+<span class="nc" id="L93">			frame.getContentPane().add(txtrNoTransactions);</span>
+<span class="nc" id="L94">		} else {</span>
+			// Create the JList
+<span class="nc" id="L96">			JList&lt;PricedItem&gt; transactionsList = new JList&lt;PricedItem&gt;(transactionsListModel);</span>
+<span class="nc" id="L97">			transactionsList.setLayoutOrientation(JList.HORIZONTAL_WRAP);</span>
+<span class="nc" id="L98">			transactionsList.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L99">			transactionsList.setBackground(new Color(0, 51, 0));</span>
+<span class="nc" id="L100">			transactionsList.setFont(new Font(&quot;Lucida Grande&quot;, Font.PLAIN, 17));</span>
+<span class="nc" id="L101">			transactionsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);</span>
+<span class="nc" id="L102">			transactionsList.setBounds(78, 159, 645, 297);</span>
+<span class="nc" id="L103">			frame.getContentPane().add(transactionsList);</span>
+		}
+<span class="nc" id="L105">		frame.setBounds(100, 100, 785, 582);</span>
+<span class="nc" id="L106">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="nc" id="L107">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 26, 2021 10:06:49 AM)</div></body></html>

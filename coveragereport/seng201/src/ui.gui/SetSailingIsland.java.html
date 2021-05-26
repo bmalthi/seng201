@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>SetSailingIsland.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 26, 2021 10:06:49 AM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">ui.gui</a> &gt; <span class="el_source">SetSailingIsland.java</span></div><h1>SetSailingIsland.java</h1><pre class="source lang-java linenums">package ui.gui;
+
+import javax.swing.JFrame;
+import javax.swing.JList;
+import main.IslandTrader;
+import main.Route;
+import java.awt.Color;
+import javax.swing.JTextArea;
+import javax.swing.ListSelectionModel;
+import java.awt.Font;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+/**
+ * This class represents the screen after the user clicked the &quot;Sail To Another Island&quot; button in Main Menu
+ * @author kvie
+ *
+ */
+public class SetSailingIsland extends Screen {
+
+	/**
+	 * Create the application.
+  	 * @param islandTrader, the game manager 
+	 */
+	public SetSailingIsland(IslandTrader islandTrader) {
+<span class="nc" id="L28">		super(&quot;Sailing To Another Island&quot;, islandTrader);</span>
+<span class="nc" id="L29">	}</span>
+
+//	/**
+// 	 * This is only here because WindowBuilder needs a JFrame
+// 	 * to be created within this file to allow us to edit the GUI
+// 	 * 
+// 	 * @wbp.parser.entryPoint
+// 	 */
+// 	protected void initialiseForWindowBuilder() {
+// 		frame_1 = new JFrame();
+// 		initialise(frame_1);
+// 	}
+ 	
+	/**
+	 * Initialize the contents of the frame, which include:
+	 * Buttons to get the user choice of sailing to another island
+	 * Button to set sailing
+	 */
+	@Override
+	protected void initialise(final JFrame frame) {
+//		List&lt;Route&gt; routes = getManager().getWorld().getRoutesFromCurrent();
+<span class="nc" id="L50">		frame.getContentPane().setBackground(new Color(135, 206, 250));</span>
+<span class="nc" id="L51">		frame.setBackground(new Color(135, 206, 250));</span>
+<span class="nc" id="L52">		frame.getContentPane().setForeground(new Color(135, 206, 250));</span>
+<span class="nc" id="L53">		frame.getContentPane().setLayout(null);</span>
+		
+		// Introduce the screen
+<span class="nc" id="L56">		JTextArea lblHelloTrader = new JTextArea(&quot;Hello trader! Are you ready to explore the next island?\n\n&quot;);</span>
+<span class="nc" id="L57">		lblHelloTrader.setLineWrap(true);</span>
+<span class="nc" id="L58">		lblHelloTrader.setForeground(Color.WHITE);</span>
+<span class="nc" id="L59">		lblHelloTrader.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 20));</span>
+<span class="nc" id="L60">		lblHelloTrader.setBackground(new Color(65, 105, 225));</span>
+<span class="nc" id="L61">		lblHelloTrader.setBounds(28, 37, 503, 47);</span>
+<span class="nc" id="L62">		frame.getContentPane().add(lblHelloTrader);</span>
+		
+		// Get the route that the player wants to go
+<span class="nc" id="L65">		JTextArea lblWhereToGo = new JTextArea(&quot;Where do you want to go?&quot;);</span>
+<span class="nc" id="L66">		lblWhereToGo.setLineWrap(true);</span>
+<span class="nc" id="L67">		lblWhereToGo.setForeground(Color.WHITE);</span>
+<span class="nc" id="L68">		lblWhereToGo.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 20));</span>
+<span class="nc" id="L69">		lblWhereToGo.setBackground(new Color(65, 105, 225));</span>
+<span class="nc" id="L70">		lblWhereToGo.setBounds(28, 112, 249, 47);</span>
+<span class="nc" id="L71">		frame.getContentPane().add(lblWhereToGo);</span>
+<span class="nc" id="L72">		frame.setBounds(100, 100, 785, 582);</span>
+<span class="nc" id="L73">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+		
+		// Create a ListModel to store the items in the JList
+<span class="nc" id="L76">		DefaultListModel&lt;Route&gt; routeListModel = new DefaultListModel&lt;&gt;();</span>
+				
+		// Add the existing items to the List Model
+<span class="nc" id="L79">		routeListModel.addAll(getManager().getWorld().getRoutesFromCurrent());</span>
+				
+		// Create the JList
+<span class="nc" id="L82">		JList&lt;Route&gt; routeList = new JList&lt;Route&gt;(routeListModel);</span>
+<span class="nc" id="L83">		routeList.setLayoutOrientation(JList.HORIZONTAL_WRAP);</span>
+<span class="nc" id="L84">		routeList.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L85">		routeList.setBackground(new Color(0, 0, 128));</span>
+<span class="nc" id="L86">		routeList.setFont(new Font(&quot;Lucida Grande&quot;, Font.PLAIN, 11));</span>
+<span class="nc" id="L87">		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);</span>
+<span class="nc" id="L88">		routeList.setBounds(27, 219, 732, 166);</span>
+<span class="nc" id="L89">		frame.getContentPane().add(routeList);</span>
+		
+		// Button to start sailing
+<span class="nc" id="L92">		JButton btnSailing = new JButton(&quot;Let's set sailing!&quot;);</span>
+<span class="nc" id="L93">		btnSailing.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L95">				int selectedOption = routeList.getSelectedIndex();</span>
+<span class="nc" id="L96">				getManager().getUI().setViewIsland(getManager().getWorld().getCurrentIsland()); //hack to make showing the route we sailed easier </span>
+<span class="nc" id="L97">				getManager().sailRoute(selectedOption);</span>
+<span class="nc" id="L98">			}</span>
+		});
+
+<span class="nc" id="L101">		btnSailing.setBounds(392, 430, 169, 61);</span>
+<span class="nc" id="L102">		frame.getContentPane().add(btnSailing);</span>
+		
+<span class="nc" id="L104">		JButton btnBackToMainMenu = new JButton(&quot;Back to main menu&quot;);</span>
+<span class="nc" id="L105">		btnBackToMainMenu.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L107">				quit();</span>
+<span class="nc" id="L108">				Screen screen = new MainScreen(islandTrader);</span>
+<span class="nc" id="L109">				screen.show();</span>
+<span class="nc" id="L110">			}</span>
+		});
+<span class="nc" id="L112">		btnBackToMainMenu.setBounds(191, 430, 151, 61);</span>
+<span class="nc" id="L113">		frame.getContentPane().add(btnBackToMainMenu);</span>
+<span class="nc" id="L114">	}</span>
+
+}	
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 26, 2021 10:06:49 AM)</div></body></html>

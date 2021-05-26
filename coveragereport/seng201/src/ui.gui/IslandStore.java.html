@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>IslandStore.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 26, 2021 10:06:49 AM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">ui.gui</a> &gt; <span class="el_source">IslandStore.java</span></div><h1>IslandStore.java</h1><pre class="source lang-java linenums">package ui.gui;
+
+import javax.swing.JFrame;
+
+import java.awt.Color;
+import javax.swing.JTextArea;
+import main.FailureState;
+import main.IslandTrader;
+import java.awt.Font;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+/**
+ * This class represents the screen after the user clicked the &quot;View Island Store&quot; button in Main Menu
+ * @author kvie
+ *
+ */
+public class IslandStore extends Screen {
+
+	/**
+	 * Create the application.
+ 	 * @param islandTrader, the game manager
+	 */
+	public IslandStore(IslandTrader islandTrader) {
+<span class="nc" id="L28">		super(&quot;Island Store&quot;, islandTrader);</span>
+<span class="nc" id="L29">	}</span>
+
+//	/**
+//	 * This is only here because WindowBuilder needs a JFrame
+//	 * to be created within this file to allow us to edit the GUI
+//	 * 
+//	 * @wbp.parser.entryPoint
+//	 */
+//	protected void initialiseForWindowBuilder() {
+//		initialise(new JFrame());
+//	}
+	
+	/**
+	 * Initialize the contents of the frame, which includes:
+ 	 * Some labels to let the user know they are at the store
+ 	 * Buttons for the user to choose what they want to do next
+ 	 */
+	
+	@Override
+	protected void initialise(final JFrame frame) {
+<span class="nc" id="L49">		frame.getContentPane().setBackground(new Color(184, 134, 11));</span>
+<span class="nc" id="L50">		frame.getContentPane().setLayout(null);</span>
+		
+		// Introduce the screen
+<span class="nc" id="L53">		JTextArea txtrStoreWelcome = new JTextArea(&quot;Welcome to the Island's store&quot;);</span>
+<span class="nc" id="L54">		txtrStoreWelcome.setForeground(Color.WHITE);</span>
+<span class="nc" id="L55">		txtrStoreWelcome.setFont(new Font(&quot;Holiday Sun&quot;, Font.PLAIN, 24));</span>
+<span class="nc" id="L56">		txtrStoreWelcome.setBackground(new Color(184, 134, 11));</span>
+<span class="nc" id="L57">		txtrStoreWelcome.setBounds(19, 19, 286, 40);</span>
+<span class="nc" id="L58">		frame.getContentPane().add(txtrStoreWelcome);</span>
+		
+<span class="nc" id="L60">		JTextArea lblHelloTrader = new JTextArea(&quot;Hello trader! How's your adventure going so far? \n\nThis is the Island's store, where you can buy awesome items and sell your cool items. \n\n\n\n&quot;);</span>
+<span class="nc" id="L61">		lblHelloTrader.setLineWrap(true);</span>
+<span class="nc" id="L62">		lblHelloTrader.setForeground(Color.WHITE);</span>
+<span class="nc" id="L63">		lblHelloTrader.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 17));</span>
+<span class="nc" id="L64">		lblHelloTrader.setBackground(new Color(128, 0, 0));</span>
+<span class="nc" id="L65">		lblHelloTrader.setBounds(19, 62, 752, 85);</span>
+<span class="nc" id="L66">		frame.getContentPane().add(lblHelloTrader);</span>
+		
+		// Get store images
+<span class="nc" id="L69">		JLabel store = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L70">		store.setIcon(new ImageIcon(IslandStore.class.getResource(&quot;/STORE1.png&quot;)));</span>
+<span class="nc" id="L71">		store.setBounds(449, 320, 336, 228);</span>
+<span class="nc" id="L72">		frame.getContentPane().add(store);</span>
+		
+<span class="nc" id="L74">		JLabel eatingburger = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L75">		eatingburger.setIcon(new ImageIcon(IslandStore.class.getResource(&quot;/1eatingBURGER.png&quot;)));</span>
+<span class="nc" id="L76">		eatingburger.setBounds(531, 159, 79, 180);</span>
+<span class="nc" id="L77">		frame.getContentPane().add(eatingburger);</span>
+		
+<span class="nc" id="L79">		JLabel groceryperson = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L80">		groceryperson.setIcon(new ImageIcon(IslandStore.class.getResource(&quot;/groceryPERSONpng.png&quot;)));</span>
+<span class="nc" id="L81">		groceryperson.setBounds(608, 206, 121, 133);</span>
+<span class="nc" id="L82">		frame.getContentPane().add(groceryperson);</span>
+		
+<span class="nc" id="L84">		JButton btnSeeWhatSells = new JButton(&quot;See what we have for sale&quot;);</span>
+<span class="nc" id="L85">		btnSeeWhatSells.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L87">				quit();</span>
+<span class="nc" id="L88">				Screen screen = new IslandSellsItem(islandTrader);</span>
+<span class="nc" id="L89">				screen.show();</span>
+<span class="nc" id="L90">			}</span>
+		});
+<span class="nc" id="L92">		btnSeeWhatSells.setBounds(37, 193, 189, 73);</span>
+<span class="nc" id="L93">		frame.getContentPane().add(btnSeeWhatSells);</span>
+		
+<span class="nc" id="L95">		JButton btnSeeWhatBuy = new JButton(&quot;See what we are buying&quot;);</span>
+<span class="nc" id="L96">		btnSeeWhatBuy.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L98">				quit();</span>
+<span class="nc" id="L99">				Screen screen = new IslandBuysItem(islandTrader);</span>
+<span class="nc" id="L100">				screen.show();</span>
+<span class="nc" id="L101">			}</span>
+		});
+<span class="nc" id="L103">		btnSeeWhatBuy.setBounds(248, 193, 189, 73);</span>
+<span class="nc" id="L104">		frame.getContentPane().add(btnSeeWhatBuy);</span>
+		
+<span class="nc" id="L106">		JButton btnViewPastPurchases = new JButton(&quot;View past purchases and sales&quot;);</span>
+<span class="nc" id="L107">		btnViewPastPurchases.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L109">				quit();</span>
+<span class="nc" id="L110">				Screen screen = new PastPurchases(islandTrader);</span>
+<span class="nc" id="L111">				screen.show();</span>
+<span class="nc" id="L112">			}</span>
+		});
+<span class="nc" id="L114">		btnViewPastPurchases.setBounds(116, 278, 215, 85);</span>
+<span class="nc" id="L115">		frame.getContentPane().add(btnViewPastPurchases);</span>
+		
+		// Button to repair ship if have any damage
+<span class="nc" id="L118">		JButton btnRepairShip = new JButton(&quot;Repair your ship (&quot; +getManager().getPlayer().getShip().getDamageAmount() +&quot; damage)&quot;);</span>
+<span class="nc" id="L119">		btnRepairShip.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+				
+<span class="nc" id="L122">		    	int damage = getManager().getPlayer().getShip().getDamageAmount();</span>
+<span class="nc" id="L123">		    	int repairCost = getManager().getPlayer().getShip().getDamageAmount();</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">		    	if (damage &gt; 0) {</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">		    		if (getManager().validateRepair(getManager().getPlayer().getShip()) == FailureState.NOMONEY)</span>
+<span class="nc" id="L126">		    			JOptionPane.showMessageDialog(null, &quot;You have &quot; +repairCost +&quot; worth of damage, but only have &quot; +getManager().getPlayer().getBalance() +&quot;dollars. Trade to get more money&quot;);</span>
+		    		else {
+<span class="nc" id="L128">		    			getManager().repairShip();</span>
+<span class="nc" id="L129">		    			JOptionPane.showMessageDialog(null, &quot;Repaired &quot; +damage +&quot; damage to your ship, costing &quot; +repairCost +&quot; dollars&quot;);</span>
+		    		}
+<span class="nc" id="L131">		    	} else {</span>
+<span class="nc" id="L132">		    		JOptionPane.showMessageDialog(null, &quot;You have no damage to your ship&quot;);</span>
+		    	}					
+
+<span class="nc" id="L135">			}</span>
+		});
+		
+<span class="nc" id="L138">		btnRepairShip.setBounds(116, 375, 215, 73);</span>
+<span class="nc" id="L139">		frame.getContentPane().add(btnRepairShip);</span>
+		
+		// Button to back to main menu
+<span class="nc" id="L142">		JButton btnBackToMain = new JButton(&quot;Back to main menu&quot;);</span>
+<span class="nc" id="L143">		btnBackToMain.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L145">				quit();</span>
+<span class="nc" id="L146">				Screen screen = new MainScreen(islandTrader);</span>
+<span class="nc" id="L147">				screen.show();</span>
+<span class="nc" id="L148">			}</span>
+		});
+<span class="nc" id="L150">		btnBackToMain.setBounds(116, 466, 215, 73);</span>
+<span class="nc" id="L151">		frame.getContentPane().add(btnBackToMain);</span>
+<span class="nc" id="L152">		frame.setBounds(100, 100, 785, 582);</span>
+<span class="nc" id="L153">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="nc" id="L154">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 26, 2021 10:06:49 AM)</div></body></html>

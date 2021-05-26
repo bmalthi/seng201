@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>SetupScreen.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 26, 2021 10:06:49 AM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">ui.gui</a> &gt; <span class="el_source">SetupScreen.java</span></div><h1>SetupScreen.java</h1><pre class="source lang-java linenums">package ui.gui;
+
+//import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import java.awt.Color;
+import java.awt.SystemColor;
+import javax.swing.JSlider;
+import javax.swing.border.CompoundBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import main.IslandTrader;
+import main.Player;
+import main.Ship;
+import java.awt.Font;
+
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.util.List;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+/**
+ * This class represents the Setup Screen of the game
+ * @author kvie
+ *
+ */
+public class SetupScreen extends Screen {
+
+	private JTextField txtbetweenCharacters;
+	private JSlider slider;
+	
+	//private JRadioButton shipButton;
+	//private final ButtonGroup buttonGroup  = new ButtonGroup();
+	
+	public static final String NAME_REGEX = &quot;^[a-z A-Z]{3,15}$&quot;;
+	
+ 
+	/**
+	 * Create the Setup Screen
+	 * 
+	 * @param islandTrader the island trader to configure
+	 */
+	protected SetupScreen(IslandTrader islandTrader) {
+<span class="nc" id="L56">		super(&quot;Island Trader Setup&quot;, islandTrader);</span>
+	
+<span class="nc" id="L58">	}</span>
+	
+//	/**
+//	 * This is only here because WindowBuilder needs a JFrame
+//	 * to be created within this file to allow us to edit the GUI
+//	 * 
+//	 * @wbp.parser.entryPoint
+//	 */
+//	protected void initialiseForWindowBuilder() {
+//		frame_1 = new JFrame();
+//		initialise(frame_1);
+//	}
+
+	/**
+	 * Initialize the contents of the frame, which includes:
+ 	 * Set label
+ 	 * Get the lists of the ship + ships's detail
+ 	 * Show images of the ship
+ 	 * Get the user choice of ship - set ship based on the choice
+ 	 * Add button to move to Main Screen
+	 */
+	
+	@Override
+	protected void initialise(final JFrame frame) {
+<span class="nc" id="L82">		ButtonGroup buttonGroup  = new ButtonGroup();</span>
+<span class="nc" id="L83">		JTextArea shipDetailText = new JTextArea(getManager().getWorld().getShips().get(0).details());</span>
+<span class="nc" id="L84">		frame.getContentPane().setBackground(new Color(70, 130, 180));</span>
+<span class="nc" id="L85">		frame.setBounds(100, 100, 785, 650);</span>
+		
+<span class="nc" id="L87">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="nc" id="L88">		frame.getContentPane().setLayout(null);</span>
+		
+		// Get the list of ships for each radio button
+<span class="nc" id="L91">		List&lt;Ship&gt; ships = getManager().getWorld().getShips();</span>
+		
+		// Get ships for each radio button and add them to a button Group
+<span class="nc" id="L94">		JRadioButton rdbtnShip1 = new JRadioButton(ships.get(0).getName());</span>
+<span class="nc" id="L95">		rdbtnShip1.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L97" title="All 2 branches missed.">				if (rdbtnShip1.isSelected())</span>
+<span class="nc" id="L98">					shipDetailText.setText(getManager().getWorld().getShips().get(0).details());</span>
+<span class="nc" id="L99">			}</span>
+		});
+<span class="nc" id="L101">		rdbtnShip1.setForeground(new Color(0, 0, 0));	</span>
+<span class="nc" id="L102">		buttonGroup.add(rdbtnShip1);</span>
+<span class="nc" id="L103">		rdbtnShip1.setSelected(true);</span>
+<span class="nc" id="L104">		rdbtnShip1.setBounds(40, 483, 141, 23);</span>
+<span class="nc" id="L105">		frame.getContentPane().add(rdbtnShip1);</span>
+		
+		// Get ships for each radio button and add them to a button Group
+<span class="nc" id="L108">		JRadioButton rdbtnShip2 = new JRadioButton(ships.get(1).getName());</span>
+<span class="nc" id="L109">		rdbtnShip2.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L111" title="All 2 branches missed.">				if (rdbtnShip2.isSelected())</span>
+<span class="nc" id="L112">					shipDetailText.setText(getManager().getWorld().getShips().get(1).details());				</span>
+<span class="nc" id="L113">			}</span>
+		});		
+<span class="nc" id="L115">		buttonGroup.add(rdbtnShip2);</span>
+<span class="nc" id="L116">		rdbtnShip2.setBounds(221, 483, 141, 23);</span>
+<span class="nc" id="L117">		frame.getContentPane().add(rdbtnShip2);</span>
+
+		// Get ships for each radio button and add them to a button Group
+<span class="nc" id="L120">		JRadioButton rdbtnShip3 = new JRadioButton(ships.get(2).getName());</span>
+<span class="nc" id="L121">		rdbtnShip3.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L123" title="All 2 branches missed.">				if (rdbtnShip3.isSelected())</span>
+<span class="nc" id="L124">					shipDetailText.setText(getManager().getWorld().getShips().get(2).details());				</span>
+<span class="nc" id="L125">			}</span>
+		});		
+<span class="nc" id="L127">		buttonGroup.add(rdbtnShip3);</span>
+<span class="nc" id="L128">		rdbtnShip3.setBounds(385, 483, 141, 23);</span>
+<span class="nc" id="L129">		frame.getContentPane().add(rdbtnShip3);</span>
+		
+		// Get ships for each radio button and add them to a button Group
+<span class="nc" id="L132">		JRadioButton rdbtnShip4 = new JRadioButton(ships.get(3).getName());</span>
+<span class="nc" id="L133">		rdbtnShip4.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L135" title="All 2 branches missed.">				if (rdbtnShip4.isSelected())</span>
+<span class="nc" id="L136">					shipDetailText.setText(getManager().getWorld().getShips().get(3).details());				</span>
+<span class="nc" id="L137">			}</span>
+		});			
+<span class="nc" id="L139">		buttonGroup.add(rdbtnShip4);</span>
+<span class="nc" id="L140">		rdbtnShip4.setBounds(563, 483, 141, 23);</span>
+<span class="nc" id="L141">		frame.getContentPane().add(rdbtnShip4);</span>
+		
+
+		//This button should only be able to click this if valid things are selected
+<span class="nc" id="L145">		JButton btnLetsPlay = new JButton(&quot;Let's Play&quot;);</span>
+<span class="nc" id="L146">		btnLetsPlay.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+				//Set the player
+<span class="nc" id="L149">				getManager().setPlayer(new Player(txtbetweenCharacters.getText()));</span>
+				
+				//Set the game length
+<span class="nc" id="L152">				getManager().setGameLength(slider.getValue());</span>
+				
+				// Set the ship 
+<span class="nc bnc" id="L155" title="All 2 branches missed.">				if (rdbtnShip1.isSelected()) {</span>
+<span class="nc" id="L156">					getManager().getPlayer().setShip(getManager().getWorld().getShips().get(0));		</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">				} else if (rdbtnShip2.isSelected()) {</span>
+<span class="nc" id="L158">					getManager().getPlayer().setShip(getManager().getWorld().getShips().get(1));		</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">				} else if (rdbtnShip3.isSelected()) {</span>
+<span class="nc" id="L160">					getManager().getPlayer().setShip(getManager().getWorld().getShips().get(2));		</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">				} else if (rdbtnShip4.isSelected()) {</span>
+<span class="nc" id="L162">					getManager().getPlayer().setShip(getManager().getWorld().getShips().get(3));		</span>
+				} 
+
+				//Start the game
+<span class="nc" id="L166">				quit();</span>
+<span class="nc" id="L167">				getManager().onSetupFinished();</span>
+<span class="nc" id="L168">			}</span>
+		});
+<span class="nc" id="L170">		btnLetsPlay.setBackground(new Color(25, 25, 112));</span>
+<span class="nc" id="L171">		btnLetsPlay.setEnabled(false);</span>
+<span class="nc" id="L172">		btnLetsPlay.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L173">		btnLetsPlay.setFont(new Font(&quot;Lucida Grande&quot;, Font.PLAIN, 15));</span>
+<span class="nc" id="L174">		btnLetsPlay.setBounds(647, 539, 126, 42);</span>
+<span class="nc" id="L175">		btnLetsPlay.setOpaque(true);</span>
+<span class="nc" id="L176">		frame.getContentPane().add(btnLetsPlay);		</span>
+		
+		// Set up some labels for the game
+<span class="nc" id="L179">		JLabel lblConfirmName = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L180">		lblConfirmName.setForeground(new Color(255, 0, 0));</span>
+<span class="nc" id="L181">		lblConfirmName.setBounds(249, 192, 392, 16);</span>
+<span class="nc" id="L182">		frame.getContentPane().add(lblConfirmName);</span>
+		
+<span class="nc" id="L184">		JTextArea lblChooseName = new JTextArea(&quot;1) Choose a Trader Name&quot;);</span>
+<span class="nc" id="L185">		lblChooseName.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L186">		lblChooseName.setFont(new Font(&quot;SignPainter&quot;, Font.PLAIN, 22));</span>
+<span class="nc" id="L187">		lblChooseName.setBackground(new Color(25, 25, 112));</span>
+<span class="nc" id="L188">		lblChooseName.setBounds(40, 157, 202, 30);</span>
+<span class="nc" id="L189">		frame.getContentPane().add(lblChooseName);</span>
+		
+<span class="nc" id="L191">		JLabel lblDaysChosen = new JLabel(&quot;50 Days&quot;);</span>
+<span class="nc" id="L192">		lblDaysChosen.setBackground(new Color(0, 0, 139));</span>
+<span class="nc" id="L193">		lblDaysChosen.setForeground(new Color(0, 0, 139));</span>
+<span class="nc" id="L194">		lblDaysChosen.setBounds(109, 255, 61, 16);</span>
+<span class="nc" id="L195">		frame.getContentPane().add(lblDaysChosen);</span>
+		
+<span class="nc" id="L197">		JTextArea lblGameLength = new JTextArea(&quot;2) Decide on game length&quot;);</span>
+<span class="nc" id="L198">		lblGameLength.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L199">		lblGameLength.setFont(new Font(&quot;SignPainter&quot;, Font.PLAIN, 22));</span>
+<span class="nc" id="L200">		lblGameLength.setBackground(new Color(25, 25, 112));</span>
+<span class="nc" id="L201">		lblGameLength.setBounds(35, 218, 200, 31);</span>
+<span class="nc" id="L202">		frame.getContentPane().add(lblGameLength);</span>
+		
+<span class="nc" id="L204">		JTextArea lblHelloTrader = new JTextArea(&quot;Welcome to Island Trader&quot;);</span>
+<span class="nc" id="L205">		lblHelloTrader.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L206">		lblHelloTrader.setFont(new Font(&quot;Holiday Sun&quot;, Font.PLAIN, 24));</span>
+<span class="nc" id="L207">		lblHelloTrader.setBackground(new Color(70, 130, 180));</span>
+<span class="nc" id="L208">		lblHelloTrader.setBounds(35, 21, 639, 31);</span>
+<span class="nc" id="L209">		frame.getContentPane().add(lblHelloTrader);</span>
+		
+<span class="nc" id="L211">		JTextArea lblAimOfTheGame = new JTextArea(&quot;The aim of the game is to travel between islands, trading goods for profit. You will encounter tricky traders, and trecherous stormy routes with pirates on your quest.&quot;);</span>
+<span class="nc" id="L212">		lblAimOfTheGame.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L213">		lblAimOfTheGame.setFont(new Font(&quot;Devanagari MT&quot;, Font.PLAIN, 17));</span>
+<span class="nc" id="L214">		lblAimOfTheGame.setLineWrap(true);</span>
+<span class="nc" id="L215">		lblAimOfTheGame.setBackground(new Color(0, 0, 102));</span>
+<span class="nc" id="L216">		lblAimOfTheGame.setBounds(35, 58, 608, 52);</span>
+<span class="nc" id="L217">		frame.getContentPane().add(lblAimOfTheGame);</span>
+		
+<span class="nc" id="L219">		txtbetweenCharacters = new JTextField();</span>
+<span class="nc" id="L220">		txtbetweenCharacters.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L221">		txtbetweenCharacters.getDocument().addDocumentListener(new DocumentListener() {</span>
+<span class="nc" id="L222">		    @Override public void changedUpdate(DocumentEvent e) { updateNameField(); }</span>
+<span class="nc" id="L223">		    @Override public void insertUpdate(DocumentEvent e) { updateNameField(); }</span>
+<span class="nc" id="L224">		    @Override public void removeUpdate(DocumentEvent e) { updateNameField(); }</span>
+		    private void updateNameField() {
+<span class="nc bnc" id="L226" title="All 2 branches missed.">		    	if (txtbetweenCharacters.hasFocus() == true) {</span>
+<span class="nc bnc" id="L227" title="All 2 branches missed.">		    		if (txtbetweenCharacters.getText().matches(NAME_REGEX)) {</span>
+<span class="nc" id="L228">		    			lblConfirmName.setText(&quot;Great Name, &quot; + txtbetweenCharacters.getText());</span>
+<span class="nc" id="L229">		    			lblConfirmName.setForeground(new Color(0, 102, 0));		    			</span>
+<span class="nc" id="L230">		    			btnLetsPlay.setEnabled(true);</span>
+<span class="nc" id="L231">		    			btnLetsPlay.setBackground(new Color(0, 102, 0));</span>
+<span class="nc" id="L232">		    			btnLetsPlay.setForeground(new Color(0, 102, 0));</span>
+<span class="nc" id="L233">		    		} else {</span>
+<span class="nc" id="L234">		    			lblConfirmName.setText(&quot;Name should be between 3-15 characters&quot;);</span>
+<span class="nc" id="L235">		    			lblConfirmName.setForeground(Color.RED);		    			</span>
+<span class="nc" id="L236">		    			btnLetsPlay.setEnabled(false);</span>
+<span class="nc" id="L237">		    			btnLetsPlay.setBackground(Color.RED);</span>
+<span class="nc" id="L238">		    			btnLetsPlay.setForeground(Color.RED);</span>
+		    		}
+		    	}
+<span class="nc" id="L241">		    }//</span>
+		});
+		
+<span class="nc" id="L244">		txtbetweenCharacters.addFocusListener(new FocusAdapter() {</span>
+			@Override
+			public void focusGained(FocusEvent e) {
+<span class="nc bnc" id="L247" title="All 2 branches missed.">				if (&quot;(between 3-15 characters)&quot;.equals(txtbetweenCharacters.getText())) {</span>
+<span class="nc" id="L248">					txtbetweenCharacters.setText(&quot;&quot;);</span>
+<span class="nc" id="L249">					lblConfirmName.setText(&quot;(between 3-15 characters)&quot;);</span>
+				}
+<span class="nc" id="L251">			}</span>
+		});
+		
+<span class="nc" id="L254">		txtbetweenCharacters.setForeground(SystemColor.inactiveCaption);</span>
+<span class="nc" id="L255">		txtbetweenCharacters.setText(&quot;(between 3-15 characters)&quot;);</span>
+<span class="nc" id="L256">		txtbetweenCharacters.setBounds(249, 157, 392, 34);</span>
+<span class="nc" id="L257">		frame.getContentPane().add(txtbetweenCharacters);</span>
+<span class="nc" id="L258">		txtbetweenCharacters.setColumns(10);</span>
+		
+<span class="nc" id="L260">		JTextArea lblLetsStart = new JTextArea(&quot;Let's get started!!!&quot;);</span>
+<span class="nc" id="L261">		lblLetsStart.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L262">		lblLetsStart.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 20));</span>
+<span class="nc" id="L263">		lblLetsStart.setBackground(new Color(70, 130, 180));</span>
+<span class="nc" id="L264">		lblLetsStart.setBounds(35, 116, 172, 38);</span>
+<span class="nc" id="L265">		frame.getContentPane().add(lblLetsStart);</span>
+		
+		// Create a slider for the game length
+<span class="nc" id="L268">		slider = new JSlider();</span>
+<span class="nc" id="L269">		slider.addChangeListener(new ChangeListener() {</span>
+			public void stateChanged(ChangeEvent evt) {
+<span class="nc" id="L271">				JSlider slider = (JSlider) evt.getSource();</span>
+<span class="nc" id="L272">				lblDaysChosen.setText(String.valueOf(slider.getValue()));				</span>
+<span class="nc" id="L273">			}</span>
+		});
+<span class="nc" id="L275">		slider.setBorder(new CompoundBorder());</span>
+<span class="nc" id="L276">		slider.setMinimum(20);</span>
+<span class="nc" id="L277">		slider.setMaximum(50);</span>
+<span class="nc" id="L278">		slider.setBounds(246, 221, 392, 29);</span>
+<span class="nc" id="L279">		frame.getContentPane().add(slider);</span>
+		
+<span class="nc" id="L281">		JLabel lbl20Days = new JLabel(&quot;20 Days&quot;);</span>
+<span class="nc" id="L282">		lbl20Days.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L283">		lbl20Days.setBounds(245, 239, 61, 16);</span>
+<span class="nc" id="L284">		frame.getContentPane().add(lbl20Days);</span>
+		
+<span class="nc" id="L286">		JLabel lbl50Days = new JLabel(&quot;50 Days&quot;);</span>
+<span class="nc" id="L287">		lbl50Days.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L288">		lbl50Days.setBounds(601, 239, 61, 16);</span>
+<span class="nc" id="L289">		frame.getContentPane().add(lbl50Days);</span>
+		
+<span class="nc" id="L291">		JTextArea lblShipChoice = new JTextArea(&quot;3) Choose a Ship for your Quest&quot;);</span>
+<span class="nc" id="L292">		lblShipChoice.setForeground(new Color(255, 255, 255));</span>
+<span class="nc" id="L293">		lblShipChoice.setFont(new Font(&quot;SignPainter&quot;, Font.PLAIN, 22));</span>
+<span class="nc" id="L294">		lblShipChoice.setBackground(new Color(25, 25, 112));</span>
+<span class="nc" id="L295">		lblShipChoice.setBounds(35, 287, 235, 31);</span>
+<span class="nc" id="L296">		frame.getContentPane().add(lblShipChoice);</span>
+		
+		// Get the ship images
+<span class="nc" id="L299">		JLabel ship1 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L300">		ship1.setIcon(new ImageIcon(SetupScreen.class.getResource(&quot;/another3.png&quot;)));</span>
+<span class="nc" id="L301">		ship1.setBounds(40, 314, 147, 169);</span>
+<span class="nc" id="L302">		frame.getContentPane().add(ship1);</span>
+		
+<span class="nc" id="L304">		JLabel ship2 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L305">		ship2.setIcon(new ImageIcon(SetupScreen.class.getResource(&quot;/02.png&quot;)));</span>
+<span class="nc" id="L306">		ship2.setBounds(211, 324, 163, 159);</span>
+<span class="nc" id="L307">		frame.getContentPane().add(ship2);</span>
+		
+<span class="nc" id="L309">		JLabel ship3 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L310">		ship3.setHorizontalAlignment(SwingConstants.LEFT);</span>
+<span class="nc" id="L311">		ship3.setIcon(new ImageIcon(SetupScreen.class.getResource(&quot;/0001.png&quot;)));</span>
+<span class="nc" id="L312">		ship3.setBounds(351, 324, 163, 159);</span>
+<span class="nc" id="L313">		frame.getContentPane().add(ship3);</span>
+		
+<span class="nc" id="L315">		JLabel ship4 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L316">		ship4.setIcon(new ImageIcon(SetupScreen.class.getResource(&quot;/14.png&quot;)));</span>
+<span class="nc" id="L317">		ship4.setBounds(538, 324, 192, 159);</span>
+<span class="nc" id="L318">		frame.getContentPane().add(ship4);</span>
+		
+<span class="nc" id="L320">		JLabel pirate = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L321">		pirate.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="nc" id="L322">		pirate.setBackground(new Color(70, 130, 180));</span>
+<span class="nc" id="L323">		pirate.setIcon(new ImageIcon(SetupScreen.class.getResource(&quot;/pirate1.png&quot;)));</span>
+<span class="nc" id="L324">		pirate.setBounds(647, 6, 147, 221);</span>
+<span class="nc" id="L325">		frame.getContentPane().add(pirate);</span>
+		
+		// Get the ship detail
+<span class="nc" id="L328">		shipDetailText.setFont(new Font(&quot;Lucida Grande&quot;, Font.PLAIN, 13));</span>
+<span class="nc" id="L329">		shipDetailText.setLineWrap(true);</span>
+<span class="nc" id="L330">		shipDetailText.setBackground(new Color(70, 130, 180));</span>
+<span class="nc" id="L331">		shipDetailText.setBounds(33, 512, 602, 110);</span>
+<span class="nc" id="L332">		frame.getContentPane().add(shipDetailText);</span>
+		
+<span class="nc" id="L334">	}</span>
+   }
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 26, 2021 10:06:49 AM)</div></body></html>

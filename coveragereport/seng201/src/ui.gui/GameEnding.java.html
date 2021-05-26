@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>GameEnding.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 26, 2021 10:06:49 AM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">ui.gui</a> &gt; <span class="el_source">GameEnding.java</span></div><h1>GameEnding.java</h1><pre class="source lang-java linenums">package ui.gui;
+
+
+import javax.swing.JFrame;
+
+import main.IslandTrader;
+import java.awt.Color;
+import javax.swing.JTextArea;
+import java.awt.Font;
+
+/**
+ * This class represents the screen after the user clicked the &quot;Quit Game&quot; button and (confirm that they really want to quit the game) in Main Menu
+ * @author kvie
+ *
+ */
+public class GameEnding extends Screen {
+	
+	/**
+	 * Create the application.
+	 * @param islandTrader, the game manager
+	 */
+	public GameEnding(IslandTrader islandTrader) {
+<span class="nc" id="L23">		super(&quot;Finish The Journey&quot;, islandTrader);</span>
+<span class="nc" id="L24">	}</span>
+
+	/**
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+<span class="nc" id="L33"> 		initialise(new JFrame());</span>
+<span class="nc" id="L34"> 	}</span>
+ 	
+	/**
+	 *Initialize the contents of the frame, which include: player's days played, profit made, score gained
+	 *
+	 */
+	@Override
+	protected void initialise(final JFrame frame) {
+<span class="nc" id="L42">		frame.getContentPane().setBackground(new Color(70, 130, 180));</span>
+<span class="nc" id="L43">		frame.getContentPane().setLayout(null);</span>
+		
+		// Get the ship information
+<span class="nc" id="L46">		JTextArea lblDaysPlayed = new JTextArea(&quot;You played for &quot; + getManager().getTime() + &quot; days, our of &quot; + getManager().getGameLength());</span>
+<span class="nc" id="L47">		lblDaysPlayed.setLineWrap(true);</span>
+<span class="nc" id="L48">		lblDaysPlayed.setForeground(Color.WHITE);</span>
+<span class="nc" id="L49">		lblDaysPlayed.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 20));</span>
+<span class="nc" id="L50">		lblDaysPlayed.setBackground(new Color(30, 144, 255));</span>
+<span class="nc" id="L51">		lblDaysPlayed.setBounds(147, 171, 503, 47);</span>
+<span class="nc" id="L52">		frame.getContentPane().add(lblDaysPlayed);</span>
+		
+<span class="nc" id="L54">		JTextArea lblProfitMade = new JTextArea(&quot;You made &quot; + getManager().getPlayer().getProfitValue()[0] + &quot; dollars&quot;);</span>
+<span class="nc" id="L55">		lblProfitMade.setLineWrap(true);</span>
+<span class="nc" id="L56">		lblProfitMade.setForeground(Color.WHITE);</span>
+<span class="nc" id="L57">		lblProfitMade.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 20));</span>
+<span class="nc" id="L58">		lblProfitMade.setBackground(new Color(30, 144, 255));</span>
+<span class="nc" id="L59">		lblProfitMade.setBounds(147, 239, 503, 47);</span>
+<span class="nc" id="L60">		frame.getContentPane().add(lblProfitMade);</span>
+		
+<span class="nc" id="L62">		JTextArea lblScoreGained = new JTextArea(&quot;Your score is: &quot; + getManager().gameScore());</span>
+<span class="nc" id="L63">		lblScoreGained.setLineWrap(true);</span>
+<span class="nc" id="L64">		lblScoreGained.setForeground(Color.WHITE);</span>
+<span class="nc" id="L65">		lblScoreGained.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 20));</span>
+<span class="nc" id="L66">		lblScoreGained.setBackground(new Color(30, 144, 255));</span>
+<span class="nc" id="L67">		lblScoreGained.setBounds(147, 298, 503, 47);</span>
+<span class="nc" id="L68">		frame.getContentPane().add(lblScoreGained);</span>
+		
+<span class="nc" id="L70">		JTextArea txtrThankYou = new JTextArea(&quot;Thank you for playing!&quot;);</span>
+<span class="nc" id="L71">		txtrThankYou.setLineWrap(true);</span>
+<span class="nc" id="L72">		txtrThankYou.setForeground(Color.WHITE);</span>
+<span class="nc" id="L73">		txtrThankYou.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 23));</span>
+<span class="nc" id="L74">		txtrThankYou.setBackground(new Color(165, 42, 42));</span>
+<span class="nc" id="L75">		txtrThankYou.setBounds(274, 368, 225, 47);</span>
+<span class="nc" id="L76">		frame.getContentPane().add(txtrThankYou);</span>
+		
+<span class="nc" id="L78">		JTextArea txtrGameStatus = new JTextArea(&quot;FINISH THE JOURNEY&quot;);</span>
+<span class="nc" id="L79">		txtrGameStatus.setLineWrap(true);</span>
+<span class="nc" id="L80">		txtrGameStatus.setForeground(Color.WHITE);</span>
+<span class="nc" id="L81">		txtrGameStatus.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 27));</span>
+<span class="nc" id="L82">		txtrGameStatus.setBackground(new Color(165, 42, 42));</span>
+<span class="nc" id="L83">		txtrGameStatus.setBounds(277, 112, 210, 47);</span>
+<span class="nc" id="L84">		frame.getContentPane().add(txtrGameStatus);</span>
+<span class="nc" id="L85">		frame.setBackground(new Color(47, 79, 79));</span>
+<span class="nc" id="L86">		frame.setBounds(100, 100, 785, 582);</span>
+<span class="nc" id="L87">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="nc" id="L88">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 26, 2021 10:06:49 AM)</div></body></html>

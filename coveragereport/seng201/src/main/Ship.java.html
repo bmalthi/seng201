@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Ship.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 26, 2021 10:06:49 AM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">main</a> &gt; <span class="el_source">Ship.java</span></div><h1>Ship.java</h1><pre class="source lang-java linenums">package main;
+import java.util.ArrayList;
+
+/**
+ * This class represents a ship that the player uses on their quest 
+ */
+public class Ship {
+	
+	//The name of the ship
+	private String name; 
+	
+	//The number of crew the ship has
+	private int numberOfCrew; 
+	
+	// How fast the ship can sail, distance per day
+	private int sailSpeed;  
+	
+	// The current damage status of the ship
+	private int damageAmount;
+	
+	//How much damage the ship can take
+	private int endurance;
+	
+	// List of storageLists the ship has
+	// Different lists indicate differing ability to store cargo
+	private ArrayList&lt;StorageList&gt; storage;
+	
+	/**
+	 * Creates a new ship
+	 * @param name, the name of the ship
+	 * @param numberOfCrew, the number of crew the ship takes
+	 * @param sailSpeed, the speed of the ship
+	 * @param endurance, how much damage the ship can take
+	 */	
+<span class="fc" id="L35">	public Ship(String name, int numberOfCrew, int sailSpeed, int endurance) {</span>
+<span class="fc" id="L36">		this.name = name;</span>
+<span class="fc" id="L37">		this.numberOfCrew = numberOfCrew;</span>
+<span class="fc" id="L38">		this.sailSpeed = sailSpeed;</span>
+<span class="fc" id="L39">		this.endurance = endurance;</span>
+<span class="fc" id="L40">		this.damageAmount = 0;</span>
+<span class="fc" id="L41">		this.storage = new ArrayList&lt;StorageList&gt;();</span>
+		
+<span class="fc" id="L43">	}</span>
+	
+	/** 
+	 * @return the name of the ship
+	 */	
+	public String getName() {
+<span class="nc" id="L49">		return this.name;</span>
+	}
+	
+	/** 
+	 * @return the number of crew on the ship
+	 */		
+	public int getNumberOfCrew() {
+<span class="fc" id="L56">		return this.numberOfCrew;</span>
+	}
+
+	/**
+	 * @return the sailing speed of the ship
+	 */	
+	public int getSailSpeed() {
+<span class="fc" id="L63">		return this.sailSpeed;</span>
+	}
+	
+	/**
+	 * Doubles the sail speed of the ship, used after buying a certain upgrade
+	 */	
+	public void upgradeSailSpeed() {
+<span class="nc" id="L70">		this.sailSpeed = this.sailSpeed * 2; </span>
+<span class="nc" id="L71">	}	</span>
+	
+	/**
+	 * @return the current damage level of the ship
+	 */		
+	public int getDamageAmount() {
+<span class="fc" id="L77">		return this.damageAmount;</span>
+	}
+	
+	/**
+	 * @param damageAmount, the new amount of damage for the ship
+	 */		
+	public void setDamageAmount(int damageAmount) {
+<span class="fc" id="L84">		this.damageAmount = damageAmount;</span>
+<span class="fc" id="L85">	}	</span>
+	
+	/**
+	 * @return the endurance, ie how much damage the ship can take
+	 */
+	public int getEndurance() {
+<span class="fc" id="L91">		return this.endurance;</span>
+	}
+	
+	/**
+	 * @return the list of storage bays on the ship
+	 */	
+	public ArrayList&lt;StorageList&gt; getStorageBays() {
+<span class="fc" id="L98">		return this.storage;</span>
+	}
+	
+	/**
+	 * Checks of the ship has enough space on in any relevant storage bay to add the item.
+	 * @param item, the Item we are checking if there is enough space for
+	 * @return boolean indicating if the item can be added to the ship of not
+	 */	
+	public boolean hasSpace(Item item) {
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">		for (StorageList storagebay : storage) {</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">			if (storagebay.validateAdd(item)) {</span>
+<span class="fc" id="L109"> 					return true;</span>
+ 			}
+
+ 		}
+<span class="nc" id="L113"> 		return false;</span>
+ 	}
+
+	/**
+	 * Adds the item to the ship's storage if it can
+	 * @param item, the item to be added
+	 * @return boolean indicating success
+	 */
+	public boolean addItem(Item item) {
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">		for (StorageList storagebay : storage) {</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">			if (storagebay.validateAdd(item)) {</span>
+				//this is a bit ugly by this point we have triple checked, could be refactored
+<span class="fc" id="L125">				return storagebay.addItem(item);</span>
+ 			}
+
+ 		}
+<span class="nc" id="L129"> 		return false;</span>
+ 	}
+
+	/**
+	 * Checks if the item is on the ship
+	 * @param item, the item to be added
+	 * @return boolean indicating if the item is on the ship or not
+	 */	
+	public boolean hasItem(Item item) {
+<span class="fc bfc" id="L138" title="All 2 branches covered.">		for (StorageList storagebay : storage) {</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">			if (storagebay.hasItem(item)) {</span>
+<span class="fc" id="L140">				return true;</span>
+			}
+		}
+<span class="fc" id="L143">		return false;</span>
+ 	}
+
+	/**
+	 * Remove the item from storage if the ship has the item
+	 * @param item, the item to be removed
+	 * @return boolean indicating if the item was removed or not
+	 */		
+	public boolean removeItem(Item item) {
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">		for (StorageList storagebay : storage) {</span>
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">			if(storagebay.removeItem(item)) {</span>
+<span class="fc" id="L154">				return true;</span>
+			}
+		}
+<span class="nc" id="L157">		return false;</span>
+ 	}	
+	
+	/**
+	 * Gets the sailing cost per day for the ship.
+	 * Calculated as the number of crew on the ship 
+	 * @return the cost per day
+	 */
+	public int getCostPerDay() {
+<span class="fc" id="L166">		return 1 * getNumberOfCrew();</span>
+	}
+	
+	/**
+	 * Gets the repair cost for the ship. 
+	 * Cost is 1 for unit of damage
+	 * @return cost of repair
+	 */	
+	public int getRepairCost() {
+<span class="fc" id="L175">		return 1 * getDamageAmount();</span>
+	}
+	
+	/**
+	 * Returns a description of the ship
+	 * @return the string description
+	 */		
+	public String description() {		
+<span class="nc" id="L183">		String output = &quot;***  &quot; + getName() +&quot;  ***\n&quot;;</span>
+<span class="nc" id="L184">		output = output + &quot;  It has &quot; +getNumberOfCrew() + &quot; crew and speed of &quot; + getSailSpeed() +&quot; at cost of &quot; +getCostPerDay() +&quot; per day wages.\n&quot;;</span>
+<span class="nc" id="L185">		output = output + &quot;  It can take &quot; +getEndurance() +&quot; damage. Currently &quot; +getDamageAmount() +&quot; damage.&quot;;</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">		if (getDamageAmount() &gt; 0)</span>
+<span class="nc" id="L187">			output = output + &quot; It will cost &quot; +getRepairCost() +&quot; to repair.\n&quot;;</span>
+		else
+<span class="nc" id="L189">			output = output + &quot;\n&quot;;</span>
+<span class="nc" id="L190">		output = output + &quot;  It has the following storage:\n&quot;;</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">		for (StorageList list : storage) {</span>
+<span class="nc" id="L192">			output = output +&quot;    &quot; + list.description() +&quot;\n&quot;;</span>
+		}
+<span class="nc" id="L194">		ArrayList&lt;Item&gt; upgrades = getUpgrades();</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">		if (upgrades.size() &gt; 0) {</span>
+<span class="nc" id="L196">			output = output +&quot;  It has been upgraded:\n&quot;;</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">			for (Item upgrade : upgrades) {</span>
+<span class="nc" id="L198">				output = output +&quot;    &quot; + upgrade +&quot;\n&quot;;</span>
+			}			
+		}
+<span class="nc" id="L201">		return output;						</span>
+	}
+	
+	/**
+	 * Returns core ship details (needed at start of game in gui)
+	 * @return the string description
+	 */		
+	public String details() {		
+<span class="nc" id="L209">		String output = &quot;&quot;;</span>
+<span class="nc" id="L210">		output = output + &quot;  It has &quot; +getNumberOfCrew() + &quot; crew and speed of &quot; + getSailSpeed() +&quot; at cost of &quot; +getCostPerDay() +&quot; per day wages. It can take &quot; +getEndurance() +&quot; damage\n&quot;;</span>
+<span class="nc" id="L211">		output = output + &quot;  It has the following storage:\n&quot;;</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">		for (StorageList list : storage) {</span>
+<span class="nc" id="L213">			output = output +&quot;    &quot; + list.description() +&quot;\n&quot;;</span>
+		}
+<span class="nc" id="L215">		return output;						</span>
+	}	
+	
+	/**
+	 * Returns a string representation of the ship
+	 */	
+	@Override
+	public String toString() {
+<span class="nc" id="L223">		return getName();						</span>
+	}
+	
+	/**
+	 * This method returns a the time it will take the player to sail a route, given their ship
+	 * 
+	 * @param route, the route the user wishes to sale on
+	 * @return int the number of sailing days
+	 */		
+	public int sailingDays(Route route) {
+<span class="fc" id="L233">		return  (int) Math.ceil( (double) route.getDistance() / (double) getSailSpeed());</span>
+	}
+	
+	/**
+	 * This method returns a the cost for a player to sail a route
+	 * 
+	 * @param route, the route the user wishes to sale on
+	 * @return int the cost of the route
+	 */		
+	public int costOfRoute(Route route) {
+<span class="fc" id="L243">		return getCostPerDay() * sailingDays(route);		</span>
+	}
+	
+	/**
+	 * Gets any upgrades
+	 * @return the upgrades
+	 */
+	public ArrayList&lt;Item&gt; getUpgrades() {
+<span class="nc" id="L251">		ArrayList&lt;Item&gt; upgrades = new ArrayList&lt;Item&gt;();</span>
+<span class="nc bnc" id="L252" title="All 2 branches missed.">		for (StorageList list : storage) {</span>
+<span class="nc bnc" id="L253" title="All 2 branches missed.">			if (list.getType() == ItemType.UPGRADE) {</span>
+<span class="nc bnc" id="L254" title="All 2 branches missed.">				for (Item item: list.getItems()) {</span>
+<span class="nc" id="L255">					upgrades.add(item);</span>
+				}
+			}
+		}
+<span class="nc" id="L259">		return upgrades;</span>
+	}
+	
+	/**
+	 * Removes all the user's cargo (Ignores weapons)
+	 * @return the stolen items
+	 */
+	public ArrayList&lt;Item&gt; removeCargo() {
+<span class="fc" id="L267">		ArrayList&lt;Item&gt; stolenCargo = new ArrayList&lt;Item&gt;();</span>
+<span class="fc bfc" id="L268" title="All 2 branches covered.">		for (StorageList storageBay : storage) {			</span>
+<span class="fc bfc" id="L269" title="All 2 branches covered.">			if (storageBay.getType() == ItemType.CARGO) {								</span>
+<span class="fc bfc" id="L270" title="All 2 branches covered.">				for (Item item: storageBay.getItems()) {</span>
+<span class="fc" id="L271">					stolenCargo.add(item);</span>
+				}
+<span class="fc" id="L273">				storageBay.setEmpty();</span>
+			}
+		}
+<span class="fc" id="L276">		return stolenCargo;</span>
+	}
+	
+	/**
+	 * Method to check if the ship has weapons
+	 * @return boolean indicating if the ship has weapons or not
+	 */
+	public boolean hasWeapons() {
+<span class="fc bfc" id="L284" title="All 2 branches covered.">		for (StorageList list : storage) {</span>
+<span class="pc bpc" id="L285" title="3 of 4 branches missed.">			if (list.getType() == ItemType.WEAPON &amp;&amp; list.getSpaceUsed() &gt; 0)</span>
+<span class="nc" id="L286">				return true;</span>
+		}
+<span class="fc" id="L288">		return false;</span>
+	}
+	
+	/**
+	 * Method to check if the ship has any cargo
+	 * @return boolean indicating if the ship has cargo or not
+	 */
+	public boolean hasCargo() {
+<span class="fc bfc" id="L296" title="All 2 branches covered.">		for (StorageList list : storage) {</span>
+<span class="pc bpc" id="L297" title="1 of 4 branches missed.">			if (list.getType() == ItemType.CARGO &amp;&amp; list.getSpaceUsed() &gt; 0)</span>
+<span class="nc" id="L298">				return true;</span>
+		}
+<span class="fc" id="L300">		return false;</span>
+	}	
+	
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 26, 2021 10:06:49 AM)</div></body></html>

@@ -1,0 +1,1041 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>MainCmdUI.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 26, 2021 10:06:49 AM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">ui.cmd</a> &gt; <span class="el_source">MainCmdUI.java</span></div><h1>MainCmdUI.java</h1><pre class="source lang-java linenums">package ui.cmd;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import main.FailureState;
+import main.Island;
+import main.IslandTrader;
+import main.Player;
+import main.PricedItem;
+import main.RandomEvent;
+import main.Route;
+import main.Ship;
+import main.Store;
+import ui.IslandTraderUI;
+
+/**
+ * CMD Line UI for IslandTrader, implements the IslandTraderUI Interface
+ */
+public class MainCmdUI implements IslandTraderUI {
+
+    // The scanner used to read input from the console
+    private final Scanner scanner;
+
+    // The islandtrader this ui interacts with
+    private IslandTrader islandTrader;
+
+    // The island currently being viewed in this gui
+    private Island viewIsland;
+    
+	/**
+	 * SubCMDUI to get a validated Play Name Choice
+	 */    
+	private class PlayerNameInput extends Option {	
+		
+<span class="nc" id="L37">		private PlayerNameInput(MainCmdUI ui) {</span>
+<span class="nc" id="L38">			super(ui, Player.NAME_REGEX);			</span>
+<span class="nc" id="L39">		}</span>
+		
+		/**
+		 * Method to print a header every loop of menu
+		 */			
+		@Override
+		protected void eachHeader() {
+<span class="nc" id="L46">			System.out.println(&quot;Please choose a trader name:\n(between 3-15 characters)&quot;);</span>
+<span class="nc" id="L47">		}		</span>
+		
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
+		@Override
+		protected void handleOption(String option) {
+<span class="nc" id="L55">			ui.getManager().setPlayer(new Player(option));			</span>
+<span class="nc" id="L56">			setMenuFinish();</span>
+<span class="nc" id="L57">		}</span>
+	
+	}
+	
+	/**
+	 * SubCMDUI to get a validated Game Length input from the user
+	 */  
+	private class GameLengthInput extends Option {	
+		
+<span class="nc" id="L66">		public GameLengthInput(MainCmdUI ui) {</span>
+<span class="nc" id="L67">			super(ui, IslandTrader.GAME_LENGTH_REGEX);</span>
+<span class="nc" id="L68">		}</span>
+		
+		/**
+		 * Method to print a header every loop of menu
+		 */			
+		@Override
+		protected void eachHeader() {
+<span class="nc" id="L75">			System.out.println(&quot;How many days do you want to play for?\n(between 20-50 days)&quot;);</span>
+<span class="nc" id="L76">		}				</span>
+		
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
+		@Override
+		protected void handleOption(String option) {
+<span class="nc" id="L84">			int intOption = Integer.parseInt(option);</span>
+<span class="nc" id="L85">			ui.getManager().setGameLength(intOption);</span>
+<span class="nc" id="L86">			setMenuFinish();</span>
+<span class="nc" id="L87">		}		</span>
+	}
+	
+	/**
+	 * SubCMDUI to get a validated Ship choice from the user, 4 predefined ships are offered
+	 */ 
+	private class ShipChoiceInput extends Option {
+		
+<span class="nc" id="L95">		public ShipChoiceInput(MainCmdUI ui) {</span>
+<span class="nc" id="L96">			super(ui, IslandTrader.SHIP_REGEX);</span>
+		
+<span class="nc" id="L98">		}</span>
+		
+		/**
+		 * Method to print a header every loop of menu
+		 */			
+		@Override
+		protected void eachHeader() {
+<span class="nc" id="L105">			System.out.println(&quot;Which Ship do you want to choose? &quot;);</span>
+<span class="nc" id="L106">		}</span>
+		
+	    /**
+		 * Print the list of indexed options to choose from to the user
+		 */			
+		@Override
+		protected void printOptions() {
+<span class="nc" id="L113">			List&lt;Ship&gt; ships = ui.getManager().getWorld().getShips();</span>
+			
+<span class="nc bnc" id="L115" title="All 2 branches missed.">			for (int i=0; i &lt; ships.size(); i++) {</span>
+<span class="nc" id="L116">				System.out.println(&quot;(&quot; + (i+1) + &quot;) &quot; + ships.get(i).description());</span>
+			}
+<span class="nc" id="L118">		}</span>
+		
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
+		@Override
+		protected void handleOption(String option) {
+<span class="nc" id="L126">			int intOption = Integer.parseInt(option);</span>
+<span class="nc" id="L127">			ui.getManager().selectShip(intOption-1);</span>
+<span class="nc" id="L128">			setMenuFinish();</span>
+<span class="nc" id="L129">		}</span>
+	}
+	
+	/**
+	 * Class for Main Menu, presents the user options
+	 * Loops until valid input is received
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */ 
+	private class MainMenu extends ListOption {		
+				
+<span class="nc" id="L139">		public MainMenu(MainCmdUI ui) {</span>
+<span class="nc" id="L140">			super(ui);</span>
+	    	
+	    	//Set up Options
+<span class="nc" id="L143">	    	String[] base_options = {	    	</span>
+<span class="nc" id="L144">				&quot;Money &amp; days remaining&quot;,</span>
+<span class="nc" id="L145">				&quot;Ship properties&quot;,</span>
+<span class="nc" id="L146">				&quot;Past purchases &amp; sales&quot;,</span>
+<span class="nc" id="L147">				&quot;Island properties&quot;,</span>
+<span class="nc" id="L148">				&quot;Visit the island store&quot;,</span>
+<span class="nc" id="L149">				&quot;Sail to another island&quot;}; </span>
+	        
+<span class="nc" id="L151">	    	this.options = new ArrayList&lt;String&gt;(Arrays.asList(base_options));</span>
+<span class="nc" id="L152">	    	String exitOption = &quot;*** Quit Game ***&quot;;</span>
+<span class="nc" id="L153">	    	this.options.add(0, exitOption);</span>
+<span class="nc" id="L154">		}</span>
+		
+		/**
+		 * Method to print a header every loop of menu
+		 */			
+		@Override
+		protected void eachHeader() {
+<span class="nc" id="L161">			System.out.println(&quot;You are at &quot; + ui.getCurrentIsland() +&quot;\nWhat do you want to do next?\n&quot;);</span>
+<span class="nc bnc" id="L162" title="All 2 branches missed.">			if (getManager().isGameOver() == FailureState.GAMEOVER_SOFT) {</span>
+<span class="nc" id="L163">				System.out.println(&quot;*** You have no time / money to sail anywhere but you can trade ***&quot;);</span>
+			}
+			
+<span class="nc" id="L166">		}	</span>
+
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
+		@Override
+	    protected void handleOption(String option) {
+<span class="nc" id="L174">			int intOption = Integer.parseInt(option);</span>
+<span class="nc bnc" id="L175" title="All 8 branches missed.">	        switch (intOption) {</span>
+	        	case -1: //&quot;Quit&quot;
+<span class="nc" id="L177">	        		ui.getManager().onFinish();</span>
+<span class="nc" id="L178">	        		break;  </span>
+	            case 1: //&quot;Money &amp; days remaining
+<span class="nc" id="L180">	            	gameStatus();</span>
+<span class="nc" id="L181">	                break;</span>
+	            case 2: //&quot;Ship status&quot;
+<span class="nc" id="L183">	            	shipProperties();</span>
+<span class="nc" id="L184">	                break;</span>
+	            case 3: //&quot;View purchases&quot;
+<span class="nc" id="L186">	            	purchasesList();</span>
+<span class="nc" id="L187">	                break;</span>
+	            case 4: //&quot;View island properties&quot;
+<span class="nc" id="L189">	            	ui.islandMenu.getUserOption(ui.scanner);</span>
+<span class="nc" id="L190">	                break;	                </span>
+	            case 5: //&quot;Visit the island store&quot;
+<span class="nc" id="L192">	            	ui.storeMenu.getUserOption(ui.scanner);            	</span>
+<span class="nc" id="L193">	                break;      </span>
+	            case 6: //&quot;Sail to another island&quot;
+<span class="nc" id="L195">	                ui.routeMenu.getUserOption(ui.scanner);	 	 </span>
+<span class="nc" id="L196">	                break;</span>
+	            default:
+<span class="nc" id="L198">	                throw new IllegalStateException(&quot;Unexpected value: &quot; + option);</span>
+	        }
+<span class="nc" id="L200">	    }</span>
+
+	} 		
+	
+	/**
+	 * Class for Store Menu, presents the user options they can do at the store
+	 * Loops until valid input is received
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */
+	private class StoreMenu extends ListOption {		
+		
+<span class="nc" id="L211">		public StoreMenu(MainCmdUI ui) {</span>
+<span class="nc" id="L212">			super(ui);		    	</span>
+	    	
+	    	//Set up Options
+<span class="nc" id="L215">	    	String[] base_options = {	    	</span>
+<span class="nc" id="L216">				&quot;See what we have for sale&quot;,</span>
+<span class="nc" id="L217">				&quot;See what we are buying&quot;,</span>
+<span class="nc" id="L218">				&quot;View your past purchases &amp; sales&quot;,</span>
+<span class="nc" id="L219">				&quot;Repair your ship&quot;}; </span>
+	    	
+<span class="nc" id="L221">	    	this.options = new ArrayList&lt;String&gt;(Arrays.asList(base_options));</span>
+<span class="nc" id="L222">	    	String exitOption = &quot;(leave store)&quot;;</span>
+<span class="nc" id="L223">	    	this.options.add(0, exitOption);</span>
+<span class="nc" id="L224">		}</span>
+
+		/**
+		 * Method to print a header every loop of menu
+		 */			
+		@Override
+		protected void eachHeader() {
+<span class="nc" id="L231">			System.out.println(&quot;Welcome to &quot;+ ui.getCurrentIsland().getStore() +&quot; on &quot; + ui.getCurrentIsland() +&quot;. How can we help?\n&quot;);</span>
+<span class="nc" id="L232">		}	</span>
+		
+		/**
+		 * Method to print a footer when finishing with menu
+		 */			
+		@Override
+		public void oneFooter() {
+<span class="nc" id="L239">			System.out.println(&quot;Thanks for shopping at &quot;+ ui.getCurrentIsland().getStore() +&quot;.\n&quot;);</span>
+<span class="nc" id="L240">		}	</span>
+		
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
+		@Override
+		protected void handleOption(String option) {
+<span class="nc" id="L248">			int intOption = Integer.parseInt(option);</span>
+<span class="nc bnc" id="L249" title="All 6 branches missed.">	        switch (intOption) {</span>
+		        case -1: //Exit the store menu
+<span class="nc" id="L251">					setMenuFinish();</span>
+<span class="nc" id="L252">		            break;        </span>
+		        case 1: //User buys an item
+<span class="nc" id="L254">		        	ui.buyMenu.getUserOption(ui.scanner);</span>
+<span class="nc" id="L255">		            break;</span>
+		        case 2: //User sells an item
+<span class="nc" id="L257">		        	ui.sellMenu.getUserOption(ui.scanner);</span>
+<span class="nc" id="L258">		            break;</span>
+		        case 3: //Show the users's transaction list
+<span class="nc" id="L260">		        	purchasesList();</span>
+<span class="nc" id="L261">		            break; </span>
+		        case 4: // Repair the ship damage
+<span class="nc" id="L263">		        	ui.repairShipInput.getUserOption(ui.scanner);</span>
+<span class="nc" id="L264">		            break; 		            </span>
+		        default:
+<span class="nc" id="L266">		            throw new IllegalStateException(&quot;Unexpected value: &quot; + option);</span>
+	        }		
+
+<span class="nc" id="L269">		}</span>
+
+	}
+	
+	/**
+	 * Class for Island Menu, presents the user option to choose island to view properties of
+	 * Loops until valid input is received
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */
+	private class IslandMenu extends ListOption {		
+		
+<span class="nc" id="L280">		public IslandMenu(MainCmdUI ui) {</span>
+<span class="nc" id="L281">			super(ui);					</span>
+<span class="nc" id="L282">	    	this.options = stringList(ui.getManager().getWorld().getIslands(), false, false);</span>
+<span class="nc" id="L283">	    	String exitOption = &quot;(go back)&quot;;</span>
+<span class="nc" id="L284">	    	this.options.add(0, exitOption);</span>
+<span class="nc" id="L285">		}</span>
+
+		/**
+		 * Method to print a header every loop of menu
+		 */			
+		@Override
+		protected void eachHeader() {
+<span class="nc" id="L292">			System.out.println(&quot;Which Island do you want to know more about?&quot;);</span>
+<span class="nc" id="L293">		}			</span>
+		
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
+		@Override
+		protected void handleOption(String option) {
+<span class="nc" id="L301">			int intOption = Integer.parseInt(option);</span>
+<span class="nc bnc" id="L302" title="All 2 branches missed.">			if (intOption == -1) {</span>
+<span class="nc" id="L303">				setMenuFinish();</span>
+<span class="nc" id="L304">			} else {</span>
+<span class="nc" id="L305">				ui.islandDetailMenu.setIsland(ui.getManager().getWorld().getIslands().get(intOption-1));</span>
+<span class="nc" id="L306">				ui.islandDetailMenu.getUserOption(ui.scanner);</span>
+			}
+<span class="nc" id="L308">		}</span>
+
+	}
+
+	/**
+	 * Class for Island Detail Menu, lets the user see details about an island
+	 * Loops until valid input is received
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */
+	private class IslandDetailMenu extends ListOption {		
+		
+		// The island this menu is currently based on
+		private Island island;
+		
+<span class="nc" id="L322">		public IslandDetailMenu(MainCmdUI ui) {</span>
+<span class="nc" id="L323">			super(ui);		    	</span>
+	    	
+	    	//Set up Options
+<span class="nc" id="L326">	    	String[] base_options = {	    	</span>
+<span class="nc" id="L327">				&quot;View routes to this island&quot;,</span>
+<span class="nc" id="L328">				&quot;See what the island store is selling&quot;,</span>
+<span class="nc" id="L329">				&quot;See what the island store is buying&quot;}; </span>
+	    	
+<span class="nc" id="L331">	    	this.options = new ArrayList&lt;String&gt;(Arrays.asList(base_options));</span>
+<span class="nc" id="L332">	    	String exitOption = &quot;(go back)&quot;;</span>
+<span class="nc" id="L333">	    	this.options.add(0, exitOption);</span>
+<span class="nc" id="L334">		}</span>
+
+		/**
+		 * Method to print a header every loop of menu
+		 */			
+		@Override
+		protected void eachHeader() {
+<span class="nc" id="L341">			System.out.println(&quot;What do you want to know about &quot; +island+&quot;?&quot;);</span>
+<span class="nc" id="L342">		}			</span>
+		
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
+		@Override
+		protected void handleOption(String option) {
+<span class="nc" id="L350">			int intOption = Integer.parseInt(option);</span>
+<span class="nc bnc" id="L351" title="All 5 branches missed.">	        switch (intOption) {</span>
+		        case -1: //&quot;QUIT&quot;
+<span class="nc" id="L353">					setMenuFinish();</span>
+<span class="nc" id="L354">		            break;        </span>
+		        case 1: //&quot;Routes&quot;
+<span class="nc" id="L356">		        	showRouteList(island);</span>
+<span class="nc" id="L357">		            break;</span>
+		        case 2: //&quot;Selling&quot;
+<span class="nc" id="L359">		        	showBuyList(island.getStore());</span>
+<span class="nc" id="L360">		            break;</span>
+		        case 3: //&quot;Buying&quot;
+<span class="nc" id="L362">		        	showSellList(island.getStore());</span>
+<span class="nc" id="L363">		            break;             </span>
+		        default:
+<span class="nc" id="L365">		            throw new IllegalStateException(&quot;Unexpected value: &quot; + option);</span>
+	        }		
+
+<span class="nc" id="L368">		}</span>
+		
+	    /**
+		 * Menu takes an island as an input so the user can see what this island has
+		 * @param island, the island to view properties about
+		 */  		
+		public void setIsland(Island island) {
+<span class="nc" id="L375">			this.island = island;</span>
+<span class="nc" id="L376">		}</span>
+
+	}			
+	
+	/**
+	 * Class for Store Buy Menu - lets the user buy an item at the curren store
+	 * Loops until valid input is received
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */
+	private class BuyMenu extends ListOption {		
+		
+<span class="nc" id="L387">		public BuyMenu(MainCmdUI ui) {</span>
+<span class="nc" id="L388">			super(ui); 		  		    	</span>
+<span class="nc" id="L389">		}</span>
+		
+		/**
+		 * Method to print a header every loop of menu
+		 */			
+		@Override
+		protected void eachHeader() {
+<span class="nc" id="L396">			System.out.println(&quot;What do you want to buy?\n (* recommended for you)\n&quot;);</span>
+<span class="nc" id="L397">		}	</span>
+		
+	    /**
+		 * Print the list of indexed options to choose from to the user
+		 */			
+		@Override
+		protected void printOptions() {
+<span class="nc" id="L404">	    	this.options = stringList(ui.getCurrentIsland().getStore().getToSellList(), true, false); </span>
+<span class="nc" id="L405">	    	String exitOption = &quot;(back to store front)&quot;;</span>
+<span class="nc" id="L406">	    	this.options.add(0, exitOption);</span>
+<span class="nc" id="L407">			super.printOptions();</span>
+<span class="nc" id="L408">		}</span>
+
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
+		@Override
+		protected void handleOption(String option) {
+<span class="nc" id="L416">			int intOption = Integer.parseInt(option);			</span>
+<span class="nc bnc" id="L417" title="All 2 branches missed.">			if (intOption == -1) {</span>
+<span class="nc" id="L418">				setMenuFinish();</span>
+<span class="nc" id="L419">			} else { </span>
+<span class="nc" id="L420">				ui.getManager().buyStoreItem(intOption-1);</span>
+			}	
+<span class="nc" id="L422">		}</span>
+
+	}		
+
+	/**
+	 * Method to show items for sale at a store 
+	 * 
+	 * @param store, the store to view items at
+	 */	
+	private void showBuyList(Store store) {				
+<span class="nc" id="L432">		System.out.println(store +&quot; sells the following items?\n (* recommended for you)\n&quot;);</span>
+		
+<span class="nc" id="L434">		ArrayList&lt;String&gt; options = stringList(store.getToSellList(), true, false);</span>
+<span class="nc bnc" id="L435" title="All 2 branches missed.">		for (String option: options) {</span>
+<span class="nc" id="L436">			System.out.println(option);</span>
+		}
+<span class="nc bnc" id="L438" title="All 2 branches missed.">		if (options.size() == 0)</span>
+<span class="nc" id="L439">			System.out.println(&quot;We are not selling anything today&quot;);</span>
+<span class="nc" id="L440">		System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L441">	}		 </span>
+	
+	
+	/**
+	 * Class for Store Sell Menu - lets the user sell an item to a store
+	 * Loops until valid input is received
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */	
+	private class SellMenu extends ListOption {
+		
+<span class="nc" id="L451">		public SellMenu(MainCmdUI ui) {</span>
+<span class="nc" id="L452">			super(ui);     	</span>
+<span class="nc" id="L453">		}</span>
+
+		/**
+		 * Method to print a header every loop of menu
+		 */			
+		@Override
+		protected void eachHeader() {
+<span class="nc" id="L460">			System.out.println(&quot;What do you want to sell?\n (* recommended for you)\n&quot;);</span>
+<span class="nc" id="L461">		}		</span>
+		
+	    /**
+		 * Print the list of indexed options to choose from to the user
+		 */			
+		@Override
+		protected void printOptions() {
+<span class="nc" id="L468">	    	this.options = stringList(ui.getCurrentIsland().getStore().getToBuyList(), true, false);</span>
+<span class="nc" id="L469">	    	String exitOption = &quot;(back to store front)&quot;;</span>
+<span class="nc" id="L470">	    	this.options.add(0, exitOption);</span>
+<span class="nc" id="L471">			super.printOptions();</span>
+<span class="nc" id="L472">		}		</span>
+
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
+		@Override
+		protected void handleOption(String option) {
+<span class="nc" id="L480">			int intOption = Integer.parseInt(option);			</span>
+<span class="nc bnc" id="L481" title="All 2 branches missed.">			if (intOption == -1) {</span>
+<span class="nc" id="L482">				setMenuFinish();</span>
+<span class="nc" id="L483">			} else {</span>
+<span class="nc" id="L484">				ui.getManager().sellStoreItem(intOption-1);</span>
+			}	
+<span class="nc" id="L486">		}</span>
+
+	}	
+	
+	/**
+	 * Method to show items for sale at a store 
+	 * 
+	 * @param store, the store to view items at 
+	 */		
+	private void showSellList(Store store) {			
+<span class="nc" id="L496">		System.out.println(store +&quot; buys the following items?\n (* recommended for you)\n&quot;);</span>
+<span class="nc" id="L497">		ArrayList&lt;String&gt; options = stringList(store.getToBuyList(), true, false);</span>
+<span class="nc bnc" id="L498" title="All 2 branches missed.">		for (String option: options) {</span>
+<span class="nc" id="L499">			System.out.println(option);</span>
+		}
+<span class="nc bnc" id="L501" title="All 2 branches missed.">		if (store.getToBuyList().size() == 0)</span>
+<span class="nc" id="L502">			System.out.println(&quot;We are not buying anything today&quot;);		</span>
+<span class="nc" id="L503">		System.out.println(&quot;\n&quot;);</span>
+				
+<span class="nc" id="L505">	}		</span>
+	
+	/**
+	 * Class for Route sailing menu - lets the user choose a sailing to a new island
+	 * Loops until valid input is received
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */		
+	private class RouteMenu extends ListOption {		
+		
+<span class="nc" id="L514">		public RouteMenu(MainCmdUI ui) {</span>
+<span class="nc" id="L515">			super(ui); 		  		    	</span>
+<span class="nc" id="L516">		}</span>
+		
+		/**
+		 * Method to print a header every loop of menu
+		 */			
+		@Override
+		protected void eachHeader() {
+<span class="nc" id="L523">			System.out.println(&quot;Where do you want to go?\n (* possible for you)\n&quot;);</span>
+<span class="nc bnc" id="L524" title="All 2 branches missed.">			if (ui.getShip().getRepairCost() &gt; 0) {</span>
+<span class="nc" id="L525">				System.out.println(&quot; *** You can't sail anywhere until you repair your ship ***&quot;);</span>
+<span class="nc" id="L526">				System.out.println(&quot; *** You can get it repaired at the Island store ***\n&quot;);</span>
+			}
+<span class="nc" id="L528">		}				</span>
+		
+	    /**
+		 * Print the list of indexed options to choose from to the user
+		 */			
+		@Override
+		protected void printOptions() {
+<span class="nc" id="L535">			this.options = routeStringList(ui.getManager().getWorld().getRoutesFromCurrent(), true, false);</span>
+<span class="nc" id="L536">			String exitOption = &quot;(back to main menu)&quot;;</span>
+<span class="nc" id="L537">			this.options.add(0, exitOption);</span>
+<span class="nc" id="L538">			super.printOptions();</span>
+<span class="nc" id="L539">		}</span>
+
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
+		@Override
+		protected void handleOption(String option) {
+<span class="nc" id="L547">			int intOption = Integer.parseInt(option);			</span>
+<span class="nc bnc" id="L548" title="All 2 branches missed.">			if (intOption == -1) {</span>
+<span class="nc" id="L549">				setMenuFinish();</span>
+<span class="nc" id="L550">			} else {</span>
+				//ui.sailRoute(intOption-1);				
+<span class="nc" id="L552">				setMenuFinish();</span>
+<span class="nc" id="L553">				ui.getManager().sailRoute(intOption-1);				</span>
+			}	
+<span class="nc" id="L555">		}</span>
+
+	}	
+	
+	/**
+	 * Method to show routes to an island from current island 
+	 * 
+	 * @param store, the store to view items at 
+	 */		
+	private void showRouteList(Island island) {		
+		
+<span class="nc" id="L566">		System.out.println(&quot;Here are the routes available from your current island &quot; +getCurrentIsland() + &quot; to &quot; + island);</span>
+		
+<span class="nc" id="L568">		ArrayList&lt;String&gt; options = routeStringList(getManager().getWorld().getRoutes(getCurrentIsland(), island), true, false);</span>
+<span class="nc bnc" id="L569" title="All 2 branches missed.">		for (String option: options) {</span>
+<span class="nc" id="L570">			System.out.println(option);</span>
+		}	
+<span class="nc" id="L572">		System.out.println(&quot;(* recommended for you)\n&quot;);		</span>
+<span class="nc" id="L573">		System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L574">	}		</span>
+	
+	/**
+	 * Class for Repair the ship, lets user repair ship or not
+	 * Loops until valid input is received (ie 1 for yes to repair)
+	 * Automatically adds an exit option with '-1' as the exit 
+	 */	
+	private class RepairShipInput extends ListOption {		
+		
+<span class="nc" id="L583">		public RepairShipInput(MainCmdUI ui) {</span>
+<span class="nc" id="L584">			super(ui);</span>
+<span class="nc" id="L585">		}</span>
+		
+		/**
+		 * Method to print a header every loop of menu
+		 */			
+		@Override
+		protected void eachHeader() {
+<span class="nc" id="L592">	    	int damage = ui.getShip().getDamageAmount();</span>
+<span class="nc" id="L593">	    	int repairCost = ui.getShip().getDamageAmount();</span>
+<span class="nc bnc" id="L594" title="All 2 branches missed.">	    	if (damage &gt; 0) {</span>
+<span class="nc" id="L595">	    		System.out.println(&quot;You have &quot; +damage +&quot; damage to your ship. This will cost &quot; +repairCost +&quot; dollars to repair.\n&quot;);</span>
+<span class="nc bnc" id="L596" title="All 2 branches missed.">	    		if (ui.getManager().validateRepair(ui.getShip()) == FailureState.NOMONEY)</span>
+<span class="nc" id="L597">	    			System.out.println(&quot;However, you only have &quot; +ui.getPlayer().getBalance() +&quot;. Trade to get more money&quot;);</span>
+<span class="nc" id="L598">	    	} else {</span>
+<span class="nc" id="L599">	    		System.out.println(&quot;You have no damage to your ship&quot;);</span>
+	    	}	
+<span class="nc" id="L601">		}			</span>
+		
+	    /**
+		 * Print the list of indexed options to choose from to the user
+		 */			
+		@Override
+		protected void printOptions() {
+<span class="nc" id="L608">	    	this.options = new ArrayList&lt;String&gt;();</span>
+<span class="nc" id="L609">	    	int repairCost = ui.getShip().getDamageAmount();</span>
+<span class="nc bnc" id="L610" title="All 4 branches missed.">	    	if (repairCost &gt; 0 &amp;&amp; ui.getManager().validateRepair(ui.getShip()) == FailureState.SUCCESS)</span>
+<span class="nc" id="L611">	    		this.options.add(&quot;Repair ship damage for &quot; +repairCost);</span>
+<span class="nc" id="L612">	    	String exitOption = &quot;(back to store front)&quot;;</span>
+<span class="nc" id="L613">	    	this.options.add(0, exitOption);</span>
+<span class="nc" id="L614">			super.printOptions();</span>
+<span class="nc" id="L615">		}			</span>
+		
+	    /**
+		 * Method to handle next steps once valid input has been received
+		 * @param option, the regex validated string that the user entered
+		 */  		
+		@Override
+		protected void handleOption(String option) {
+<span class="nc" id="L623">			int intOption = Integer.parseInt(option);</span>
+<span class="nc bnc" id="L624" title="All 2 branches missed.">			if (intOption == -1) {</span>
+<span class="nc" id="L625">				setMenuFinish();</span>
+<span class="nc" id="L626">			} else {</span>
+<span class="nc" id="L627">				ui.getManager().repairShip();</span>
+<span class="nc" id="L628">				System.out.println(&quot;Ship is repaired\n&quot;);</span>
+<span class="nc" id="L629">				setMenuFinish();</span>
+			}
+<span class="nc" id="L631">		}</span>
+
+	}	
+    
+	// Instances of the various sub menus defined above
+	private PlayerNameInput playerNameInput;
+	private GameLengthInput gameLengthInput;
+	private ShipChoiceInput shipChoiceInput;
+	private MainMenu mainMenu;
+	private StoreMenu storeMenu;	
+	private BuyMenu buyMenu;
+	private SellMenu sellMenu;
+	private IslandMenu islandMenu;
+	private IslandDetailMenu islandDetailMenu;
+	private RouteMenu routeMenu;
+	private RepairShipInput repairShipInput;
+	
+	/**
+	 * Create a new CMD UI
+	 * This is created by the game Manager (IslandTrader) which then calls the UI setup method
+	 */
+<span class="fc" id="L652">	public MainCmdUI() {</span>
+<span class="fc" id="L653">		scanner = new Scanner(System.in);</span>
+<span class="fc" id="L654">	}	</span>
+
+    /**
+     * Initializes this UI and sets up the given IslandTrader, with the ships, islands, stores to be managed
+     * Once setup is complete this UI must call {@link IslandTrader#onSetupFinished}.
+     *
+     * @param game, the {@link IslandTrader} game instance that this UI interacts with
+     */	
+	@Override
+	public void setup(IslandTrader game) {
+		// Set up game item
+<span class="nc" id="L665">		this.islandTrader = game;</span>
+		
+		// Set up player name input
+<span class="nc" id="L668">		this.playerNameInput = new PlayerNameInput(this);</span>
+		
+		// Set up game length input
+<span class="nc" id="L671">		this.gameLengthInput = new GameLengthInput(this);</span>
+		
+		// Set up ship choice input
+<span class="nc" id="L674">		this.shipChoiceInput = new ShipChoiceInput(this);</span>
+
+		//Set up command menus
+<span class="nc" id="L677">		this.mainMenu = new MainMenu(this);		</span>
+<span class="nc" id="L678">		this.storeMenu = new StoreMenu(this);		</span>
+<span class="nc" id="L679">		this.buyMenu = new BuyMenu(this);		</span>
+<span class="nc" id="L680">		this.sellMenu = new SellMenu(this);	</span>
+<span class="nc" id="L681">		this.islandMenu = new IslandMenu(this);</span>
+<span class="nc" id="L682">		this.islandDetailMenu = new IslandDetailMenu(this);</span>
+<span class="nc" id="L683">		this.routeMenu = new RouteMenu(this);</span>
+<span class="nc" id="L684">		this.repairShipInput = new RepairShipInput(this);</span>
+		
+<span class="nc" id="L686">		this.setViewIsland(getCurrentIsland());</span>
+		// Start the game
+<span class="nc" id="L688">		game.onSetupFinished();		</span>
+<span class="nc" id="L689">	}</span>
+
+    /**
+     * Method used to start the game, where the user selects a ship, player name and game length
+     * before triggering the main menu
+     */		
+	@Override
+	public void start() {
+		// Print Intro
+<span class="nc" id="L698">		System.out.println(&quot;****************************************&quot;);</span>
+<span class="nc" id="L699">		System.out.println(&quot;Welcome to Island Trader V1.0&quot;);</span>
+<span class="nc" id="L700">		System.out.println(&quot;****************************************\n&quot;);		</span>
+		
+		// Get the player name from the player 
+<span class="nc" id="L703">		playerNameInput.getUserOption(scanner);</span>
+<span class="nc" id="L704">		System.out.println(&quot;Great name, &quot; +getPlayer() +&quot;\n&quot;);</span>
+		
+		// Get the game length from the player
+<span class="nc" id="L707">		gameLengthInput.getUserOption(scanner);</span>
+<span class="nc" id="L708">		System.out.println(&quot;Game will run for &quot; +getManager().getGameLength() +&quot; days\n&quot;);	</span>
+		
+		// Get the ship choice
+<span class="nc" id="L711">		shipChoiceInput.getUserOption(scanner);		</span>
+<span class="nc" id="L712">		System.out.println(&quot;Great choice, your ship is: &quot; +getShip() +&quot;\n&quot;);</span>
+		
+		//Start the main menu
+<span class="nc" id="L715">		mainMenu.getUserOption(this.scanner);						</span>
+<span class="nc" id="L716">	}	           </span>
+
+    /**
+     * Confirms user wants to quit the game
+     * @return true, this is dummy method for cmdline
+     */
+	@Override
+	public boolean confirmQuit() {
+<span class="nc" id="L724">		return true;</span>
+	}
+
+    /**
+     * Quits the game, showing the user their score and status
+     */	
+	@Override
+	public void quit() {
+<span class="nc" id="L732">		mainMenu.setMenuFinish();	</span>
+<span class="nc" id="L733">		System.out.println(&quot;****************************************&quot;);</span>
+<span class="nc" id="L734">		System.out.println(&quot;GAME OVER&quot;);</span>
+<span class="nc" id="L735">		System.out.println(&quot;****************************************\n&quot;);</span>
+<span class="nc" id="L736">		System.out.println(getPlayer());</span>
+<span class="nc" id="L737">		System.out.println(&quot;You played for &quot; + getManager().getTime() +&quot; days, out of &quot; + getManager().getGameLength());</span>
+<span class="nc" id="L738">		System.out.println(&quot;You made &quot; +getPlayer().getProfitValue()[0] +&quot; dollars\n&quot;);</span>
+<span class="nc" id="L739">		System.out.println(&quot;Your score is:&quot; +getManager().gameScore());</span>
+<span class="nc" id="L740">		System.out.println(&quot;\nThanks for playing&quot;);		</span>
+<span class="nc" id="L741">	}</span>
+
+    /**
+     * Show the user an error message if what they were attempting to do failed
+     */	
+	@Override
+	public void showError(String error) {
+<span class="nc" id="L748">		System.out.println(&quot;!!!! &quot; + error + &quot; !!!!&quot;);</span>
+		
+<span class="nc" id="L750">	}	</span>
+	
+	/**
+	 * Helper method to simplify code. Get the current island from the world class
+	 * @return Island, the current island the user is on
+	 */
+	private Island getCurrentIsland() {
+<span class="nc" id="L757">		return getManager().getWorld().getCurrentIsland();</span>
+	}
+	
+	/**
+	 * Helper method to simplify code. Get the IslandManager
+	 * @return IslandTrader, the game manager
+	 */
+	public IslandTrader getManager() {
+<span class="fc" id="L765">		return this.islandTrader;</span>
+	}
+	
+	/**
+	 * Helper method to allow easier testing. 
+	 * @param islandTrader, the game manager to set
+	 */
+	public void setManager(IslandTrader islandTrader) {
+<span class="fc" id="L773">		this.islandTrader = islandTrader;</span>
+<span class="fc" id="L774">	}	</span>
+	
+	/**
+	 * Helper method to simplify code. Get the player from the game
+	 * @return Player, the player object
+	 */
+	public Player getPlayer() {
+<span class="fc" id="L781">		return getManager().getPlayer();</span>
+	}	
+	
+	/**
+	 * Helper method to simplify code. Get the ship the player has
+	 * @return Ship, the ship the player is using
+	 */
+	private Ship getShip() {
+<span class="fc" id="L789">		return getPlayer().getShip();</span>
+	}		
+	
+    /**
+     * Show the user list of their purchases / transactions
+     */	
+	private void purchasesList() {
+<span class="nc" id="L796">		System.out.println(&quot;****************************************&quot;);</span>
+<span class="nc" id="L797">		System.out.println(&quot;Here are all your purchases &amp; sales.\n&quot;);</span>
+<span class="nc" id="L798">		System.out.println(&quot;You currently have &quot; +getPlayer().getBalance() +&quot; dollars.\n&quot;);</span>
+		
+<span class="nc" id="L800">		ArrayList&lt;String&gt; options = stringList(getPlayer().getTransactions(), false, false);</span>
+<span class="nc bnc" id="L801" title="All 2 branches missed.">		for (String option: options) {</span>
+<span class="nc" id="L802">			System.out.println(option);</span>
+		}		
+<span class="nc bnc" id="L804" title="All 2 branches missed.">		if(options.size() == 0) {</span>
+<span class="nc" id="L805">			System.out.println(&quot;You have no transactions yet\n&quot;);</span>
+		}	
+<span class="nc" id="L807">		System.out.println(&quot;\n&quot;);</span>
+<span class="nc" id="L808">	}</span>
+	
+    /**
+     * Show the user properties of their ship. 2nd Main Menu Option
+     */
+	private void shipProperties() {
+<span class="nc" id="L814">		System.out.println(&quot;****************************************&quot;);</span>
+<span class="nc" id="L815">		System.out.println(&quot;Ship Properties\n&quot;);</span>
+<span class="nc" id="L816">		System.out.println(getShip().description());</span>
+<span class="nc" id="L817">	}</span>
+	
+    /**
+     * Show the user the game status, their money, the time left, their score and profit
+     */	
+	private void gameStatus() {
+<span class="nc" id="L823">		int[] profitvalue = getPlayer().getProfitValue();</span>
+<span class="nc" id="L824">		System.out.println(&quot;****************************************&quot;);</span>
+<span class="nc" id="L825">		System.out.println(&quot;Game Status\n&quot;);</span>
+<span class="nc" id="L826">		System.out.println(&quot;Hi &quot; + getPlayer()+&quot;\n&quot;);</span>
+<span class="nc" id="L827">		System.out.println(&quot;You currently have &quot; +getPlayer().getBalance() +&quot; dollars.&quot;);</span>
+<span class="nc" id="L828">		System.out.println(&quot;You made &quot; +profitvalue[0] +&quot; dollars profit and have &quot;+profitvalue[1] +&quot; dollars of cargo\n&quot;);</span>
+<span class="nc" id="L829">		System.out.println(&quot;You are on day &quot; +getManager().getTime() +&quot; of &quot; +getManager().getGameLength() +&quot;. &quot; +(getManager().getGameLength()-getManager().getTime()) +&quot; days left.&quot;);</span>
+<span class="nc" id="L830">		System.out.println(&quot;Your score is:&quot; +getManager().gameScore()+&quot;\n&quot;);				</span>
+<span class="nc" id="L831">	}</span>
+	
+	/**
+	 * Helper method to take a list of objects and format them in list form to display to the user.
+	 * Can add a 1 based counter and also can validate if this user can purchase / action the item
+	 * @param list, the list of objects to convert into a string list (using toString method)
+	 * @param validate, boolean do we want to validate the item and indicate to the user validation
+	 * @param numbered, boolean should the output items have a 1 based index in front of them
+	 * @return ArrayList&lt;String&gt; of the list input
+	 */	
+	private ArrayList&lt;String&gt; stringList(List&lt;?&gt; list, boolean validate, boolean numbered) {
+<span class="nc" id="L842">		int counter = 1;</span>
+		String validPrefix;
+		String numberPrefix;
+<span class="nc" id="L845">		ArrayList&lt;String&gt; names = new ArrayList&lt;String&gt;();				</span>
+<span class="nc bnc" id="L846" title="All 2 branches missed.">		for (Object obj : list) {</span>
+			// Add a prefix if the item is valid for the user
+<span class="nc bnc" id="L848" title="All 4 branches missed.">			if (validate &amp;&amp; getManager().validate(obj) == FailureState.SUCCESS)</span>
+<span class="nc" id="L849">				validPrefix = &quot;* &quot;;</span>
+			else
+<span class="nc" id="L851">				validPrefix = &quot;&quot;;</span>
+			
+			// Add a prefix if the item should be numbered in the list (1 based)
+<span class="nc bnc" id="L854" title="All 2 branches missed.">			if (numbered)</span>
+<span class="nc" id="L855">				numberPrefix = &quot;(&quot; +counter +&quot;) &quot;;</span>
+			else
+<span class="nc" id="L857">				numberPrefix = &quot;&quot;;</span>
+			
+<span class="nc" id="L859">			names.add(numberPrefix + validPrefix + obj.toString());</span>
+<span class="nc" id="L860">			counter++;</span>
+		}
+<span class="nc" id="L862">		return names;</span>
+	}
+	
+	/**
+	 * Helper method to take a list of Routes and format them in list form to display to the user.
+	 * Can add a 1 based counter and also can validate if this user can purchase / action the item
+	 * @param list, the list of objects to convert into a string list (using toString method)
+	 * @param validate, boolean do we want to validate the item and indicate to the user validation
+	 * @param numbered, boolean should the output items have a 1 based index in front of them 
+	 * @return ArrayList&lt;String&gt; of the route list input 
+	 */	
+	private ArrayList&lt;String&gt; routeStringList(List&lt;?&gt; list, boolean validate, boolean numbered) {		
+<span class="nc" id="L874">		ArrayList&lt;String&gt; routes = stringList(list, validate, numbered);</span>
+		String routeSuffix;
+		Route route;
+<span class="nc bnc" id="L877" title="All 2 branches missed.">		for (int i = 0; i &lt; routes.size(); i++) {</span>
+<span class="nc" id="L878">			route = (Route) list.get(i);</span>
+			// For each route add a suffix with more detail for the user
+<span class="nc" id="L880">			routeSuffix = &quot;\n  This route is &quot; +route.getDistance() +&quot;km. It will take you &quot; +getShip().sailingDays(route) +&quot; days\n&quot;; </span>
+<span class="nc" id="L881">			routes.set(i, routes.get(i) + routeSuffix);</span>
+		}
+<span class="nc" id="L883">		return routes;		</span>
+	}	
+	
+	/**
+	 * Show the user the details of the transaction, if successful
+	 * @param transaction, the transaction we are showing the user
+	 */	
+	@Override
+	public void processTransaction(PricedItem transaction) {
+<span class="fc" id="L892">		System.out.println(transaction+&quot;\n&quot;);		</span>
+<span class="fc" id="L893">	}</span>
+	
+    /**
+     * Show the user what happened on their sailing
+     *
+     * @param route, the route being sailed
+     * @param wageRecord, the transaction record for our wage payment
+     * @param sailingTime, days it took to sail the route
+     */
+	@Override	
+	public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {
+		// GameStatus
+<span class="fc" id="L905">		FailureState gameStatus = FailureState.SUCCESS;</span>
+		
+		// Start the Journey
+<span class="fc" id="L908">		System.out.println(&quot;*** Starting our journey ***&quot;);</span>
+		
+		// Show the user the wages we paid
+<span class="fc" id="L911">		this.processTransaction(wageRecord);</span>
+		
+		// Call the game random event code
+<span class="pc bpc" id="L914" title="1 of 2 branches missed.">		for (RandomEvent event : route.getEvents()) {</span>
+<span class="nc" id="L915">			getManager().triggerRandomSailingEvent(event);</span>
+<span class="nc" id="L916">			gameStatus = getManager().isGameOver();</span>
+<span class="nc bnc" id="L917" title="All 2 branches missed.">			if(gameStatus == FailureState.GAMEOVER_HARD)</span>
+<span class="nc" id="L918">				break;</span>
+		}
+		
+<span class="pc bpc" id="L921" title="1 of 2 branches missed.">		if (gameStatus == FailureState.GAMEOVER_HARD) {</span>
+<span class="nc" id="L922">			getManager().setGameOver();</span>
+<span class="pc bpc" id="L923" title="1 of 2 branches missed.">		} else if (gameStatus == FailureState.GAMEOVER_SOFT) {</span>
+<span class="nc" id="L924">			System.out.println(&quot;You made it, but you have no money or time left to go anywhere&quot;);</span>
+<span class="nc" id="L925">			System.out.println(&quot;You can trade if you want, else quit the game\n&quot;);</span>
+<span class="nc" id="L926">		} else {</span>
+			// Assume we made the next island (for now)
+<span class="fc" id="L928">			System.out.println(&quot;Congrats on your journey, you made it\n&quot;);			</span>
+		}
+
+<span class="fc" id="L931">	}</span>
+	
+    /**
+     * Show the user how bad weather impacted them on their sailing. If you hit bad weather it
+     * damages your ship by 20% of its total endurance. This needs to be paid before another sailing
+     *
+     * @param damage, how much damage the weather caused
+     * @param repairCost, the extra repair cost from the weather
+     * @param repairValidation, indicates if the user can afford repair
+     */
+	@Override	
+    public void encounterWeather(int damage, int repairCost, FailureState repairValidation) {
+<span class="fc" id="L943">		System.out.println(&quot;*** You encountered bad weather ***&quot;);</span>
+<span class="pc" id="L944">		try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}</span>
+<span class="fc" id="L945">		System.out.println(&quot;Unfortunately the weather caused &quot; +damage +&quot; damage.&quot;);</span>
+<span class="fc" id="L946">		System.out.println(&quot;It will cost &quot; +repairCost +&quot; to repair\n&quot;);</span>
+<span class="pc bpc" id="L947" title="1 of 2 branches missed.">		if (repairValidation == FailureState.NOMONEY)</span>
+<span class="nc" id="L948">			System.out.println(&quot;This is more money than you have you will have to trade before you can sail again\n&quot;);</span>
+<span class="fc" id="L949">	}</span>
+	
+    /**
+     * Reports details to the user of encounter with sailors who are rescued
+     *
+     * @param numRescuedSailors, the random number of sailors rescued, depends on ship size
+     * @param rewardRecord, each sailor gives a random reward, this is the total
+     */
+    public void rescueSailors(int numRescuedSailors, PricedItem rewardRecord) {
+<span class="fc" id="L958">    	System.out.println(&quot;*** You encountered sailors in distress ***&quot;);</span>
+<span class="pc" id="L959">    	try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}</span>
+<span class="fc" id="L960">    	System.out.println(&quot;There are &quot; +numRescuedSailors +&quot; sailors, who are very greatful for their rescue&quot;);</span>
+    	
+		// Show the user their reward
+<span class="fc" id="L963">		this.processTransaction(rewardRecord);    	</span>
+<span class="fc" id="L964">    }	</span>
+    
+    /**
+     * Reports details to the user of encounter with pirates
+     * 
+     * @param diceThrow, the random number that the user got to determine success when fighting the pirates
+     * @param boardShip, the boolean result of the dicethrow if pirates boardded the ship
+     * @param transactions, the record of items the pirates stole from the player
+     * @param goodsSatisfy, boolean indicating if the goods were enough for the pirate, you lose game if false 
+     */
+    public void encounterPirates(int diceThrow, boolean boardShip, ArrayList&lt;PricedItem&gt; transactions, boolean goodsSatisfy) {
+<span class="fc" id="L975">    	System.out.println(&quot;*** !!! You encountered Pirates !!! ***&quot;);</span>
+<span class="fc" id="L976">    	System.out.println(&quot;*** !!! They are trying to board your ship !!! ***\n&quot;);</span>
+    	
+    	// Show dice game, result is predetermined
+<span class="fc" id="L979">    	System.out.println(&quot;You must roll a die to stop them&quot;);</span>
+<span class="pc bpc" id="L980" title="1 of 2 branches missed.">    	if (getShip().hasWeapons())</span>
+<span class="nc" id="L981">    		System.out.println(&quot;Because you have weapons you have to roll a 3 or above\n&quot;);    		</span>
+    	else
+<span class="fc" id="L983">    		System.out.println(&quot;You have no weapons to fight them off, you must roll 5 or 6\n&quot;);    		</span>
+    	
+    	// Pause for 2 seconds
+<span class="pc" id="L986">    	try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}    </span>
+    	
+    	// Show result of dice game
+<span class="pc bpc" id="L989" title="1 of 4 branches missed.">		if (diceThrow &gt; 2 &amp;&amp; getShip().hasWeapons())</span>
+<span class="nc" id="L990">			System.out.println(&quot;You rolled a &quot; +diceThrow +&quot; you fend off the pirates.\n&quot;);</span>
+<span class="fc bfc" id="L991" title="All 2 branches covered.">		else if (diceThrow &gt; 4)</span>
+<span class="fc" id="L992">			System.out.println(&quot;You rolled a &quot; +diceThrow +&quot; you fend off the pirates.\n&quot;);		</span>
+		else
+<span class="fc" id="L994">			System.out.println(&quot;You rolled a &quot; +diceThrow +&quot; the pirates board your ship.\n&quot;);    	</span>
+    	
+		//Board the ship, if we lost the dice game
+<span class="fc bfc" id="L997" title="All 2 branches covered.">    	if (boardShip) {    		</span>
+    		//Steal the goods
+<span class="fc" id="L999">    		System.out.println(&quot;The pirates now steal all of your goods\n&quot;);</span>
+<span class="fc bfc" id="L1000" title="All 2 branches covered.">    		for (PricedItem transaction : transactions) {    			</span>
+    			//Show the user what was stolen
+<span class="fc" id="L1002">    			this.processTransaction(transaction);</span>
+    		}
+    		
+    		// Pause for 2 seconds
+<span class="pc" id="L1006">    		try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}</span>
+    		
+    		// Does this satisfy them
+<span class="fc bfc" id="L1009" title="All 2 branches covered.">    		if (goodsSatisfy) {</span>
+<span class="fc" id="L1010">    			System.out.println(&quot;The pirates are happy with your cargo. You live another day\n&quot;);</span>
+<span class="fc" id="L1011">    		} else {</span>
+<span class="fc" id="L1012">    			System.out.println(&quot;Unfortunately that wasn't enough for them\n&quot;);</span>
+<span class="fc" id="L1013">    			System.out.println(&quot;The pirates take everything and you are forced to walk the plank&quot;);</span>
+<span class="fc" id="L1014">    			System.out.println(&quot;Hope you can swim\n&quot;);</span>
+    		}
+    		
+    	}
+<span class="fc" id="L1018">    }</span>
+    
+    /**
+     * Sets an view as the current viewIsland, so some ui's that want to view as another island can without
+     * passing the island into the ui
+     * 
+     * @param viewIsland, the island to view the current gui as
+     */
+	@Override	
+    public void setViewIsland(Island viewIsland) {
+<span class="nc" id="L1028">    	this.viewIsland = viewIsland;</span>
+<span class="nc" id="L1029">    } </span>
+    
+    /**
+     * Sets the current island we are viewing as
+     * 
+     * @return the current viewIsland
+     */
+	@Override	
+    public Island getViewIsland() {
+<span class="nc" id="L1038">    	return this.viewIsland;</span>
+    }      
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 26, 2021 10:06:49 AM)</div></body></html>

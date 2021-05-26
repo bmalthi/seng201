@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Gui.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 26, 2021 10:06:49 AM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">ui.gui</a> &gt; <span class="el_source">Gui.java</span></div><h1>Gui.java</h1><pre class="source lang-java linenums">	package ui.gui;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+
+import main.FailureState;
+import main.Island;
+import main.IslandTrader;
+import main.PricedItem;
+import main.RandomEvent;
+import main.Route;
+import ui.IslandTraderUI;
+
+/**
+ * A graphical user interface for a {@link IslandTrader}.
+ */
+<span class="nc" id="L20">public class Gui implements IslandTraderUI {</span>
+
+    // The game instance that this gui interacts with
+	private IslandTrader islandTrader;
+
+    // The currently active screen in this gui
+    private Screen theScreen;
+    
+    // The island currently being viewed in this gui
+    private Island viewIsland;
+
+    /**
+     * Initialises this UI and sets up the given IslandTrader, with the ships, islands, stores to be managed
+     * Once setup is complete this UI must call {@link IslandTrader#onSetupFinished}.
+     *
+     * @param islandTrader, the islandTrader game instance that this UI interacts with
+     */    
+    @Override
+    public void setup(IslandTrader islandTrader) {
+<span class="nc" id="L39">        this.islandTrader = islandTrader;</span>
+<span class="nc" id="L40">        this.setViewIsland(this.islandTrader.getWorld().getCurrentIsland());</span>
+<span class="nc" id="L41">        theScreen = new SetupScreen(islandTrader);</span>
+<span class="nc" id="L42">        theScreen.show();</span>
+<span class="nc" id="L43">    }</span>
+
+    /**
+     * Reports the given error to the user.
+     *
+     * @param error The error to display
+     */    
+    @Override
+    public void showError(String error) {
+<span class="nc" id="L52">        theScreen.showError(error);</span>
+<span class="nc" id="L53">    }</span>
+
+    /**
+     * Starts this UI
+     */    
+    @Override
+    public void start() {
+<span class="nc" id="L60">        theScreen.quit();</span>
+<span class="nc" id="L61">        theScreen = new MainScreen(islandTrader);</span>
+<span class="nc" id="L62">        theScreen.show();</span>
+<span class="nc" id="L63">    }</span>
+
+    /**
+     * Confirms user wants to quit the game
+     * @return boolean indicating user intention
+     */    
+	@Override
+    public boolean confirmQuit() {
+<span class="nc" id="L71">    	return theScreen.confirmQuit();</span>
+    }
+
+    /**
+     * Quits the application.
+     */	
+    @Override
+    public void quit() {
+<span class="nc" id="L79">        theScreen.quit();</span>
+<span class="nc" id="L80">    }	</span>
+	
+	/**
+	 * Show the user the details of the transaction, if successful
+	 * @param transaction,  the transaction we are showing details to the user about
+	 */	
+	@Override
+	public void processTransaction(PricedItem transaction) {	
+<span class="nc" id="L88">		JOptionPane.showMessageDialog(null, transaction.toString());</span>
+<span class="nc" id="L89">	}  </span>
+	
+    /**
+     * Show the user what happened on their sailing
+     *
+     * @param route, the route being sailed
+     * @param wageRecord, the transaction record for our wage payment
+     * @param sailingTime, days it took to sail the route
+     */	
+	@Override
+	public void sailRoute(Route route, PricedItem wageRecord, int sailingTime) {
+		// Set Up
+<span class="nc" id="L101">		String title = &quot;Sailing from &quot; + getViewIsland() +&quot; to &quot; + route.otherIsland(getViewIsland());</span>
+<span class="nc" id="L102">        theScreen.quit();</span>
+<span class="nc" id="L103">        theScreen = new SailingScreen(islandTrader);</span>
+<span class="nc" id="L104">        theScreen.getFrame().setTitle(title);</span>
+<span class="nc" id="L105">		FailureState gameStatus = FailureState.SUCCESS;</span>
+<span class="nc" id="L106">		JTextArea detail = ((SailingScreen)theScreen).getDetailTextArea();</span>
+        
+		// Show the UI / Start the Journey
+<span class="nc" id="L109">        ((SailingScreen)theScreen).getHeaderTextArea().setText(&quot;Hello trader! Lets start our adventure to &quot; + route.otherIsland(getViewIsland()));</span>
+<span class="nc" id="L110">        theScreen.show();       </span>
+		
+		// Show the user the wages we paid
+<span class="nc" id="L113">        detail.setText(wageRecord.toString()+&quot;\n&quot;);</span>
+		
+		// Call the game random event code
+<span class="nc bnc" id="L116" title="All 2 branches missed.">		for (RandomEvent event : route.getEvents()) {</span>
+<span class="nc" id="L117">			this.islandTrader.triggerRandomSailingEvent(event);</span>
+<span class="nc" id="L118">			gameStatus = this.islandTrader.isGameOver();</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">			if(gameStatus == FailureState.GAMEOVER_HARD)</span>
+<span class="nc" id="L120">				break;</span>
+		}
+		
+<span class="nc bnc" id="L123" title="All 2 branches missed.">		if (gameStatus == FailureState.GAMEOVER_HARD) {</span>
+<span class="nc" id="L124">			this.islandTrader.setGameOver();</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">		} else if (gameStatus == FailureState.GAMEOVER_SOFT) {</span>
+<span class="nc" id="L126">			detail.setText(detail.getText() + &quot;You made it, but you have no money or time left to go anywhere.\n&quot;);</span>
+<span class="nc" id="L127">			detail.setText(detail.getText() + &quot;You can trade if you want, else quit the game\n&quot;);</span>
+<span class="nc" id="L128">		} else {</span>
+			// Assume we made the next island (for now)
+<span class="nc" id="L130">			detail.setText(detail.getText() + &quot;Congrats on your journey, you made it!\n&quot;);</span>
+		}        
+        
+<span class="nc" id="L133">	}</span>
+	
+    /**
+     * Show the user how bad weather impacted them on their sailing. If you hit bad weather it
+     * damages your ship by 20% of its total endurance. This needs to be paid before another sailing
+     *
+     * @param damage, how much damage the weather caused
+     * @param repairCost, the extra repair cost from the weather
+     * @param repairValidation, indicates if the user can afford repair
+     */
+	@Override	
+    public void encounterWeather(int damage, int repairCost, FailureState repairValidation) {
+<span class="nc" id="L145">		JTextArea detail = ((SailingScreen)theScreen).getDetailTextArea();</span>
+		
+<span class="nc" id="L147">		detail.setText(detail.getText() + &quot;*** You encountered bad weather ***\n&quot;);</span>
+		//try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
+<span class="nc" id="L149">		detail.setText(detail.getText() + &quot;Unfortunately the weather caused &quot; + damage + &quot; damage.&quot;);</span>
+<span class="nc" id="L150">		detail.setText(detail.getText() + &quot; It will cost &quot; + repairCost +&quot; to repair.\n&quot;);</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">		if (repairValidation == FailureState.NOMONEY)</span>
+<span class="nc" id="L152">			detail.setText(detail.getText() + &quot;This is more money than you have you will have to trade before you can sail again\n&quot;);</span>
+		
+<span class="nc" id="L154">	}</span>
+	
+    /**
+     * Reports details to the user of encounter with sailors who are rescued
+     *
+     * @param numRescuedSailors, the random number of sailors rescued, depends on ship size
+     * @param rewardRecord, each sailor gives a random reward, this is the total
+     */
+	@Override	
+    public void rescueSailors(int numRescuedSailors, PricedItem rewardRecord) {
+<span class="nc" id="L164">		JTextArea detail = ((SailingScreen)theScreen).getDetailTextArea();</span>
+		
+<span class="nc" id="L166">		detail.setText(detail.getText() + &quot;*** You encountered sailors in distress ***\n&quot;);</span>
+    	//try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
+<span class="nc" id="L168">    	detail.setText(detail.getText() + &quot;There are &quot; + numRescuedSailors + &quot; sailors, who are very greatful for their rescue.&quot;);</span>
+    	
+		// Show the user their reward 
+<span class="nc" id="L171">		detail.setText(rewardRecord.toString() + &quot;\n&quot;);</span>
+		
+<span class="nc" id="L173">    }</span>
+    
+    /**
+     * Reports details to the user of encounter with pirates
+     * 
+     * @param diceThrow, the random number that the user got to determine success when fighting the pirates
+     * @param boardShip, the boolean result of the dicethrow if pirates boardded the ship
+     * @param transactions, the record of items the pirates stole from the player
+     * @param goodsSatisfy, boolean indicating if the goods were enough for the pirate, you lose game if false
+     */
+	@Override	
+    public void encounterPirates(int diceThrow, boolean boardShip, ArrayList&lt;PricedItem&gt; transactions, boolean goodsSatisfy) {
+<span class="nc" id="L185">		JTextArea detail = ((SailingScreen)theScreen).getDetailTextArea();</span>
+		
+<span class="nc" id="L187">		detail.setText(detail.getText() +&quot;*** !!! You encountered Pirates !!! ***\n&quot;);</span>
+<span class="nc" id="L188">		detail.setText(detail.getText() +&quot;*** !!! They are trying to board your ship !!! ***\n&quot;);</span>
+    	
+    	// Show dice game, result is predetermined
+<span class="nc" id="L191">		detail.setText(detail.getText() + &quot;You must roll a die to stop them\n&quot;);</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">    	if (this.islandTrader.getPlayer().getShip().hasWeapons())</span>
+<span class="nc" id="L193">    		detail.setText(detail.getText() + &quot; Because you have weapons you have to roll a 3 or above\n&quot;);    		</span>
+    	else
+<span class="nc" id="L195">    		detail.setText(detail.getText() + &quot;You have no weapons to fight them off, you must roll 5 or 6\n&quot;);    		</span>
+    	
+    	// Pause for 2 seconds
+    	//try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}    
+    	
+    	// Show result of dice game
+<span class="nc bnc" id="L201" title="All 4 branches missed.">		if (diceThrow &gt; 2 &amp;&amp; this.islandTrader.getPlayer().getShip().hasWeapons())</span>
+<span class="nc" id="L202">			detail.setText(detail.getText() + &quot;You rolled a &quot; + diceThrow +&quot; you fend off the pirates.\n&quot;);</span>
+<span class="nc bnc" id="L203" title="All 2 branches missed.">		else if (diceThrow &gt; 4)</span>
+<span class="nc" id="L204">			detail.setText(detail.getText() + &quot;You rolled a &quot; + diceThrow +&quot; you fend off the pirates.\n&quot;);		</span>
+		else
+<span class="nc" id="L206">			detail.setText(detail.getText() + &quot;You rolled a &quot; + diceThrow +&quot; the pirates board your ship.\n&quot;);    	</span>
+    	
+		//Board the ship, if we lost the dice game
+<span class="nc bnc" id="L209" title="All 2 branches missed.">    	if (boardShip) {    		</span>
+    		//Steal the goods
+<span class="nc" id="L211">    		detail.setText(detail.getText() + &quot;The pirates now steal all of your goods\n&quot;);</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">    		for (PricedItem transaction : transactions) {    			</span>
+    			//Show the user what was stolen
+<span class="nc" id="L214">    			detail.setText(detail.getText() + transaction.toString() + &quot;\n&quot;);</span>
+    		}
+    		
+    		// Pause for 2 seconds
+    		//try { Thread.sleep(2000); } catch (InterruptedException e) {/*Doesn't matter}*/}
+    		
+    		// Does this satisfy them
+<span class="nc bnc" id="L221" title="All 2 branches missed.">    		if (goodsSatisfy) {</span>
+<span class="nc" id="L222">    			detail.setText(detail.getText() + &quot;The pirates are happy with your cargo. You live another day.\n&quot;);</span>
+<span class="nc" id="L223">    		} else {</span>
+<span class="nc" id="L224">    			detail.setText(detail.getText() + &quot;Unfortunately that wasn't enough for them\n&quot;);</span>
+<span class="nc" id="L225">    			detail.setText(detail.getText() + &quot; The pirates take everything and you are forced to walk the plank.&quot;);</span>
+<span class="nc" id="L226">    			detail.setText(detail.getText() + &quot;Hope you can swim!\n&quot;);</span>
+    		}
+    		
+    	}
+<span class="nc" id="L230">    }</span>
+    
+    /**
+     * Sets an view as the current viewIsland, so some ui's that want to view as another island can without
+     * passing the island into the ui
+     * 
+     * @param viewIsland, the island to view the current gui as
+     */
+	@Override	
+    public void setViewIsland(Island viewIsland) {
+<span class="nc" id="L240">    	this.viewIsland = viewIsland;</span>
+<span class="nc" id="L241">    } </span>
+    
+    /**
+     * Gets the current island we are viewing as
+     * 
+     * @return the current viewIsland
+     */
+	@Override	
+    public Island getViewIsland() {
+<span class="nc" id="L250">    	return this.viewIsland;</span>
+    } 
+	
+    /**
+     * Sets an Screen as the current screen 
+     * 
+     * @param screen, the current screen to set
+     */
+    public void setScreen(Screen screen) {
+<span class="nc" id="L259">    	this.theScreen = screen;</span>
+<span class="nc" id="L260">    } </span>
+    
+    /**
+     * Gets the current screen the gui is on
+     * 
+     * @return the screen
+     */
+    public Screen getScreen() {
+<span class="nc" id="L268">    	return this.theScreen;</span>
+    } 	
+    
+	/**
+	 * Helper method to take a list of objects and format them in list form to display to the user.
+	 * Can add a 1 based counter and also can validate if this user can purchase / action the item
+	 * @param list, the list of objects to convert into a string list (using toString method)
+	 * @param validate, boolean do we want to validate the item and indicate to the user validation
+	 * @return List of strings for the input list
+	 */	
+	public ArrayList&lt;String&gt; stringList(List&lt;?&gt; list, boolean validate) {
+		String validPrefix;
+<span class="nc" id="L280">		ArrayList&lt;String&gt; names = new ArrayList&lt;String&gt;();				</span>
+<span class="nc bnc" id="L281" title="All 2 branches missed.">		for (Object obj : list) {</span>
+			// Add a prefix if the item is valid for the user
+<span class="nc bnc" id="L283" title="All 4 branches missed.">			if (validate &amp;&amp; islandTrader.validate(obj) == FailureState.SUCCESS)</span>
+<span class="nc" id="L284">				validPrefix = &quot;* &quot;;</span>
+			else
+<span class="nc" id="L286">				validPrefix = &quot;&quot;;</span>
+			
+<span class="nc" id="L288">			names.add(validPrefix + obj.toString());</span>
+		}
+<span class="nc" id="L290">		return names;</span>
+	}    
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 26, 2021 10:06:49 AM)</div></body></html>

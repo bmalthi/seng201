@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>IslandProperties.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 26, 2021 10:06:49 AM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">ui.gui</a> &gt; <span class="el_source">IslandProperties.java</span></div><h1>IslandProperties.java</h1><pre class="source lang-java linenums">package ui.gui;
+
+import javax.swing.JFrame;
+import java.awt.Color;
+import javax.swing.JTextArea;
+
+import main.Island;
+import main.IslandTrader;
+
+import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.awt.event.ActionEvent;
+/**
+ * This class represents the screen after the user clicked the &quot;View Island Properties&quot; button in Main Menu
+ * @author kvie
+ *
+ */
+public class IslandProperties extends Screen {
+
+	/**
+	 * Create the application.
+	 * @param islandTrader, the game manager
+	 */
+	public IslandProperties(IslandTrader islandTrader) {
+<span class="nc" id="L31">		super(&quot;Island Properties&quot;, islandTrader);</span>
+<span class="nc" id="L32">	}</span>
+
+	/**
+	 * This is only here because WindowBuilder needs a JFrame
+	 * to be created within this file to allow us to edit the GUI
+	 * 
+	 * @wbp.parser.entryPoint
+	 */
+	protected void initialiseForWindowBuilder() {
+<span class="nc" id="L41">		initialise(new JFrame());</span>
+<span class="nc" id="L42">	}</span>
+	
+	/**
+	 * Initialize the contents of the container, which include:s
+	 * Show the 5 Islands for the user to choose 
+	 * Buttons for the user to choose what they'd want to do at the chosen island
+	 */
+	protected void initialise(final JFrame frame) { 	
+<span class="nc" id="L50">		ButtonGroup buttonGroup  = new ButtonGroup();</span>
+<span class="nc" id="L51">		frame.getContentPane().setBackground(new Color(240, 230, 140));</span>
+<span class="nc" id="L52">		frame.getContentPane().setLayout(null);</span>
+		
+		// Some labels to introduce the screen
+<span class="nc" id="L55">		JTextArea lblHelloTrader = new JTextArea(&quot;Hello trader! How's the sailing going? Hope it is going all well \nand you haven't seen any pirates yet!\n&quot;);</span>
+<span class="nc" id="L56">		lblHelloTrader.setBounds(20, 27, 653, 63);</span>
+<span class="nc" id="L57">		lblHelloTrader.setLineWrap(true);</span>
+<span class="nc" id="L58">		lblHelloTrader.setForeground(new Color(0, 0, 0));</span>
+<span class="nc" id="L59">		lblHelloTrader.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 20));</span>
+<span class="nc" id="L60">		lblHelloTrader.setBackground(new Color(240, 230, 140));</span>
+<span class="nc" id="L61">		frame.getContentPane().add(lblHelloTrader);</span>
+		
+<span class="nc" id="L63">		JLabel lblIslandChoice = new JLabel(&quot;Which Island do you want to know about?\n&quot;);</span>
+<span class="nc" id="L64">		lblIslandChoice.setBounds(20, 90, 454, 38);</span>
+<span class="nc" id="L65">		lblIslandChoice.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 20));</span>
+<span class="nc" id="L66">		frame.getContentPane().add(lblIslandChoice);</span>
+		
+<span class="nc" id="L68">		JLabel island1 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L69">		island1.setBounds(30, 155, 117, 144);</span>
+<span class="nc" id="L70">		island1.setIcon(new ImageIcon(IslandProperties.class.getResource(&quot;/island01.png&quot;)));</span>
+<span class="nc" id="L71">		frame.getContentPane().add(island1);</span>
+		
+<span class="nc" id="L73">		JLabel island2 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L74">		island2.setBounds(158, 169, 166, 124);</span>
+<span class="nc" id="L75">		island2.setIcon(new ImageIcon(IslandProperties.class.getResource(&quot;/island2-.png&quot;)));</span>
+<span class="nc" id="L76">		frame.getContentPane().add(island2);</span>
+		
+<span class="nc" id="L78">		JLabel island3 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L79">		island3.setBounds(331, 165, 143, 128);</span>
+<span class="nc" id="L80">		island3.setIcon(new ImageIcon(IslandProperties.class.getResource(&quot;/island3.png&quot;)));</span>
+<span class="nc" id="L81">		frame.getContentPane().add(island3);</span>
+		
+<span class="nc" id="L83">		JLabel island4 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L84">		island4.setBounds(463, 185, 151, 108);</span>
+<span class="nc" id="L85">		island4.setIcon(new ImageIcon(IslandProperties.class.getResource(&quot;/island04.gif&quot;)));</span>
+<span class="nc" id="L86">		frame.getContentPane().add(island4);</span>
+		
+<span class="nc" id="L88">		JLabel island5 = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L89">		island5.setBounds(623, 154, 143, 145);</span>
+<span class="nc" id="L90">		island5.setIcon(new ImageIcon(IslandProperties.class.getResource(&quot;/island5.png&quot;)));</span>
+<span class="nc" id="L91">		frame.getContentPane().add(island5);</span>
+		
+		// Get the list of islands 
+<span class="nc" id="L94">		List&lt;Island&gt; islands = getManager().getWorld().getIslands();</span>
+
+		// Get radio button for each island
+<span class="nc" id="L97">		JRadioButton rdbtnHomeIsland = new JRadioButton(islands.get(0).getName());</span>
+<span class="nc" id="L98">		rdbtnHomeIsland.setForeground(new Color(0, 0, 0));	</span>
+<span class="nc" id="L99">		rdbtnHomeIsland.setSelected(true);</span>
+<span class="nc" id="L100">		rdbtnHomeIsland.setBounds(6, 297, 141, 23);</span>
+<span class="nc" id="L101">		buttonGroup.add(rdbtnHomeIsland);</span>
+<span class="nc" id="L102">		frame.getContentPane().add(rdbtnHomeIsland);</span>
+		
+<span class="nc" id="L104">		JRadioButton rdbtnEverythingIsland = new JRadioButton(islands.get(1).getName());</span>
+<span class="nc" id="L105">		rdbtnEverythingIsland.setBounds(158, 297, 141, 23);</span>
+<span class="nc" id="L106">		buttonGroup.add(rdbtnEverythingIsland);</span>
+<span class="nc" id="L107">		frame.getContentPane().add(rdbtnEverythingIsland);</span>
+		
+<span class="nc" id="L109">		JRadioButton rdbtnMechanicalIsland = new JRadioButton(islands.get(2).getName());</span>
+<span class="nc" id="L110">		rdbtnMechanicalIsland.setBounds(316, 297, 158, 23);</span>
+<span class="nc" id="L111">		buttonGroup.add(rdbtnMechanicalIsland);</span>
+<span class="nc" id="L112">		frame.getContentPane().add(rdbtnMechanicalIsland);</span>
+		
+<span class="nc" id="L114">		JRadioButton rdbtnHoarderIsland = new JRadioButton(islands.get(3).getName());</span>
+<span class="nc" id="L115">		rdbtnHoarderIsland.setBounds(477, 297, 141, 23);</span>
+<span class="nc" id="L116">		buttonGroup.add(rdbtnHoarderIsland);</span>
+<span class="nc" id="L117">		frame.getContentPane().add(rdbtnHoarderIsland);</span>
+		
+<span class="nc" id="L119">		JRadioButton rdbtnDangerIsland = new JRadioButton(islands.get(4).getName());</span>
+<span class="nc" id="L120">		rdbtnDangerIsland.setBounds(623, 297, 141, 23);</span>
+<span class="nc" id="L121">		buttonGroup.add(rdbtnDangerIsland);</span>
+<span class="nc" id="L122">		frame.getContentPane().add(rdbtnDangerIsland);</span>
+		
+		// Buttons for user to choose what they'd want to do with the chosen island
+<span class="nc" id="L125">		JButton btnViewRoutes = new JButton(&quot;View Routes to this Island&quot;);</span>
+<span class="nc" id="L126">		btnViewRoutes.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L128" title="All 2 branches missed.">				if (rdbtnHomeIsland.isSelected()) {</span>
+<span class="nc" id="L129">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(0));	</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">				} else if (rdbtnEverythingIsland.isSelected()) {</span>
+<span class="nc" id="L131">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(1));	</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">				} else if (rdbtnMechanicalIsland.isSelected()) {</span>
+<span class="nc" id="L133">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(2));	</span>
+<span class="nc bnc" id="L134" title="All 2 branches missed.">				} else if (rdbtnHoarderIsland.isSelected()) {</span>
+<span class="nc" id="L135">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(3));	</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">				} else if (rdbtnDangerIsland.isSelected()) {</span>
+<span class="nc" id="L137">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(4));	</span>
+				}
+<span class="nc" id="L139">				quit();</span>
+<span class="nc" id="L140">				Screen screen = new ViewIslandRoutes(islandTrader);</span>
+<span class="nc" id="L141">		    	screen.show();</span>
+<span class="nc" id="L142">			}</span>
+		});
+<span class="nc" id="L144">		btnViewRoutes.setBounds(104, 451, 178, 73);</span>
+<span class="nc" id="L145">		frame.getContentPane().add(btnViewRoutes);</span>
+		
+<span class="nc" id="L147">		JButton btnSeeWhatSells = new JButton(&quot;See what this island sells&quot;);</span>
+<span class="nc" id="L148">		btnSeeWhatSells.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L150" title="All 2 branches missed.">				if (rdbtnHomeIsland.isSelected()) {</span>
+<span class="nc" id="L151">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(0));	</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">				} else if (rdbtnEverythingIsland.isSelected()) {</span>
+<span class="nc" id="L153">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(1));	</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">				} else if (rdbtnMechanicalIsland.isSelected()) {</span>
+<span class="nc" id="L155">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(2));	</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">				} else if (rdbtnHoarderIsland.isSelected()) {</span>
+<span class="nc" id="L157">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(3));	</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">				} else if (rdbtnDangerIsland.isSelected()) {</span>
+<span class="nc" id="L159">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(4));	</span>
+				}
+<span class="nc" id="L161">				quit();</span>
+<span class="nc" id="L162">				Screen screen = new ViewIslandSellsItem(islandTrader);</span>
+<span class="nc" id="L163">		    	screen.show();</span>
+<span class="nc" id="L164">			}</span>
+			
+		});
+<span class="nc" id="L167">		btnSeeWhatSells.setBounds(104, 366, 178, 73);</span>
+<span class="nc" id="L168">		frame.getContentPane().add(btnSeeWhatSells);</span>
+		
+<span class="nc" id="L170">		JButton btnSeeWhatBuys = new JButton(&quot;See what this island buys\n&quot;);</span>
+<span class="nc" id="L171">		btnSeeWhatBuys.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L173" title="All 2 branches missed.">				if (rdbtnHomeIsland.isSelected()) {</span>
+<span class="nc" id="L174">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(0));	</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">				} else if (rdbtnEverythingIsland.isSelected()) {</span>
+<span class="nc" id="L176">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(1));	</span>
+<span class="nc bnc" id="L177" title="All 2 branches missed.">				} else if (rdbtnMechanicalIsland.isSelected()) {</span>
+<span class="nc" id="L178">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(2));	</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">				} else if (rdbtnHoarderIsland.isSelected()) {</span>
+<span class="nc" id="L180">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(3));	</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">				} else if (rdbtnDangerIsland.isSelected()) {</span>
+<span class="nc" id="L182">					getManager().getUI().setViewIsland(getManager().getWorld().getIslands().get(4));	</span>
+				}
+<span class="nc" id="L184">				quit();</span>
+<span class="nc" id="L185">				Screen screen = new ViewIslandBuysItem(islandTrader);</span>
+<span class="nc" id="L186">		    	screen.show();</span>
+<span class="nc" id="L187">			}</span>
+		});
+<span class="nc" id="L189">		btnSeeWhatBuys.setBounds(436, 366, 178, 73);</span>
+<span class="nc" id="L190">		frame.getContentPane().add(btnSeeWhatBuys);</span>
+		
+<span class="nc" id="L192">		JButton btnMainMenu = new JButton(&quot;Back to main menu&quot;);</span>
+<span class="nc" id="L193">		btnMainMenu.setBounds(436, 451, 178, 73);</span>
+<span class="nc" id="L194">		btnMainMenu.addActionListener(new ActionListener() {</span>
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L196">				quit();</span>
+<span class="nc" id="L197">				Screen screen = new MainScreen(islandTrader);</span>
+<span class="nc" id="L198">		    	screen.show();</span>
+<span class="nc" id="L199">			}</span>
+		});
+<span class="nc" id="L201">		frame.getContentPane().add(btnMainMenu);</span>
+		
+<span class="nc" id="L203">		JLabel captain = new JLabel(&quot;&quot;);</span>
+<span class="nc" id="L204">		captain.setIcon(new ImageIcon(IslandProperties.class.getResource(&quot;/captain.png&quot;)));</span>
+<span class="nc" id="L205">		captain.setBounds(294, 366, 127, 169);</span>
+<span class="nc" id="L206">		frame.getContentPane().add(captain);</span>
+		
+<span class="nc" id="L208">		JLabel lblUserChoice = new JLabel(&quot;What do you want to know about this island?&quot;);</span>
+<span class="nc" id="L209">		lblUserChoice.setFont(new Font(&quot;iCiel Brush Up&quot;, Font.PLAIN, 20));</span>
+<span class="nc" id="L210">		lblUserChoice.setBounds(20, 316, 454, 38);</span>
+<span class="nc" id="L211">		frame.getContentPane().add(lblUserChoice);</span>
+<span class="nc" id="L212">		frame.setBounds(100, 100, 785, 582);</span>
+<span class="nc" id="L213">		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span>
+<span class="nc" id="L214">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 26, 2021 10:06:49 AM)</div></body></html>

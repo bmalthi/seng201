@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ItemTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">seng201 (May 26, 2021 10:06:49 AM)</a> &gt; <a href="../../index.html" class="el_group">seng201</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">test.main</a> &gt; <span class="el_source">ItemTest.java</span></div><h1>ItemTest.java</h1><pre class="source lang-java linenums">/**
+ * 
+ */
+package test.main;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import main.Item;
+import main.ItemType;
+
+/**
+ * @author bmalthi
+ *
+ */
+<span class="fc" id="L16">class ItemTest {</span>
+
+	@Test
+	void equalsTest() {
+<span class="fc" id="L20">		Item test1 = new Item(&quot;Horse&quot;, &quot;Description I don't use - test item 1&quot;, 10, ItemType.CARGO);</span>
+<span class="fc" id="L21">		Item test2 = new Item(&quot;Horse&quot;, &quot;Description I don't use - test item 2&quot;, 10);</span>
+<span class="fc" id="L22">		Item test3 = new Item(&quot;Horse&quot;, &quot;Description I don't use - test item 3&quot;, 5);</span>
+<span class="fc" id="L23">		Item test4 = new Item(&quot;Not Horse&quot;, &quot;Description I don't use - test item 4&quot;, 10);</span>
+<span class="fc" id="L24">		Item test5 = new Item(&quot;Horse&quot;, &quot;Description I don't use - test item 5&quot;, 10, ItemType.WEAPON);</span>
+		
+		// Item1 &amp; Item2 only differ by description &amp; constructor method, there should be the same item
+<span class="fc" id="L27">		assertTrue(test1.equals(test2));</span>
+		
+		// Item3 is different its smaller than Item1, size = 5 instead of 10
+<span class="fc" id="L30">		assertFalse(test1.equals(test3));</span>
+		
+		// Item4 is different, its a &quot;Not Horse&quot; instead of &quot;Horse&quot;
+<span class="fc" id="L33">		assertFalse(test1.equals(test4));</span>
+		
+		// Item5 is different, its a Weapon type instead of Cargo
+<span class="fc" id="L36">		assertFalse(test1.equals(test5));		</span>
+<span class="fc" id="L37">	}</span>
+	
+	@Test
+	void toStringTest() {
+<span class="fc" id="L41">		Item test1 = new Item(&quot;Horse&quot;, &quot;Description I don't use - test item 1&quot;, 10, ItemType.CARGO);</span>
+<span class="fc" id="L42">		Item test2 = new Item(&quot;Horse&quot;, &quot;Description I don't use - test item 1&quot;, 10, ItemType.WEAPON);</span>
+<span class="fc" id="L43">		Item test3 = new Item(&quot;Horse&quot;, &quot;Description I don't use - test item 3&quot;, 10, ItemType.CARGO);</span>
+		
+		// Different types have different tostring output even if otherwise identical
+<span class="fc" id="L46">		assertNotEquals(test1.toString(), test2.toString());</span>
+		
+		// Description is not part of the tostring output
+<span class="fc" id="L49">		assertEquals(test1.toString(), test3.toString());</span>
+		
+<span class="fc" id="L51">		Item tests1 = new Item(&quot;Upgrade&quot;, &quot;&quot;, 10, ItemType.UPGRADE);</span>
+<span class="fc" id="L52">		Item tests2 = new Item(&quot;Repair&quot;, &quot;&quot;, 10, ItemType.REPAIR);</span>
+<span class="fc" id="L53">		Item tests3 = new Item(&quot;Wages&quot;, &quot;&quot;, 10, ItemType.WAGES);</span>
+<span class="fc" id="L54">		Item tests4 = new Item(&quot;Rescue&quot;, &quot;&quot;, 10, ItemType.RESCUE);</span>
+		
+<span class="fc" id="L56">		assertTrue(tests1.toString().equals(&quot;Upgrade, UPGRADE&quot;));</span>
+<span class="fc" id="L57">		assertTrue(tests2.toString().equals(&quot;Repair, REPAIR&quot;));</span>
+<span class="fc" id="L58">		assertTrue(tests3.toString().equals(&quot;Wages, WAGES&quot;));</span>
+<span class="fc" id="L59">		assertTrue(tests4.toString().equals(&quot;Rescue, RESCUE&quot;));</span>
+<span class="fc" id="L60">	}	</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span>seng201 (May 26, 2021 10:06:49 AM)</div></body></html>
