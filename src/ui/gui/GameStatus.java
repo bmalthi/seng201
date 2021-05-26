@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 public class GameStatus extends Screen {
 	/**
 	 * Create the application.
+	 * @param islandTrader, the game manager 
 	 */
 	public GameStatus(IslandTrader islandTrader) {
 		super("Game Status", islandTrader);

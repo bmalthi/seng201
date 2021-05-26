@@ -12,10 +12,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /**
  * This class represents the screen after the user clicked the "Sail To Another Island" button in Main Menu
@@ -23,10 +19,10 @@ import java.awt.event.MouseEvent;
  *
  */
 public class SetSailingIsland extends Screen {
-	private JFrame frame_1;
 
 	/**
 	 * Create the application.
+  	 * @param islandTrader, the game manager 
 	 */
 	public SetSailingIsland(IslandTrader islandTrader) {
 		super("Sailing To Another Island", islandTrader);

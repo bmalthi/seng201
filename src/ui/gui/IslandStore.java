@@ -22,6 +22,7 @@ public class IslandStore extends Screen {
 
 	/**
 	 * Create the application.
+ 	 * @param islandTrader, the game manager
 	 */
 	public IslandStore(IslandTrader islandTrader) {
 		super("Island Store", islandTrader);

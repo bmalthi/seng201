@@ -17,6 +17,7 @@ public class GameEnding extends Screen {
 	
 	/**
 	 * Create the application.
+	 * @param islandTrader, the game manager
 	 */
 	public GameEnding(IslandTrader islandTrader) {
 		super("Finish The Journey", islandTrader);

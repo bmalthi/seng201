@@ -28,9 +28,9 @@ import javax.swing.UIManager;
  */
 public class ViewIslandBuysItem extends Screen {
 	
-	//private ArrayList<PricedItem> buyItems;	
 	/**
 	* Create the application.
+  	 * @param islandTrader, the game manager 
 	*/
 	public ViewIslandBuysItem(IslandTrader islandTrader) {
 		super(islandTrader.getUI().getViewIsland().getName()+" buys the following items", islandTrader);

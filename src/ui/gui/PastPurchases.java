@@ -22,6 +22,7 @@ import javax.swing.JList;
 public class PastPurchases extends Screen {
 	/**
 	 * Create the application.
+  	 * @param islandTrader, the game manager 
 	 */
 	public PastPurchases(IslandTrader islandTrader) {
 		super("View Past Purchases and Sales", islandTrader);

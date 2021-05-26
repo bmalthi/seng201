@@ -15,23 +15,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ListSelectionModel;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JScrollBar;
 
 /**
  * This class represents the screen after the user clicked the "See What We Sells" button in View Island Properties Screen 
  *
  */
 public class ViewIslandSellsItem extends Screen {
-	private JFrame frame_1;
 	
 	/**
-	* Create the application.
+  	 * @param islandTrader, the game manager 
 	*/
 	public ViewIslandSellsItem(IslandTrader islandTrader) {
 		super(islandTrader.getUI().getViewIsland().getName()+" buys the following items", islandTrader);		

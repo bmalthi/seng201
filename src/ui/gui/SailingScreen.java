@@ -24,6 +24,7 @@ public class SailingScreen extends Screen {
 
 	/**
 	 * Create the application.
+  	 * @param islandTrader, the game manager 
 	 */
 	public SailingScreen(IslandTrader islandTrader) {
 		super("", islandTrader);

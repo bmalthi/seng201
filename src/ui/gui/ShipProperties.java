@@ -21,6 +21,7 @@ public class ShipProperties extends Screen {
 
 	/**
 	 * Create the application.
+  	 * @param islandTrader, the game manager 
 	 */
 	public ShipProperties(IslandTrader islandTrader) {
 		super("Ship Properties", islandTrader);

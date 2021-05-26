@@ -22,6 +22,7 @@ public class IslandSellsItem extends Screen {
 
 	/**
 	* Create the application.
+	* @param islandTrader, the game manager
 	*/
 	public IslandSellsItem(IslandTrader islandTrader) {
 		super(islandTrader.getWorld().getCurrentIsland()+" Sells the following items", islandTrader);		

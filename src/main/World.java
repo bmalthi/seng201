@@ -392,7 +392,7 @@ public class World {
 	
 	/**
 	 * Method to help me test
-	 * @param Route, the route to add at position 0
+	 * @param route, the route to add at position 0
 	 */
 	public void addRouteIndZero(Route route) {
 		this.routes.add(0, route);

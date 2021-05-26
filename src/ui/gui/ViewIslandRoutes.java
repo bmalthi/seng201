@@ -23,7 +23,7 @@ import javax.swing.JList;
 public class ViewIslandRoutes extends Screen {
 	
 	/**
-	 * 
+  	 * @param islandTrader, the game manager 
 	 */
 	public ViewIslandRoutes(IslandTrader islandTrader) {		
 		super("View Routes from " + islandTrader.getWorld().getCurrentIsland() +" to " +islandTrader.getUI().getViewIsland(), islandTrader);

@@ -273,7 +273,7 @@ public class Gui implements IslandTraderUI {
 	 * Can add a 1 based counter and also can validate if this user can purchase / action the item
 	 * @param list, the list of objects to convert into a string list (using toString method)
 	 * @param validate, boolean do we want to validate the item and indicate to the user validation
-	 * @return ArrayList<String> of the list input
+	 * @return List of strings for the input list
 	 */	
 	public ArrayList<String> stringList(List<?> list, boolean validate) {
 		String validPrefix;
