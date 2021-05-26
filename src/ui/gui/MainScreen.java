@@ -26,7 +26,7 @@ public class MainScreen extends Screen {
 		super("Island Trader", islandTrader);
 		
 	}
-//	
+	
 //	/**
 // 	 * This is only here because WindowBuilder needs a JFrame
 // 	 * to be created within this file to allow us to edit the GUI
@@ -36,7 +36,7 @@ public class MainScreen extends Screen {
 // 	protected void initialiseForWindowBuilder() {
 // 		initialise(new JFrame());
 // 	}
-//	
+	
 	/**
 	 * Initialize the contents of the frame, which include:
 	 * Set some labels 
@@ -152,10 +152,10 @@ public class MainScreen extends Screen {
 		btnQuitGame.setBounds(20, 477, 143, 59);
 		frame.getContentPane().add(btnQuitGame);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(MainScreen.class.getResource("/HOMEISLAND.png")));
-		lblNewLabel.setBounds(0, 198, 785, 365);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lblislandImage = new JLabel("");
+		lblislandImage.setIcon(new ImageIcon(MainScreen.class.getResource("/HOMEISLAND.png")));
+		lblislandImage.setBounds(0, 198, 785, 365);
+		frame.getContentPane().add(lblislandImage);
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

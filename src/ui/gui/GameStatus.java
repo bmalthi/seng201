@@ -35,7 +35,7 @@ public class GameStatus extends Screen {
 //	protected void initialiseForWindowBuilder() {
 //		initialise(new JFrame());
 //	}
-//	
+	
 	/**
 	 * Initialize the contents of the frame, which include:
 	 * Some labels to let the user know their current balance, days remaining and game score
@@ -45,12 +45,12 @@ public class GameStatus extends Screen {
 		frame.getContentPane().setBackground(new Color(173, 216, 230));
 		frame.getContentPane().setLayout(null);
 		
-		JTextArea txtrHeyTraderHow = new JTextArea("Hey trader! How are you doing? \n");
-		txtrHeyTraderHow.setForeground(Color.WHITE);
-		txtrHeyTraderHow.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
-		txtrHeyTraderHow.setBackground(new Color(70, 130, 180));
-		txtrHeyTraderHow.setBounds(19, 36, 324, 37);
-		frame.getContentPane().add(txtrHeyTraderHow);
+		JTextArea txtrHelloTrader = new JTextArea("Hey trader! How are you doing? \n");
+		txtrHelloTrader.setForeground(Color.WHITE);
+		txtrHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
+		txtrHelloTrader.setBackground(new Color(70, 130, 180));
+		txtrHelloTrader.setBounds(19, 36, 324, 37);
+		frame.getContentPane().add(txtrHelloTrader);
 		
 		JLabel lblBalanceRemaining = new JLabel("You currently have " + getManager().getPlayer().getBalance() + " dollars.");
 		lblBalanceRemaining.setBackground(new Color(70, 130, 180));
@@ -64,16 +64,16 @@ public class GameStatus extends Screen {
 		seacaptain.setBounds(19, 317, 235, 231);
 		frame.getContentPane().add(seacaptain);
 		
-		JButton btnNewButton = new JButton("Back to main menu");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnBackToMainMenu = new JButton("Back to main menu");
+		btnBackToMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
 				Screen screen = new MainScreen(islandTrader);
 		    	screen.show();
 			}
 		});
-		btnNewButton.setBounds(311, 395, 174, 68);
-		frame.getContentPane().add(btnNewButton);
+		btnBackToMainMenu.setBounds(311, 395, 174, 68);
+		frame.getContentPane().add(btnBackToMainMenu);
 		
 		JTextArea txtGameStatus = new JTextArea("Here is the game status:");
 		txtGameStatus.setForeground(Color.WHITE);

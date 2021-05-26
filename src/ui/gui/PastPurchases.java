@@ -36,7 +36,7 @@ public class PastPurchases extends Screen {
 // 	protected void initialiseForWindowBuilder() {
 // 		initialise(new JFrame());
 // 	}
-//  
+  
   /**
 	 * Initialize the contents of the frame, which include:
 	 * a list of transactions (if exists) 
@@ -47,30 +47,30 @@ public class PastPurchases extends Screen {
 		frame.getContentPane().setBackground(new Color(85, 107, 47));
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("Back to main menu");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnBackToMainMenu = new JButton("Back to main menu");
+		btnBackToMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
 				Screen screen = new MainScreen(islandTrader);
 		    	screen.show();
 			}
 		});
-		btnNewButton.setBounds(36, 484, 145, 44);
-		frame.getContentPane().add(btnNewButton);
+		btnBackToMainMenu.setBounds(36, 484, 145, 44);
+		frame.getContentPane().add(btnBackToMainMenu);
 		
-		JTextArea txtrHeyTraderHow = new JTextArea("Hey trader! How are your jouney going?\n");
-		txtrHeyTraderHow.setForeground(Color.WHITE);
-		txtrHeyTraderHow.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		txtrHeyTraderHow.setBackground(new Color(47, 79, 79));
-		txtrHeyTraderHow.setBounds(33, 33, 462, 44);
-		frame.getContentPane().add(txtrHeyTraderHow);
+		JTextArea txtrHelloTrader = new JTextArea("Hey trader! How are your jouney going?\n");
+		txtrHelloTrader.setForeground(Color.WHITE);
+		txtrHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		txtrHelloTrader.setBackground(new Color(47, 79, 79));
+		txtrHelloTrader.setBounds(33, 33, 462, 44);
+		frame.getContentPane().add(txtrHelloTrader);
 		
-		JTextArea txtrHeyTraderHow_1_1 = new JTextArea("Here are all your purchases and sales:\n");
-		txtrHeyTraderHow_1_1.setForeground(Color.WHITE);
-		txtrHeyTraderHow_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		txtrHeyTraderHow_1_1.setBackground(new Color(47, 79, 79));
-		txtrHeyTraderHow_1_1.setBounds(33, 89, 462, 44);
-		frame.getContentPane().add(txtrHeyTraderHow_1_1);
+		JTextArea txtrPurchasesInfo = new JTextArea("Here are all your purchases and sales:\n");
+		txtrPurchasesInfo.setForeground(Color.WHITE);
+		txtrPurchasesInfo.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		txtrPurchasesInfo.setBackground(new Color(47, 79, 79));
+		txtrPurchasesInfo.setBounds(33, 89, 462, 44);
+		frame.getContentPane().add(txtrPurchasesInfo);
 		
 		List<PricedItem> transactions = getManager().getPlayer().getTransactions();
 

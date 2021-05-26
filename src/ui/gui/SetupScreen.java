@@ -160,45 +160,45 @@ public class SetupScreen extends Screen {
 		btnLetsPlay.setOpaque(true);
 		frame.getContentPane().add(btnLetsPlay);		
 		
-		JLabel lblNewLabel_2_2_1 = new JLabel("");
-		lblNewLabel_2_2_1.setForeground(new Color(255, 0, 0));
-		lblNewLabel_2_2_1.setBounds(249, 192, 392, 16);
-		frame.getContentPane().add(lblNewLabel_2_2_1);
+		JLabel lblConfirmName = new JLabel("");
+		lblConfirmName.setForeground(new Color(255, 0, 0));
+		lblConfirmName.setBounds(249, 192, 392, 16);
+		frame.getContentPane().add(lblConfirmName);
 		
-		JTextArea lblNewLabel_1_2 = new JTextArea("1) Choose a Trader Name");
-		lblNewLabel_1_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1_2.setFont(new Font("SignPainter", Font.PLAIN, 22));
-		lblNewLabel_1_2.setBackground(new Color(25, 25, 112));
-		lblNewLabel_1_2.setBounds(40, 157, 202, 30);
-		frame.getContentPane().add(lblNewLabel_1_2);
+		JTextArea lblChooseName = new JTextArea("1) Choose a Trader Name");
+		lblChooseName.setForeground(new Color(255, 255, 255));
+		lblChooseName.setFont(new Font("SignPainter", Font.PLAIN, 22));
+		lblChooseName.setBackground(new Color(25, 25, 112));
+		lblChooseName.setBounds(40, 157, 202, 30);
+		frame.getContentPane().add(lblChooseName);
 		
-		JLabel lblNewLabel_2_2 = new JLabel("50 Days");
-		lblNewLabel_2_2.setBackground(new Color(0, 0, 139));
-		lblNewLabel_2_2.setForeground(new Color(0, 0, 139));
-		lblNewLabel_2_2.setBounds(109, 255, 61, 16);
-		frame.getContentPane().add(lblNewLabel_2_2);
+		JLabel lblDaysChosen = new JLabel("50 Days");
+		lblDaysChosen.setBackground(new Color(0, 0, 139));
+		lblDaysChosen.setForeground(new Color(0, 0, 139));
+		lblDaysChosen.setBounds(109, 255, 61, 16);
+		frame.getContentPane().add(lblDaysChosen);
 		
-		JTextArea lblNewLabel_1_2_1 = new JTextArea("2) Decide on game length");
-		lblNewLabel_1_2_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1_2_1.setFont(new Font("SignPainter", Font.PLAIN, 22));
-		lblNewLabel_1_2_1.setBackground(new Color(25, 25, 112));
-		lblNewLabel_1_2_1.setBounds(35, 218, 200, 31);
-		frame.getContentPane().add(lblNewLabel_1_2_1);
+		JTextArea lblGameLength = new JTextArea("2) Decide on game length");
+		lblGameLength.setForeground(new Color(255, 255, 255));
+		lblGameLength.setFont(new Font("SignPainter", Font.PLAIN, 22));
+		lblGameLength.setBackground(new Color(25, 25, 112));
+		lblGameLength.setBounds(35, 218, 200, 31);
+		frame.getContentPane().add(lblGameLength);
 		
-		JTextArea lblNewLabel = new JTextArea("Welcome to Island Trader");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setFont(new Font("Holiday Sun", Font.PLAIN, 24));
-		lblNewLabel.setBackground(new Color(70, 130, 180));
-		lblNewLabel.setBounds(35, 21, 639, 31);
-		frame.getContentPane().add(lblNewLabel);
+		JTextArea lblHelloTrader = new JTextArea("Welcome to Island Trader");
+		lblHelloTrader.setForeground(new Color(255, 255, 255));
+		lblHelloTrader.setFont(new Font("Holiday Sun", Font.PLAIN, 24));
+		lblHelloTrader.setBackground(new Color(70, 130, 180));
+		lblHelloTrader.setBounds(35, 21, 639, 31);
+		frame.getContentPane().add(lblHelloTrader);
 		
-		JTextArea lblNewLabel_1_1 = new JTextArea("The aim of the game is to travel between islands, trading goods for profit. You will encounter tricky traders, and trecherous stormy routes with pirates on your quest.");
-		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1_1.setFont(new Font("Devanagari MT", Font.PLAIN, 17));
-		lblNewLabel_1_1.setLineWrap(true);
-		lblNewLabel_1_1.setBackground(new Color(0, 0, 102));
-		lblNewLabel_1_1.setBounds(35, 58, 608, 52);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		JTextArea lblAimOfTheGame = new JTextArea("The aim of the game is to travel between islands, trading goods for profit. You will encounter tricky traders, and trecherous stormy routes with pirates on your quest.");
+		lblAimOfTheGame.setForeground(new Color(255, 255, 255));
+		lblAimOfTheGame.setFont(new Font("Devanagari MT", Font.PLAIN, 17));
+		lblAimOfTheGame.setLineWrap(true);
+		lblAimOfTheGame.setBackground(new Color(0, 0, 102));
+		lblAimOfTheGame.setBounds(35, 58, 608, 52);
+		frame.getContentPane().add(lblAimOfTheGame);
 		
 		txtbetweenCharacters = new JTextField();
 		txtbetweenCharacters.setHorizontalAlignment(SwingConstants.CENTER);
@@ -209,14 +209,14 @@ public class SetupScreen extends Screen {
 		    private void updateNameField() {
 		    	if (txtbetweenCharacters.hasFocus() == true) {
 		    		if (txtbetweenCharacters.getText().matches(NAME_REGEX)) {
-		    			lblNewLabel_2_2_1.setText("Great Name, " + txtbetweenCharacters.getText());
-		    			lblNewLabel_2_2_1.setForeground(new Color(0, 102, 0));		    			
+		    			lblConfirmName.setText("Great Name, " + txtbetweenCharacters.getText());
+		    			lblConfirmName.setForeground(new Color(0, 102, 0));		    			
 		    			btnLetsPlay.setEnabled(true);
 		    			btnLetsPlay.setBackground(new Color(0, 102, 0));
 		    			btnLetsPlay.setForeground(new Color(0, 102, 0));
 		    		} else {
-		    			lblNewLabel_2_2_1.setText("Name should be between 3-15 characters");
-		    			lblNewLabel_2_2_1.setForeground(Color.RED);		    			
+		    			lblConfirmName.setText("Name should be between 3-15 characters");
+		    			lblConfirmName.setForeground(Color.RED);		    			
 		    			btnLetsPlay.setEnabled(false);
 		    			btnLetsPlay.setBackground(Color.RED);
 		    			btnLetsPlay.setForeground(Color.RED);
@@ -231,7 +231,7 @@ public class SetupScreen extends Screen {
 				//lblNewLabel_2_2_1.setText(txtbetweenCharacters.getText());
 				if ("(between 3-15 characters)".equals(txtbetweenCharacters.getText())) {
 					txtbetweenCharacters.setText("");
-					lblNewLabel_2_2_1.setText("(between 3-15 characters)");
+					lblConfirmName.setText("(between 3-15 characters)");
 				}
 			}
 		});
@@ -253,7 +253,7 @@ public class SetupScreen extends Screen {
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent evt) {
 				JSlider slider = (JSlider) evt.getSource();
-				lblNewLabel_2_2.setText(String.valueOf(slider.getValue()));				
+				lblDaysChosen.setText(String.valueOf(slider.getValue()));				
 			}
 		});
 		slider.setBorder(new CompoundBorder());
@@ -272,19 +272,17 @@ public class SetupScreen extends Screen {
 		lbl50Days.setBounds(601, 239, 61, 16);
 		frame.getContentPane().add(lbl50Days);
 		
-		JTextArea lblNewLabel_1_2_2 = new JTextArea("3) Choose a Ship for your Quest");
-		lblNewLabel_1_2_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1_2_2.setFont(new Font("SignPainter", Font.PLAIN, 22));
-		lblNewLabel_1_2_2.setBackground(new Color(25, 25, 112));
-		lblNewLabel_1_2_2.setBounds(35, 287, 235, 31);
-		frame.getContentPane().add(lblNewLabel_1_2_2);
+		JTextArea lblShipChoice = new JTextArea("3) Choose a Ship for your Quest");
+		lblShipChoice.setForeground(new Color(255, 255, 255));
+		lblShipChoice.setFont(new Font("SignPainter", Font.PLAIN, 22));
+		lblShipChoice.setBackground(new Color(25, 25, 112));
+		lblShipChoice.setBounds(35, 287, 235, 31);
+		frame.getContentPane().add(lblShipChoice);
 		
-		
-		JLabel show_image = new JLabel("");
-		show_image.setHorizontalAlignment(SwingConstants.LEFT);
-		show_image.setIcon(new ImageIcon(SetupScreen.class.getResource("/0001.png")));
-		show_image.setBounds(351, 324, 163, 159);
-		frame.getContentPane().add(show_image);
+		JLabel ship1 = new JLabel("");
+		ship1.setIcon(new ImageIcon(SetupScreen.class.getResource("/another3.png")));
+		ship1.setBounds(40, 314, 147, 169);
+		frame.getContentPane().add(ship1);
 		
 		JLabel ship2 = new JLabel("");
 		ship2.setIcon(new ImageIcon(SetupScreen.class.getResource("/02.png")));
@@ -292,8 +290,9 @@ public class SetupScreen extends Screen {
 		frame.getContentPane().add(ship2);
 		
 		JLabel ship3 = new JLabel("");
-		ship3.setIcon(new ImageIcon(SetupScreen.class.getResource("/another3.png")));
-		ship3.setBounds(40, 314, 147, 169);
+		ship3.setHorizontalAlignment(SwingConstants.LEFT);
+		ship3.setIcon(new ImageIcon(SetupScreen.class.getResource("/0001.png")));
+		ship3.setBounds(351, 324, 163, 159);
 		frame.getContentPane().add(ship3);
 		
 		JLabel ship4 = new JLabel("");

@@ -18,8 +18,8 @@ import main.IslandTrader;
  */
 public class SailingScreen extends Screen {
 	
-	private JTextArea header; 
-	private JTextArea detail;
+	private JTextArea headerHelloTrader; 
+	private JTextArea routeDetail;
 
 	/**
 	 * Create the application.
@@ -47,33 +47,33 @@ public class SailingScreen extends Screen {
 		frame.getContentPane().setLayout(null);
 		
 		
-		header = new JTextArea("Hello trader! Every day is a new adventure.\n\nLet's set sailing to another island! Lots of interesting things are waiting for us!");
-		header.setLineWrap(true);
-		header.setForeground(new Color(0, 0, 128));
-		header.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
-		header.setBackground(new Color(135, 206, 250));
-		header.setBounds(32, 32, 701, 97);
-		frame.getContentPane().add(header);
+		headerHelloTrader = new JTextArea("Hello trader! Every day is a new adventure.\n\nLet's set sailing to another island! Lots of interesting things are waiting for us!");
+		headerHelloTrader.setLineWrap(true);
+		headerHelloTrader.setForeground(new Color(0, 0, 128));
+		headerHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
+		headerHelloTrader.setBackground(new Color(135, 206, 250));
+		headerHelloTrader.setBounds(32, 32, 701, 105);
+		frame.getContentPane().add(headerHelloTrader);
 		
-		JButton btnNewButton = new JButton("Back to main menu");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnBackToMainMenu = new JButton("Back to main menu");
+		btnBackToMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				quit();
 				Screen screen = new MainScreen(islandTrader);
 		    	screen.show();						
 			}
 		});
-		btnNewButton.setBounds(293, 460, 151, 61);
-		frame.getContentPane().add(btnNewButton);
+		btnBackToMainMenu.setBounds(293, 460, 151, 61);
+		frame.getContentPane().add(btnBackToMainMenu);
 		
-		detail = new JTextArea("");
-		detail.setLineWrap(true);	
-		detail.setForeground(new Color(255, 255, 255));
-		detail.setFont(new Font("iCiel Brush Up", Font.PLAIN, 14));
-		detail.setBackground(new Color(70, 130, 180));		
-		detail.setBounds(32, 166, 732, 266);
+		routeDetail = new JTextArea("");
+		routeDetail.setLineWrap(true);	
+		routeDetail.setForeground(new Color(255, 255, 255));
+		routeDetail.setFont(new Font("iCiel Brush Up", Font.PLAIN, 14));
+		routeDetail.setBackground(new Color(70, 130, 180));		
+		routeDetail.setBounds(32, 166, 732, 266);
 		
-		frame.getContentPane().add(detail);
+		frame.getContentPane().add(routeDetail);
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -82,13 +82,13 @@ public class SailingScreen extends Screen {
 	 * @return the header JTextArea so we can add text to it from outside this frame
 	 */
 	public JTextArea getHeaderTextArea() {
-		return this.header;
+		return this.headerHelloTrader;
 	}
 	
 	/**
 	 * @return the header JTextArea so we can add text to it from outside this frame
 	 */
 	public JTextArea getDetailTextArea() {
-		return this.detail;
+		return this.routeDetail;
 	}	
 }

@@ -34,7 +34,7 @@ public class IslandSellsItem extends Screen {
 //	protected void initialiseForWindowBuilder() {
 //		initialise(new JFrame());
 //	}
-//	
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -46,13 +46,13 @@ public class IslandSellsItem extends Screen {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island sells:");
-		lblNewLabel_1_1.setLineWrap(true);
-		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		lblNewLabel_1_1.setBackground(new Color(47, 79, 79));
-		lblNewLabel_1_1.setBounds(38, 40, 653, 104);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		JTextArea lblHelloTrader = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island sells:");
+		lblHelloTrader.setLineWrap(true);
+		lblHelloTrader.setForeground(new Color(255, 255, 255));
+		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		lblHelloTrader.setBackground(new Color(47, 79, 79));
+		lblHelloTrader.setBounds(38, 40, 653, 104);
+		frame.getContentPane().add(lblHelloTrader);
 		
 		JTextPane textPane = new JTextPane();
 		textPane.setBounds(314, 237, 1, 16);

@@ -48,18 +48,18 @@ public class IslandProperties extends Screen {
 		frame.getContentPane().setBackground(new Color(240, 230, 140));
 		frame.getContentPane().setLayout(null);
 		
-		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! How's the sailing going? Hope it is going all well \nand you haven't seen any pirates yet!\n");
-		lblNewLabel_1_1.setBounds(20, 27, 653, 63);
-		lblNewLabel_1_1.setLineWrap(true);
-		lblNewLabel_1_1.setForeground(new Color(0, 0, 0));
-		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
-		lblNewLabel_1_1.setBackground(new Color(240, 230, 140));
-		frame.getContentPane().add(lblNewLabel_1_1);
+		JTextArea lblHelloTrader = new JTextArea("Hello trader! How's the sailing going? Hope it is going all well \nand you haven't seen any pirates yet!\n");
+		lblHelloTrader.setBounds(20, 27, 653, 63);
+		lblHelloTrader.setLineWrap(true);
+		lblHelloTrader.setForeground(new Color(0, 0, 0));
+		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
+		lblHelloTrader.setBackground(new Color(240, 230, 140));
+		frame.getContentPane().add(lblHelloTrader);
 		
-		JLabel lblNewLabel = new JLabel("Which Island do you want to know about?\n");
-		lblNewLabel.setBounds(20, 90, 454, 38);
-		lblNewLabel.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lblIslandChoice = new JLabel("Which Island do you want to know about?\n");
+		lblIslandChoice.setBounds(20, 90, 454, 38);
+		lblIslandChoice.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
+		frame.getContentPane().add(lblIslandChoice);
 		
 		JLabel island1 = new JLabel("");
 		island1.setBounds(30, 155, 117, 144);
@@ -199,10 +199,10 @@ public class IslandProperties extends Screen {
 		captain.setBounds(294, 366, 127, 169);
 		frame.getContentPane().add(captain);
 		
-		JLabel lblWhatDoYou = new JLabel("What do you want to know about this island?");
-		lblWhatDoYou.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
-		lblWhatDoYou.setBounds(20, 316, 454, 38);
-		frame.getContentPane().add(lblWhatDoYou);
+		JLabel lblUserChoice = new JLabel("What do you want to know about this island?");
+		lblUserChoice.setFont(new Font("iCiel Brush Up", Font.PLAIN, 20));
+		lblUserChoice.setBounds(20, 316, 454, 38);
+		frame.getContentPane().add(lblUserChoice);
 		frame.setBounds(100, 100, 785, 582);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

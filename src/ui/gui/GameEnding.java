@@ -21,18 +21,18 @@ public class GameEnding extends Screen {
 	public GameEnding(IslandTrader islandTrader) {
 		super("Finish The Journey", islandTrader);
 	}
-//
-//	/**
-//	 * Initialize the contents of the frame, which include: player's game status
-// 	 * This is only here because WindowBuilder needs a JFrame
-// 	 * to be created within this file to allow us to edit the GUI
-// 	 * 
-// 	 * @wbp.parser.entryPoint
-// 	 */
-// 	protected void initialiseForWindowBuilder() {
-// 		initialise(new JFrame());
-// 	}
-// 	
+
+	/**
+	 * Initialize the contents of the frame, which include: player's game status
+ 	 * This is only here because WindowBuilder needs a JFrame
+ 	 * to be created within this file to allow us to edit the GUI
+ 	 * 
+ 	 * @wbp.parser.entryPoint
+ 	 */
+ 	protected void initialiseForWindowBuilder() {
+ 		initialise(new JFrame());
+ 	}
+ 	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -65,13 +65,13 @@ public class GameEnding extends Screen {
 		lblScoreGained.setBounds(147, 298, 503, 47);
 		frame.getContentPane().add(lblScoreGained);
 		
-		JTextArea txtrThankYouFor = new JTextArea("Thank you for playing!");
-		txtrThankYouFor.setLineWrap(true);
-		txtrThankYouFor.setForeground(Color.WHITE);
-		txtrThankYouFor.setFont(new Font("iCiel Brush Up", Font.PLAIN, 23));
-		txtrThankYouFor.setBackground(new Color(165, 42, 42));
-		txtrThankYouFor.setBounds(274, 368, 225, 47);
-		frame.getContentPane().add(txtrThankYouFor);
+		JTextArea txtrThankYou = new JTextArea("Thank you for playing!");
+		txtrThankYou.setLineWrap(true);
+		txtrThankYou.setForeground(Color.WHITE);
+		txtrThankYou.setFont(new Font("iCiel Brush Up", Font.PLAIN, 23));
+		txtrThankYou.setBackground(new Color(165, 42, 42));
+		txtrThankYou.setBounds(274, 368, 225, 47);
+		frame.getContentPane().add(txtrThankYou);
 		
 		JTextArea txtrGameStatus = new JTextArea("FINISH THE JOURNEY");
 		txtrGameStatus.setLineWrap(true);

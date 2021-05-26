@@ -24,15 +24,15 @@ public class ViewIslandRoutes extends Screen {
 		super("View Routes from " + islandTrader.getWorld().getCurrentIsland() +" to " +islandTrader.getUI().getViewIsland(), islandTrader);
 	}
 
-//	/**
-//	 * This is only here because WindowBuilder needs a JFrame
-//	 * to be created within this file to allow us to edit the GUI
-//	 * 
-//	 * @wbp.parser.entryPoint
-//	 */
-//	protected void initialiseForWindowBuilder() {
-//		initialise(new JFrame());
-//	}
+	/**
+	 * This is only here because WindowBuilder needs a JFrame
+	 * to be created within this file to allow us to edit the GUI
+	 * 
+	 * @wbp.parser.entryPoint
+	 */
+	protected void initialiseForWindowBuilder() {
+		initialise(new JFrame());
+	}
 	
 	/**
 	 * Initialize the contents of the frame.
@@ -44,13 +44,13 @@ public class ViewIslandRoutes extends Screen {
 		frame.getContentPane().setBackground(new Color(47, 79, 79));
 		frame.getContentPane().setLayout(null);
 		
-		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are all routes avaiable to " +islandTrader.getUI().getViewIsland());
-		lblNewLabel_1_1.setLineWrap(true);
-		lblNewLabel_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		lblNewLabel_1_1.setBackground(new Color(0, 128, 128));
-		lblNewLabel_1_1.setBounds(27, 48, 653, 104);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		JTextArea lblHelloTrader = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are all routes avaiable to " +islandTrader.getUI().getViewIsland());
+		lblHelloTrader.setLineWrap(true);
+		lblHelloTrader.setForeground(Color.WHITE);
+		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		lblHelloTrader.setBackground(new Color(0, 128, 128));
+		lblHelloTrader.setBounds(27, 48, 653, 104);
+		frame.getContentPane().add(lblHelloTrader);
 		
 		// SHOULD BE USING TEXT AREA _ ASK TUTOR
 		// Create a ListModel to store the items in the JList

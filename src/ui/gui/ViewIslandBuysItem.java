@@ -57,15 +57,14 @@ public class ViewIslandBuysItem extends Screen {
 		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		container.getContentPane().setLayout(null);
 		
-		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island buys:");
-		lblNewLabel_1_1.setLineWrap(true);
-		lblNewLabel_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		lblNewLabel_1_1.setBackground(new Color(47, 79, 79));
-		lblNewLabel_1_1.setBounds(38, 40, 653, 104);
-		container.getContentPane().add(lblNewLabel_1_1);
+		JTextArea lblHelloTrader = new JTextArea("Hello trader! Have you experienced some cool things in this island?\n\nHere are items that this island buys:");
+		lblHelloTrader.setLineWrap(true);
+		lblHelloTrader.setForeground(Color.WHITE);
+		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		lblHelloTrader.setBackground(new Color(47, 79, 79));
+		lblHelloTrader.setBounds(38, 40, 653, 104);
+		container.getContentPane().add(lblHelloTrader);
 		
-		JLabel label = new JLabel();
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<PricedItem> buyListModel = new DefaultListModel<PricedItem>();
 		

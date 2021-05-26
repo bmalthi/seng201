@@ -49,13 +49,13 @@ public class ShipProperties extends Screen {
 		shipImage.setBounds(603, 401, 176, 169);
 		frame.getContentPane().add(shipImage);
 		
-		JTextArea lblNewLabel_1_1 = new JTextArea("Hello trader! How's your adventure going so far? \nDid you find any cool items from the island's store?\n\nHere is your ship properties: \n");
-		lblNewLabel_1_1.setLineWrap(true);
-		lblNewLabel_1_1.setForeground(new Color(255, 255, 255));
-		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		lblNewLabel_1_1.setBackground(new Color(70, 130, 180));
-		lblNewLabel_1_1.setBounds(32, 27, 577, 127);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		JTextArea lblHelloTrader = new JTextArea("Hello trader! How's your adventure going so far? \nDid you find any cool items from the island's store?\n\nHere is your ship properties: \n");
+		lblHelloTrader.setLineWrap(true);
+		lblHelloTrader.setForeground(new Color(255, 255, 255));
+		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		lblHelloTrader.setBackground(new Color(70, 130, 180));
+		lblHelloTrader.setBounds(32, 27, 649, 127);
+		frame.getContentPane().add(lblHelloTrader);
 		
 		JButton btnNewButton = new JButton("Back to main menu");
 		btnNewButton.addActionListener(new ActionListener() {
