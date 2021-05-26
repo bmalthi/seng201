@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -64,6 +66,12 @@ public class ViewIslandSellsItem extends Screen {
 		lblHelloTrader.setBounds(38, 40, 653, 104);
 		frame.getContentPane().add(lblHelloTrader);
 		
+		// Create the scroll pane
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(42, 172, 498, 333);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+				
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<String> sellListModel = new DefaultListModel<String>();
 		
@@ -74,20 +82,16 @@ public class ViewIslandSellsItem extends Screen {
 		JList<String> sellItemList = new JList<String>(sellListModel);
 		sellItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
 		sellItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		sellItemList.setBounds(42, 172, 498, 333);
+		sellItemList.setBounds(0, 0, 498, 333);
 		frame.getContentPane().add(sellItemList);
 		
 		sellItemList.setVisibleRowCount(7);
 		sellItemList.getSelectedValue();
 		
-//		final JScrollPane scrollPane = new JScrollPane(frame);
-//		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-//		frame.getContentPane().add(scrollPane);
-
-	    
-//		JScrollBar scrollBar = new JScrollBar();
-//		scrollBar.setBounds(525, 172, 15, 333);
-//		frame.getContentPane().add(scrollBar);
+		//Add the scroll pane
+		scrollPane.setViewportView(sellItemList);
+		frame.getContentPane().add(scrollPane);	
+		
 		
 		// Button to back to main menu
 		JButton btnBackToIslandProperties = new JButton("Back to Island Properties");

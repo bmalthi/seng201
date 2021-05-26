@@ -14,7 +14,9 @@ import java.util.List;
 
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
@@ -28,15 +30,15 @@ public class IslandSellsItem extends Screen {
 		super(islandTrader.getWorld().getCurrentIsland()+" Sells the following items", islandTrader);		
 	}
 	
-//	/**
-//	 * This is only here because WindowBuilder needs a JFrame
-//	 * to be created within this file to allow us to edit the GUI
-//	 * 
-//	 * @wbp.parser.entryPoint
-//	 */
-//	protected void initialiseForWindowBuilder() {
-//		initialise(new JFrame());
-//	}
+	/**
+	 * This is only here because WindowBuilder needs a JFrame
+	 * to be created within this file to allow us to edit the GUI
+	 * 
+	 * @wbp.parser.entryPoint
+	 */
+	protected void initialiseForWindowBuilder() {
+		initialise(new JFrame());
+	}
 	
 	/**
 	 * Initialize the contents of the frame.
@@ -59,19 +61,28 @@ public class IslandSellsItem extends Screen {
 		textPane.setBounds(314, 237, 1, 16);
 		frame.getContentPane().add(textPane);
 		
+		// Create the scroll pane
+		JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(42, 172, 498, 333);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<String> sellListModel = new DefaultListModel<String>();
 		
 		// Add the existing items to the List Model
 		refreshList(sellListModel);
 		
-		
 		// Create the JList
 		JList<String> sellItemList = new JList<String>(sellListModel);
 		sellItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
 		sellItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		sellItemList.setBounds(42, 172, 498, 284);
-		frame.getContentPane().add(sellItemList);
+		sellItemList.setBounds(0, 0, 498, 284);
+		
+		//Add scroll pane
+		scrollPane.setViewportView(sellItemList);
+		frame.getContentPane().add(scrollPane);	
+		
 		
 		JButton btnSellItem = new JButton("Buy item");
 		btnSellItem.setFont(new Font("Lucida Grande", Font.PLAIN, 15));

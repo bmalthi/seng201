@@ -10,6 +10,8 @@ import main.Route;
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 /**
  * This class represents the screen after the user clicked the "View Routes to This Island" button in View Island Properties Screen.
@@ -63,6 +66,10 @@ public class ViewIslandRoutes extends Screen {
 		lblHelloTrader.setBounds(27, 48, 653, 104);
 		frame.getContentPane().add(lblHelloTrader);
 		
+		// Create the scroll pane
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(42, 172, 498, 333);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<String> routeListModel = new DefaultListModel<>();
 		
@@ -71,14 +78,17 @@ public class ViewIslandRoutes extends Screen {
 		
 		// Create the JList
 		JList<String> routeList = new JList<String>(routeListModel);
-		routeList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
 		routeList.setForeground(new Color(255, 255, 255));
 		routeList.setBackground(new Color(85, 107, 47));
-		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		routeList.setBounds(27, 219, 732, 118);
-		frame.getContentPane().add(routeList);
+
+		//Add the scroll pane
+		scrollPane.setViewportView(routeList);
+		frame.getContentPane().add(scrollPane);	
 		
+		// Button to back to Island Properties
 		JButton btnBackToIslandProperties = new JButton("Back to Island Properties");
 		btnBackToIslandProperties.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

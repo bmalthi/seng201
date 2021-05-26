@@ -7,8 +7,11 @@ import main.PricedItem;
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+
 import java.awt.Font;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -41,7 +44,7 @@ public class IslandBuysItem extends Screen {
 //	protected void initialiseForWindowBuilder() {
 //		initialise(new JFrame());
 //	}
-//	
+	
 	/**
 	 * Initialize the contents of the frame, which include:
  	 * list of items for the user to view
@@ -56,14 +59,20 @@ public class IslandBuysItem extends Screen {
 		frame.getContentPane().setLayout(null);
 		
 		// Introduce the screen
-		JTextArea lblNewLabel_1_1 = new JTextArea("Hello " +getManager().getPlayer() +"!\nHave you experienced some cool things in this island?\n\nHere are items that this island buys: (* you can sell)");
-		lblNewLabel_1_1.setLineWrap(true);
-		lblNewLabel_1_1.setForeground(Color.WHITE);
-		lblNewLabel_1_1.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
-		lblNewLabel_1_1.setBackground(new Color(47, 79, 79));
-		lblNewLabel_1_1.setBounds(42, 45, 653, 104);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		JTextArea lblHelloTrader = new JTextArea("Hello " +getManager().getPlayer() +"!\nHave you experienced some cool things in this island?\n\nHere are items that this island buys: (* you can sell)");
+		lblHelloTrader.setLineWrap(true);
+		lblHelloTrader.setForeground(Color.WHITE);
+		lblHelloTrader.setFont(new Font("iCiel Brush Up", Font.PLAIN, 22));
+		lblHelloTrader.setBackground(new Color(47, 79, 79));
+		lblHelloTrader.setBounds(42, 45, 653, 104);
+		frame.getContentPane().add(lblHelloTrader);
 		
+		// Create the scroll pane
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(42, 172, 498, 333);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<String> buyListModel = new DefaultListModel<String>();
 		
@@ -74,9 +83,12 @@ public class IslandBuysItem extends Screen {
 		JList<String> buyItemList = new JList<String>(buyListModel);
 		buyItemList.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
 		buyItemList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		buyItemList.setBounds(42, 172, 498, 333);
-		frame.getContentPane().add(buyItemList);
-				
+		buyItemList.setBounds(0, 0, 498, 333);
+		
+		//Add the scroll pane
+		scrollPane.setViewportView(buyItemList);
+		frame.getContentPane().add(scrollPane);	
+		
 		JButton btnBuyItem = new JButton("Sell item");
 		btnBuyItem.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		btnBuyItem.addActionListener(new ActionListener() {

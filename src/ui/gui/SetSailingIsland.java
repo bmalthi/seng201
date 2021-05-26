@@ -2,12 +2,15 @@ package ui.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 import main.IslandTrader;
 import main.Route;
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+
 import java.awt.Font;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -73,6 +76,12 @@ public class SetSailingIsland extends Screen {
 		lblWhereToGo.setBounds(28, 112, 249, 60);
 		frame.getContentPane().add(lblWhereToGo);
 		
+		// Create the scroll pane
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(42, 172, 498, 333);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<String> routeListModel = new DefaultListModel<>();
 		
@@ -87,7 +96,10 @@ public class SetSailingIsland extends Screen {
 		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		routeList.setBounds(27, 219, 732, 166);
-		frame.getContentPane().add(routeList);
+		
+		//Add the scroll pane
+		scrollPane.setViewportView(routeList);
+		frame.getContentPane().add(scrollPane);	
 		
 		// Button to start sailing
 		JButton btnSailing = new JButton("Let's set sailing!");
