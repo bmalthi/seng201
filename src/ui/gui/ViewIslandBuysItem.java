@@ -52,12 +52,11 @@ public class ViewIslandBuysItem extends Screen {
 	 * Initialize the contents of the frame, which include:
  	 * list of items for the user to view
  	 * a "Back To Island Properties" button to go back to Island Properties screen
+     * @param frame, the frame to add content too
 	 */
 	@Override
 	protected void initialise(final JFrame container) {
 		container.getContentPane().setBackground(new Color(47, 79, 79));
-		container.setBounds(100, 100, 785, 582);
-		container.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		container.getContentPane().setLayout(null);
 		
 		// Introduce the screen

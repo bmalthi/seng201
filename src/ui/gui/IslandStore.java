@@ -42,12 +42,12 @@ public class IslandStore extends Screen {
 	 * Initialize the contents of the frame, which includes:
  	 * Some labels to let the user know they are at the store
  	 * Buttons for the user to choose what they want to do next
+     * @param frame, the frame to add content too
  	 */
-	
 	@Override
 	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(184, 134, 11));
-		frame.getContentPane().setLayout(null);
+		frame.getContentPane().setLayout(null);	
 		
 		// Introduce the screen
 		JTextArea txtrStoreWelcome = new JTextArea("Welcome to the Island's store");
@@ -149,7 +149,6 @@ public class IslandStore extends Screen {
 		});
 		btnBackToMain.setBounds(116, 466, 215, 73);
 		frame.getContentPane().add(btnBackToMain);
-		frame.setBounds(100, 100, 785, 582);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	}
 }

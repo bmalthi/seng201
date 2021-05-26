@@ -14,8 +14,6 @@ import main.IslandTrader;
 
 /**
  * This class represents the screen after the player sail to another island
- * @author bmalthi
- *
  */
 public class SailingScreen extends Screen {
 	
@@ -44,11 +42,12 @@ public class SailingScreen extends Screen {
 	 * Initialize the contents of the frame, which include:
 	 * JLabel to introduce the screen
 	 * Button to back to main menu
+     * @param frame, the frame to add content too
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(135, 206, 250));
-		frame.getContentPane().setLayout(null);
+		frame.getContentPane().setLayout(null);	
 		
 		// Introduce the screen
 		headerHelloTrader = new JTextArea("Hello trader! Every day is a new adventure.\nLet's set sailing to another island! Lots of interesting things are waiting for us!");
@@ -77,10 +76,8 @@ public class SailingScreen extends Screen {
 		routeDetail.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
 		routeDetail.setBackground(new Color(70, 130, 180));		
 		routeDetail.setBounds(32, 166, 732, 266);
-		
 		frame.getContentPane().add(routeDetail);
-		frame.setBounds(100, 100, 785, 582);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	}
 	
 	/**

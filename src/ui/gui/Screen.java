@@ -18,6 +18,8 @@ public abstract class Screen {
 
 	/**
 	 * Create the application.
+	 * @param title, the title of the window
+	 * @param islandTrader, the game manager
 	 */
 	protected Screen(final String title, final IslandTrader islandTrader) {
 		this.islandTrader = islandTrader;
@@ -36,11 +38,14 @@ public abstract class Screen {
 // 	
     /**
      * Initialises this screen's UI.
+	 * @param title, the title of the window
      */
     protected void initialise(final String title) {
     	((Gui)this.islandTrader.getUI()).setScreen(this);
         frame = new JFrame();
-        frame.setTitle(title);
+        frame.setTitle(title);      
+        frame.setBounds(100, 100, 785, 582);
+        frame.setDefaultCloseOperation(JFrame. DO_NOTHING_ON_CLOSE);        
 
         // Prevent the frame from closing immediately when the user clicks the close button.
         // Instead we add a WindowListener so we can tell our rocket manager that the user
@@ -67,7 +72,7 @@ public abstract class Screen {
     /**
      * Creates and adds the required graphical components to the given container.
      *
-     * @param container The container to add content to
+     * @param frame, the frame to add content too
      */
     protected abstract void initialise(JFrame frame);    
 	

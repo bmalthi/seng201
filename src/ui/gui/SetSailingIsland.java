@@ -46,9 +46,10 @@ public class SetSailingIsland extends Screen {
 	 * Initialize the contents of the frame, which include:
 	 * Buttons to get the user choice of sailing to another island
 	 * Button to set sailing
+     * @param frame, the frame to add content too
 	 */
 	@Override
-	protected void initialise(final JFrame frame) {
+	protected void initialise(final JFrame frame) {	
 		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.setBackground(new Color(135, 206, 250));
 		frame.getContentPane().setForeground(new Color(135, 206, 250));
@@ -71,8 +72,6 @@ public class SetSailingIsland extends Screen {
 		lblWhereToGo.setBackground(new Color(65, 105, 225));
 		lblWhereToGo.setBounds(28, 112, 249, 60);
 		frame.getContentPane().add(lblWhereToGo);
-		frame.setBounds(100, 100, 785, 582);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// Create a ListModel to store the items in the JList
 		DefaultListModel<String> routeListModel = new DefaultListModel<>();

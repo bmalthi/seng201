@@ -41,10 +41,11 @@ public class GameStatus extends Screen {
 	 * Initialize the contents of the frame, which include:
 	 * Some labels to let the user know their current balance, days remaining and game score
 	 * Button to back to main menu
+     * @param frame, the frame to add content too
 	 */
 	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(173, 216, 230));
-		frame.getContentPane().setLayout(null);
+		frame.getContentPane().setLayout(null);		
 		
 		// Set up introduction for the screen
 		JTextArea txtrHelloTrader = new JTextArea("Hello " +getManager().getPlayer() +"! How are you doing? \n");
@@ -108,8 +109,5 @@ public class GameStatus extends Screen {
 		lblGameScore.setBackground(new Color(70, 130, 180));
 		lblGameScore.setBounds(199, 295, 309, 37);
 		frame.getContentPane().add(lblGameScore);
-		
-		frame.setBounds(100, 100, 785, 582);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }

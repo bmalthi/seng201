@@ -34,8 +34,8 @@ public class GameEnding extends Screen {
  	}
  	
 	/**
-	 *Initialize the contents of the frame, which include: player's days played, profit made, score gained
-	 *
+	 * Initialize the contents of the frame, which include: player's days played, profit made, score gained
+     * @param frame, the frame to add content too
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
@@ -83,8 +83,7 @@ public class GameEnding extends Screen {
 		txtrGameStatus.setBounds(240, 112, 280, 47);
 		frame.getContentPane().add(txtrGameStatus);
 		frame.setBackground(new Color(47, 79, 79));
-		frame.setBounds(100, 100, 785, 582);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	}
 
 }
