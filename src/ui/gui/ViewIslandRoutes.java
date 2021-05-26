@@ -1,15 +1,21 @@
 package ui.gui;
 
-import javax.swing.DefaultListModel;
+import javax.swing.AbstractListModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import main.Island;
 import main.IslandTrader;
 import main.Route;
+
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 /**
  * This class represents the screen after the user clicked the "View Routes to This Island" button in View Island Properties Screen.
@@ -63,21 +70,44 @@ public class ViewIslandRoutes extends Screen {
 		lblHelloTrader.setBounds(27, 48, 653, 104);
 		frame.getContentPane().add(lblHelloTrader);
 		
-		// Create a ListModel to store the items in the JList
-		DefaultListModel<String> routeListModel = new DefaultListModel<>();
+		// Create a Custom ListModel to store the items in the JList
+		Island viewIsland = islandTrader.getUI().getViewIsland();
+		List<Route> routes = getManager().getWorld().getRoutes(getManager().getWorld().getCurrentIsland(), viewIsland);
+		ArrayList<String> routeListStrings = ((Gui)islandTrader.getUI()).routeStringList(routes, true);
 		
-		// Add the existing items to the List Model
-		refreshList(routeListModel);
+		@SuppressWarnings("serial")
+		AbstractListModel<String> routeListModel = new AbstractListModel<String>() {
+	        @Override
+	        public int getSize() {
+	            return routeListStrings.size();
+	        }
+
+	        @Override
+	        public String getElementAt(int index) {
+	            return routeListStrings.get(index);
+	        }
+	    };
+		//And a custom renderer to do the linebreaks in HTML
+	    MyRouteRenderer cellRenderer = new MyRouteRenderer();
+	    
+		// Create the scrollPane
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(27, 219, 732, 118);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);	    
 		
 		// Create the JList
 		JList<String> routeList = new JList<String>(routeListModel);
-		routeList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		routeList.setCellRenderer(cellRenderer);
+		routeList.setLayoutOrientation(JList.VERTICAL);
 		routeList.setForeground(new Color(255, 255, 255));
 		routeList.setBackground(new Color(85, 107, 47));
 		routeList.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
 		routeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		routeList.setBounds(27, 219, 732, 118);
-		frame.getContentPane().add(routeList);
+		routeList.setBounds(0, 0, 732, 118);
+		
+		//Add the stuff
+		scrollPane.setViewportView(routeList);
+		frame.getContentPane().add(scrollPane);		
 		
 		JButton btnBackToIslandProperties = new JButton("Back to Island Properties");
 		btnBackToIslandProperties.addActionListener(new ActionListener() {
@@ -92,15 +122,20 @@ public class ViewIslandRoutes extends Screen {
 	}
 	
 	/**
-	 * Refreshes the list of routes available
-	 * @param routeListModel, the routeListModel to update with new routes
-	 */	
-	private void refreshList(DefaultListModel<String> routeListModel) {
-		Island viewIsland = islandTrader.getUI().getViewIsland();
-		routeListModel.removeAllElements();
-		List<Route> routeList = getManager().getWorld().getRoutes(getManager().getWorld().getCurrentIsland(), viewIsland);
-		ArrayList<String> itemListStrings = ((Gui)islandTrader.getUI()).routeStringList(routeList, true);
-		routeListModel.addAll(itemListStrings);
-	}		
+	 * Override the List Renderer so that it prints HTML in each cell with line breaks
+	 */
+	@SuppressWarnings("serial")	
+	private class MyRouteRenderer extends DefaultListCellRenderer {
+
+		  public MyRouteRenderer() {
+		  }
+
+		  @Override
+		  public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+		    String text = "<html>" + value.toString().replaceAll("\n", "<br/>") + "<br/></html>";
+		    return super.getListCellRendererComponent(list, text, index, isSelected, cellHasFocus);
+		  }
+
+	}	
 
 }

@@ -100,8 +100,8 @@ public class SetSailingIsland extends Screen {
 		
 		// Create the scrollPane
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(27, 219, 732, 166);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(27, 190, 732, 250);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		
 		// Create the JList
 		JList<String> routeList = new JList<String>(routeListModel);
