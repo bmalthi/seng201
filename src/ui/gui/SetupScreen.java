@@ -75,14 +75,13 @@ public class SetupScreen extends Screen {
  	 * Show images of the ship
  	 * Get the user choice of ship - set ship based on the choice
  	 * Add button to move to Main Screen
-	 */
-	
+     * @param frame, the frame to add content too
+	 */	
 	@Override
 	protected void initialise(final JFrame frame) {
 		ButtonGroup buttonGroup  = new ButtonGroup();
 		JTextArea shipDetailText = new JTextArea(getManager().getWorld().getShips().get(0).details());
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
-		frame.setBounds(100, 100, 785, 650);
 		frame.getContentPane().setLayout(null);
 		
 		// Get the list of ships for each radio button

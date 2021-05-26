@@ -41,10 +41,10 @@ public class ShipProperties extends Screen {
 	 * Initialize the contents of the frame, which includes:
 	 * Some labels for the introduction of the screen
 	 * The properties of the ship
+     * @param frame, the frame to add content too
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
-		frame.setBounds(100, 100, 785, 582);		
 		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.getContentPane().setLayout(null);
 		

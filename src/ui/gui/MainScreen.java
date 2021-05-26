@@ -42,12 +42,12 @@ public class MainScreen extends Screen {
 	 * Set some labels 
 	 * Add buttons for the user to choose what they want to do and move to the next screen based on their choice
 	 * Get image of island
+     * @param frame, the frame to add content too
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
-		frame.getContentPane().setLayout(null);
-		frame.setBounds(100, 100, 785, 582);		
+		frame.getContentPane().setLayout(null);	
 		
 		JTextArea txtrANewAdventure = new JTextArea("A new adventure begins");
 		txtrANewAdventure.setForeground(Color.WHITE);

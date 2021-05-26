@@ -46,14 +46,13 @@ public class IslandBuysItem extends Screen {
 	 * Initialize the contents of the frame, which include:
  	 * list of items for the user to view
  	 * a "Buy Item" button for the user to sell item they chose from the list.
- 	 * a "Back To Main Menu" button to go back to main menu	 
+ 	 * a "Back To Main Menu" button to go back to main menu
+     * @param frame, the frame to add content too	 
  	 */
-	
 	@Override
 	protected void initialise(final JFrame frame) {
 		//buyItems = new ArrayList<PricedItem>();
 		frame.getContentPane().setBackground(new Color(47, 79, 79));
-		frame.setBounds(100, 100, 785, 582);
 		frame.getContentPane().setLayout(null);
 		
 		// Introduce the screen

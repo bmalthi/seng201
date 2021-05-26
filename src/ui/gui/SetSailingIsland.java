@@ -46,10 +46,10 @@ public class SetSailingIsland extends Screen {
 	 * Initialize the contents of the frame, which include:
 	 * Buttons to get the user choice of sailing to another island
 	 * Button to set sailing
+     * @param frame, the frame to add content too
 	 */
 	@Override
-	protected void initialise(final JFrame frame) {
-		frame.setBounds(100, 100, 785, 582);		
+	protected void initialise(final JFrame frame) {	
 		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.setBackground(new Color(135, 206, 250));
 		frame.getContentPane().setForeground(new Color(135, 206, 250));

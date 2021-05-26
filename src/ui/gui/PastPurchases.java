@@ -42,12 +42,12 @@ public class PastPurchases extends Screen {
 	 * Initialize the contents of the frame, which include:
 	 * a list of transactions (if exists) 
 	 * a "Back To Main Menu" button
+     * @param frame, the frame to add content too
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(85, 107, 47));
-		frame.getContentPane().setLayout(null);
-		frame.setBounds(100, 100, 785, 582);		
+		frame.getContentPane().setLayout(null);	
 		
 		// Button to back to main screen
 		JButton btnBackToMainMenu = new JButton("Back to main menu");

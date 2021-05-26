@@ -45,12 +45,12 @@ public class IslandProperties extends Screen {
 	 * Initialize the contents of the container, which include:s
 	 * Show the 5 Islands for the user to choose 
 	 * Buttons for the user to choose what they'd want to do at the chosen island
+     * @param frame, the frame to add content too
 	 */
 	protected void initialise(final JFrame frame) { 	
 		ButtonGroup buttonGroup  = new ButtonGroup();
 		frame.getContentPane().setBackground(new Color(240, 230, 140));
-		frame.getContentPane().setLayout(null);
-		frame.setBounds(100, 100, 785, 582);		
+		frame.getContentPane().setLayout(null);	
 		
 		// Some labels to introduce the screen
 		JTextArea lblHelloTrader = new JTextArea("Hello " +getManager().getPlayer() +"! How's the sailing going? Hope it is going all well and you haven't seen any pirates yet!\n");

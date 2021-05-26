@@ -34,14 +34,13 @@ public class GameEnding extends Screen {
  	}
  	
 	/**
-	 *Initialize the contents of the frame, which include: player's days played, profit made, score gained
-	 *
+	 * Initialize the contents of the frame, which include: player's days played, profit made, score gained
+     * @param frame, the frame to add content too
 	 */
 	@Override
 	protected void initialise(final JFrame frame) {
 		frame.getContentPane().setBackground(new Color(70, 130, 180));
 		frame.getContentPane().setLayout(null);
-		frame.setBounds(100, 100, 785, 582);
 		
 		// Get the ship information
 		JTextArea lblDaysPlayed = new JTextArea("You played for " + getManager().getTime() + " days, our of " + getManager().getGameLength());
